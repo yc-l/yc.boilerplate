@@ -9,9 +9,12 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 #### 快速入门
 
-[在线演示](http://yc.yc-l.com/)
-[在线文档](http://doc.yc-l.com/)
+1. [在线演示](http://yc.yc-l.com/)
+2. [在线文档](http://doc.yc-l.com/)
 
+- 前端代码：src/Front
+- 服务端代码：src/Backstage
+- 初始化数据库：src/Db (租户1 和租户2 分库演示数据)
 
 #### 框架技术栈和开发模式
 
@@ -69,6 +72,11 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 15. 实现了基于表模型生成对应的全流程代码，包括：model、DTO、Service、前端展示界面（常规CRUD和树形功能）、路由规则、Mapper model和Dto映射等代码。
 16. 框架已经实现常规基础功能，如：身份验证用户&角色管理、系统设置、存取管理（系统级、租户级、用户级，作用范围自动管理）、审计日志（自动记录每一次接口的调用者和参数）、组织机构等，实现框架开箱即用。
 17. 框架采用redis 作为cache和session 存储，脱离cookie 使用，解决非web的等也可以使用框架进行多样的场景需求改造。
+
+#### 打赏支持
+
+<img src="../assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
+<img src="../assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
 
 #### 参与贡献
 
