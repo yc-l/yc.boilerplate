@@ -77,7 +77,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 #### 打赏支持
 
-<img src="https://gitee.com/linxuanming/yc.boilerplate/blob/master/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
+<img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
 <img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
 
 #### 参与贡献
