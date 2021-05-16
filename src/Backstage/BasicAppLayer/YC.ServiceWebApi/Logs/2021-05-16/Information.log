@@ -1,0 +1,17 @@
+﻿
+【INF】2021-05-16 21:13:54.424
+#Msg#HTTP GET /api/values responded 404 in 175.1022 ms
+#Pro #{"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HM8ODHPVQPKR:00000001","ConnectionId":"0HM8ODHPVQPKR"}
+#Exc#--------------------------------------------------
+【INF】2021-05-16 21:15:28.373
+#Msg#HTTP OPTIONS /api/Identity/GetTokenByLogin responded 204 in 14.6207 ms
+#Pro #{"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HM8ODHPVQPKT:00000001","ConnectionId":"0HM8ODHPVQPKT"}
+#Exc#--------------------------------------------------
+【INF】2021-05-16 21:15:31.183
+#Msg#ResourceFilter Executing!
+#Pro #{"SourceContext":"YC.ServiceWebApi.Filter.AOPResourceFilterAttribute","ActionId":"12f3fbe6-f472-4f0e-86ce-5524068cd3ed","ActionName":"YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin (YC.ServiceWebApi)","RequestId":"0HM8ODHPVQPKT:00000003","RequestPath":"/api/Identity/GetTokenByLogin","ConnectionId":"0HM8ODHPVQPKT"}
+#Exc#--------------------------------------------------
+【INF】2021-05-16 21:15:33.245
+#Msg#HTTP POST /api/Identity/GetTokenByLogin responded 200 in 4832.7629 ms
+#Pro #{"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HM8ODHPVQPKT:00000003","ConnectionId":"0HM8ODHPVQPKT"}
+#Exc#--------------------------------------------------
