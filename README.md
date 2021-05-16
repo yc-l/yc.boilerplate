@@ -7,6 +7,8 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 框架的宗旨:构建一套松耦合、灵活组合、功能齐全、开发便捷、减少开发工作量的样板化开发框架。
 
+元磁之力框架技术群QQ：1060819005
+
 #### 快速入门
 
 1. [在线演示](http://yc.yc-l.com/)
@@ -51,7 +53,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 #### 框架功能模块
 
-![image](https://gitee.com/linxuanming/yc.boilerplate/blob/master/assets/images/%E6%A1%86%E6%9E%B6%E5%9B%BE.png)
+![image](https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/%E6%A1%86%E6%9E%B6%E5%9B%BE.png)
 
 ## 框架特性
 
@@ -76,7 +78,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 #### 打赏支持
 
 <img src="https://gitee.com/linxuanming/yc.boilerplate/blob/master/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
-<img src="https://gitee.com/linxuanming/yc.boilerplate/blob/master/assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
+<img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
 
 #### 参与贡献
 
