@@ -19,3 +19,10 @@ bin-release/
 /YC.Boilerplate.sln.bak
 /README.md.bak
 /.vs
+/src/Backstage/BasicAppLayer/YC.ServiceWebApi/Logs
+/src/Backstage/BasicAppLayer/YC.ServiceWebApi/Logs
+bin
+obj
+.vs
+.vs
+/src/Backstage/BasicAppLayer/YC.ServiceWebApi/Logs
