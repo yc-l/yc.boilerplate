@@ -51,7 +51,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 #### 框架功能模块
 
-![image](../assets/images/框架图.png)
+![image](../src/assets/images/框架图.png)
 
 ## 框架特性
 
@@ -75,8 +75,8 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 #### 打赏支持
 
-<img src="../assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
-<img src="../assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
+<img src="../src/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
+<img src="../src/assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
 
 #### 参与贡献
 
