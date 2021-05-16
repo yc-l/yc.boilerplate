@@ -1,0 +1,319 @@
+﻿
+【ERR】2021-05-04 10:33:30.079
+#Msg#StackExchange.Redis.RedisTimeoutException: Timeout performing SETEX RedisCACHE_TOKEN_USER_6348761c-dac7-4fb6-98f1-f39de7769cd6, inst: 1, queue: 2, qu: 0, qs: 2, qc: 0, wr: 0, wq: 0, in: 0, ar: 0, clientName: DESKTOP-RBUSQQ3, serverEndpoint: 127.0.0.1:6379, keyHashSlot: 14742 (Please take a look at this article for some common client-side issues that can cause timeouts: http://stackexchange.github.io/StackExchange.Redis/Timeouts)
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 2120
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 81
+   at StackExchange.Redis.RedisDatabase.StringSet(RedisKey key, RedisValue value, Nullable`1 expiry, When when, CommandFlags flags) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 1765
+   at YC.Cache.Redis.RedisCacheManager.Add(String key, Object value, TimeSpan expiresIn, Boolean isSliding) in H:\Code\giteeCode\MicroServicePro\src\Module\YC.Cache.Redis\RedisCacheManager.cs:line 93
+   at YC.ApplicationService.UserManager.CreateToken(SysUser loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 130
+   at YC.ApplicationService.UserManager.UserLogin(String userId, String pwd, Int32 tenantId) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 52
+   at YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(LoginUserDto loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Controllers\IdentityController.cs:line 56
+   at lambda_method577(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EKFF7CLVL:00000003","RequestPath":"/api/Identity/GetTokenByLogin","ConnectionId":"0HM8EKFF7CLVL"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 10:54:24.960
+#Msg#StackExchange.Redis.RedisTimeoutException: Timeout performing EXISTS RedisCACHE_USER_ROLE_PEMISSION_29, inst: 1, queue: 2, qu: 0, qs: 2, qc: 0, wr: 0, wq: 0, in: 0, ar: 0, clientName: DESKTOP-RBUSQQ3, serverEndpoint: 127.0.0.1:6379, keyHashSlot: 5291 (Please take a look at this article for some common client-side issues that can cause timeouts: http://stackexchange.github.io/StackExchange.Redis/Timeouts)
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 2120
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 81
+   at StackExchange.Redis.RedisDatabase.KeyExists(RedisKey key, CommandFlags flags) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 593
+   at YC.Cache.Redis.RedisCacheManager.Exists(String key) in H:\Code\giteeCode\MicroServicePro\src\Module\YC.Cache.Redis\RedisCacheManager.cs:line 45
+   at YC.ApplicationService.UserManager.CreateUserRolePermissionCache(UserRolePermissionDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 76
+   at YC.ApplicationService.UserManager.UserLogin(String userId, String pwd, Int32 tenantId) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 60
+   at YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(LoginUserDto loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Controllers\IdentityController.cs:line 56
+   at lambda_method577(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EKFF7CLVN:00000055","RequestPath":"/api/Identity/GetTokenByLogin","ConnectionId":"0HM8EKFF7CLVN"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 11:11:08.146
+#Msg#StackExchange.Redis.RedisTimeoutException: Timeout performing EXISTS RedisCACHE_USER_ROLE_PEMISSION_1, inst: 1, queue: 2, qu: 0, qs: 2, qc: 0, wr: 0, wq: 0, in: 0, ar: 0, clientName: DESKTOP-RBUSQQ3, serverEndpoint: 127.0.0.1:6379, keyHashSlot: 3614 (Please take a look at this article for some common client-side issues that can cause timeouts: http://stackexchange.github.io/StackExchange.Redis/Timeouts)
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 2120
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 81
+   at StackExchange.Redis.RedisDatabase.KeyExists(RedisKey key, CommandFlags flags) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 593
+   at YC.Cache.Redis.RedisCacheManager.Exists(String key) in H:\Code\giteeCode\MicroServicePro\src\Module\YC.Cache.Redis\RedisCacheManager.cs:line 45
+   at YC.ApplicationService.UserManager.CreateUserRolePermissionCache(UserRolePermissionDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 76
+   at YC.ApplicationService.UserManager.UserLogin(String userId, String pwd, Int32 tenantId) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 60
+   at YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(LoginUserDto loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Controllers\IdentityController.cs:line 56
+   at lambda_method577(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EKFF7CLVR:00000003","RequestPath":"/api/Identity/GetTokenByLogin","ConnectionId":"0HM8EKFF7CLVR"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 11:16:24.167
+#Msg#StackExchange.Redis.RedisTimeoutException: Timeout performing EXISTS RedisCACHE_USER_ROLE_PEMISSION_1, inst: 1, queue: 2, qu: 0, qs: 2, qc: 0, wr: 0, wq: 0, in: 0, ar: 0, clientName: DESKTOP-RBUSQQ3, serverEndpoint: 127.0.0.1:6379, keyHashSlot: 3614 (Please take a look at this article for some common client-side issues that can cause timeouts: http://stackexchange.github.io/StackExchange.Redis/Timeouts)
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 2120
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 81
+   at StackExchange.Redis.RedisDatabase.KeyExists(RedisKey key, CommandFlags flags) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 593
+   at YC.Cache.Redis.RedisCacheManager.Exists(String key) in H:\Code\giteeCode\MicroServicePro\src\Module\YC.Cache.Redis\RedisCacheManager.cs:line 45
+   at YC.ApplicationService.UserManager.CreateUserRolePermissionCache(UserRolePermissionDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 76
+   at YC.ApplicationService.UserManager.UserLogin(String userId, String pwd, Int32 tenantId) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 60
+   at YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(LoginUserDto loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Controllers\IdentityController.cs:line 56
+   at lambda_method577(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EKFF7CLVR:0000000F","RequestPath":"/api/Identity/GetTokenByLogin","ConnectionId":"0HM8EKFF7CLVR"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 11:31:18.498
+#Msg#System.Exception: 错误信息：没有对应的访问权限！
+   at YC.ServiceWebApi.Filter.AOPActionFilterAttribute.OnActionExecuting(ActionExecutingContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Filter\AOPActionFilterAttribute.cs:line 131
+   at Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8ELILE4817:00000007","RequestPath":"/api/SysUser/GetPageUserList","ConnectionId":"0HM8ELILE4817"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 12:42:46.596
+#Msg#System.Exception: 错误信息：没有对应的访问权限！
+   at YC.ServiceWebApi.Filter.AOPActionFilterAttribute.OnActionExecuting(ActionExecutingContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Filter\AOPActionFilterAttribute.cs:line 131
+   at Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EM6VEE3Q0:00000071","RequestPath":"/api/SysPermission/DeleteSysPermissionById","ConnectionId":"0HM8EM6VEE3Q0"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 12:43:26.837
+#Msg#System.Exception: 错误信息：没有对应的访问权限！
+   at YC.ServiceWebApi.Filter.AOPActionFilterAttribute.OnActionExecuting(ActionExecutingContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Filter\AOPActionFilterAttribute.cs:line 131
+   at Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EM6VEE3Q0:0000007D","RequestPath":"/api/SysPermission/DeleteSysPermissionById","ConnectionId":"0HM8EM6VEE3Q0"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 12:43:53.543
+#Msg#System.Exception: 错误信息：没有对应的访问权限！
+   at YC.ServiceWebApi.Filter.AOPActionFilterAttribute.OnActionExecuting(ActionExecutingContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Filter\AOPActionFilterAttribute.cs:line 131
+   at Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EM6VEE3Q0:00000089","RequestPath":"/api/SysPermission/DeleteSysPermissionById","ConnectionId":"0HM8EM6VEE3Q0"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 14:03:44.012
+#Msg#StackExchange.Redis.RedisTimeoutException: Timeout performing EXISTS RedisCACHE_USER_ROLE_PEMISSION_tenantId_1_userId_1, inst: 1, queue: 2, qu: 0, qs: 2, qc: 0, wr: 0, wq: 0, in: 0, ar: 0, clientName: DESKTOP-RBUSQQ3, serverEndpoint: 127.0.0.1:6379, keyHashSlot: 8946 (Please take a look at this article for some common client-side issues that can cause timeouts: http://stackexchange.github.io/StackExchange.Redis/Timeouts)
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 2120
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 81
+   at StackExchange.Redis.RedisDatabase.KeyExists(RedisKey key, CommandFlags flags) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 593
+   at YC.Cache.Redis.RedisCacheManager.Exists(String key) in H:\Code\giteeCode\MicroServicePro\src\Module\YC.Cache.Redis\RedisCacheManager.cs:line 45
+   at YC.ApplicationService.UserManager.CreateUserRolePermissionCache(UserRolePermissionDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 78
+   at YC.ApplicationService.UserManager.UserLogin(String userId, String pwd, Int32 tenantId) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 61
+   at YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(LoginUserDto loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Controllers\IdentityController.cs:line 56
+   at lambda_method577(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EO96J12VF:00000003","RequestPath":"/api/Identity/GetTokenByLogin","ConnectionId":"0HM8EO96J12VF"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 14:14:30.053
+#Msg#StackExchange.Redis.RedisTimeoutException: Timeout performing EXISTS RedisCACHE_USER_ROLE_PEMISSION_tenantId_1_userId_1, inst: 1, queue: 2, qu: 0, qs: 2, qc: 0, wr: 0, wq: 0, in: 0, ar: 0, clientName: DESKTOP-RBUSQQ3, serverEndpoint: 127.0.0.1:6379, keyHashSlot: 8946 (Please take a look at this article for some common client-side issues that can cause timeouts: http://stackexchange.github.io/StackExchange.Redis/Timeouts)
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 2120
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 81
+   at StackExchange.Redis.RedisDatabase.KeyExists(RedisKey key, CommandFlags flags) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 593
+   at YC.Cache.Redis.RedisCacheManager.Exists(String key) in H:\Code\giteeCode\MicroServicePro\src\Module\YC.Cache.Redis\RedisCacheManager.cs:line 45
+   at YC.ApplicationService.UserManager.CreateUserRolePermissionCache(UserRolePermissionDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 78
+   at YC.ApplicationService.UserManager.UserLogin(String userId, String pwd, Int32 tenantId) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 61
+   at YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(LoginUserDto loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Controllers\IdentityController.cs:line 56
+   at lambda_method577(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EOFBCGV18:00000003","RequestPath":"/api/Identity/GetTokenByLogin","ConnectionId":"0HM8EOFBCGV18"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 14:14:55.684
+#Msg#System.Exception: Duplicate entry '2-116' for key 'idx_ad_role_permission_01'
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry '2-116' for key 'idx_ad_role_permission_01'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   at MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   at MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   at System.Data.Common.DbCommand.ExecuteScalarAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at FreeSql.Internal.CommonProvider.AdoProvider.ExecuteScalarAsync(DbConnection connection, DbTransaction transaction, CommandType cmdType, String cmdText, Int32 cmdTimeout, DbParameter[] cmdParms, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at FreeSql.Internal.CommonProvider.AdoProvider.LoggerException(IObjectPool`1 pool, PrepareCommandResult pc, Exception ex, DateTime dt, StringBuilder logtxt, Boolean isThrowException)
+   at FreeSql.Internal.CommonProvider.AdoProvider.ExecuteScalarAsync(DbConnection connection, DbTransaction transaction, CommandType cmdType, String cmdText, Int32 cmdTimeout, DbParameter[] cmdParms, CancellationToken cancellationToken)
+   at FreeSql.MySql.Curd.MySqlInsert`1.RawExecuteIdentityAsync(CancellationToken cancellationToken)
+   at FreeSql.Internal.CommonProvider.InsertProvider`1.SplitExecuteIdentityAsync(Int32 valuesLimit, Int32 parameterLimit, CancellationToken cancellationToken)
+   at FreeSql.DbSet`1.AddPrivAsync(TEntity data, Boolean isCheck, CancellationToken cancellationToken)
+   at FreeSql.DbSet`1.AddRangeAsync(IEnumerable`1 data, CancellationToken cancellationToken)
+   at FreeSql.BaseRepository`1.InsertAsync(IEnumerable`1 entitys, CancellationToken cancellationToken)
+   at YC.ApplicationService.SysRoleAppService.UpdateSysRolePermissionsAsync(UpdateSysRolePermissionsDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\ApplicationService\SysRoleAppService\SysRoleAppService.cs:line 225
+   at lambda_method770(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EOFBCGV18:00000015","RequestPath":"/api/SysRole/UpdateSysRolePermissions","ConnectionId":"0HM8EOFBCGV18"}
+#Exc#--------------------------------------------------
+【ERR】2021-05-04 14:15:23.814
+#Msg#System.Exception: Duplicate entry '2-116' for key 'idx_ad_role_permission_01'
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry '2-116' for key 'idx_ad_role_permission_01'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   at MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   at System.Data.Common.DbCommand.ExecuteScalarAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at FreeSql.Internal.CommonProvider.AdoProvider.ExecuteScalarAsync(DbConnection connection, DbTransaction transaction, CommandType cmdType, String cmdText, Int32 cmdTimeout, DbParameter[] cmdParms, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at FreeSql.Internal.CommonProvider.AdoProvider.LoggerException(IObjectPool`1 pool, PrepareCommandResult pc, Exception ex, DateTime dt, StringBuilder logtxt, Boolean isThrowException)
+   at FreeSql.Internal.CommonProvider.AdoProvider.ExecuteScalarAsync(DbConnection connection, DbTransaction transaction, CommandType cmdType, String cmdText, Int32 cmdTimeout, DbParameter[] cmdParms, CancellationToken cancellationToken)
+   at FreeSql.MySql.Curd.MySqlInsert`1.RawExecuteIdentityAsync(CancellationToken cancellationToken)
+   at FreeSql.Internal.CommonProvider.InsertProvider`1.SplitExecuteIdentityAsync(Int32 valuesLimit, Int32 parameterLimit, CancellationToken cancellationToken)
+   at FreeSql.DbSet`1.AddPrivAsync(TEntity data, Boolean isCheck, CancellationToken cancellationToken)
+   at FreeSql.DbSet`1.AddRangeAsync(IEnumerable`1 data, CancellationToken cancellationToken)
+   at FreeSql.BaseRepository`1.InsertAsync(IEnumerable`1 entitys, CancellationToken cancellationToken)
+   at YC.ApplicationService.SysRoleAppService.UpdateSysRolePermissionsAsync(UpdateSysRolePermissionsDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\ApplicationService\SysRoleAppService\SysRoleAppService.cs:line 225
+   at lambda_method770(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at YC.ServiceWebApi.Middleware.ExceptionMiddleware.Invoke(HttpContext context) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Middleware\ExceptionMiddleware.cs:line 35
+#Pro #{"SourceContext":"YC.ServiceWebApi.Middleware.ExceptionMiddleware","RequestId":"0HM8EOFBCGV18:00000019","RequestPath":"/api/SysRole/UpdateSysRolePermissions","ConnectionId":"0HM8EOFBCGV18"}
+#Exc#--------------------------------------------------

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <ApplicationIcon />
+    <Win32Resource />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BasicLayer\YC.Common\YC.Common.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.Core\YC.Core.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.DapperFrameWork\YC.DapperFrameWork.csproj" />
+    <ProjectReference Include="..\..\Module\YC.Cache.Redis\YC.Cache.Redis.csproj" />
+    <ProjectReference Include="..\..\Module\YC.Core.DynamicApi\YC.Core.DynamicApi.csproj" />
+    <ProjectReference Include="..\YC.Model\YC.Model.csproj" />
+  </ItemGroup>
+
+</Project>

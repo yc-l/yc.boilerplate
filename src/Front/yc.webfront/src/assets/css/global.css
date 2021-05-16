@@ -1,0 +1,61 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.el-breadcrumb {
+  margin-bottom: 20px;
+}
+
+/* .el-header,.el-submenu__title{
+
+  height: 50px !important;
+} */
+
+.el-card {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.el-table {
+  margin-top: 15px;
+  font-size: 12px;
+
+}
+
+.tree-table {
+  margin-top: 15px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.el-pagination {
+  margin-top: 15px;
+}
+
+.el-steps {
+  margin: 15px 0;
+}
+
+.el-step__title {
+  font-size: 13px;
+}
+
+.ql-editor {
+  min-height: 300px;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.el-scrollbar__wrap {
+  overflow-x: hidden !important;
+  min-height: 200px !important;
+}

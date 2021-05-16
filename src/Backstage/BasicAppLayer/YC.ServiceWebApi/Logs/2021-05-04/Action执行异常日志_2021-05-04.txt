@@ -1,0 +1,94 @@
+﻿异常：StackExchange.Redis.RedisTimeoutException: Timeout performing EXISTS RedisCACHE_USER_ROLE_PEMISSION_tenantId_1_userId_1, inst: 1, queue: 2, qu: 0, qs: 2, qc: 0, wr: 0, wq: 0, in: 0, ar: 0, clientName: DESKTOP-RBUSQQ3, serverEndpoint: 127.0.0.1:6379, keyHashSlot: 8946 (Please take a look at this article for some common client-side issues that can cause timeouts: http://stackexchange.github.io/StackExchange.Redis/Timeouts)
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 2120
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 81
+   at StackExchange.Redis.RedisDatabase.KeyExists(RedisKey key, CommandFlags flags) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 593
+   at YC.Cache.Redis.RedisCacheManager.Exists(String key) in H:\Code\giteeCode\MicroServicePro\src\Module\YC.Cache.Redis\RedisCacheManager.cs:line 45
+   at YC.ApplicationService.UserManager.CreateUserRolePermissionCache(UserRolePermissionDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 78
+   at YC.ApplicationService.UserManager.UserLogin(String userId, String pwd, Int32 tenantId) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 61
+   at YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(LoginUserDto loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Controllers\IdentityController.cs:line 56
+   at lambda_method577(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+异常：StackExchange.Redis.RedisTimeoutException: Timeout performing EXISTS RedisCACHE_USER_ROLE_PEMISSION_tenantId_1_userId_1, inst: 1, queue: 2, qu: 0, qs: 2, qc: 0, wr: 0, wq: 0, in: 0, ar: 0, clientName: DESKTOP-RBUSQQ3, serverEndpoint: 127.0.0.1:6379, keyHashSlot: 8946 (Please take a look at this article for some common client-side issues that can cause timeouts: http://stackexchange.github.io/StackExchange.Redis/Timeouts)
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 2120
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 81
+   at StackExchange.Redis.RedisDatabase.KeyExists(RedisKey key, CommandFlags flags) in c:\code\StackExchange.Redis\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 593
+   at YC.Cache.Redis.RedisCacheManager.Exists(String key) in H:\Code\giteeCode\MicroServicePro\src\Module\YC.Cache.Redis\RedisCacheManager.cs:line 45
+   at YC.ApplicationService.UserManager.CreateUserRolePermissionCache(UserRolePermissionDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 78
+   at YC.ApplicationService.UserManager.UserLogin(String userId, String pwd, Int32 tenantId) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\AppManager\UserManager.cs:line 61
+   at YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(LoginUserDto loginUserDto) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ServiceWebApi\Controllers\IdentityController.cs:line 56
+   at lambda_method577(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+异常：System.Exception: Duplicate entry '2-116' for key 'idx_ad_role_permission_01'
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry '2-116' for key 'idx_ad_role_permission_01'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   at MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   at MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   at System.Data.Common.DbCommand.ExecuteScalarAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at FreeSql.Internal.CommonProvider.AdoProvider.ExecuteScalarAsync(DbConnection connection, DbTransaction transaction, CommandType cmdType, String cmdText, Int32 cmdTimeout, DbParameter[] cmdParms, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at FreeSql.Internal.CommonProvider.AdoProvider.LoggerException(IObjectPool`1 pool, PrepareCommandResult pc, Exception ex, DateTime dt, StringBuilder logtxt, Boolean isThrowException)
+   at FreeSql.Internal.CommonProvider.AdoProvider.ExecuteScalarAsync(DbConnection connection, DbTransaction transaction, CommandType cmdType, String cmdText, Int32 cmdTimeout, DbParameter[] cmdParms, CancellationToken cancellationToken)
+   at FreeSql.MySql.Curd.MySqlInsert`1.RawExecuteIdentityAsync(CancellationToken cancellationToken)
+   at FreeSql.Internal.CommonProvider.InsertProvider`1.SplitExecuteIdentityAsync(Int32 valuesLimit, Int32 parameterLimit, CancellationToken cancellationToken)
+   at FreeSql.DbSet`1.AddPrivAsync(TEntity data, Boolean isCheck, CancellationToken cancellationToken)
+   at FreeSql.DbSet`1.AddRangeAsync(IEnumerable`1 data, CancellationToken cancellationToken)
+   at FreeSql.BaseRepository`1.InsertAsync(IEnumerable`1 entitys, CancellationToken cancellationToken)
+   at YC.ApplicationService.SysRoleAppService.UpdateSysRolePermissionsAsync(UpdateSysRolePermissionsDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\ApplicationService\SysRoleAppService\SysRoleAppService.cs:line 225
+   at lambda_method770(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+异常：System.Exception: Duplicate entry '2-116' for key 'idx_ad_role_permission_01'
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Duplicate entry '2-116' for key 'idx_ad_role_permission_01'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   at MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   at System.Data.Common.DbCommand.ExecuteScalarAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at FreeSql.Internal.CommonProvider.AdoProvider.ExecuteScalarAsync(DbConnection connection, DbTransaction transaction, CommandType cmdType, String cmdText, Int32 cmdTimeout, DbParameter[] cmdParms, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at FreeSql.Internal.CommonProvider.AdoProvider.LoggerException(IObjectPool`1 pool, PrepareCommandResult pc, Exception ex, DateTime dt, StringBuilder logtxt, Boolean isThrowException)
+   at FreeSql.Internal.CommonProvider.AdoProvider.ExecuteScalarAsync(DbConnection connection, DbTransaction transaction, CommandType cmdType, String cmdText, Int32 cmdTimeout, DbParameter[] cmdParms, CancellationToken cancellationToken)
+   at FreeSql.MySql.Curd.MySqlInsert`1.RawExecuteIdentityAsync(CancellationToken cancellationToken)
+   at FreeSql.Internal.CommonProvider.InsertProvider`1.SplitExecuteIdentityAsync(Int32 valuesLimit, Int32 parameterLimit, CancellationToken cancellationToken)
+   at FreeSql.DbSet`1.AddPrivAsync(TEntity data, Boolean isCheck, CancellationToken cancellationToken)
+   at FreeSql.DbSet`1.AddRangeAsync(IEnumerable`1 data, CancellationToken cancellationToken)
+   at FreeSql.BaseRepository`1.InsertAsync(IEnumerable`1 entitys, CancellationToken cancellationToken)
+   at YC.ApplicationService.SysRoleAppService.UpdateSysRolePermissionsAsync(UpdateSysRolePermissionsDto input) in H:\Code\giteeCode\MicroServicePro\src\BasicAppLayer\YC.ApplicationService\ApplicationService\SysRoleAppService\SysRoleAppService.cs:line 225
+   at lambda_method770(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)

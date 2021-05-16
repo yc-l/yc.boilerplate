@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>ab15ae03-f652-4ff7-bfbe-5900697fec0b</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.2\YC.ServiceWebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\CarController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="DefaultConfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="DefaultConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
+    <PackageReference Include="Autofac.Multitenant" Version="6.0.0" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Grpc" Version="2.36.1" />
+    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.35.0" />
+    <PackageReference Include="Grpc.Core" Version="2.36.1" />
+    <PackageReference Include="IdentityServer4.Storage" Version="3.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+ <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.6.3" />
+    <PackageReference Include="UAParser" Version="3.1.46" />  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BasicLayer\YC.Common\YC.Common.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.Core\YC.Core.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.DapperFrameWork\YC.DapperFrameWork.csproj" />
+    <ProjectReference Include="..\..\Module\YC.Core.DynamicApi\YC.Core.DynamicApi.csproj" />
+    <ProjectReference Include="..\..\Module\YC.Log.Serilog\YC.Log.Serilog.csproj" />
+    <ProjectReference Include="..\YC.ApplicationService\YC.ApplicationService.csproj" />
+  </ItemGroup>
+
+</Project>

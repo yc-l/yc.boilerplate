@@ -1,0 +1,382 @@
+﻿<template>
+  <div>
+    <!-- 面包屑导航区域 -->
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item><%=moduleName%>管理</el-breadcrumb-item>
+      <el-breadcrumb-item><%=moduleName%>列表</el-breadcrumb-item>
+    </el-breadcrumb>
+    <!-- 卡片试图区域 -->
+    <el-card>
+      <!-- 搜索与添加区域 -->
+
+      <el-row :gutter="20">
+        <el-col :span="7">
+          <el-input
+            placeholder="请输入搜索的<%=moduleName%>名称"
+            class="input-with-select"
+            v-model="queryInfo.query"
+            clearable
+            @clear="get<%=tableName%>List"
+          >
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="get<%=tableName%>List"
+            ></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="primary" @click="showAddOrEditDialog()"   v-if="$hasPermission(['<%=serviceObjName%>Manager.create<%=tableName%>'])"
+            >添加<%=moduleName%></el-button
+          >
+        </el-col>
+      </el-row>
+      <!-- <%=moduleName%>列表 -->
+      <tree-table
+        class="tree-table"
+        :selection-type="false"
+        :expand-type="false"
+        :is-fold='false'
+        :data="<%=serviceObjName%>List"
+        :columns="columns"
+        :show-index="true"
+        border
+        stripe
+        show-row-hover
+        tree-type
+      >
+        <template slot="typeName" slot-scope="scope">
+          <el-tag v-if="scope.row.typeName === '分组'">
+            {{ scope.row.typeName }}
+          </el-tag>
+          <el-tag type="success" v-else-if="scope.row.typeName === '菜单'">
+            {{ scope.row.typeName }}
+          </el-tag>
+          <el-tag type="info" v-else-if="scope.row.typeName === '接口'">
+            {{ scope.row.typeName }}
+          </el-tag>
+        </template>
+        <template slot="opt" slot-scope="scope">
+          <!-- 修改按钮 -->
+          <el-button
+            type="primary"
+            icon="el-icon-edit"
+            size="mini"
+            @click="showAddOrEditDialog(scope.row.id)"
+            v-if="$hasPermission(['<%=serviceObjName%>Manager.edit<%=tableName%>'])"
+            >编辑
+          </el-button>
+          <!-- 删除按钮 -->
+          <el-button
+            type="danger"
+            icon="el-icon-delete"
+            size="mini"
+            @click="remove<%=tableName%>ById(scope.row.id)"
+              v-if="$hasPermission(['<%=serviceObjName%>Manager.delete<%=tableName%>'])"
+            >删除
+          </el-button>
+        </template>
+      </tree-table>
+    </el-card>
+
+    <!-- 添加<%=moduleName%>的对话框 -->
+    <el-dialog
+      :title="(addOrEditForm.id > 0 ? '编辑' : '新增') + '<%=moduleName%>'"
+      :visible.sync="addOrEditDialogVisible"
+      width="60%"
+      @close="addOrEditDialogClosed"
+    >
+      <!-- 内容主体区域 -->
+
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="<%=moduleName%>管理" name="first">
+          <el-form
+            :model="addOrEditForm"
+            :rules="addOrEditFormRules"
+            ref="addOrEditFormRef"
+            label-width="120px"
+          >
+            <el-input
+              v-model="addOrEditForm.id"
+              prop="id"
+              type="hidden"
+            ></el-input>
+
+            <el-row :gutter="20">
+             <el-col :span="12">
+                <el-form-item label="父级节点：" prop="selectedKeys">
+                  <el-cascader
+                    :key="cascaderKey"
+                    v-model="selectedKeys"
+                    :options="groupTree"
+                    style="width: 100%"
+                    placeholder="试试搜索关键词"
+                    :props="{
+                      expandTrigger: 'hover',
+                      value: 'id',
+                      label: 'label',
+                      children: 'children',
+                    }"
+                    @change="parentKeyChange"
+                    filterable
+                    clearable
+                    change-on-select="true"
+                  ></el-cascader>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            
+
+           {{form-Rows}}
+          
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
+
+      <!-- 底部区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addOrEditDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addOrEdit<%=tableName%>()"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+  import {
+    listToTree,
+    getTreeParents,
+    getListParents,
+    getTreeParentsWithSelf,
+  } from '../../utils/tree.js'
+  
+  export default {
+    data() {
+
+      return {
+        queryInfo: {
+          query: '',
+        },
+
+        <%=serviceObjName%>List: [],
+        activeName: 'first',
+        // 控制添加<%=moduleName%>对话框的显示与隐藏
+        addOrEditDialogVisible: false,
+        // 添加<%=moduleName%>的表单数据
+        addOrEditForm: {
+          id: '',
+           {{addOrEditForm-properties}}
+
+
+        },
+       
+        groupTree: [], //编辑<%=moduleName%> 父选框
+        selectedKeys: [0],
+        cascaderKey: 1,
+        editState: false, //编辑状态
+
+        // 添加表单的验证规则对象
+        addOrEditFormRules: {
+          {{form-rules}}
+
+        },
+        // 控制修改<%=moduleName%>对话框的显示与隐藏
+        editDialogVisible: false,
+
+        columns: [
+        //第一列默认是树形符号打开的操作，id列如果放这里会有变形
+           {{table-Columns}}
+          {
+            label: '操作',
+            minWidth: '260px',
+            type: 'template',
+            template: 'opt',
+          },
+        ]
+      }
+    },
+    created() {
+      this.get<%=tableName%>List()
+       //权限控制
+        const isAllowed = this.$hasPermission(['<%=serviceObjName%>Manager.delete<%=tableName%>']) || this.$hasPermission([
+        'permissionManager.edit<%=tableName%>'
+      ]);
+      if (!isAllowed) {//过滤权限
+        this.columns = _.cloneDeep(this.columns).filter(x => x.label !== '操作')
+      }
+    },
+    methods: {
+      async get<%=tableName%>List() {
+
+        var data = await this.$postRequest(this.$<%=serviceObjName%>ManagerUrl, {
+          queryString: this.queryInfo.query,
+        })
+        this.<%=serviceObjName%>List = listToTree(data)
+
+      },
+     
+    
+      // 监听添加<%=moduleName%>对话框的关闭事件
+      addOrEditDialogClosed() {
+        this.editState = false //编辑状态改为false
+        this.addOrEditForm = {
+           id: '',
+         {{addOrEditForm-properties}}
+
+          },
+           ++this.cascaderKey//处理一些vue异常报错需要用到的key，需要加载改变地方，让它的key变化
+          this.groupTree = [],
+          this.selectedKeys = [], //重置父级分类选中内容
+          this.$refs.addOrEditFormRef.resetFields()
+      },
+      // 点击按钮，添加<%=moduleName%>
+      addOrEdit<%=tableName%>() {
+        this.$refs.addOrEditFormRef.validate(async (valid) => {
+          if (!valid) return
+
+          if (this.addOrEditForm.id > 0) {
+
+            //编辑状态
+            // 发起修改<%=moduleName%>信息的数据请求
+            const {
+              data: res
+            } = await this.$http.put(
+              this.$<%=serviceObjName%>Manager_Edit<%=tableName%>Url,
+              this.addOrEditForm
+            )
+
+            if (res.code !== 200) {
+              return this.$message.error('更新<%=moduleName%>信息失败！'+res.message)
+            }
+
+            // 提示修改成功
+            this.$message.success('更新<%=moduleName%>信息成功！')
+          } else {
+            // 可以发起添加<%=moduleName%>的网络请求
+            const {
+              data: res
+            } = await this.$http.post(
+              this.$<%=serviceObjName%>Manager_Create<%=tableName%>Url,
+              this.addOrEditForm
+            )
+
+            if (res.code !== 200) {
+              this.$message.error('添加<%=moduleName%>失败！'+res.message)
+            }
+
+            this.$message.success('添加<%=moduleName%>成功！')
+          }
+
+          // 隐藏添加<%=moduleName%>的对话框
+          this.addOrEditDialogVisible = false
+          // 重新获取<%=moduleName%>列表数据
+          this.get<%=tableName%>List()
+        })
+      },
+      // 根据Id删除对应的<%=moduleName%>信息
+      async remove<%=tableName%>ById(id) {
+        // 弹框询问<%=moduleName%>是否删除数据
+        const confirmResult = await this.$confirm(
+          '此操作将永久删除该<%=moduleName%>, 是否继续?',
+          '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }
+        ).catch((err) => err)
+
+        // 如果<%=moduleName%>确认删除，则返回值为字符串 confirm
+        // 如果<%=moduleName%>取消了删除，则返回值为字符串 cancel
+        // console.log(confirmResult)
+        if (confirmResult !== 'confirm') {
+          return this.$message.info('已取消删除')
+        }
+
+        const {
+          data: res
+        } = await this.$http.delete(
+          this.$<%=serviceObjName%>Manager_Delete<%=tableName%>Url + '?id=' + id
+        )
+
+        if (res.code !== 200) {
+          return this.$message.error('删除<%=moduleName%>失败！'+res.message)
+        }
+
+        this.$message.success('删除<%=moduleName%>成功！')
+        this.get<%=tableName%>List()
+      },
+
+    
+      // 展示<%=moduleName%>的对话框
+      async showAddOrEditDialog(id) {
+        this.addOrEditDialogVisible = true
+         
+        if (id > 0) {
+          //编辑状态
+          // console.log(id)
+          const {
+            data: res
+          } = await this.$http.get(
+            this.$<%=serviceObjName%>Manager_Get<%=tableName%>Url + '?id=' + id
+          )
+
+          if (res.code !== 200) {
+            return this.$message.error('查询<%=moduleName%>信息失败！'+res.message)
+          }
+
+
+          this.addOrEditForm = res.data
+            const tempData = await this.$postRequest(this.$<%=serviceObjName%>Manager_Get<%=tableName%>FilterByPidUrl,"pid="+id)
+           // 分组树
+        const groups = tempData
+        //要过滤自身的，避免自己选自己，对应的子节点都已经在后台过滤掉了
+        this.groupTree = listToTree(_.cloneDeep(groups.filter(x=>x.id!=id)), {
+          id: 0,
+          parentId: 0,
+          label: '根节点'
+        })
+         
+          const parents = getListParents(_.cloneDeep(groups), id);
+          const parentIds = parents.map(p => p.id)
+          parentIds.unshift(0); //如果父节点是0，默认是没有的，需要手动补充一个，让他找到
+          this.selectedKeys = parentIds
+        
+          console.log("selectedKeys的值：" + this.selectedKeys)
+          this.editState = true
+
+        }else
+        {
+         var tempData    = await this.$postRequest(this.$<%=serviceObjName%>ManagerUrl, {
+          queryString: '',
+        })
+        const groups = tempData
+        this.groupTree = listToTree(_.cloneDeep(groups), {
+          id: 0,
+          parentId: 0,
+          label: '根节点'
+        })
+
+        }
+        ++this.cascaderKey
+        this.addOrEditDialogVisible = true
+      },
+      //新增和编辑框中的父级分类 改变触发事件
+      parentKeyChange() {
+         ++this.cascaderKey
+        console.log(this.selectedKeys)
+        if (this.selectedKeys.length > 0) {
+          this.addOrEditForm.parentId = this.selectedKeys[this.selectedKeys.length - 1]
+        } else {
+          this.addOrEditForm.parentId = 0
+        }
+      },
+
+    },
+  }
+
+</script>
+<style lang="less" scoped>
+</style>

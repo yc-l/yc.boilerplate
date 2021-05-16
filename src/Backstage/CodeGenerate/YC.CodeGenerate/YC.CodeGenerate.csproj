@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>YC.CodeGenerate</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>林宣名</Authors>
+    <Company>元磁之力</Company>
+    <Version>1.0.0.0</Version>
+    <Description>YC-l 出品</Description>
+    <Copyright>元磁之力所有</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BasicAppLayer\YC.Model\YC.Model.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.Common\YC.Common.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.Core\YC.Core.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.DapperFrameWork\YC.DapperFrameWork.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Collections">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.2.0\ref\netcoreapp2.2\System.Collections.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DefaultConfigure\DefaultConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

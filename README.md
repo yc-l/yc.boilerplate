@@ -7,21 +7,68 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 框架的宗旨:构建一套松耦合、灵活组合、功能齐全、开发便捷、减少开发工作量的样板化开发框架。
 
-#### 软件架构
-软件架构说明
+#### 快速入门
+
+[在线演示](http://yc.yc-l.com/)
+[在线文档](http://doc.yc-l.com/)
 
 
-#### 安装教程
+#### 框架技术栈和开发模式
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- 开发模式：当下流行的前后端分离。
+- 前端：vue、elementUI等技术栈，为单页面应用程序提供了项目模板。
+- 后端采用NET 5.0。
 
-#### 使用说明
+#### 框架特点
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- 模块化开发，灵活组合，将解耦进行到底，按需注入使用。
+- 当下流行的开发模式，分层明确。
+- 配合框架自带代码生成器快速完成CRUD和树形等复杂功能逻辑实现，不敲一行代码，节省60%工作量。
+
+#### 框架分层介绍
+
+- 核心层：```YC.Core``` 主要实现顶层设计类接口规范和一些类的封装，比如：租户接口、AopInterceptor AOP 拦截注入、TokenContext token逻辑、公共特性等等。
+- 数据层：```YC.DapperFrameWork```、```YC.FreeSqlFrameWork``` 多项ORM 封装，主要存在仓储、工作单元等。
+- 公共层：```YC.Common``` 主要是各种公共类的使用。
+- 业务服务层：```YC.ApplicationService``` 业务逻辑实现，默认实现动态webapi。
+- 实体层:```YC..Model``` 常规的数据表实体，枚举等，以及常规的model需要用的基础方法。
+- 业务Api层：```YC.ServiceWebApi``` 提供对外接口服务启动项目。
+
+> 模块层（按需使用）
+
+- 数据库表和代码生成模块：```YC.CodeGenerate```
+- Redis 缓存模块：```YC.Cache.Redis```
+- 动态WebApi模块：```YC.Core.DynamicApi```
+- 日志模块：```YC.Log.Serilog```
+
+> 单元测试
+
+单元测试：```UnitTestProject```
+数据库表和代码生成测试：```YC.CodeGenerateTest```
+
+#### 框架功能模块
+
+![image](../assets/images/框架图.png)
+
+## 框架特性
+
+1. 基于最新的.NET技术 NET 5.0。
+2. 实现领域驱动设计（实体、仓储、领域服务、领域事件、应用服务、数据传输对象，工作单元等等）。
+3. 实现分层体系结构（领域层，应用层，展现层和基础设施层）。
+4. 提供了一个基础架构来开发可重用可配置的模块。
+5. 集成一些最流行的开源框架/库，也许有些是你正在使用的。
+6. 提供了一个基础架构让我们很方便地使用依赖注入（使用Autofac作为依赖注入的容器）。
+7. 提供Repository仓储模式支持不同的ORM（已实现dapperFramework 、freesqlFrameWork、Redis等）。
+8. 支持并实现数据库迁移（采用自由映射Table ）。
+9. 模块化开发（每个模块有独立的采用autofac模块注入形式，根据不同业务可以动态切换指定数据库）。
+10. 统一的异常处理（应用层几乎不需要处理自己写异常处理代码）。
+11. 通过Application Services自动创建Web Api层（不需要写ApiController层了）。
+12. 提供基类和帮助类让我们方便地实现一些常见的任务。
+13. 使用“约定优于配置原则”。
+14. 实现多租户，按照不同的租户分库服务端。
+15. 实现了基于表模型生成对应的全流程代码，包括：model、DTO、Service、前端展示界面（常规CRUD和树形功能）、路由规则、Mapper model和Dto映射等代码。
+16. 框架已经实现常规基础功能，如：身份验证用户&角色管理、系统设置、存取管理（系统级、租户级、用户级，作用范围自动管理）、审计日志（自动记录每一次接口的调用者和参数）、组织机构等，实现框架开箱即用。
+17. 框架采用redis 作为cache和session 存储，脱离cookie 使用，解决非web的等也可以使用框架进行多样的场景需求改造。
 
 #### 参与贡献
 
@@ -31,11 +78,3 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 4.  新建 Pull Request
 
 
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
