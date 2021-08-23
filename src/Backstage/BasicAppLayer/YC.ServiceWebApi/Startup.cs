@@ -48,6 +48,8 @@ using YC.Core.DynamicApi;
 using YC.ServiceWebApi.Extensions;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using Microsoft.AspNetCore.HttpOverrides;
+using System.Net;
 
 namespace YC.ServiceWebApi
 {
@@ -407,6 +409,13 @@ namespace YC.ServiceWebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            //配置监听客户端ip
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+                KnownProxies = { IPAddress.Parse(DefaultConfig.DefaultAppConfigDto.NginxAgentIP) }
             });
 
             // 添加NLog日志支持

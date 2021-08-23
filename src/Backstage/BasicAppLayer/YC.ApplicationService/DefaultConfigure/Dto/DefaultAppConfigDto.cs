@@ -21,7 +21,10 @@ namespace YC.ApplicationService.DefaultConfigure
         public string TokenIssuer { get; set; }
         public string TokenAudience { get; set; }
 
-       
+        /// <summary>
+        /// nginx 代理映射ip 范围
+        /// </summary>
+        public string NginxAgentIP { get; set; }
 
 
     }
