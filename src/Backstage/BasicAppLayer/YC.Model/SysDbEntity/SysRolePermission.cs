@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace YC.Model.SysDbEntity
 {
-   public class SysRolePermission
+    [Table("Sys_RolePermission")]
+    public class SysRolePermission
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

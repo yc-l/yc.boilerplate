@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace YC.Model.SysDbEntity
 {
-    [Table("SysAuditLog")]
+    [Table("Sys_AuditLog")]
     [Display(Name = "审计日志")]
     public class SysAuditLog { 
         [Key]

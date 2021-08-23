@@ -7,7 +7,7 @@ using YC.Model.DbEntity;
 
 namespace YC.Model.SysDbEntity
 {
-    [Table("SysUser")]
+    [Table("Sys_User")]
     public partial class SysUser : FullEntity<long>
     {
         #region Declarations

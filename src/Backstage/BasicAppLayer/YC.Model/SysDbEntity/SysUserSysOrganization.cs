@@ -7,7 +7,7 @@ using System.Text;
 
 namespace YC.Model.SysDbEntity
 {
-    [Table("SysUserSysOrganization")]
+    [Table("Sys_UserSysOrganization")]
     public partial class SysUserSysOrganization
     {
         #region Declarations

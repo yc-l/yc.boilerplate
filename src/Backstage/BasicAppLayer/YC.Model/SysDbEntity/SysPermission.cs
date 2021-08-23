@@ -13,7 +13,7 @@ namespace YC.Model.SysDbEntity
     /// <summary>
     /// 权限
     /// </summary>
-	[Table("SysPermission")]
+	[Table("Sys_Permission")]
     [Display(Name = "权限表")]
     public class SysPermission : CreateOrModifiedEntity<long>
     {

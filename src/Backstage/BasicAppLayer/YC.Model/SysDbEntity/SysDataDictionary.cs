@@ -15,7 +15,7 @@ namespace YC.Model.SysDbEntity
         #endregion
     }
     [Display(Name = "数据字典")]
-    [Table("SysDataDictionary")]
+    [Table("Sys_DataDictionary")]
     public partial class SysDataDictionary : CreateEntity<long>
     {
         #region Declarations

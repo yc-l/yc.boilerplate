@@ -8,7 +8,7 @@ using YC.Model.DbEntity;
 
 namespace YC.Model.SysDbEntity
 {
-    [Table("SysUserSysRole")]
+    [Table("Sys_UserSysRole")]
     public class SysUserSysRole
     {
         [Key]

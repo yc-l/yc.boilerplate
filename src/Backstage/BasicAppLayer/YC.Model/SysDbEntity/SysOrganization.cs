@@ -7,7 +7,7 @@ using YC.Model.DbEntity;
 
 namespace YC.Model.SysDbEntity
 {
-    [Table("SysOrganization")]
+    [Table("Sys_Organization")]
     [Display(Name = "组织机构")]
     public partial class SysOrganization : CreateEntity<long>
     {

@@ -7,7 +7,7 @@ using YC.Model.DbEntity;
 
 namespace YC.Model.SysDbEntity
 {
-    [Table("SysRole")]
+    [Table("Sys_Role")]
     [Display(Name = "角色表")]
     public class SysRole : ModifiedEntity<long>
     {
