@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 using YC.Core;
 using YC.Core.Autofac;
@@ -37,12 +38,17 @@ namespace YC.DapperFrameWork
             {
                 _connection = new MySqlConnection(dbConnectionString);
 
-                RepositoryUtils.SetDialect(_dbtype);
+            }
+            else if (_dbtype == RepositoryUtils.Dialect.SQLServer)
+            {
+                _connection = new SqlConnection(dbConnectionString);
+              
             }
             else
             {
                 throw new Exception("请指定数据库类型！");
             }
+            RepositoryUtils.SetDialect(_dbtype);
 
             #region 其他数据库类型配置,需要引用其他数据库dll，查看SimpleCRUD
 

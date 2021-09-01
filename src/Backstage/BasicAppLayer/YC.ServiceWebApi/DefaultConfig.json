@@ -122,32 +122,45 @@
     
     **/
 
-    "MultiTnancy": true,//前端登录和后端要保持一致，否则拦截器那边会异常报错
+    "MultiTnancy": true, //前端登录和后端要保持一致，否则拦截器那边会异常报错
     "TenantKeyName": "tenantId",
     "DefaultTenantId": 1,
-    "DataType": 0,
-    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
+    "DataType": 1,
+    //sqlserver
+    "DefaultDbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;",
+
+    //mysql
+    //"DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
     "TenantList": [
       {
         "TenantId": 1,
         "TenantName": "租户1",
         "IsActived": true,
-        "DataType": 0,
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+        "DataType": 1,
+        //sqlserver
+        "DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;"
+        //mysql
+        //"DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
       },
       {
         "TenantId": 2,
         "TenantName": "租户2",
         "IsActived": true,
-        "DataType": 0,
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB2;"
+        "DataType": 1,
+        //sqlserver
+        "DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB2;User Id = sa;Password = 123456;"
+        //mysql
+        //"DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB2;"
       },
       {
         "TenantId": 3,
-        "TenantName": "租户2",
+        "TenantName": "租户3",
         "IsActived": true,
-        "DataType": 0,
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB3;"
+        "DataType": 1,
+        //sqlserver
+        "DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB3;User Id = sa;Password = 123456;"
+        //mysql
+        //"DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB3;"
       }
 
     ]
