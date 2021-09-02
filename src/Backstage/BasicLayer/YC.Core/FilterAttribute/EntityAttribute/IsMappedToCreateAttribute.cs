@@ -10,7 +10,7 @@ namespace YC.Core
     /// <summary>
     /// 标识是否映射生成表
     /// </summary>
-    public class IsMappedToCreateAttrbute : System.Attribute
+    public class IsMappedToCreateAttribute : System.Attribute
     {
 
         public IsCreate IsCreate
@@ -19,7 +19,7 @@ namespace YC.Core
             set;
         }
 
-        public IsMappedToCreateAttrbute(IsCreate isCreate)//在实例化的时候，就指定Block是Yes还是No
+        public IsMappedToCreateAttribute(IsCreate isCreate)//在实例化的时候，就指定Block是Yes还是No
         {
             IsCreate = isCreate;
         }
