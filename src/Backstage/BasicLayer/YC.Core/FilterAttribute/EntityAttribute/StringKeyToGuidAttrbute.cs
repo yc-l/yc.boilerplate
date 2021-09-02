@@ -5,7 +5,7 @@ using System.Text;
 namespace YC.Core
 {
  
-    public class StringKeyToGuidAttrbute: System.Attribute
+    public class StringKeyToGuidAttribute: System.Attribute
     {
     }
 }
