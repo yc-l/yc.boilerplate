@@ -10,11 +10,11 @@ namespace YC.Core
     /// <summary>
     /// 标识是否映射生成表
     /// </summary>
-    public class IsCustomMapingTableAttrbute : System.Attribute
+    public class IsCustomMapingTableAttribute : System.Attribute
     {
 
 
-        public IsCustomMapingTableAttrbute(string mappingTableName, string prefix="_", bool isMapping = true)
+        public IsCustomMapingTableAttribute(string mappingTableName, string prefix="_", bool isMapping = true)
         {
             
         
