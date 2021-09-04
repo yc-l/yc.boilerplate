@@ -123,8 +123,8 @@ namespace Dapper
                 StringBuilder sb = new StringBuilder();
 
                 #region 1、获取指定 类的Attribute
-                IsMappedToCreateAttrbute att =
-                    (IsMappedToCreateAttrbute)Attribute.GetCustomAttribute(baseType, typeof(IsMappedToCreateAttrbute));
+                IsMappedToCreateAttribute att =
+                    (IsMappedToCreateAttribute)Attribute.GetCustomAttribute(baseType, typeof(IsMappedToCreateAttribute));
                 string tableName = "";
                 if (att.IsCreate == IsCreate.Yes)//如果标签是Yes
                 {
