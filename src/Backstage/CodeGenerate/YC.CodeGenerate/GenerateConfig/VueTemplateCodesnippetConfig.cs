@@ -136,7 +136,7 @@ namespace YC.CodeGenerate
             get
             {
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine("import {{tableName}}s from '../components/{{tableName}}/{{tableName}}s'");
+                sb.AppendLine("import {{tableName}}s from '../view/{{tableName}}/{{tableName}}s'");
                 sb.AppendLine("{ path: '/{{propertyName}}s', component: {{tableName}}s }");
                 return sb.ToString();
             }
