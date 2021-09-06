@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using YC.ServiceWebApi.Result;
@@ -61,8 +61,12 @@ namespace YC.ServiceWebApi.Filter
                 _requestInfoDto.StopTime = DateTime.Now;
                 _requestInfoDto.ElapsedMilliseconds = Convert.ToInt64((_requestInfoDto.StopTime - _requestInfoDto.StartTime).TotalMilliseconds);
                 var obj = context.Result;
+                if (obj==null)
+                {
+                    throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "获取context.Result 对象为空！");
+                }
                 _requestInfoDto.ResponseState = false;
-                var resultType = context.Result.GetType();
+                var resultType = context.Result?.GetType();
                 try
                 {
 
