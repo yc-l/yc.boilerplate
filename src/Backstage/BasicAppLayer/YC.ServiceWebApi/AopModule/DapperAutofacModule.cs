@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Dapper;
 using Microsoft.AspNetCore.Http;
@@ -43,6 +43,8 @@ namespace YC.ServiceWebApi.AopModule
             {
                 case 0: dbType = RepositoryUtils.Dialect.MySQL; break;
                 case 1: dbType = RepositoryUtils.Dialect.SQLServer; break;
+                case 2: dbType = RepositoryUtils.Dialect.PostgreSQL; break;
+                case 4: dbType = RepositoryUtils.Dialect.SQLite; break;
                 default: dbType = RepositoryUtils.Dialect.SQLServer; break;
             }
             return dbType;
