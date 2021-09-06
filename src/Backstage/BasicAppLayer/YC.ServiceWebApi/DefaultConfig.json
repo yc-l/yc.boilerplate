@@ -69,7 +69,7 @@
   "TenantSetting": {
 
     /** 数据库类别定义
-    //MySql = 0,
+        //MySql = 0,
         //SqlServer = 1,
         //PostgreSQL = 2,
         //Oracle = 3,

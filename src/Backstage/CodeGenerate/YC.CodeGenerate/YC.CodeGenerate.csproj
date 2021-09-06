@@ -23,12 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Collections">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.2.0\ref\netcoreapp2.2\System.Collections.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="DefaultConfigure\DefaultConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
