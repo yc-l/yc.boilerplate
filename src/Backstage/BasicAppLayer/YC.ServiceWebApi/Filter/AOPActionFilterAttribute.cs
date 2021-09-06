@@ -73,7 +73,7 @@ namespace YC.ServiceWebApi.Filter
                     if (resultType.FullName.Equals(typeof(JsonResult).FullName))
                     {
                         var result = (JsonResult)obj;
-                        _requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
+                        //_requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
                         //aop拦截处理 如果不是我们已经定义标准化返回，那么我们需要在外层包一层，如果不是，就直接让他自己按照正常处理返回
                         if ((result.Value.GetType().Name.Contains(typeof(ApiResult).Name) || result.Value.GetType().Name.Contains(typeof(ApiResult<>).Name)))
                         {
@@ -84,7 +84,7 @@ namespace YC.ServiceWebApi.Filter
                     if (resultType.FullName.Equals(typeof(ObjectResult).FullName))
                     {
                         var result = (ObjectResult)context.Result;
-                        _requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
+                        //_requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
                         //aop拦截处理 如果不是我们已经定义标准化返回，那么我们需要在外层包一层，如果不是，就直接让他自己按照正常处理返回
                         if ((result.Value.GetType().Name.Contains(typeof(ApiResult).Name) || result.Value.GetType().Name.Contains(typeof(ApiResult<>).Name)))
                         {
@@ -194,7 +194,7 @@ namespace YC.ServiceWebApi.Filter
             sb += "请求Api：" + context.ActionDescriptor.AttributeRouteInfo.Template.ToLower() + "\r\n"; ;
             sb += "请求参数：" + requestInfo.ParamsString + "\r\n";
             sb += "请求结果状态：" + requestInfo.ResponseState.ToString() + "\r\n";
-            sb += "请求返回结果：" + requestInfo.ResponseData + "\r\n";
+            //sb += "请求返回结果：" + requestInfo.ResponseData + "\r\n";
             sb += "执行时间：" + requestInfo.ElapsedMilliseconds + "毫秒.\r\n";
 
             LogUtils.WriteLog(new LogDto() { TypeName = "API接口请求日志", Message = sb });
@@ -208,7 +208,7 @@ namespace YC.ServiceWebApi.Filter
                 sysAuditLog.UserId = requestInfo.User.Id;
                 sysAuditLog.UserAccount = requestInfo.User.Account;
             }
-            sysAuditLog.ResponseData = requestInfo.ResponseData;
+            //sysAuditLog.ResponseData = requestInfo.ResponseData;
             sysAuditLog.ResponseState = requestInfo.ResponseState;
             _sysAuditLogAppService.CreateSysAuditLog(sysAuditLog);
         }

@@ -1,13 +1,13 @@
 ﻿{
 
   //mysql 默认数据库，主要用于第一次自动化创建数据库使用
-  "DefaultMysqlConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=mysql;",
-  //"DefaultMysqlConnectionString": "Server=118.25.208.8;Port=3307;User Id=HashAdmin;Password=hashzlink@123;Database=mysql;",
+  "DefaultMysqlConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=mysql;",
+  //"DefaultMysqlConnectionString": "Server=118.25.208.8;Port=3306;User Id=HashAdmin;Password=hashzlink@123;Database=mysql;",
   //这个是创建数据库，使用时候改为自己项目数据库，如果第一次运行，系统回去检查是否存在，不存在会自动创建，存在则是要清理同名，才可以使用，也可以强制覆盖
-  //"DefaultDbConnectionString": "Server=118.25.208.8;Port=3307;User Id=HashAdmin;Password=hashzlink@123;Database=test;",
-  "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
+  //"DefaultDbConnectionString": "Server=118.25.208.8;Port=3306;User Id=HashAdmin;Password=hashzlink@123;Database=test;",
+  "DefaultDbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;",
   //默认第二个数据库
-  "DefaultSecondConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
+  "DefaultSecondConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;",
 
   "CacheRedisConnectionString": "",
   //覆盖已经存在的数据库
@@ -20,21 +20,21 @@
   "ReadDbConnectionStringList": [
     {
       "Name": "read_mariadb1",
-      "ConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+      "ConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;"
     },
     {
       "Name": "read_mariadb2",
-      "ConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+      "ConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;"
     }
   ],
   "WriteDbConnectionStringList": [
     {
       "Name": "write_mariadb1",
-      "ConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+      "ConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;"
     },
     {
       "Name": "write_mariadb2",
-      "ConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+      "ConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;"
     }
 
   ],
@@ -125,42 +125,42 @@
     "MultiTnancy": true, //前端登录和后端要保持一致，否则拦截器那边会异常报错
     "TenantKeyName": "tenantId",
     "DefaultTenantId": 1,
-    "DataType": 1,
+    "DataType": 0,
     //sqlserver
-    "DefaultDbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;",
+    //"DefaultDbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;",
 
     //mysql
-    //"DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
+    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;",
     "TenantList": [
       {
         "TenantId": 1,
         "TenantName": "租户1",
         "IsActived": true,
-        "DataType": 1,
+        "DataType": 0,
         //sqlserver
-        "DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;"
+        //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;"
         //mysql
-        //"DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;"
       },
       {
         "TenantId": 2,
         "TenantName": "租户2",
         "IsActived": true,
-        "DataType": 1,
+        "DataType": 0,
         //sqlserver
-        "DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB2;User Id = sa;Password = 123456;"
+        //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB2;User Id = sa;Password = 123456;"
         //mysql
-        //"DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB2;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB2;"
       },
       {
         "TenantId": 3,
         "TenantName": "租户3",
         "IsActived": true,
-        "DataType": 1,
+        "DataType": 0,
         //sqlserver
-        "DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB3;User Id = sa;Password = 123456;"
+        //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB3;User Id = sa;Password = 123456;"
         //mysql
-        //"DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB3;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB3;"
       }
 
     ]

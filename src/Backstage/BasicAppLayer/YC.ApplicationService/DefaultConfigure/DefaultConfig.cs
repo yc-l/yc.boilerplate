@@ -14,7 +14,7 @@ namespace YC.ApplicationService
     public class DefaultConfig
     {
         //如果是应用，默认要在开启时候，做一次设置动作
-        public static string dbConfigFilePath = System.Environment.CurrentDirectory + "\\DefaultConfig.json";
+        public static string dbConfigFilePath = System.Environment.CurrentDirectory + "//DefaultConfig.json";
         public const string SESSION_TENANT = "TENANT_";//租户session 前缀
         public const string SESSIONT_TENANT_USER = "TENANT_{0}_USER";//用户session 前缀
         public const string CACHE_TOKEN_USER = "CACHE_TOKEN_USER_{0}";//用户缓存前缀
