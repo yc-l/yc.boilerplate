@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using YC.ServiceWebApi.Result;
@@ -72,7 +72,7 @@ namespace YC.ServiceWebApi.Filter
 
                     if (resultType.FullName.Equals(typeof(JsonResult).FullName))
                     {
-                        var result = (JsonResult)context.Result;
+                        var result = (JsonResult)obj;
                         _requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
                         //aop拦截处理 如果不是我们已经定义标准化返回，那么我们需要在外层包一层，如果不是，就直接让他自己按照正常处理返回
                         if ((result.Value.GetType().Name.Contains(typeof(ApiResult).Name) || result.Value.GetType().Name.Contains(typeof(ApiResult<>).Name)))
