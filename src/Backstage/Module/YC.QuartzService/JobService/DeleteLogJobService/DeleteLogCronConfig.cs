@@ -7,19 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using YC.QuartzService.Interface;
 
-namespace YC.QuartzService.JobService.WriteFileJobService
+namespace YC.QuartzService.JobService.DeleteLogJobService
 {
-   public class WriteFileCronConfig : ICronConfig
+   public class DeleteLogCronConfig : ICronConfig
     {
        /// <summary>
        /// 
        /// </summary>
-       public static string WriteFileServiceJobTriggerCron
+       public static string DeleteLogServiceJobTriggerCron
         {
 
            get {
 
-               return "0/1 * * * * ? *";
+               return "0/2 * * * * ? ";//2秒执行一次
            }
       }
 

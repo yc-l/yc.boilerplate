@@ -18,25 +18,25 @@ using YC.QuartzServiceModule.Model;
 // 
 //   author：林宣名
 //------------------------------------------------
-namespace YC.QuartzService.JobService.WriteFileJobService
+namespace YC.QuartzService.JobService.DeleteLogJobService
 {
 
-    public class WriteFileJobsConfig : IJobsConfig
+    public class DeleteLogJobsConfig: IJobsConfig
     {
        
         Dictionary<string, string> cronDic = new Dictionary<string, string>();
 
-        public WriteFileJobsConfig() {
+        public DeleteLogJobsConfig() {
           
-            string temp1 = WriteFileCronConfig.WriteFileServiceJobTriggerCron;
+            string temp1 = DeleteLogCronConfig.DeleteLogServiceJobTriggerCron;
 
-            cronDic.Add("WriteFileServiceJobTriggerCron", temp1);
+            cronDic.Add("DeleteLogServiceJobTriggerCron", temp1);
 
         }
 
 
         /// <summary>
-        /// 文件操作写入文件定时服务
+        ///删除日志
         /// </summary>
         public QuartzJobsCollection WriteFileJob
         {
@@ -44,15 +44,15 @@ namespace YC.QuartzService.JobService.WriteFileJobService
             get
             {
 
-                IJobDetail writeFileJob = JobBuilder.Create<FileServiceJob>()  //创建一个作业
-                    .WithIdentity("WriteFileServiceJob_Key", "WriteFileServiceJob_Group")//自定义
+                IJobDetail writeFileJob = JobBuilder.Create<DeleteLogServiceJob>()  //创建一个作业
+                    .WithIdentity("DeleteLogJob_Key", "DeleteLogJob_Group")//自定义
                     .Build();
 
 
                 ITrigger writeFileTrigger = TriggerBuilder.Create()
-                                            .WithIdentity("WriteFileTrigger_key", "WriteFileTrigger_Group").StartNow()
+                                            .WithIdentity("DeleteLogTrigger_key", "DeleteLogTrigger_Group").StartNow()
                                             //现在开始
-                                            .WithCronSchedule(cronDic["WriteFileServiceJobTriggerCron"])// 
+                                            .WithCronSchedule(cronDic["DeleteLogServiceJobTriggerCron"])// 
                                             .Build();
            
 

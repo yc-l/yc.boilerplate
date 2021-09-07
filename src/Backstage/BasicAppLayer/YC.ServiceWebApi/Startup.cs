@@ -50,6 +50,13 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
+using System.Threading.Tasks;
+using YC.QuartzService.Interface;
+using YC.QuartzService.JobService.CreateDirJobService;
+using YC.QuartzService.JobService.WriteFileJobService;
+using YC.QuartzService.JobService.DeleteLogJobService;
+using YC.QuartzServiceModule;
+using Quartz;
 
 namespace YC.ServiceWebApi
 {
@@ -305,6 +312,7 @@ namespace YC.ServiceWebApi
             assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.DapperFrameWork")));
             assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.FreeSqlFrameWork")));
             assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.ServiceWebApi")));
+            assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.QuartzService")));
             foreach (var assembly in assemblyList)
             {
                 builder.RegisterAssemblyTypes(assembly).Where(x => (baseType.IsAssignableFrom(x) && x.IsClass))
@@ -331,6 +339,8 @@ namespace YC.ServiceWebApi
 
             //freesql 注入
             builder.RegisterModule(new FreesqlAutofacModule());
+            //Quartz服务注入
+            builder.RegisterModule(new QuartzModule());
             var idle = services.AddTenantDb();//租户注入
             builder.RegisterInstance(idle).SingleInstance();//单例注册 
 
@@ -350,7 +360,7 @@ namespace YC.ServiceWebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<CorsOptions> corsOptions)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<CorsOptions> corsOptions, IScheduler _scheduler, IQuartzRepository quartzRepository)
         {
             #region 1、使用静态页面
             DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
@@ -398,6 +408,18 @@ namespace YC.ServiceWebApi
 
             //使用中间件全局异常过滤器
             app.UseMiddleware<ExceptionMiddleware>();
+
+        
+            _quartzRepository = quartzRepository;
+            await _scheduler.Start();
+
+            List<IJobLibray> jobLibraysList = new List<IJobLibray>();
+            //jobLibraysList.Add(new CreateDirFolderJobLibray());
+            jobLibraysList.Add(new WriteFileJobLibray());
+            jobLibraysList.Add(new DeleteLogJobLibray());
+
+            var list = await _quartzRepository.DefaultRunningServer(jobLibraysList);
+
 
             //app.UseMvc(routes =>
             //{
@@ -476,5 +498,11 @@ namespace YC.ServiceWebApi
         {
             services.Configure<CorsOptions>(Configuration.GetSection("AllowedHosts"));
         }
-    }
+
+        public  IQuartzRepository _quartzRepository;
+        public  IScheduler _scheduler;
+
+
+
+}
 }

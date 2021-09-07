@@ -7,7 +7,13 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Quartz;
 using YC.Log.Serilog;
+using YC.QuartzService.Interface;
+using YC.QuartzService.JobService.CreateDirJobService;
+using YC.QuartzService.JobService.DeleteLogJobService;
+using YC.QuartzService.JobService.WriteFileJobService;
+using YC.QuartzServiceModule;
 
 namespace YC.ServiceWebApi
 {
@@ -21,5 +27,7 @@ namespace YC.ServiceWebApi
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>().UseSerilogDefault();
+
+
     }
 }

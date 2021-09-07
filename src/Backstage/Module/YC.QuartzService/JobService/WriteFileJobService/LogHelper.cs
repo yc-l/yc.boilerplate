@@ -23,12 +23,11 @@ namespace YC.QuartzService.JobService.WriteFileJobService
                Directory.CreateDirectory(dirPath);//不存在则创建文件夹
            }
 
-           if (!File.Exists(path))
+           if (File.Exists(path)==false)
            {
                 FileInfo file = new FileInfo(path);
                 //创建文件
                 FileStream fsc = file.Create();
-
                 //关闭文件流
                 fsc.Close();
 

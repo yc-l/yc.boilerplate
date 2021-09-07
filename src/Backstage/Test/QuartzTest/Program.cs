@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using YC.Common.ShareUtils;
 using YC.QuartzService.Interface;
 using YC.QuartzService.JobService.CreateDirJobService;
+using YC.QuartzService.JobService.DeleteLogJobService;
 using YC.QuartzService.JobService.WriteFileJobService;
 using YC.QuartzServiceModule;
 using YC.QuartzServiceModule.Model;
@@ -28,6 +29,7 @@ namespace QuartzTest
             List<IJobLibray> jobLibraysList = new List<IJobLibray>();
             jobLibraysList.Add(new CreateDirFolderJobLibray());
             jobLibraysList.Add(new WriteFileJobLibray());
+            jobLibraysList.Add(new DeleteLogJobLibray());
 
             var list = await quartzFactory.quartzServiceRpository.DefaultRunningServer(jobLibraysList);
             Show();
