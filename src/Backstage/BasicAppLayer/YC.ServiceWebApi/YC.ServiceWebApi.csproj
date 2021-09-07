@@ -56,6 +56,7 @@
     <ProjectReference Include="..\..\BasicLayer\YC.DapperFrameWork\YC.DapperFrameWork.csproj" />
     <ProjectReference Include="..\..\Module\YC.Core.DynamicApi\YC.Core.DynamicApi.csproj" />
     <ProjectReference Include="..\..\Module\YC.Log.Serilog\YC.Log.Serilog.csproj" />
+    <ProjectReference Include="..\..\Module\YC.QuartzService\YC.QuartzService.csproj" />
     <ProjectReference Include="..\YC.ApplicationService\YC.ApplicationService.csproj" />
   </ItemGroup>
 

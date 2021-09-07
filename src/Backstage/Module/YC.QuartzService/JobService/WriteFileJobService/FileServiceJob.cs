@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using YC.Core.Autofac;
 //------------------------------------------------
 //   演示任务 定时写文件 任务
 // 
@@ -14,9 +15,13 @@ using System.Web;
 
 namespace YC.QuartzService.JobService.WriteFileJobService
 {
-   public class FileServiceJob:IJob
+   public class FileServiceJob : IJob, IDependencyInjectionSupport
     {
-
+    //    IdleBus<IFreeSql> _ib;
+    //    public FileServiceJob(IdleBus<IFreeSql> ib)
+    //    {
+    //        _ib = ib;
+    //    }
         public Task Execute(IJobExecutionContext context)
         {
 

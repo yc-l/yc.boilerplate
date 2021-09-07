@@ -12,18 +12,16 @@ using YC.QuartzServiceModule.Model;
 // 
 //   author：林宣名
 //------------------------------------------------
-namespace YC.QuartzService.JobService.WriteFileJobService
+namespace YC.QuartzService.JobService.DeleteLogJobService
 {
-   public class WriteFileJobLibray : IJobLibray
+   public class DeleteLogJobLibray: IJobLibray
     {
        public  List<QuartzJobsCollection> GetJobList()
        {
 
-           try
-           {
                List<QuartzJobsCollection> jobList = new List<QuartzJobsCollection>();
 
-                WriteFileJobsConfig jobsConfig = new WriteFileJobsConfig();
+            DeleteLogJobsConfig jobsConfig = new DeleteLogJobsConfig();
             
                Type t = jobsConfig.GetType();
 
@@ -36,12 +34,7 @@ namespace YC.QuartzService.JobService.WriteFileJobService
                } 
 
                return jobList;
-           }
-           catch (Exception ex)
-           {
-               
-               throw;
-           }
+          
           
        }
     }

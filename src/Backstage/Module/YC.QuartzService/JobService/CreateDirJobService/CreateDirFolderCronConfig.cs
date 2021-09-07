@@ -23,7 +23,7 @@ namespace YC.QuartzService.JobService.CreateDirJobService
         {
 
            get {
-
+                //return "10 * * * * ? ";
                return "0/1 * * * * ? *";
            }
       }

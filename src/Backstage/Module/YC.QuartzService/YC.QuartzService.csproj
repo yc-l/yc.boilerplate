@@ -1,12 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.2.0" />
     <PackageReference Include="Quartz.Jobs" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BasicAppLayer\YC.ApplicationService\YC.ApplicationService.csproj" />
+    <ProjectReference Include="..\..\BasicAppLayer\YC.Model\YC.Model.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.Common\YC.Common.csproj" />
+    <ProjectReference Include="..\..\BasicLayer\YC.FreeSqlFrameWork\YC.FreeSqlFrameWork.csproj" />
   </ItemGroup>
 
 </Project>
