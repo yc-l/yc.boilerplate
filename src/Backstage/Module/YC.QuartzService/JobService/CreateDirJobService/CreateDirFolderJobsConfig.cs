@@ -17,7 +17,7 @@ using YC.QuartzServiceModule.Model;
 //------------------------------------------------
 namespace YC.QuartzService.JobService.CreateDirJobService
 {
-
+    //2、服务配置，参数配置
     public class CreateDirFolderJobsConfig : IJobsConfig
     {
 

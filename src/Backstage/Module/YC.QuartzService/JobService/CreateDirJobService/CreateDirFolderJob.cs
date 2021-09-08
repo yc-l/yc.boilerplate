@@ -15,6 +15,7 @@ using System.Web;
 
 namespace YC.QuartzService.JobService.CreateDirJobService
 {
+    //具体业务任务
     public class CreateDirFolderJob : IJob
     {
         public Task Execute(IJobExecutionContext context)
