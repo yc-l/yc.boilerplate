@@ -33,44 +33,6 @@ namespace YC.QuartzServiceModule
             quartzServiceRpository = new QuartzRepository(scheduler);
         }
 
-      
-     
-
-        /// <summary>
-        ///  Scheduler 保存到队列中
-        /// </summary>
-        /// <param name="iScheduler"></param>
-        protected void SchedulerSaveToQueue(IScheduler iScheduler)
-        {
-            lock (queueList)
-            {
-                queueList.Enqueue(iScheduler);
-            }
-        }
-
-        /// <summary>
-        /// 是否存在调度程序
-        /// </summary>
-        /// <param name="inputScheduler">需要和队列中bidder调度程序</param>
-        /// <param name="tempIScheduler">返回指定调用任务对象</param>
-        /// <returns>是否存在在调用程序</returns>
-        public bool IsExistsIScheduler(IScheduler inputScheduler, out IScheduler tempIScheduler)
-        {
-            tempIScheduler = null;
-            List<IScheduler> list = queueList.Where(x => x.Equals(inputScheduler)).ToList();
-            if (list.Count() > 0)
-            {
-
-                return false;
-            }
-            else
-            {
-                tempIScheduler = inputScheduler;
-                return true;
-            }
-
-        }
-
         /// <summary>
         /// 同步加载初始化服务
         /// </summary>
@@ -81,18 +43,7 @@ namespace YC.QuartzServiceModule
 
         }
 
-        /// <summary>
-        /// 异步加载初始化服务
-        /// </summary>
-        /// <returns></returns>
-        public Task AsyncQuartzService()
-        {
-            return Task.Run(() =>
-            {
-                scheduler.Start();// 服务调度器启动 这个必须放在前面，如果放在底部，第一个作业不执行
-            });
-
-        }
+     
 
 
     }

@@ -14,6 +14,7 @@ using YC.QuartzServiceModule.Model;
 //------------------------------------------------
 namespace YC.QuartzService.JobService.CreateDirJobService
 {
+    //4、其他地方获取内容
     public class CreateDirFolderJobLibray : IJobLibray
     {
         public List<QuartzJobsCollection> GetJobList()

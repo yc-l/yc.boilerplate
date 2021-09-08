@@ -14,6 +14,7 @@ using YC.QuartzService.Interface;
 
 namespace YC.QuartzService.JobService.CreateDirJobService
 {
+    //1、时间表达式配置，可以抽离其他文件配置获取
    public class CreateDirFolderCronConfig:ICronConfig
     {
        /// <summary>
