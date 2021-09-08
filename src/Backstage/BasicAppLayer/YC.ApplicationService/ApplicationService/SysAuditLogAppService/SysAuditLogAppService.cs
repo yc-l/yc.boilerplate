@@ -73,6 +73,9 @@ namespace YC.ApplicationService
             {
                 exp = a => a.UserAccount.Contains(input.Filter.QueryString)
                 || a.RequestApi.Contains(input.Filter.QueryString)
+                || a.IP.Contains(input.Filter.QueryString)
+                || a.Browser.Contains(input.Filter.QueryString)
+                || a.Device.Contains(input.Filter.QueryString)
                 || a.Os.Contains(input.Filter.QueryString);
             }
             var list = await _sysAuditLogFreeSqlRepository.Select.WhereIf(input.Filter.QueryString.NotNull(), exp)

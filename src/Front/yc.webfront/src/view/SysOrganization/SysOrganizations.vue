@@ -148,19 +148,19 @@
 
             <el-row :gutter="20">
               <el-col :span="12">
-                <el-form-item label="序号：" prop="sort">
+                <el-form-item label="排序：" prop="sort">
                   <el-input v-model="addOrEditForm.sort"></el-input>
                 </el-form-item>
               </el-col>
-
-              <el-col :span="12">
-                <el-form-item label="节点类型：" prop="organType">
-                  <el-input v-model="addOrEditForm.organType"></el-input>
+ <el-col :span="12">
+                <el-form-item label="备注：" prop="remark">
+                  <el-input v-model="addOrEditForm.remark"></el-input>
                 </el-form-item>
               </el-col>
+            
             </el-row>
 
-            <el-row :gutter="20">
+            <!-- <el-row :gutter="20">
               <el-col :span="12">
                 <el-form-item label="传真：" prop="fax">
                   <el-input v-model="addOrEditForm.fax"></el-input>
@@ -172,9 +172,9 @@
                   <el-input v-model="addOrEditForm.postId"></el-input>
                 </el-form-item>
               </el-col>
-            </el-row>
+            </el-row> -->
 
-            <el-row :gutter="20">
+            <!-- <el-row :gutter="20">
               <el-col :span="12">
                 <el-form-item label="通讯地址：" prop="address">
                   <el-input v-model="addOrEditForm.address"></el-input>
@@ -186,12 +186,12 @@
                   <el-input v-model="addOrEditForm.telephone"></el-input>
                 </el-form-item>
               </el-col>
-            </el-row>
+            </el-row> -->
 
-            <el-row :gutter="20">
-              <el-col :span="12">
-                <el-form-item label="备注：" prop="remark">
-                  <el-input v-model="addOrEditForm.remark"></el-input>
+            <!-- <el-row :gutter="20">
+               <el-col :span="12">
+                <el-form-item label="节点类型：" prop="organType">
+                  <el-input v-model="addOrEditForm.organType"></el-input>
                 </el-form-item>
               </el-col>
 
@@ -200,9 +200,9 @@
                   <el-input v-model="addOrEditForm.memoni"></el-input>
                 </el-form-item>
               </el-col>
-            </el-row>
+            </el-row> -->
 
-            <el-row :gutter="20">
+            <!-- <el-row :gutter="20">
               <el-col :span="12">
                 <el-form-item label="权限范围：" prop="range">
                   <el-input v-model="addOrEditForm.range"></el-input>
@@ -222,7 +222,7 @@
                   <el-input v-model="addOrEditForm.linkman"></el-input>
                 </el-form-item>
               </el-col>
-            </el-row>
+            </el-row> -->
           </el-form>
         </el-tab-pane>
       </el-tabs>
@@ -287,7 +287,7 @@
         // 添加表单的验证规则对象
         addOrEditFormRules: {
           label: [{
-              required: false,
+              required: true,
               message: '请输入名称',
               trigger: 'blur'
             },
@@ -298,7 +298,7 @@
             },
           ],
           parentId: [{
-            required: false,
+            required: true,
             message: '请输入所属上级',
             trigger: 'blur'
           }, ],

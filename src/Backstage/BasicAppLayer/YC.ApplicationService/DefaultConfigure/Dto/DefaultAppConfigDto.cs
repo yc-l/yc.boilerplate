@@ -26,6 +26,10 @@ namespace YC.ApplicationService.DefaultConfigure
         /// </summary>
         public string NginxAgentIP { get; set; }
 
+        /// <summary>
+        /// 是否校验Token唯一性【单点登录限制】
+        /// </summary>
+        public bool VerifyTokenUniqueness { get; set; }
 
     }
 }
