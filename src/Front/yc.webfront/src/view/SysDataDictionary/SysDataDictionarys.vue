@@ -75,11 +75,11 @@
             </el-row>
 
             <el-row :gutter="20">
-              <el-col :span="12">
+              <!-- <el-col :span="12">
                 <el-form-item label="类型：" prop="type">
                   <el-input v-model="addOrEditForm.type"></el-input>
                 </el-form-item>
-              </el-col>
+              </el-col> -->
 
               <el-col :span="12">
                 <el-form-item label="父级节点：" prop="selectedKeys">
@@ -92,14 +92,15 @@
                     }" @change="parentKeyChange" filterable clearable change-on-select="true"></el-cascader>
                 </el-form-item>
               </el-col>
-            </el-row>
-
-            <el-row :gutter="20">
-              <el-col :span="12">
+               <el-col :span="12">
                 <el-form-item label="排序：" prop="sort">
                   <el-input v-model="addOrEditForm.sort"></el-input>
                 </el-form-item>
               </el-col>
+            </el-row>
+
+            <el-row :gutter="20">
+             
 
               <el-col :span="12">
                 <el-form-item label="助记符：" prop="memoni">
@@ -108,13 +109,13 @@
               </el-col>
             </el-row>
 
-            <el-row :gutter="20">
+            <!-- <el-row :gutter="20">
               <el-col :span="12">
                 <el-form-item label="备注：" prop="value">
                   <el-input v-model="addOrEditForm.value"></el-input>
                 </el-form-item>
               </el-col>
-            </el-row>
+            </el-row> -->
           </el-form>
         </el-tab-pane>
       </el-tabs>
@@ -172,7 +173,7 @@
         // 添加表单的验证规则对象
         addOrEditFormRules: {
           key: [{
-              required: false,
+              required: true,
               message: '请输入编码',
               trigger: 'blur'
             },
@@ -183,7 +184,7 @@
             },
           ],
           label: [{
-              required: false,
+              required: true,
               message: '请输入名称',
               trigger: 'blur'
             },
@@ -194,7 +195,7 @@
             },
           ],
           parentId: [{
-            required: false,
+            required: true,
             message: '请输入父节点',
             trigger: 'blur'
           }, ],

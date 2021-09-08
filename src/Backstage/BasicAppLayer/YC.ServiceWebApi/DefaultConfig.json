@@ -63,7 +63,10 @@
     "TokenIssuer": "元磁之力",
     "TokenAudience": "http://localhost:5000",
     //NGINX  代理服务器ip范围
-    "NginxAgentIP": "106.54.0.0"
+    "NginxAgentIP": "106.54.0.0",
+    //是否校验token唯一性【单点登录】，演示系统默认不开启
+    "VerifyTokenUniqueness": false
+
   },
   //默认租户配置
   "TenantSetting": {

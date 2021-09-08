@@ -76,13 +76,15 @@ namespace YC.ServiceWebApi
 
             OptionConfigure(services);
 
-            services.AddCors(options =>
+            // 设置允许所有来源跨域
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
             {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-            });
+                builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(_ => true) // =AllowAnyOrigin()
+                    .AllowCredentials();
+            }));
 
             services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
                  .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
@@ -125,6 +127,7 @@ namespace YC.ServiceWebApi
             //添加缓存
             services.AddMemoryCache();
 
+           
 
             //全局过滤器注入
             services.AddMvc(options =>
@@ -395,12 +398,15 @@ namespace YC.ServiceWebApi
             //loggerFactory.AddNLog();
 
             //允许跨域
-            app.UseCors(options => options
-             .AllowAnyHeader()               // 确保策略允许任何标头
-             .AllowAnyMethod()               // 确保策略允许任何方法
-             .SetIsOriginAllowed(o => true)  // 设置指定的isOriginAllowed为基础策略
-             .AllowCredentials());           // 将策略设置为允许凭据。
+            //app.UseCors(options => options
+            // .AllowAnyHeader()               // 确保策略允许任何标头
+            // .AllowAnyMethod()               // 确保策略允许任何方法
+            // .SetIsOriginAllowed(o => true)  // 设置指定的isOriginAllowed为基础策略
+            // .AllowCredentials());           // 将策略设置为允许凭据。
+          
 
+            // 使用跨域配置
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
             // app.UseCors("default");
@@ -415,8 +421,8 @@ namespace YC.ServiceWebApi
 
             List<IJobLibray> jobLibraysList = new List<IJobLibray>();
             //jobLibraysList.Add(new CreateDirFolderJobLibray());
-            jobLibraysList.Add(new WriteFileJobLibray());
-            jobLibraysList.Add(new DeleteLogJobLibray());
+            //jobLibraysList.Add(new WriteFileJobLibray());
+            //jobLibraysList.Add(new DeleteLogJobLibray());
 
             var list = await _quartzRepository.DefaultRunningServer(jobLibraysList);
 
