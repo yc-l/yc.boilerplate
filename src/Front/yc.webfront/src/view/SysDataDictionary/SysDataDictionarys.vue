@@ -251,11 +251,11 @@
             minWidth: '100px',
             prop: 'label'
           },
-          {
-            label: '父节点',
-            minWidth: '100px',
-            prop: 'parentId'
-          },
+          // {
+          //   label: '父节点',
+          //   minWidth: '100px',
+          //   prop: 'parentId'
+          // },
           // {
           //   label: '类型',
           //   minWidth: '100px',
