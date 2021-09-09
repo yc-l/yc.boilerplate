@@ -201,7 +201,7 @@ export default {
           )
 
           if (res.code !== 200) {
-            this.$message.error('添加<%=moduleName%>失败！'+res.message)
+           return this.$message.error('添加<%=moduleName%>失败！'+res.message)
           }
 
           this.$message.success('添加<%=moduleName%>成功！')

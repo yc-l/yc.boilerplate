@@ -198,7 +198,9 @@
             required: true,
             message: '请输入父节点',
             trigger: 'blur'
-          }, ],
+          },
+          
+          ],
           type: [{
             required: false,
             message: '请输入类型',
@@ -254,11 +256,11 @@
             minWidth: '100px',
             prop: 'parentId'
           },
-          {
-            label: '类型',
-            minWidth: '100px',
-            prop: 'type'
-          },
+          // {
+          //   label: '类型',
+          //   minWidth: '100px',
+          //   prop: 'type'
+          // },
           {
             label: '助记符',
             minWidth: '100px',
@@ -344,10 +346,12 @@
 
             if (res.code !== 200) {
               return this.$message.error('更新数据字典信息失败！' + res.message)
+            }else{
+             // 提示修改成功
+            this.$message.success('更新数据字典信息成功！')
             }
 
-            // 提示修改成功
-            this.$message.success('更新数据字典信息成功！')
+          
           } else {
             // 可以发起添加数据字典的网络请求
             const {
@@ -358,10 +362,13 @@
             )
 
             if (res.code !== 200) {
-              this.$message.error('添加数据字典失败！' + res.message)
+            return  this.$message.error('添加数据字典失败！' + res.message)
+            }else{
+
+               this.$message.success('添加数据字典成功！')
             }
 
-            this.$message.success('添加数据字典成功！')
+           
           }
 
           // 隐藏添加数据字典的对话框
