@@ -578,10 +578,12 @@
 
             if (res.code !== 200) {
               return this.$message.error('更新权限信息失败！'+res.message)
+            }else{
+               // 提示修改成功
+            this.$message.success('更新权限信息成功！')
             }
 
-            // 提示修改成功
-            this.$message.success('更新权限信息成功！')
+          
           } else {
             // 可以发起添加权限的网络请求
             const {

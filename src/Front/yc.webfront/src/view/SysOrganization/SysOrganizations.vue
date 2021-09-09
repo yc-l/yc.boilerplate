@@ -412,41 +412,41 @@
             minWidth: '200px',
             prop: 'label'
           },
-          {
-            label: '所属上级',
-            minWidth: '100px',
-            prop: 'parentId'
-          },
-          {
-            label: '节点类型',
-            minWidth: '100px',
-            prop: 'organType'
-          },
-          {
-            label: '序号',
-            minWidth: '100px',
-            prop: 'sort'
-          },
-          {
-            label: '岗位编号',
-            minWidth: '100px',
-            prop: 'postId'
-          },
-          {
-            label: '传真',
-            minWidth: '100px',
-            prop: 'fax'
-          },
-          {
-            label: '联系电话',
-            minWidth: '100px',
-            prop: 'telephone'
-          },
-          {
-            label: '通讯地址',
-            minWidth: '100px',
-            prop: 'address'
-          },
+          // {
+          //   label: '所属上级',
+          //   minWidth: '100px',
+          //   prop: 'parentId'
+          // },
+          // {
+          //   label: '节点类型',
+          //   minWidth: '100px',
+          //   prop: 'organType'
+          // },
+          // {
+          //   label: '序号',
+          //   minWidth: '100px',
+          //   prop: 'sort'
+          // },
+          // {
+          //   label: '岗位编号',
+          //   minWidth: '100px',
+          //   prop: 'postId'
+          // },
+          // {
+          //   label: '传真',
+          //   minWidth: '100px',
+          //   prop: 'fax'
+          // },
+          // {
+          //   label: '联系电话',
+          //   minWidth: '100px',
+          //   prop: 'telephone'
+          // },
+          // {
+          //   label: '通讯地址',
+          //   minWidth: '100px',
+          //   prop: 'address'
+          // },
           {
             label: '助记符',
             minWidth: '100px',
@@ -458,11 +458,11 @@
             prop: 'remark'
           },
           
-          {
-            label: '联系人',
-            minWidth: '100px',
-            prop: 'linkman'
-          },
+          // {
+          //   label: '联系人',
+          //   minWidth: '100px',
+          //   prop: 'linkman'
+          // },
 
           {
             label: '操作',

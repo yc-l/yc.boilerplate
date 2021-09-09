@@ -71,7 +71,8 @@ namespace YC.ApplicationService
             Expression<Func<SysDataDictionary, bool>> exp = null;
             if (input.Filter != null)
             {
-                //exp = a => a.Name.Contains(input.Filter.QueryString);
+                exp = a => a.Label.Contains(input.Filter.QueryString)
+                 || a.Key.Contains(input.Filter.QueryString);
             }
             var list = await _sysDataDictionaryFreeSqlRepository.Select.WhereIf(input.Filter.QueryString.NotNull(), exp)
                 .Count(out var total).OrderByDescending(true, a => a.Id).Page(input.CurrentPage, input.PageSize)
@@ -94,6 +95,10 @@ namespace YC.ApplicationService
 
             input.Id = "0";//做一个处理，要不然automapper 无法转换
             var entity = _mapper.Map<SysDataDictionary>(input);
+           var isExist=await _sysDataDictionaryFreeSqlRepository.Where(x => x.Key==input.Key).AnyAsync();
+            if (isExist) {
+                return ApiResult.NotOk("指定的Key已经存在!");
+            }
             var obj = await _sysDataDictionaryFreeSqlRepository.InsertAsync(entity);
 
             if (!(obj?.Id > 0))
@@ -140,7 +145,12 @@ namespace YC.ApplicationService
             }
 
             _mapper.Map(input, obj);
-            await _sysDataDictionaryFreeSqlRepository.UpdateAsync(obj);
+            var isExist = await _sysDataDictionaryFreeSqlRepository.Where(x => x.Key.Equals(input.Key)).AnyAsync();
+            if (isExist)
+            {
+                return ApiResult.NotOk("指定的Key已经存在!");
+            }
+           await _sysDataDictionaryFreeSqlRepository.UpdateAsync(obj);
           
             return ApiResult.Ok();
         }
