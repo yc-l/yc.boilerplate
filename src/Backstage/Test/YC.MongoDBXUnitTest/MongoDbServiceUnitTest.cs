@@ -16,6 +16,15 @@ namespace YC.MongoDbXUnitTest
            
         }
 
+        [Fact]
+        public void MongoDInsertTest()
+        {
+            var transfilter = Builders<TransactionsItemDto>.Filter.Where(x => x.Signature.V.Contains("0x0"));
+            var transData = mongoDbService.QueryList<TransactionsItemDto>("Transcations", transfilter);
+            mongoDbService.Insert<TransactionsItemDto>("Transcations", transData[0]);
+           
+        }
+      
         
         [Fact]
         public void MongoDbQueryTest()

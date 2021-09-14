@@ -31,5 +31,8 @@ namespace YC.ApplicationService.DefaultConfigure
         /// </summary>
         public bool VerifyTokenUniqueness { get; set; }
 
+        public string MongoDbString { get; set; }
+        public string MongoDbName { get; set; }
+
     }
 }
