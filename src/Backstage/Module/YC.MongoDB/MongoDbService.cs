@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace YC.MongoDB
 {
-    public class MongoDbService
+    public class MongoDbService: IMongoDbService
     {
         private MongoClient _client;
         private IMongoDatabase _database;
@@ -57,7 +57,7 @@ namespace YC.MongoDB
             return data;
         }
 
-        public List<T> QueryList<T>(string collectionName, FilterDefinition<T> filter = null)
+        public List<T> QueryList<T>(string collectionName, FilterDefinition<T> filter = null) where T : class, new()
         {
             var collection = _database.GetCollection<T>(collectionName);
             var projection = Builders<T>.Projection.Exclude("_id").Exclude("lastModified");
@@ -95,7 +95,7 @@ namespace YC.MongoDB
         /// <param name="indexKeysDefinition"></param>
         /// <param name="createIndexOptions"></param>
         /// <returns></returns>
-        public string CreateIndex<T>(string collectionName, IndexKeysDefinition<T> indexKeysDefinition, CreateIndexOptions createIndexOptions = null)
+        public string CreateIndex<T>(string collectionName, IndexKeysDefinition<T> indexKeysDefinition, CreateIndexOptions createIndexOptions = null) where T : class, new()
         {
             var collection = _database.GetCollection<T>(collectionName);
 
@@ -104,7 +104,7 @@ namespace YC.MongoDB
             return data;
         }
 
-        public bool ExistUniqueIndexWithDelete<T>(string collectionName, string IndexName, bool isDelete = false)
+        public bool ExistUniqueIndexWithDelete<T>(string collectionName, string IndexName, bool isDelete = false) where T : class, new()
         {
             bool isExist = false;
             var collection = _database.GetCollection<T>(collectionName);

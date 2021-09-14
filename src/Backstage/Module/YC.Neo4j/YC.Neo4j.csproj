@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Neo4j.Driver" Version="4.3.2" />
+    <PackageReference Include="Neo4j.Driver.Reactive" Version="4.3.2" />
+    <PackageReference Include="Neo4j.Driver.Simple" Version="4.3.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BasicLayer\YC.Common\YC.Common.csproj" />
+  </ItemGroup>
+
+</Project>

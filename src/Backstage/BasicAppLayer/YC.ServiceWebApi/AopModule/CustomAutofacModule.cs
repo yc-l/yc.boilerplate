@@ -10,6 +10,7 @@ using YC.Cache.Redis;
 using YC.Core;
 using YC.Core.Autofac;
 using YC.Core.Cache;
+using YC.MongoDB;
 
 namespace YC.ServiceWebApi.AopModule
 {
@@ -20,6 +21,9 @@ namespace YC.ServiceWebApi.AopModule
         {
             builder.RegisterType<AopInterceptor>();
             builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().InstancePerLifetimeScope();
+            //Mongodb 注入
+            //builder.RegisterType<MongoDbService>().As<IMongoDbService>().WithParameter("connectionString", DefaultConfig.DefaultAppConfigDto.MongoDbString).WithParameter("dbName", DefaultConfig.DefaultAppConfigDto.MongoDbName).AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired(); 
+
             #region redis cache
             //var tempConfigOptions = new StackExchange.Redis.ConfigurationOptions();
             //tempConfigOptions.SyncTimeout = 5000;
