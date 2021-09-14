@@ -35,11 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Model", "src\Backstage\B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ServiceWebApi", "src\Backstage\BasicAppLayer\YC.ServiceWebApi\YC.ServiceWebApi.csproj", "{5976B891-DA0C-41DB-9684-E8A6DB0239D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YC.QuartzService", "src\Backstage\Module\YC.QuartzService\YC.QuartzService.csproj", "{F994B904-558D-41DE-ABB5-EA41D9A6997A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.QuartzService", "src\Backstage\Module\YC.QuartzService\YC.QuartzService.csproj", "{F994B904-558D-41DE-ABB5-EA41D9A6997A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3BF48648-4A6C-43E4-B2F1-FFB7EDE70F33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzTest", "src\Backstage\Test\QuartzTest\QuartzTest.csproj", "{182BFAF7-850E-47E7-8B43-AC8436F97E85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuartzTest", "src\Backstage\Test\QuartzTest\QuartzTest.csproj", "{182BFAF7-850E-47E7-8B43-AC8436F97E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YC.MongoDB", "src\Backstage\Module\YC.MongoDB\YC.MongoDB.csproj", "{CFCBF849-9140-4C1C-82CC-3DFA7CCDF226}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YC.MongoDbXUnitTest", "src\Backstage\Test\YC.MongoDBXUnitTest\YC.MongoDbXUnitTest.csproj", "{E427767B-2A85-4009-8C26-4D452A577E3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +107,14 @@ Global
 		{182BFAF7-850E-47E7-8B43-AC8436F97E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{182BFAF7-850E-47E7-8B43-AC8436F97E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{182BFAF7-850E-47E7-8B43-AC8436F97E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFCBF849-9140-4C1C-82CC-3DFA7CCDF226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFCBF849-9140-4C1C-82CC-3DFA7CCDF226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFCBF849-9140-4C1C-82CC-3DFA7CCDF226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFCBF849-9140-4C1C-82CC-3DFA7CCDF226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E427767B-2A85-4009-8C26-4D452A577E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E427767B-2A85-4009-8C26-4D452A577E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E427767B-2A85-4009-8C26-4D452A577E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E427767B-2A85-4009-8C26-4D452A577E3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +134,8 @@ Global
 		{5976B891-DA0C-41DB-9684-E8A6DB0239D6} = {F213774C-47AB-4315-A88B-80A054C6067A}
 		{F994B904-558D-41DE-ABB5-EA41D9A6997A} = {3E77D5D2-7C7E-4F3E-BBB7-8005EAA64924}
 		{182BFAF7-850E-47E7-8B43-AC8436F97E85} = {3BF48648-4A6C-43E4-B2F1-FFB7EDE70F33}
+		{CFCBF849-9140-4C1C-82CC-3DFA7CCDF226} = {3E77D5D2-7C7E-4F3E-BBB7-8005EAA64924}
+		{E427767B-2A85-4009-8C26-4D452A577E3E} = {3BF48648-4A6C-43E4-B2F1-FFB7EDE70F33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2286F1C-A8B5-4BE5-9081-16E02C40FC5C}
