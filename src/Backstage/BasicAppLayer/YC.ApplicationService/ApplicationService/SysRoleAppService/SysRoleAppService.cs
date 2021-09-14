@@ -128,7 +128,7 @@ namespace YC.ApplicationService
             var obj = await _sysRoleFreeSqlRepository.InsertAsync(entity);
 
             if (!(obj?.Id > 0))
-            {
+            { 
                 return ApiResult.NotOk();
             }
             return ApiResult.Ok();
