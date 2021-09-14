@@ -19,7 +19,7 @@ namespace YC.Neo4jXUnitTest
         {
             UserInfo u1 = new UserInfo();
             u1.Key = Guid.NewGuid().ToString();
-            u1.Name = "张小妞";
+            u1.Name = "赵小";
             u1.Sex = "女";
             u1.Remark = "高级用户";
             var result = await neo4jService.CreateSingleNode<UserInfo>("UserInfo", u1);
@@ -49,9 +49,15 @@ namespace YC.Neo4jXUnitTest
         {
             string condtion = "n.Sex='女'";
           var list= await neo4jService.SelectNode<UserInfo>("UserInfo", condtion);
-
             Assert.True(list.Count > 0);
            
+        }
+
+        [Fact]
+        public async Task DeleteNodeTest() {
+            string condtion = "n.Sex='男'";
+            var result = await neo4jService.DeleteNode("UserInfo", condtion,true);
+            Assert.True(result.Counters.NodesDeleted==1);
         }
     }
 }
