@@ -118,6 +118,27 @@ namespace YC.Neo4j
 
         }
 
+        /// <summary>
+        /// 删除节点,如果deleteRelationShip 是false，但删除的有关联数据会异常，如果是关联，必须启动deleteRelationShip为true
+        /// </summary>
+        /// <param name="label"></param>
+        /// <param name="condition"></param>
+        /// <param name="defaultKey"></param>
+        /// <param name="deleteRelationShip">是否联同关联都删除</param>
+        /// <returns></returns>
+        public async Task<IResultSummary> DeleteNode(string label, string condition, bool deleteRelationShip = false, string defaultKey = "n") {
+            string relationDelete = "";
+            if (deleteRelationShip) {
+
+                relationDelete = " DETACH ";
+            }
+            //match(n: UserInfo{ Sex:'女' }) delete n 这种也可以
+            string graphStr = $"match({defaultKey}: {label}) where {condition} {relationDelete} delete {defaultKey}";
+            IResultCursor cursor = await session.RunAsync(graphStr);
+            IResultSummary result = await cursor.ConsumeAsync();
+            return result;
+        }
+
         public async Task Dispose()
         {
             await session.CloseAsync();
