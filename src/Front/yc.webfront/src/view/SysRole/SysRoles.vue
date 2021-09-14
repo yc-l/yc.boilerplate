@@ -13,7 +13,7 @@
       <el-row :gutter="20">
         <el-col :span="7">
           <el-input
-            placeholder="请输入搜索的内容"
+            placeholder="请输入搜索的角色名称"
             class="input-with-select"
             v-model="queryInfo.query"
             clearable
@@ -98,17 +98,18 @@
             ></el-input>
 
             <el-row :gutter="20">
+                 <el-col :span="12">
+                <el-form-item label="名称：" prop="name">
+                  <el-input v-model="addOrEditForm.name"></el-input>
+                </el-form-item>
+              </el-col>
               <el-col :span="12">
                 <el-form-item label="助记符：" prop="memoni">
                   <el-input v-model="addOrEditForm.memoni"></el-input>
                 </el-form-item>
               </el-col>
 
-              <el-col :span="12">
-                <el-form-item label="名称：" prop="name">
-                  <el-input v-model="addOrEditForm.name"></el-input>
-                </el-form-item>
-              </el-col>
+           
             </el-row>
 
             <el-row :gutter="20">
@@ -159,7 +160,7 @@
 
                 // 添加表单的验证规则对象
                 addOrEditFormRules: {
-                    name: [{ required: false, message: '请输入名称', trigger: 'blur' },
+                    name: [{ required: true, message: '请输入名称', trigger: 'blur' },
                     { max: 32, message: '名称的长度在32字符之内', trigger: 'blur' },
                     ],
                     memoni: [{ required: false, message: '请输入助记符', trigger: 'blur' },

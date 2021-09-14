@@ -61,12 +61,12 @@ namespace YC.ServiceWebApi.Filter
                 _requestInfoDto.StopTime = DateTime.Now;
                 _requestInfoDto.ElapsedMilliseconds = Convert.ToInt64((_requestInfoDto.StopTime - _requestInfoDto.StartTime).TotalMilliseconds);
                 var obj = context.Result;
-                if (obj==null)
+                 if (obj==null)
                 {
                     throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "获取context.Result 对象为空！");
                 }
-                _requestInfoDto.ResponseState = false;
-                var resultType = context.Result?.GetType();
+                 _requestInfoDto.ResponseState = false;
+                 var resultType = context.Result?.GetType();
                 try
                 {
 
@@ -158,7 +158,11 @@ namespace YC.ServiceWebApi.Filter
 
             token = token.ToString().Replace("Bearer", "").Trim();
             UserDto userInfo = new UserDto();
-            ValidateTokenExtenstions.ValidateToken(token, _httpContextAccessor, _cacheManager);
+            if (DefaultConfig.DefaultAppConfigDto.VerifyTokenUniqueness)
+            {//演示系统，该属性不开启，默认不校验唯一性
+                ValidateTokenExtenstions.ValidateToken(token, _httpContextAccessor, _cacheManager);
+            }
+            
             var payloadDic = TokenContext.GetPayLoad(token);
             var tokenKey = payloadDic[DefaultConfig.DefaultAppConfigDto.TokenKeyName]?.ToString();//拿到唯一Id
             userInfo = _cacheManager.Get<UserDto>(string.Format(DefaultConfig.CACHE_TOKEN_USER, tokenKey));

@@ -72,7 +72,10 @@ namespace YC.ServiceWebApi
                     tenantObj = TokenContext.GetPayLoad(token)[DefaultConfig.TenantSettingDto.TenantKeyName]?.ToString();
                     if (string.IsNullOrWhiteSpace(tenantObj) || DefaultConfig.TenantSettingDto.TenantList.Where(x => x.TenantId == int.Parse(tenantObj)).FirstOrDefault() == null)//不存在租户id，或者租户id不在配置中
                         throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "token 相关信息无效，请从新获取Token！");
-                    ValidateTokenExtenstions.ValidateToken(token, _httpContextAccessor, _cacheManager);
+                    if (DefaultConfig.DefaultAppConfigDto.VerifyTokenUniqueness) {//演示系统，该属性不开启，默认不校验唯一性
+                        ValidateTokenExtenstions.ValidateToken(token, _httpContextAccessor, _cacheManager);
+                    }
+                    
                 }
 
 
