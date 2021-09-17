@@ -162,11 +162,13 @@ namespace YC.Neo4j
         /// <param name="pageCount"></param>
         /// <returns></returns>
         public async Task<Tuple<List<T1>, List<T2>>> SelectNodeByRelationShoip<T1, T2>(
-            string leftLabel, string rightLabel, string relationShipName, int pageCount = 10) where T1 : class, new() where T2 : class, new()
+            string leftLabel, string rightLabel, string relationShipName,string condition="", int pageCount = 10) where T1 : class, new() where T2 : class, new()
         {
-
+            if (!string.IsNullOrWhiteSpace(condition)) {
+                condition = " where " + condition;
+            }
             List<IRecord> records = new List<IRecord>();
-            string graphStr = $"match ({leftLabel})-[:{relationShipName}]-({rightLabel}) return {leftLabel},{rightLabel} limit {pageCount}";
+            string graphStr = $"match ({leftLabel})-[:{relationShipName}]-({rightLabel}) {condition} return {leftLabel},{rightLabel} limit {pageCount}";
             await session.ReadTransactionAsync(async txc =>
             {
                 records = await txc.RunAsync(graphStr)

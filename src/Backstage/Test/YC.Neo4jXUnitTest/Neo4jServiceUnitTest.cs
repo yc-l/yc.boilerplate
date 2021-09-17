@@ -134,9 +134,10 @@ namespace YC.Neo4jXUnitTest
         public async Task SelectNodeByRelationShipTest()
         {
             string relationShipName = "公司关联";
-            var tupleList = await neo4jRepository.SelectNodeByRelationShoip<UserInfo,Company>("UserInfo", "Company",relationShipName);
+            string condition = "UserInfo.Name='张小玉'";
+            var tupleList = await neo4jRepository.SelectNodeByRelationShoip<UserInfo,Company>("UserInfo", "Company",relationShipName, condition);
             Assert.True(tupleList.Item1.Count>0);
-            Assert.True(tupleList.Item2.Count > 0);
+            Assert.True(tupleList.Item2.Count>0);
 
         }
 
