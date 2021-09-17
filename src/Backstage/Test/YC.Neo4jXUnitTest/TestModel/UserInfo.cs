@@ -11,6 +11,6 @@ namespace YC.Neo4jXUnitTest.TestModel
         public string Name { get; set; }
         public string Sex { get; set; }
 
-        public string Remark { get; set; }
+        public string Type { get; set; }
     }
 }
