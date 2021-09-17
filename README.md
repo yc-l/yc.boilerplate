@@ -1,6 +1,7 @@
 # YC.Boilerplate
 
 #### 介绍
+
 YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分离开发模式，前端 采用VUE、后端采用Net 5.0；框架实现了
 多租户、动态webApi、多种ORM、IOC、数据库表和业务代码生成等等一系列模块，并开发了用户管理、角色权限、组织机构、
 数据字典、审计日志等常规功能。
@@ -9,10 +10,11 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 元磁之力框架技术群QQ：1060819005
 
-#### 视频教程：
-- 元磁之力框架开源初心和框架设计介绍（上）： https://www.bilibili.com/video/BV1VM4y1G7hC/
-- 元磁之力框架开源初心和框架设计介绍（下）： https://www.bilibili.com/video/BV15h411s7w6/
-- 元磁之力框架数据库表和代码生成使用教程实战： https://www.bilibili.com/video/BV1oM4y137D5/
+#### 视频教程
+
+- 元磁之力框架开源初心和框架设计介绍（上）： <https://www.bilibili.com/video/BV1VM4y1G7hC/>
+- 元磁之力框架开源初心和框架设计介绍（下）： <https://www.bilibili.com/video/BV15h411s7w6/>
+- 元磁之力框架数据库表和代码生成使用教程实战： <https://www.bilibili.com/video/BV1oM4y137D5/>
 
 #### 快速入门
 
@@ -50,11 +52,15 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 - Redis 缓存模块：```YC.Cache.Redis```
 - 动态WebApi模块：```YC.Core.DynamicApi```
 - 日志模块：```YC.Log.Serilog```
+- 定时服务 Quartz.net ```YC.QuartzService```
+- Mongodb 模块 ```YC.MongoDB```
+- 图数据库Neo4j ```YC.Neo4j```
 
 > 单元测试
 
 单元测试：```UnitTestProject```
 数据库表和代码生成测试：```YC.CodeGenerateTest```
+其他各个模块配套的单元测试:```YC.QuartzTest```、```YC.MongoDbXUnitTest```、```YC.Neo4jXUnitTest```
 
 #### 框架功能模块
 
@@ -87,9 +93,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 #### 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
+1. Fork 本仓库
+2. 新建 Feat_xxx 分支
+3. 提交代码
+4. 新建 Pull Request
