@@ -7,20 +7,52 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using YC.Common.ShareUtils;
 using System.Linq;
+
+
 namespace YC.Neo4j
 {
-    public class Neo4jService
+    public class Neo4jRepository
     {
 
         private IDriver driver;
         private IAsyncSession session;
 
-        public Neo4jService(string dbName, string uri = "neo4j://localhost:7687", string user = "neo4j", string password = "123456")
+        private const string defaultKey = "n";//默认 代指表等 类似lambda x=> 中的x
+        private const string defaultLeftKey = "a";
+        private const string defaultRightKey = "b";
+        public Neo4jRepository(string dbName, string uri = "neo4j://localhost:7687", string user = "neo4j", string password = "123456")
         {
             driver = GraphDatabase.Driver(uri, AuthTokens.Basic(user, password));
             session = driver.AsyncSession();
         }
 
+        public string Key
+        {
+
+            get
+            {
+                return defaultKey;
+            }
+
+        }
+        public string LeftKey
+        {
+
+            get
+            {
+                return defaultLeftKey;
+            }
+
+        }
+        public string RightKey
+        {
+
+            get
+            {
+                return defaultRightKey;
+            }
+
+        }
 
 
         /// <summary>
@@ -46,7 +78,7 @@ namespace YC.Neo4j
                 propertiesStr = propertiesStr.Remove(propertiesStr.Length - 1, 1);
             }
 
-            string graphStr = $"CREATE (n:{lable} {{ {propertiesStr}}}) RETURN n";
+            string graphStr = $"CREATE ({defaultKey}:{lable} {{ {propertiesStr}}}) RETURN {defaultKey}";
             IResultCursor cursor = await session.RunAsync(graphStr);
             IResultSummary result = await cursor.ConsumeAsync();
             return result;
@@ -65,9 +97,9 @@ namespace YC.Neo4j
         public async Task<IResultSummary> MatchNodeByProperty(string labelA, string labelB, string relationName, string relationKey, string condition)
         {
 
-            string graphStr = $"MATCH (a:{labelA}), (b:{labelB}) " +
+            string graphStr = $"MATCH ({defaultLeftKey}:{labelA}), ({defaultRightKey}:{labelB}) " +
                 $"WHERE {condition} " +
-                $" MERGE(a) -[:{relationName}{{ relationKey: {relationKey}}}]->(b)";
+                $" MERGE({defaultLeftKey}) -[:{relationName}{{ relationKey: {relationKey}}}]->({defaultRightKey})";
             IResultCursor cursor = await session.RunAsync(graphStr);
             IResultSummary result = await cursor.ConsumeAsync();
             return result;
@@ -80,7 +112,8 @@ namespace YC.Neo4j
         /// <param name="setStr"> n.fileNo = 'aaa'</param>
         /// <returns></returns>
 
-        public async Task<IResultSummary> UpdateNode(string label,string condition,string setStr,string defaultKey="n") {
+        public async Task<IResultSummary> UpdateNode(string label, string condition, string setStr)
+        {
 
             string graphStr = $"match({defaultKey}: {label}{{ {condition} }}) set {setStr} return {defaultKey}";
             IResultCursor cursor = await session.RunAsync(graphStr);
@@ -96,27 +129,69 @@ namespace YC.Neo4j
         /// <param name="condition">条件</param>
         /// <param name="defaultKey">n 类似 lambda 语法糖中的x等</param>
         /// <returns></returns>
-        public async Task<List<T>> SelectNode<T>(string label, string condition, string defaultKey = "n") where T:class,new()
+        public async Task<List<T>> SelectNode<T>(string label, string condition) where T : class, new()
         {
-            IResultCursor resultCursor;
-            List<IRecord> records=new List<IRecord>();
-            string graphStr = $"match({defaultKey}: {label}) where {condition} return {defaultKey}";
-             await session.ReadTransactionAsync(async txc => {
-                  records = await txc.RunAsync(graphStr)
-                            .ContinueWith(r => r.Result.ToListAsync())
-                            .Unwrap();
-             });
-           var nodeList= records.Select(r => r[0].As<INode>());
-            List<T> list = new List<T>();
-           
-            foreach (var r in nodeList) {
 
-                list.Add(JsonConvert.SerializeObject(r.Properties).ToObject<T>());
+            List<IRecord> records = new List<IRecord>();
+            string graphStr = $"match({defaultKey}: {label}) where {condition} return {defaultKey}";
+            await session.ReadTransactionAsync(async txc =>
+            {
+                records = await txc.RunAsync(graphStr)
+                          .ContinueWith(r => r.Result.ToListAsync())
+                          .Unwrap();
+            });
+            List<T> list = new List<T>();
+            for (int i = 0; i < records.Count; i++)
+            {
+                var nodeList = records.Select(r => r[i].As<INode>());
+                foreach (var r in nodeList)
+                {
+                    list.Add(JsonConvert.SerializeObject(r.Properties).ToObject<T>());
+                }
             }
 
             return list;
 
         }
+        /// <summary>
+        /// 通过关系查询指定的节点
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="label"></param>
+        /// <param name="relationShipName"></param>
+        /// <param name="pageCount"></param>
+        /// <returns></returns>
+        public async Task<Tuple<List<T1>, List<T2>>> SelectNodeByRelationShoip<T1, T2>(
+            string leftLabel, string rightLabel, string relationShipName, int pageCount = 10) where T1 : class, new() where T2 : class, new()
+        {
+
+            List<IRecord> records = new List<IRecord>();
+            string graphStr = $"match ({leftLabel})-[:{relationShipName}]-({rightLabel}) return {leftLabel},{rightLabel} limit {pageCount}";
+            await session.ReadTransactionAsync(async txc =>
+            {
+                records = await txc.RunAsync(graphStr)
+                          .ContinueWith(r => r.Result.ToListAsync())
+                          .Unwrap();
+            });
+            List<T1> leftCollection = new List<T1>();
+            List<T2> rigthCollection = new List<T2>();
+            var temp = records.Where(x=>x.Keys.Where(t=>t.Contains(leftLabel)).Any()).Select(r => r[leftLabel].As<INode>());
+            var leftNodeList = records.Select(r => r[leftLabel].As<INode>()).Where(x=>x.Labels.Contains(leftLabel)).ToList();
+            var rigthNodeList = records.Select(r => r[rightLabel].As<INode>()).Where(x => x.Labels.Contains(rightLabel)).ToList(); ;
+            foreach (var l in leftNodeList)
+            {
+                leftCollection.Add(JsonConvert.SerializeObject(l.Properties).ToObject<T1>());
+            }
+
+            foreach (var r in rigthNodeList)
+            {
+                rigthCollection.Add(JsonConvert.SerializeObject(r.Properties).ToObject<T2>());
+            }
+
+            return new Tuple<List<T1>, List<T2>>(leftCollection, rigthCollection);
+
+        }
+
 
         /// <summary>
         /// 删除节点,如果deleteRelationShip 是false，但删除的有关联数据会异常，如果是关联，必须启动deleteRelationShip为true
@@ -126,9 +201,11 @@ namespace YC.Neo4j
         /// <param name="defaultKey"></param>
         /// <param name="deleteRelationShip">是否联同关联都删除</param>
         /// <returns></returns>
-        public async Task<IResultSummary> DeleteNode(string label, string condition, bool deleteRelationShip = false, string defaultKey = "n") {
+        public async Task<IResultSummary> DeleteNode(string label, string condition, bool deleteRelationShip = false, string defaultKey = "n")
+        {
             string relationDelete = "";
-            if (deleteRelationShip) {
+            if (deleteRelationShip)
+            {
 
                 relationDelete = " DETACH ";
             }

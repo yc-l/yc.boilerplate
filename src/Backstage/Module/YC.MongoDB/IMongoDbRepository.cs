@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace YC.MongoDB
 {
-    public interface IMongoDbService
+    public interface IMongoDbRepository
     {
          void Insert<T>(string collectionName, T input, FilterDefinition<T> filter = null) where T : class, new();
 

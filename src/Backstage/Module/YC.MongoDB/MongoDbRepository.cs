@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace YC.MongoDB
 {
-    public class MongoDbService: IMongoDbService
+    public class MongoDbRepository: IMongoDbRepository
     {
         private MongoClient _client;
         private IMongoDatabase _database;
-        public MongoDbService(string connectionString, string dbName)
+        public MongoDbRepository(string connectionString, string dbName)
         {
             var clientSettings = MongoClientSettings.FromUrl(new MongoUrl(connectionString));
             _client = new MongoClient(clientSettings);
