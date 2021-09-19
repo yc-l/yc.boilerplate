@@ -12,6 +12,8 @@ import NoPermission from '../view/NoPermission.vue'
 import SysAuditLogs from '../view/SysAuditLog/SysAuditLogs'
 import SysOrganizations from '../view/SysOrganization/SysOrganizations'
 
+
+
 Vue.use(VueRouter)
 
 const routes = [

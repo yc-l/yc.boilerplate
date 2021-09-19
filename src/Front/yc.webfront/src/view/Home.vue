@@ -4,8 +4,12 @@
     <el-header>
       <div>
         <h3>元磁之力快速开发系统</h3>
+          <div class="toggle-button" @click="toggleCollapse">
+             <i :class="isCollapse? 'el-icon-s-unfold' : 'el-icon-s-fold'  "></i>
+          </div>
+       
       </div>
-
+    
       <el-menu
         mode="horizontal"
         background-color="#118eeb"
@@ -30,7 +34,7 @@
     <!-- 下部区域 内部分为 左侧和中间区域 -->
     <el-container>
       <!-- 下部区域 左侧区域 -->
-      <el-aside width="230px">
+      <el-aside :width="isCollapse ? '64px' : '230px'">
         <el-menu
           class="el-menu-vertical"
           :unique-opened="true"
@@ -150,6 +154,10 @@
       },
 
     },
+     // 点击按钮，切换菜单的折叠与展开
+    toggleCollapse() {
+      this.isCollapse = !this.isCollapse
+    },
   }
 
 </script>
@@ -192,5 +200,15 @@
 
 .el-main {
   background-color: #f2f3f8;
+}
+.toggle-button {
+  //background-color: #4a5064;
+  font-size: 25px;
+  line-height: 24px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  margin-left: 15px;
 }
 </style>
