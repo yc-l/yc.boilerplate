@@ -1,4 +1,5 @@
 <template>
+
   <div
     class="login_container"
     v-loading="loading"
@@ -67,7 +68,7 @@
     </div>
    
   </div>
-   
+
 </template>
 
 <script>
@@ -189,11 +190,17 @@
 
 <!-- 一定要加入scoped 标识当前组件自己使用，去掉的话，会是全局-->
 <style lang="less" scoped>
+
+.bg-layer {
+    background: rgba(0, 0, 0, 0.7);
+	min-height: 100vh;
+}
+
 .login_container {
  // background-color: #2b4b6b;
   height: 100%;
   //background-image: url('../assets/images/bg/bg-5.jpg');
-   background: url('../assets/images/bg/bg.jpg') center center fixed
+   background: url('../assets/images/bg/b2.jpg') center center fixed
       no-repeat;
     background-size: cover;
   background-size: 100% 100%;
