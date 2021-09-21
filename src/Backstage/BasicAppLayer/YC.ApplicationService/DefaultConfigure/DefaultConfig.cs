@@ -17,9 +17,12 @@ namespace YC.ApplicationService
         public static string dbConfigFilePath = System.Environment.CurrentDirectory + "//DefaultConfig.json";
         public const string SESSION_TENANT = "TENANT_";//租户session 前缀
         public const string SESSIONT_TENANT_USER = "TENANT_{0}_USER";//用户session 前缀
+        public const string SESSION_VERIFICATIONCODE = "LOGIN_VERIFICATIONCODE";//登录验证码
         public const string CACHE_TOKEN_USER = "CACHE_TOKEN_USER_{0}";//用户缓存前缀
         public const string CACHE_RETOKEN_USER = "CACHE_RETOKEN_USER_{0}";//用户刷新缓存前缀
         public const string CACHE_USER_ROLE_PEMISSION = "CACHE_USER_ROLE_PEMISSION_{0}";//用户角色权限
+      
+        
         public static DbDto DbConfigDto
         {
             get

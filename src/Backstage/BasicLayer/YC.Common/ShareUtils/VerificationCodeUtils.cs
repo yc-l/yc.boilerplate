@@ -9,14 +9,14 @@ namespace YC.Common.ShareUtils {
     /// <summary>  
     ///Code 的摘要说明  
     /// </summary>  
-    public class CreateCode
+    public class VerificationCodeUtils
     {
         /// <summary>  
         /// 该方法用于生成指定位数的随机数  
         /// </summary>  
         /// <param name="VcodeNum">参数是随机数的位数</param>  
         /// <returns>返回一个随机数字符串</returns>  
-        private string RndNum(int VcodeNum)
+        private static string RndNum(int VcodeNum)
         {
             //验证码可以显示的字符集合  
             string Vchar = "1,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,p,p" +
@@ -50,7 +50,7 @@ namespace YC.Common.ShareUtils {
         /// </summary>
         /// <param name="validateCodeLength"></param>
         /// <returns></returns>
-        public static string getValidateCode(int validateCodeLength)
+        public static string GetValidateCode(int validateCodeLength)
         {
             // 定义可能出现的所有字符串,实际应用中有些字符很难区分,如0和o，可以去掉。
             string allChars = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -74,9 +74,9 @@ namespace YC.Common.ShareUtils {
         /// 该方法是将生成的随机数写入图像文件  
         /// </summary>  
         /// <param name="VNum">VNum是一个随机数</param>  
-        public MemoryStream Create(out string VNum)
+        public static MemoryStream CreateVerificationCodeImage(out string verificationCode)
         {
-            VNum = RndNum(4);
+            verificationCode = RndNum(4);
             Bitmap Img = null;
             Graphics g = null;
             MemoryStream ms = null;
@@ -88,7 +88,7 @@ namespace YC.Common.ShareUtils {
 
 
             //定义图像的大小，生成图像的实例  
-            Img = new Bitmap((int)VNum.Length * 18, 32);
+            Img = new Bitmap((int)verificationCode.Length * 18, 32);
 
             g = Graphics.FromImage(Img);//从Img对象生成新的Graphics对象    
 
@@ -102,7 +102,7 @@ namespace YC.Common.ShareUtils {
                 g.DrawRectangle(new Pen(Color.LightGray, 0), x, y, 1, 1);
             }
             //验证码绘制在g中  
-            for (int i = 0; i < VNum.Length; i++)
+            for (int i = 0; i < verificationCode.Length; i++)
             {
                 int cindex = random.Next(7);//随机颜色索引值  
                 int findex = random.Next(5);//随机字体索引值  
@@ -113,7 +113,7 @@ namespace YC.Common.ShareUtils {
                 {
                     ii = 2;
                 }
-                g.DrawString(VNum.Substring(i, 1), f, b, 3 + (i * 12), ii);//绘制一个验证字符  
+                g.DrawString(verificationCode.Substring(i, 1), f, b, 3 + (i * 12), ii);//绘制一个验证字符  
             }
             ms = new MemoryStream();//生成内存流对象  
             Img.Save(ms, ImageFormat.Jpeg);//将此图像以Png图像文件的格式保存到流中  

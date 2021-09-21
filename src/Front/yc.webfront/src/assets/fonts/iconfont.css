@@ -34,4 +34,6 @@
 .icon-baobiao:before { content: "\e902"; }
 
 .icon-lock_fill:before { content: "\e709"; }
-
+.icon-yanzhengma:before {
+  content: "\e61a";
+}
