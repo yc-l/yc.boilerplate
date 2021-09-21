@@ -12,7 +12,7 @@
  Target Server Version : 11002100
  File Encoding         : 65001
 
- Date: 09/09/2021 20:02:28
+ Date: 21/09/2021 23:26:52
 */
 
 
@@ -776,7 +776,7 @@ GO
 INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [View], [Api], [Path], [Icon], [Hidden], [IsActive], [Closable], [Opened], [NewWindow], [External], [Sort], [Description], [TenantId], [IsDeleted], [CreatorUserId], [CreationTime], [CreatedTime], [LastModifierUserId], [LastModificationTime]) VALUES (N'135', N'115', N'查看数据字典列表', N'dataDictionaryManager.viewDataDictionary', N'3', N'', N'SysDataDictionary/GetSysDataDictionaryList,SysDataDictionary/GetSysDataDictionaryFilterByPid', N'', N'', N'1', N'0', N'1', N'1', N'1', N'1', N'0', N'', N'1', N'0', N'1', N'2021-05-03 11:10:46.715', NULL, N'0', N'0001-01-01 00:00:00')
 GO
 
-INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [View], [Api], [Path], [Icon], [Hidden], [IsActive], [Closable], [Opened], [NewWindow], [External], [Sort], [Description], [TenantId], [IsDeleted], [CreatorUserId], [CreationTime], [CreatedTime], [LastModifierUserId], [LastModificationTime]) VALUES (N'136', N'0', N'首页', N'welcomePage', N'2', N'Welcome', N'', N'/welcome', N'el-icon-menu', N'1', N'0', N'1', N'1', N'1', N'1', N'1', N'', N'1', N'0', N'1', N'2021-05-03 11:16:56.241', NULL, N'0', N'2021-05-04 15:01:24')
+INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [View], [Api], [Path], [Icon], [Hidden], [IsActive], [Closable], [Opened], [NewWindow], [External], [Sort], [Description], [TenantId], [IsDeleted], [CreatorUserId], [CreationTime], [CreatedTime], [LastModifierUserId], [LastModificationTime]) VALUES (N'136', N'0', N'首页', N'welcomePage', N'2', N'Welcome', N'', N'/welcome', N'el-icon-s-home', N'1', N'0', N'1', N'1', N'1', N'1', N'1', N'', N'1', N'0', N'1', N'2021-05-03 11:16:56.241', NULL, N'0', N'2021-05-04 15:01:24')
 GO
 
 INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [View], [Api], [Path], [Icon], [Hidden], [IsActive], [Closable], [Opened], [NewWindow], [External], [Sort], [Description], [TenantId], [IsDeleted], [CreatorUserId], [CreationTime], [CreatedTime], [LastModifierUserId], [LastModificationTime]) VALUES (N'137', N'130', N'查看角色权限列表', N'rolePermissionManager.viewRolePermission', N'3', N'', N'SysRole/GetSysRoleList,SysPermission/GetSysPermissionList', N'', N'', N'1', N'0', N'1', N'1', N'1', N'1', N'0', N'', N'1', N'0', N'1', N'2021-05-03 11:19:55.125', NULL, N'0', N'2021-05-03 11:23:45')
@@ -798,6 +798,9 @@ INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [
 GO
 
 INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [View], [Api], [Path], [Icon], [Hidden], [IsActive], [Closable], [Opened], [NewWindow], [External], [Sort], [Description], [TenantId], [IsDeleted], [CreatorUserId], [CreationTime], [CreatedTime], [LastModifierUserId], [LastModificationTime]) VALUES (N'143', N'139', N'删除组织机构', N'sysOrganizationManager.deleteSysOrganization', N'3', N'', N'SysOrganization/DeleteSysOrganizationById', N'', N'', N'1', N'0', N'1', N'1', N'1', N'1', N'0', N'', N'1', N'0', N'1', N'2021-05-05 17:22:51.792', NULL, N'0', N'0001-01-01 00:00:00')
+GO
+
+INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [View], [Api], [Path], [Icon], [Hidden], [IsActive], [Closable], [Opened], [NewWindow], [External], [Sort], [Description], [TenantId], [IsDeleted], [CreatorUserId], [CreationTime], [CreatedTime], [LastModifierUserId], [LastModificationTime]) VALUES (N'145', N'0', N'看板', N'Board', N'2', N'board', N'', N'/board', N'el-icon-s-marketing', N'0', N'0', N'1', N'1', N'1', N'1', N'2', N'', NULL, N'0', N'0', NULL, NULL, N'0', N'0001-01-01 00:00:00')
 GO
 
 
@@ -969,105 +972,6 @@ GO
 -- ----------------------------
 -- Records of sys_rolepermission
 -- ----------------------------
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1211', N'1', N'111', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1212', N'1', N'113', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1213', N'1', N'126', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1214', N'1', N'127', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1215', N'1', N'128', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1216', N'1', N'129', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1217', N'1', N'114', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1218', N'1', N'122', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1219', N'1', N'123', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1220', N'1', N'124', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1221', N'1', N'125', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1222', N'1', N'130', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1223', N'1', N'131', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1224', N'1', N'137', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1225', N'1', N'116', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1226', N'1', N'117', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1227', N'1', N'138', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1228', N'1', N'112', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1229', N'1', N'118', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1230', N'1', N'119', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1231', N'1', N'120', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1232', N'1', N'121', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1233', N'1', N'115', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1234', N'1', N'132', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1235', N'1', N'133', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1236', N'1', N'134', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1237', N'1', N'135', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1238', N'1', N'136', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1239', N'1', N'139', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1240', N'1', N'140', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1241', N'1', N'141', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1242', N'1', N'142', N'1', N'2021-09-09 17:42:04')
-GO
-
-INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1243', N'1', N'143', N'1', N'2021-09-09 17:42:04')
-GO
-
 INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1244', N'2', N'113', N'1', N'2021-09-09 17:42:13')
 GO
 
@@ -1126,6 +1030,108 @@ INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [Creator
 GO
 
 INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1263', N'2', N'111', N'1', N'2021-09-09 17:42:13')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1264', N'1', N'111', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1265', N'1', N'113', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1266', N'1', N'126', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1267', N'1', N'127', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1268', N'1', N'128', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1269', N'1', N'129', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1270', N'1', N'114', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1271', N'1', N'122', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1272', N'1', N'123', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1273', N'1', N'124', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1274', N'1', N'125', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1275', N'1', N'130', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1276', N'1', N'131', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1277', N'1', N'137', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1278', N'1', N'116', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1279', N'1', N'117', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1280', N'1', N'138', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1281', N'1', N'112', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1282', N'1', N'118', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1283', N'1', N'119', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1284', N'1', N'120', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1285', N'1', N'121', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1286', N'1', N'115', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1287', N'1', N'132', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1288', N'1', N'133', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1289', N'1', N'134', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1290', N'1', N'135', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1291', N'1', N'136', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1292', N'1', N'139', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1293', N'1', N'140', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1294', N'1', N'141', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1295', N'1', N'142', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1296', N'1', N'143', N'1', N'2021-09-21 21:34:32')
+GO
+
+INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1297', N'1', N'145', N'1', N'2021-09-21 21:34:32')
 GO
 
 
@@ -1375,7 +1381,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_auditlog
 -- ----------------------------
-ALTER TABLE [dbo].[sys_auditlog] ADD CONSTRAINT [PK__sys_audi__3214EC07F4F97B40] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_auditlog] ADD CONSTRAINT [PK__sys_audi__3214EC072032692F] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
@@ -1384,7 +1390,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_datadictionary
 -- ----------------------------
-ALTER TABLE [dbo].[sys_datadictionary] ADD CONSTRAINT [PK__sys_data__3214EC077CF48D8D] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_datadictionary] ADD CONSTRAINT [PK__sys_data__3214EC0780909A47] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
@@ -1393,7 +1399,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_organization
 -- ----------------------------
-ALTER TABLE [dbo].[sys_organization] ADD CONSTRAINT [PK__sys_orga__3214EC07129484DA] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_organization] ADD CONSTRAINT [PK__sys_orga__3214EC07A0809FB0] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
@@ -1413,7 +1419,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_permission
 -- ----------------------------
-ALTER TABLE [dbo].[sys_permission] ADD CONSTRAINT [PK__sys_perm__3214EC0722F2F9EC] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_permission] ADD CONSTRAINT [PK__sys_perm__3214EC0752B6D962] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
@@ -1450,7 +1456,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_role
 -- ----------------------------
-ALTER TABLE [dbo].[sys_role] ADD CONSTRAINT [PK__sys_role__3214EC079E80D7BC] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_role] ADD CONSTRAINT [PK__sys_role__3214EC07E77EDD46] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
@@ -1470,7 +1476,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_rolepermission
 -- ----------------------------
-ALTER TABLE [dbo].[sys_rolepermission] ADD CONSTRAINT [PK__sys_role__3214EC079D8478ED] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_rolepermission] ADD CONSTRAINT [PK__sys_role__3214EC07AE93BC14] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
@@ -1489,7 +1495,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_user
 -- ----------------------------
-ALTER TABLE [dbo].[sys_user] ADD CONSTRAINT [PK__sys_user__3214EC0763B4FB81] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_user] ADD CONSTRAINT [PK__sys_user__3214EC07A716FD12] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
@@ -1498,7 +1504,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_usersysorganization
 -- ----------------------------
-ALTER TABLE [dbo].[sys_usersysorganization] ADD CONSTRAINT [PK__sys_user__3214EC076967222D] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_usersysorganization] ADD CONSTRAINT [PK__sys_user__3214EC07D6FD14B4] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
@@ -1517,7 +1523,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_usersysrole
 -- ----------------------------
-ALTER TABLE [dbo].[sys_usersysrole] ADD CONSTRAINT [PK__sys_user__3214EC07ECD939DE] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_usersysrole] ADD CONSTRAINT [PK__sys_user__3214EC075A198C60] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
