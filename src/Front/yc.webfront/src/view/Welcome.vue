@@ -5,7 +5,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>YC.Boilerplate 介绍</span>
-             Scroll down to see the bottom-right button.
+           
           </div>
           <div class="text item">
             &nbsp; &nbsp;
