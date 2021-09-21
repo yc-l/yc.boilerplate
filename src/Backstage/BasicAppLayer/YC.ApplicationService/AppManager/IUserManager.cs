@@ -21,7 +21,7 @@ namespace YC.ApplicationService
         /// <param name="pwd"></param>
         /// <param name="TenantId"></param>
         /// <returns></returns>
-        public IApiResult<UserDto> UserLogin(string userId, string pwd, string validateCode, int TenantId = 1);
+        public IApiResult<UserDto> UserLogin(string userId, string pwd,string guidKey, string validateCode, int TenantId = 1);
 
         /// <summary>
         /// 创建token

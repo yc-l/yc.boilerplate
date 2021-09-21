@@ -8,6 +8,7 @@ using System.Text;
 using YC.ApplicationService.DefaultConfigure;
 using YC.Common;
 using YC.Common.ShareUtils;
+using System.Linq;
 
 namespace YC.ApplicationService
 {
@@ -21,8 +22,8 @@ namespace YC.ApplicationService
         public const string CACHE_TOKEN_USER = "CACHE_TOKEN_USER_{0}";//用户缓存前缀
         public const string CACHE_RETOKEN_USER = "CACHE_RETOKEN_USER_{0}";//用户刷新缓存前缀
         public const string CACHE_USER_ROLE_PEMISSION = "CACHE_USER_ROLE_PEMISSION_{0}";//用户角色权限
-      
-        
+
+
         public static DbDto DbConfigDto
         {
             get
@@ -44,6 +45,13 @@ namespace YC.ApplicationService
                 return JsonConfig.GetOjectByJsonKey<DefaultAppConfigDto>("AppSetting");
             }
         }
+
+        public static string[] FilterUrls{
+            get {
+
+                return DefaultConfig.DefaultAppConfigDto.FilterUrls.Select(x => x.Url).ToArray();
+            }
+       }
 
         public static string JsonConfig { get; set; }
        

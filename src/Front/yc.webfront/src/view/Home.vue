@@ -1,5 +1,5 @@
 <template>
-  <el-container class="home-container">
+  <el-container class="home-container" style="overflow-y:visible;">
     <!-- header区域 -->
     <el-header>
       <div>
@@ -16,6 +16,21 @@
         text-color="#fff"
         active-text-color="#303133"
       >
+       <el-menu-item index="1"> <a
+       style="text-decoration:none"
+              target="_blank"
+              href="https://github.com/linbin524/yc.boilerplate"
+            >
+              <img
+                style="margin-right: 10px"
+                src="https://img.shields.io/github/stars/linbin524/yc.boilerplate?style=flat-square&label=Stars&logo=github"
+              />
+                <img
+                style="margin-right: 10px"
+                src="https://img.shields.io/github/forks/linbin524/yc.boilerplate?style=flat-square&label=Forks&logo=github"
+              />
+            </a></el-menu-item>
+       
         <el-submenu index="2" style="">
           <template slot="title">我的工作台</template>
           <el-menu-item index="2-1">
@@ -32,7 +47,7 @@
       </el-menu>
     </el-header>
     <!-- 下部区域 内部分为 左侧和中间区域 -->
-    <el-container>
+    <el-container style="overflow-y:visible;">
       <!-- 下部区域 左侧区域 -->
       <el-aside :width="isCollapse ? '64px' : '230px'">
         <el-menu
@@ -84,9 +99,14 @@
         </el-menu>
       </el-aside>
       <!-- 下部区域的中间区域 -->
-      <el-main>
-        <router-view></router-view>
+      <el-main style="overflow-y:visible;">
+        <div style="min-height:100%;">
+           <router-view></router-view>
+        </div>
+       
+        <el-footer>Copyright 2020-{{fullYear}} 元磁之力框架 YC.Boilerplate.AllRightsReserved.</el-footer>
       </el-main>
+       <el-backtop />
     </el-container>
   </el-container>
 </template>
@@ -95,7 +115,7 @@
     data() {
       return {
         isCollapse: false,
-
+        fullYear: new Date().getFullYear(),
         menuList: [], //菜单数据
         menuListNoChild: [], //菜单数据，没有子节点
         menuListHaveChild: [], //菜单数据，有子节点
@@ -165,6 +185,7 @@
 <style lang="less" scoped>
 .home-container {
   height: 100%;
+
 }
 
 .el-header {
@@ -211,4 +232,13 @@
   cursor: pointer;
   margin-left: 15px;
 }
+.el-footer {
+    background-color: #fff;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+ 
+    //bottom: 0px;
+
+  }
 </style>

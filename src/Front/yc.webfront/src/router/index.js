@@ -11,7 +11,7 @@ import SysDataDictionarys from '../view/SysDataDictionary/SysDataDictionarys'
 import NoPermission from '../view/NoPermission.vue'
 import SysAuditLogs from '../view/SysAuditLog/SysAuditLogs'
 import SysOrganizations from '../view/SysOrganization/SysOrganizations'
-
+import Board from '../view/Board'
 
 
 Vue.use(VueRouter)
@@ -20,7 +20,7 @@ const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', name: 'Login', component: Login },
   { path: '/noPermission', name: 'noPermission', component: NoPermission },
-     
+  
   {
     path: '/home',
     name: 'home',
@@ -35,6 +35,7 @@ const routes = [
       { path: '/sysDataDictionarys', component: SysDataDictionarys },
       { path: '/sysAuditLogs', component: SysAuditLogs },
       { path: '/sysOrganizations', component: SysOrganizations },
+      { path: '/board', component: Board },  
 
     ]
   }    
@@ -53,7 +54,7 @@ router.beforeEach((to, from, next) => {
    //菜单权限过滤
   const tempData = JSON.parse(window.sessionStorage.getItem('permissions'))
   const hasPermission = tempData.some(x => x.path.indexOf(to.path)!==-1)
-  if (!hasPermission&&to.path!=='/home') return next('/noPermission')//如果没有权限就直接让他跳转没有权限页面
+  if (!(hasPermission&&to.path!=='/home')) return next('/noPermission')//如果没有权限就直接让他跳转没有权限页面
   
   next() /* 原先正常跳转 */
 })

@@ -88,7 +88,7 @@ namespace YC.Common.ShareUtils {
 
 
             //定义图像的大小，生成图像的实例  
-            Img = new Bitmap((int)verificationCode.Length * 18, 32);
+            Img = new Bitmap((int)verificationCode.Length * 18, 40);
 
             g = Graphics.FromImage(Img);//从Img对象生成新的Graphics对象    
 
@@ -101,12 +101,38 @@ namespace YC.Common.ShareUtils {
                 int y = random.Next(Img.Height);
                 g.DrawRectangle(new Pen(Color.LightGray, 0), x, y, 1, 1);
             }
+
+            //画图片的背景噪音点
+            for (int i = 0; i < 20; i++)
+            {
+                int x1 = random.Next(Img.Width);
+                int x2 = random.Next(Img.Width);
+                int y1 = random.Next(Img.Height);
+                int y2 = random.Next(Img.Height);
+                g.DrawLine(new Pen(Color.Silver), x1, y1, x2, y2);
+            }
+
+            //画图片的背景噪音线 
+            for (int i = 0; i < 2; i++)
+            {
+                int x1 = 0;
+                int x2 = Img.Width;
+                int y1 = random.Next(Img.Height);
+                int y2 = random.Next(Img.Height);
+                if (i == 0)
+                {
+                    g.DrawLine(new Pen(Color.Gray, 2), x1, y1, x2, y2);
+                }
+
+            }
+
+
             //验证码绘制在g中  
             for (int i = 0; i < verificationCode.Length; i++)
             {
                 int cindex = random.Next(7);//随机颜色索引值  
                 int findex = random.Next(5);//随机字体索引值  
-                Font f = new System.Drawing.Font(fonts[findex], 13, System.Drawing.FontStyle.Bold);//字体  
+                Font f = new System.Drawing.Font(fonts[findex], 15, System.Drawing.FontStyle.Regular);//字体  
                 Brush b = new System.Drawing.SolidBrush(c[cindex]);//颜色  
                 int ii = 4;
                 if ((i + 1) % 2 == 0)//控制验证码不在同一高度  
@@ -116,7 +142,7 @@ namespace YC.Common.ShareUtils {
                 g.DrawString(verificationCode.Substring(i, 1), f, b, 3 + (i * 12), ii);//绘制一个验证字符  
             }
             ms = new MemoryStream();//生成内存流对象  
-            Img.Save(ms, ImageFormat.Jpeg);//将此图像以Png图像文件的格式保存到流中  
+            Img.Save(ms, ImageFormat.Jpeg);//将此图像以图像文件的格式保存到流中  
 
             //回收资源  
             g.Dispose();

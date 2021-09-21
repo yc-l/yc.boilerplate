@@ -32,8 +32,7 @@ namespace YC.ServiceWebApi
             string tenantObj = "";
             string requestString = "";
             var requestHeader = _httpContextAccessor.HttpContext.Request.Headers.Where(x => x.Key == "accept").Select(x => x.Value).FirstOrDefault();
-            string[] filterActions = new string[] { "/api/Identity/GetTokenByLogin", "/api/Identity/RefreshToken",
-                "/api/Identity/GetGuid", "/api/Identity/GetVerificationCode" };
+            string[] filterActions = DefaultConfig.FilterUrls;
             //如果是还没登录
             if (filterActions.Contains(_httpContextAccessor.HttpContext.Request.Path.Value))
             {
@@ -88,7 +87,7 @@ namespace YC.ServiceWebApi
             //初始化做一次数据配置导入
             if (string.IsNullOrEmpty(tenantObj))
             {
-                tenantObj = "0";
+                tenantObj =DefaultConfig.TenantSettingDto.DefaultTenantId.ToString();
             }
             var data = DefaultConfig.TenantSettingDto.TenantList.Where(x => x.TenantId == int.Parse(tenantObj)).FirstOrDefault();
 
