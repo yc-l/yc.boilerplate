@@ -21,7 +21,7 @@
         :model="loginForm"
         :rules="loginFormRules"
         class="login_form"
-        style="margin-top: -25px"
+        style="margin-top: -55px"
       >
         <el-form-item prop="tenantId">
           <el-select
@@ -51,17 +51,28 @@
             type="password"
           ></el-input>
         </el-form-item>
-   
+        <!--验证码-->
+     <el-form-item prop="verificationCode">
+       <el-row :gutter="20">
+  <el-col :span="18"> <el-input
+            v-model="loginForm.password"
+            placeholder="验证码"
+            type="text"
+          ></el-input></el-col>
+  <el-col :span="6"> <img :src="this.$getVerificationCodeUrl" alt=""/></el-col>
+ 
+</el-row>
+         
+         
+        </el-form-item>
+
         <!-- 登录按钮 -->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
-      </el-form>
-        <el-form-item class="btns">
-          <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="info" @click="resetLoginForm">重置</el-button>
-        </el-form-item>
+    
+     
       </el-form>
     
   
@@ -85,6 +96,7 @@
           tenantId: 1
         },
         loading: false,
+        loginGuid:'',//验证码配套的guid
         isMultiTnancy:true,//是否开启多租户
 
         /* 表单规则验证 */
@@ -209,8 +221,8 @@
 }
 
 .login_box {
-  width: 380px;
-  height: 420px;
+  width: 350px;
+  height: 480px;
   
   box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
   /*   background-image: url("../assets/images/bg/bg-5.jpg");

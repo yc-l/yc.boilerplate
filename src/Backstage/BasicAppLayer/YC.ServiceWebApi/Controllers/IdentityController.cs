@@ -19,6 +19,7 @@ using YC.Model.DbEntity;
 using YC.Core;
 using MongoDB.Driver;
 using YC.MongoDB;
+using YC.Core.Cache;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,13 +38,14 @@ namespace YC.ServiceWebApi.Controllers
     {
         public readonly ISysUserAppService _sysUserService;
         public readonly IUserManager _userManager;
-      
-        public IdentityController(ISysUserAppService sysUserService, IUserManager userManager)
+        public ICacheManager _cacheManager;
+        public IdentityController(ISysUserAppService sysUserService, IUserManager userManager,   ICacheManager cacheManager)
         {
             _sysUserService = sysUserService;
             _userManager = userManager;
-        
-          
+            _cacheManager = cacheManager;
+
+
         }
         /// <summary>
         /// 获取token，通过登录
@@ -57,7 +59,7 @@ namespace YC.ServiceWebApi.Controllers
         {
            
             //登录，先去数据库做验证，成功了，说明可以进行token创建，往payLoad字典中加入,如果没有传TenantId 默认就为默认租户
-            IApiResult<UserDto> result = _userManager.UserLogin(loginUserDto.UserId, loginUserDto.Pwd, loginUserDto.TenantId == 0 ? 1 : loginUserDto.TenantId);
+            IApiResult<UserDto> result = _userManager.UserLogin(loginUserDto.UserId, loginUserDto.Pwd, loginUserDto.ValidateCode, loginUserDto.TenantId == 0 ? 1 : loginUserDto.TenantId);
             return new JsonResult(result);
 
 
@@ -73,7 +75,28 @@ namespace YC.ServiceWebApi.Controllers
             return ApiResult.Result<string>(state, tokenStr, msg);
         }
 
-     
+        /// <summary>
+        /// 返回一个guid
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IApiResult GetGuid()
+        {
+            return ApiResult.Result<string>(true, Guid.NewGuid().ToString(), "");
+        }
+
+        /// <summary>
+        /// 返回验证码如图片
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GetVerificationCode()
+        {
+            string verificationCode = "";
+            var imageMemoryStream=  VerificationCodeUtils.CreateVerificationCodeImage(out verificationCode);        
+            _userManager.SetSession(DefaultConfig.SESSION_VERIFICATIONCODE, verificationCode);
+            return new FileStreamResult(imageMemoryStream, "image/jpeg");
+        }
 
     }
 

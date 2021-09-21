@@ -43,10 +43,13 @@ namespace YC.ApplicationService
         /// <param name="pwd"></param>
         /// <param name=DefaultConfig.TenantSettingDto.TenantKeyName></param>
         /// <returns></returns>
-        public IApiResult<UserDto> UserLogin(string userId, string pwd, int tenantId = 1)
+        public IApiResult<UserDto> UserLogin(string userId, string pwd,string validateCode, int tenantId = 1)
         {
             var res = new ApiResult<UserDto>();
             UserDto userDto = new UserDto();
+            if (this.GetSession(DefaultConfig.SESSION_VERIFICATIONCODE) != validateCode) {
+                return res.NotOk("验证码错误！");
+            }
             var loginDto =  _sysUserService.Login(userId, pwd, tenantId);
             if (loginDto.State)
             {

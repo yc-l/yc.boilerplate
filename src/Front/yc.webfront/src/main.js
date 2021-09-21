@@ -47,7 +47,7 @@ Vue.prototype._ = _
 // 配置全局请求后端url路径
 Vue.prototype.$loginUrl = "Identity/GetTokenByLogin"
 Vue.prototype.$refreshTokenUrl = "Identity/RefreshToken"//刷新token
-
+Vue.prototype.$getVerificationCodeUrl =axios.defaults.baseURL+ "Identity/GetVerificationCode"//获取验证码
 Vue.prototype.$postRequest = async function (url, params) {
   const {
     data: res
