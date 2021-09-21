@@ -48,6 +48,7 @@ Vue.prototype._ = _
 Vue.prototype.$loginUrl = "Identity/GetTokenByLogin"
 Vue.prototype.$refreshTokenUrl = "Identity/RefreshToken"//刷新token
 Vue.prototype.$getVerificationCodeUrl =axios.defaults.baseURL+ "Identity/GetVerificationCode"//获取验证码
+Vue.prototype.$getKey =axios.defaults.baseURL+ "Identity/GetGuid"//获取唯一Key
 Vue.prototype.$postRequest = async function (url, params) {
   const {
     data: res

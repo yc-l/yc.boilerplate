@@ -129,7 +129,7 @@ namespace YC.ServiceWebApi.Filter
             _requestInfoDto.ParamsString = context.ActionArguments?.ToIndentedJson();
 
             #endregion
-            string[] filterActions = new string[] { "/api/Identity/GetTokenByLogin" };
+            string[] filterActions = DefaultConfig.FilterUrls;
             var controllerName = context.RouteData.Values["controller"]?.ToString();//获取当前控制器名称
             if (filterActions.Any(x => x.Contains(context.HttpContext.Request.Path)))
             {//可以放行

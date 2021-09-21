@@ -17,6 +17,6 @@ namespace ServiceWebApi.Dto
         public int TenantId { get; set; }
         [JsonProperty("validateCode", Required = Required.Always)]
         public string ValidateCode { get; set; }
-        
+        public string GuidKey { get; set; }
     }
 }

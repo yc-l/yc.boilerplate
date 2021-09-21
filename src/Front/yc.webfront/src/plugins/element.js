@@ -26,6 +26,7 @@ import {
   CheckboxGroup,
   Checkbox,
   Select,
+  Backtop,
 } from 'element-ui'
 Vue.use(Button)
 Vue.use(Form)
@@ -52,6 +53,7 @@ Vue.use(Dialog)
 Vue.use(CheckboxGroup)
 Vue.use(Checkbox)
 Vue.use(Select)
+Vue.use(Backtop)
 
 
 

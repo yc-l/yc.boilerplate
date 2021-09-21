@@ -59,12 +59,17 @@ namespace YC.ServiceWebApi.Controllers
         {
            
             //登录，先去数据库做验证，成功了，说明可以进行token创建，往payLoad字典中加入,如果没有传TenantId 默认就为默认租户
-            IApiResult<UserDto> result = _userManager.UserLogin(loginUserDto.UserId, loginUserDto.Pwd, loginUserDto.ValidateCode, loginUserDto.TenantId == 0 ? 1 : loginUserDto.TenantId);
+            IApiResult<UserDto> result = _userManager.UserLogin(loginUserDto.UserId, loginUserDto.Pwd, loginUserDto.GuidKey, loginUserDto.ValidateCode, loginUserDto.TenantId == 0 ? 1 : loginUserDto.TenantId);
             return new JsonResult(result);
 
 
         }
 
+        /// <summary>
+        /// 刷新token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpPost]
         public IApiResult RefreshToken(string token)
         {
@@ -89,13 +94,15 @@ namespace YC.ServiceWebApi.Controllers
         /// 返回验证码如图片
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        public IActionResult GetVerificationCode()
+        [HttpGet]
+        public IActionResult GetVerificationCode(string guidKey)
         {
             string verificationCode = "";
             var imageMemoryStream=  VerificationCodeUtils.CreateVerificationCodeImage(out verificationCode);        
-            _userManager.SetSession(DefaultConfig.SESSION_VERIFICATIONCODE, verificationCode);
-            return new FileStreamResult(imageMemoryStream, "image/jpeg");
+           // _userManager.SetSession(DefaultConfig.SESSION_VERIFICATIONCODE, verificationCode);
+            _cacheManager.Add(guidKey, verificationCode);
+            var bytes = imageMemoryStream.GetBuffer();
+            return new FileContentResult(bytes, "image/jpeg");
         }
 
     }

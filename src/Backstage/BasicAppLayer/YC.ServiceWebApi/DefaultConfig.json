@@ -67,8 +67,19 @@
     //MongoDb数据库连接字符串
     "MongoDbString": "mongodb://admin:123456@127.0.0.1:27017/BlockChainDb?authSource=BlockChainDb",
     //Mongodb 数据库名
-    "MongoDbName": "BlockChainDb"
+    "MongoDbName": "BlockChainDb",
+    //不需要token，可以请求访问
+    "FilterUrls": [
+      { "url": "/api/Identity/GetTokenByLogin" },
+      { "url": "/api/Identity/RefreshToken" },
+      { "url": "/api/Identity/GetGuid" },
+      { "url": "/api/Identity/GetVerificationCode" }
+    ]
+
+
   },
+  //verify token
+  
   //默认租户配置
   "TenantSetting": {
 
