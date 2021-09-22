@@ -47,11 +47,11 @@
 
       </el-form>
 
-
+ 
     </div>
 
   </div>
-
+ 
 </template>
 
 <script>
@@ -72,6 +72,7 @@
         loginGuid: '', //验证码配套的guid
         isMultiTnancy: true, //是否开启多租户
         imgCode: '', //验证码
+        errorInfo:"如果遇到无法登录情况，可能是其他体验者操作失误删除数据，请等待2分钟后重新体验，本演示系统采用定时服务重置数据库。",
         /* 表单规则验证 */
         loginFormRules: {
           userName: [
@@ -164,7 +165,7 @@
           this.loading = false
           console.log(responseData)
           this.changeCodeImg()//刷新验证码
-          if (responseData.code != 200) return this.$msg.error(responseData.message)
+          if (responseData.code != 200) return this.$msg.error(responseData.message+" "+this.errorInfo)
           this.$msg.success('登录成功！')
           //将当前的token 存储到sessionStorage
           window.sessionStorage.clear()
