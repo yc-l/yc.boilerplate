@@ -20,23 +20,12 @@ namespace YC.QuartzService.JobService.CreateDirJobService
     //2、服务配置，参数配置
     public class CreateDirFolderJobsConfig : IJobsConfig
     {
-
-        Dictionary<string, string> cronDic = new Dictionary<string, string>();
-
-        public CreateDirFolderJobsConfig()
-        {
-
-            string cron = CreateDirFolderCronConfig.CreateDirFolderServiceJobTriggerCron;
-
-            cronDic.Add("CreateDirFolderServiceJobTriggerCron", cron);
-
-        }
-
-
+        //时间表达式，执行任务时间
+        public static string cron = "0/5 * * * * ? *";
         /// <summary>
         /// 创建文件夹定时服务
         /// </summary>
-        public QuartzJobsCollection CreateDirFolderJob
+        public  QuartzJobsCollection CreateDirFolderJob
         {
 
             get
@@ -50,7 +39,7 @@ namespace YC.QuartzService.JobService.CreateDirJobService
                 ITrigger createDirFolderTrigger = TriggerBuilder.Create()
                                             .WithIdentity("CreateDirFolderTrigger_key", "CreateDirFolderTrigger_Group").StartNow()
                                             //现在开始
-                                            .WithCronSchedule(cronDic["CreateDirFolderServiceJobTriggerCron"])// 
+                                            .WithCronSchedule(cron)// 
                                             .Build();
 
                 HashSet<ITrigger> triggerList = new HashSet<ITrigger>();

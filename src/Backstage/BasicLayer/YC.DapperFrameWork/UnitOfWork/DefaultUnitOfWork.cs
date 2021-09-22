@@ -21,6 +21,7 @@ namespace YC.DapperFrameWork
             if (tenant != null)
             {
                 _connection = GetOpenConnection(tenant.TenantDbString, dbtype);
+               
             }
             else
             {

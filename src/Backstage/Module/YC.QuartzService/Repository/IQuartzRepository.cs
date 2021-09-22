@@ -26,14 +26,14 @@ namespace YC.QuartzServiceModule
         /// </summary>
         /// <param name="jobLibrayList"></param>
         /// <returns></returns>
-        Task<List<JobsTrigger>> DefaultRunningServer(List<IJobLibray> jobLibrayList);
+        Task<List<JobsTrigger>> DefaultRunningServer(List<QuartzJobsCollection> jobLibrayList);
         /// <summary>
         /// 加载指定插件dll 并自定运行
         /// </summary>
         /// <param name="path">指定插件dll绝对地址</param>
         /// <param name="error">错误信息</param>
         /// <returns>返回加载结果</returns>
-        Task<WorkResult> AddQZServerDLL(string path);
+        //Task<WorkResult> AddQZServerDLL(string path);
 
         /// <summary>
         /// 添加 任务 直接使用

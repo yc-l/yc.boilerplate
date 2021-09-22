@@ -61,4 +61,13 @@
     <ProjectReference Include="..\YC.ApplicationService\YC.ApplicationService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DbSqlFile\bigdatadb.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DbSqlFile\bigdatadb2.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
