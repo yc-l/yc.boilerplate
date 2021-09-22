@@ -23,22 +23,14 @@ namespace YC.QuartzService.JobService.WriteFileJobService
 
     public class WriteFileJobsConfig : IJobsConfig
     {
-       
-        Dictionary<string, string> cronDic = new Dictionary<string, string>();
-
-        public WriteFileJobsConfig() {
-          
-            string temp1 = WriteFileCronConfig.WriteFileServiceJobTriggerCron;
-
-            cronDic.Add("WriteFileServiceJobTriggerCron", temp1);
-
-        }
+        //时间表达式，执行任务时间
+        public static string cron = "0/5 * * * * ? *";
 
 
         /// <summary>
         /// 文件操作写入文件定时服务
         /// </summary>
-        public QuartzJobsCollection WriteFileJob
+        public  QuartzJobsCollection WriteFileJob
         {
 
             get
@@ -52,7 +44,7 @@ namespace YC.QuartzService.JobService.WriteFileJobService
                 ITrigger writeFileTrigger = TriggerBuilder.Create()
                                             .WithIdentity("WriteFileTrigger_key", "WriteFileTrigger_Group").StartNow()
                                             //现在开始
-                                            .WithCronSchedule(cronDic["WriteFileServiceJobTriggerCron"])// 
+                                            .WithCronSchedule(cron)// 
                                             .Build();
            
 

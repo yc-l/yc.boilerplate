@@ -10,4 +10,13 @@
     <ProjectReference Include="..\..\Module\YC.QuartzService\YC.QuartzService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DbSqlFile\bigdatadb.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DbSqlFile\bigdatadb2.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

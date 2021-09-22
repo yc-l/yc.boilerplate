@@ -57,6 +57,7 @@ using YC.QuartzService.JobService.WriteFileJobService;
 using YC.QuartzService.JobService.DeleteLogJobService;
 using YC.QuartzServiceModule;
 using Quartz;
+using YC.QuartzServiceModule.Model;
 
 namespace YC.ServiceWebApi
 {
@@ -419,17 +420,13 @@ namespace YC.ServiceWebApi
             _quartzRepository = quartzRepository;
             await _scheduler.Start();
 
-            List<IJobLibray> jobLibraysList = new List<IJobLibray>();
-            //jobLibraysList.Add(new CreateDirFolderJobLibray());
-            //jobLibraysList.Add(new WriteFileJobLibray());
-            //jobLibraysList.Add(new DeleteLogJobLibray());
+            List<QuartzJobsCollection> jobLibraysList = new List<QuartzJobsCollection>();
+            jobLibraysList.Add(new InitDbJobsConfig().InitDbJob);
 
             var list = await _quartzRepository.DefaultRunningServer(jobLibraysList);
 
-
             //app.UseMvc(routes =>
             //{
-
             //    routes.MapRoute("default", "api/[area]/[controller]/[action]/{id?}");
             //});
 

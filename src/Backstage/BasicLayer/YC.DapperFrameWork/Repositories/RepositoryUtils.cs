@@ -101,7 +101,6 @@ namespace Dapper
             }
         }
 
-
         #region 创建表，待完善
         /// <summary>
         /// 创建表
@@ -330,7 +329,7 @@ namespace Dapper
 
             if (Debugger.IsAttached)
                 Trace.WriteLine(String.Format("Get<{0}>: {1} with Id: {2}", currenttype, sb, id));
-
+           
             return connection.Query<T>(sb.ToString(), dynParms, transaction, true, commandTimeout).FirstOrDefault();
         }
 

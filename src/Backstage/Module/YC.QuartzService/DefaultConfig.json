@@ -1,0 +1,186 @@
+﻿{
+
+  //mysql 默认数据库，主要用于第一次自动化创建数据库使用
+  "DefaultMysqlConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=mysql;",
+  //这个是创建数据库，使用时候改为自己项目数据库，如果第一次运行，系统回去检查是否存在，不存在会自动创建，存在则是要清理同名，才可以使用，也可以强制覆盖
+  "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
+  //默认第二个数据库
+  "DefaultSecondConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
+
+  "CacheRedisConnectionString": "",
+  //覆盖已经存在的数据库
+  "IsCoverExistDb": true,
+  //默认连接数据库类别
+  "DefaultDbType": "MySql",
+  //是否开启读写分离
+  "IsOpenReadWriteSeparation": true,
+  //读写分离结合
+  "ReadDbConnectionStringList": [
+    {
+      "Name": "read_mariadb1",
+      "ConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+    },
+    {
+      "Name": "read_mariadb2",
+      "ConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+    }
+  ],
+  "WriteDbConnectionStringList": [
+    {
+      "Name": "write_mariadb1",
+      "ConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+    },
+    {
+      "Name": "write_mariadb2",
+      "ConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+    }
+
+  ],
+  //redis Session 连接
+  "ConnectionRedis": {
+    "Connection": "127.0.0.1:6379,allowAdmin=true,password=123qwe,defaultdatabase=0",
+    "InstanceName": "Redis",
+    "SessionTimeOut": "20"
+  },
+  //系统默认设置
+  "AppSetting": {
+    "IsDebug": false, //如果是true 直接显示相关的异常报错信息，false 显示处理过的异常信息等
+    //拦截只要有这个关键字，全局异常拦截器会自动识别获取
+    "ExceptionKey": "错误信息：",
+    //全局默认错误提示文本
+    "DefaultExceptionString": "程序异常，请稍后再试！",
+    //缓存过期时间7200秒=2小时`
+    "CacheExpire": 7200,
+    //token 过期时间
+    "TokenExpire": 7200,
+    //RefreshTokenExpire 过期时间
+    "RefreshTokenExpire": 7200,
+    //token 验证时候的用于缓存中的查找保存信息
+    "TokenKeyName": "TokenKey",
+
+    "TokenIssuer": "元磁之力",
+    "TokenAudience": "http://localhost:5000",
+    //NGINX  代理服务器ip范围
+    "NginxAgentIP": "106.54.0.0",
+    //是否校验token唯一性【单点登录】，演示系统默认不开启
+    "VerifyTokenUniqueness": false,
+    //MongoDb数据库连接字符串
+    "MongoDbString": "mongodb://admin:123456@127.0.0.1:27017/BlockChainDb?authSource=BlockChainDb",
+    //Mongodb 数据库名
+    "MongoDbName": "BlockChainDb",
+    //不需要token，可以请求访问
+    "FilterUrls": [
+      { "url": "/api/Identity/GetTokenByLogin" },
+      { "url": "/api/Identity/RefreshToken" },
+      { "url": "/api/Identity/GetGuid" },
+      { "url": "/api/Identity/GetVerificationCode" }
+    ]
+
+
+  },
+  //verify token
+  
+  //默认租户配置
+  "TenantSetting": {
+
+    /** 数据库类别定义
+        //MySql = 0,
+        //SqlServer = 1,
+        //PostgreSQL = 2,
+        //Oracle = 3,
+        //Sqlite = 4,
+        //OdbcOracle = 5,
+        //OdbcSqlServer = 6,
+        //OdbcMySql = 7,
+        //OdbcPostgreSQL = 8,
+        ////
+        //// 摘要:
+        ////     通用的 Odbc 实现，只能做基本的 Crud 操作
+        ////     不支持实体结构迁移、不支持分页（只能 Take 查询）
+        ////     通用实现为了让用户自己适配更多的数据库，比如连接 mssql 2000、db2 等数据库
+        ////     默认适配 SqlServer，可以继承后重新适配 FreeSql.Odbc.Default.OdbcAdapter，最好去看下代码
+        ////     适配新的 OdbcAdapter，请在 FreeSqlBuilder.Build 之后调用 IFreeSql.SetOdbcAdapter 方法设置
+        //Odbc = 9,
+        ////
+        //// 摘要:
+        ////     武汉达梦数据库有限公司，基于 Odbc 的实现
+        //OdbcDameng = 10,
+        ////
+        //// 摘要:
+        ////     Microsoft Office Access 是由微软发布的关联式数据库管理系统
+        //MsAccess = 11,
+        ////
+        //// 摘要:
+        ////     武汉达梦数据库有限公司，基于 DmProvider.dll 的实现
+        //Dameng = 12,
+        ////
+        //// 摘要:
+        ////     北京人大金仓信息技术股份有限公司，基于 Odbc 的实现
+        //OdbcKingbaseES = 13,
+        ////
+        //// 摘要:
+        ////     天津神舟通用数据技术有限公司，基于 System.Data.OscarClient.dll 的实现
+        //ShenTong = 14,
+        ////
+        //// 摘要:
+        ////     北京人大金仓信息技术股份有限公司，基于 Kdbndp.dll 的实现
+        //KingbaseES = 15,
+        ////
+        //// 摘要:
+        ////     Firebird 是一个跨平台的关系数据库，能作为多用户环境下的数据库服务器运行，也提供嵌入式数据库的实现
+        //Firebird = 16,
+        ////
+        //// 摘要:
+        ////     自定义适配器，访问任何数据库
+        ////     注意：该类型不提供 DbFirst/CodeFirst 功能
+        //Custom = 17
+    
+    **/
+
+    "MultiTnancy": true, //前端登录和后端要保持一致，否则拦截器那边会异常报错
+    "TenantKeyName": "tenantId",
+    "DefaultTenantId": 1,
+    "DataType": 0,
+    //sqlserver
+    //"DefaultDbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;",
+
+    //mysql
+    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
+    "TenantList": [
+      {
+        "TenantId": 1,
+        "TenantName": "租户1",
+        "IsActived": true,
+        "DataType": 0,
+        //sqlserver
+        //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;"
+        //mysql
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
+      },
+      {
+        "TenantId": 2,
+        "TenantName": "租户2",
+        "IsActived": true,
+        "DataType": 0,
+        //sqlserver
+        //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB2;User Id = sa;Password = 123456;"
+        //mysql
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB2;"
+      },
+      {
+        "TenantId": 3,
+        "TenantName": "租户3",
+        "IsActived": true,
+        "DataType": 0,
+        //sqlserver
+        //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB3;User Id = sa;Password = 123456;"
+        //mysql
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB3;"
+      }
+
+    ]
+
+
+  }
+
+}

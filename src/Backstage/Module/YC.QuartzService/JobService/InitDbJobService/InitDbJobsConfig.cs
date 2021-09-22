@@ -21,38 +21,28 @@ using YC.QuartzServiceModule.Model;
 namespace YC.QuartzService.JobService.DeleteLogJobService
 {
 
-    public class DeleteLogJobsConfig: IJobsConfig
-    {
-       
-        Dictionary<string, string> cronDic = new Dictionary<string, string>();
-
-        public DeleteLogJobsConfig() {
-          
-            string temp1 = DeleteLogCronConfig.DeleteLogServiceJobTriggerCron;
-
-            cronDic.Add("DeleteLogServiceJobTriggerCron", temp1);
-
-        }
-
+    public class InitDbJobsConfig: IJobsConfig
+    {   //时间表达式，执行任务时间 两分钟执行一次
+        public static string cron = "0 0/2 * * * ? ";
 
         /// <summary>
         ///删除日志
         /// </summary>
-        public QuartzJobsCollection WriteFileJob
+        public  QuartzJobsCollection InitDbJob
         {
 
             get
             {
 
-                IJobDetail writeFileJob = JobBuilder.Create<DeleteLogServiceJob>()  //创建一个作业
-                    .WithIdentity("DeleteLogJob_Key", "DeleteLogJob_Group")//自定义
+                IJobDetail writeFileJob = JobBuilder.Create<InitDbServiceJob>()  //创建一个作业
+                    .WithIdentity("InitDbJob_Key", "InitDbJob_Group")//自定义
                     .Build();
 
 
                 ITrigger writeFileTrigger = TriggerBuilder.Create()
-                                            .WithIdentity("DeleteLogTrigger_key", "DeleteLogTrigger_Group").StartNow()
+                                            .WithIdentity("InitDbJobTrigger_key", "InitDbJobTrigger_Group").StartNow()
                                             //现在开始
-                                            .WithCronSchedule(cronDic["DeleteLogServiceJobTriggerCron"])// 
+                                            .WithCronSchedule(cron)// 
                                             .Build();
            
 

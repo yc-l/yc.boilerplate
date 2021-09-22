@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using YC.QuartzService.Model;
+using YC.QuartzService.JobService.CreateDirJobService;
 //------------------------------------------------
 //   服务仓储
 // 
@@ -47,19 +48,19 @@ namespace YC.QuartzServiceModule
         /// 加载默认插件服务
         /// </summary>
         /// <param name="pluginDLLDir">插件服务绝对路径文件夹</param>
-        public async Task<List<JobsTrigger>> DefaultRunningServer(List<IJobLibray> jobLibrayList)
+        public async Task<List<JobsTrigger>> DefaultRunningServer(List<QuartzJobsCollection> jobLibrayList)
         {
-
+            IJobsConfig temp = new CreateDirFolderJobsConfig();
+            
             try
             {
                 foreach (var j in jobLibrayList)
                 {
 
-                    foreach (var c in j.GetJobList())
-                    {   //new QuartzJobsCollection() { JobDetail = createDirFolderJob, Trigger = triggerList }
-                        await AddQuartzServer(c.JobDetail, c.Trigger);//将指定的Job和trigger 加入到scheduler中，以后数据库模式，就读取，创建，来进行维护。全部重启的话，先停止所有，然后，再次加入进行。
-                        await UpdateJobsTriggerList(c.JobDetail.Key);
-                    }
+                    var t = new CreateDirFolderJobsConfig();
+
+                    await AddQuartzServer(j.JobDetail, j.Trigger);//将指定的Job和trigger 加入到scheduler中，以后数据库模式，就读取，创建，来进行维护。全部重启的话，先停止所有，然后，再次加入进行。
+                    await UpdateJobsTriggerList(j.JobDetail.Key);
 
                 }
 
@@ -82,57 +83,57 @@ namespace YC.QuartzServiceModule
         /// <param name="path">指定插件dll绝对地址</param>
         /// <param name="error">错误信息</param>
         /// <returns>返回加载结果</returns>
-        public async Task<WorkResult> AddQZServerDLL(string path)
-        {
-            var workResult = new WorkResult();
-            workResult.State = true;
-            try
-            {
-                #region 具体加载配个PluginDLL
-                Assembly ass = Assembly.LoadFile(path);
+        //public async Task<WorkResult> AddQZServerDLL(string path)
+        //{
+        //    var workResult = new WorkResult();
+        //    workResult.State = true;
+        //    try
+        //    {
+        //        #region 具体加载配个PluginDLL
+        //        Assembly ass = Assembly.LoadFile(path);
 
-                Type[] allType = ass.GetTypes();  //获取程序集中的所有类型列表
-                Dictionary<string, Type> dic = new Dictionary<string, Type>();
-                foreach (Type temp in allType)
-                {
+        //        Type[] allType = ass.GetTypes();  //获取程序集中的所有类型列表
+        //        Dictionary<string, Type> dic = new Dictionary<string, Type>();
+        //        foreach (Type temp in allType)
+        //        {
 
-                    if (temp.GetInterface("ICronConfig") != null)
-                    {
-                        dic.Add("CronConfig", temp);
-                    }
-                    if (temp.GetInterface("IJobsConfig") != null)
-                    {
-                        dic.Add("JobsConfig", temp);
-                    }
+        //            if (temp.GetInterface("ICronConfig") != null)
+        //            {
+        //                dic.Add("CronConfig", temp);
+        //            }
+        //            if (temp.GetInterface("IJobsConfig") != null)
+        //            {
+        //                dic.Add("JobsConfig", temp);
+        //            }
 
-                    if (temp.GetInterface("IJobLibray") != null)
-                    {
-                        dic.Add("JobLibray", temp);
-                    }
+        //            if (temp.GetInterface("IJobLibray") != null)
+        //            {
+        //                dic.Add("JobLibray", temp);
+        //            }
 
-                }
-                var jobsConfig = Activator.CreateInstance(dic["JobsConfig"]);
-                IJobLibray jobLibrary = (IJobLibray)Activator.CreateInstance(dic["JobLibray"]);
-                Type t = jobsConfig.GetType();
+        //        }
+        //        var jobsConfig = Activator.CreateInstance(dic["JobsConfig"]);
+        //        IJobLibray jobLibrary = (IJobLibray)Activator.CreateInstance(dic["JobLibray"]);
+        //        Type t = jobsConfig.GetType();
 
 
-                foreach (var c in jobLibrary.GetJobList())
-                {
-                    await AddQuartzServer(c.JobDetail, c.Trigger);
-                    await UpdateJobsTriggerList(c.JobDetail.Key);
-                }
+        //        foreach (var c in jobLibrary.GetJobList())
+        //        {
+        //            await AddQuartzServer(c.JobDetail, c.Trigger);
+        //            await UpdateJobsTriggerList(c.JobDetail.Key);
+        //        }
 
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                workResult.State = false;
-                workResult.Message = ex.ToString();
-            }
+        //        #endregion
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        workResult.State = false;
+        //        workResult.Message = ex.ToString();
+        //    }
 
-            return workResult;
+        //    return workResult;
 
-        }
+        //}
         #endregion
 
         #region  添加 任务 直接使用
