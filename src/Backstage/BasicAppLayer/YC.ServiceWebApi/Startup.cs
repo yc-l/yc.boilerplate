@@ -71,7 +71,7 @@ namespace YC.ServiceWebApi
         public IConfiguration Configuration { get; }
 
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // 可选初始化配置
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
@@ -128,8 +128,6 @@ namespace YC.ServiceWebApi
             //添加缓存
             services.AddMemoryCache();
 
-           
-
             //全局过滤器注入
             services.AddMvc(options =>
              {
@@ -139,7 +137,6 @@ namespace YC.ServiceWebApi
                  options.Filters.Add(typeof(AOPResultFilterAttribute));
              });
 
-
             //全局配置Json序列化处理
             services.AddDirectoryBrowser();
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -147,30 +144,8 @@ namespace YC.ServiceWebApi
                 options.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-               // options.SerializerSettings.Converters.Add(new LongJsonConverter());
+              
             });
-                
-            //    .AddJsonOptions(options =>
-            //{
-            //    options.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
-            //    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-            //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            //    options.JsonSerializerOptions.Converters.Add(new TextJsonConvert.DateTimeConverter());
-            //    options.JsonSerializerOptions.Converters.Add(new TextJsonConvert.DateTimeNullableConverter());
-            //    options.JsonSerializerOptions.Converters.Add(new TextJsonConvert.LongConverter());
-            //    options.JsonSerializerOptions.Converters.Add(new TextJsonConvert.Int32Converter());
-            //    options.JsonSerializerOptions.Converters.Add(new TextJsonConvert.DecimalConverter());
-            //    options.JsonSerializerOptions.Converters.Add(new TextJsonConvert.StringConverter());
-            //});
-
-            //    .AddNewtonsoftJson(options =>//解决微软自生Text.Json 参数为空时候的无法转换，报异常处理，采用NewtonsoftJson 去实现接受参数
-            //{//数据格式首字母小写 不使用驼峰  
-            //    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();//使用默认方式，不更改元数据的key的大小写//options.SerializerSettings.ContractResolver = new DefaultContractResolver();// 忽略循环引用
-            //    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;// 设置时间格式
-            //    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";//忽略空值 不包含属性的null序列化//
-            //                                                                        //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;//忽略默认值和null  1、不包含属性默认值和null//
-            //                                                                        //options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
-            //}); ;
 
             #region  配置webapi 多版本
 
@@ -363,7 +338,11 @@ namespace YC.ServiceWebApi
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
+        public IQuartzRepository _quartzRepository;
+        public IScheduler _scheduler;
+
+        // 必选，
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<CorsOptions> corsOptions, IScheduler _scheduler, IQuartzRepository quartzRepository)
         {
             #region 1、使用静态页面
@@ -391,21 +370,7 @@ namespace YC.ServiceWebApi
             //路由
             app.UseRouting();
 
-            // 添加日志支持
-            // loggerFactory.AddConsole();
-
-
-            // 添加NLog日志支持
-            //loggerFactory.AddNLog();
-
-            //允许跨域
-            //app.UseCors(options => options
-            // .AllowAnyHeader()               // 确保策略允许任何标头
-            // .AllowAnyMethod()               // 确保策略允许任何方法
-            // .SetIsOriginAllowed(o => true)  // 设置指定的isOriginAllowed为基础策略
-            // .AllowCredentials());           // 将策略设置为允许凭据。
           
-
             // 使用跨域配置
             app.UseCors("CorsPolicy");
 
@@ -460,39 +425,7 @@ namespace YC.ServiceWebApi
 
             });
 
-            // AutofacUtil.Container = app.ApplicationServices.GetAutofacRoot();//注入获取全局的autofac
-
-            // 设置允许所有来源跨域
-            //app.UseCors(options =>
-            //{
-            //    options.AllowAnyHeader();
-            //    options.AllowAnyMethod();
-            //    options.AllowAnyOrigin();
-            //    options.AllowCredentials();
-            //});
-
-            // 设置只允许特定来源可以跨域
-            //app.UseCors(options =>
-            //{
-            //    options.WithOrigins("http://localhost:4200", "http://127.0.0.1"); // 允许特定ip跨域
-            //    options.AllowAnyHeader();
-            //    options.AllowAnyMethod();
-            //    options.AllowCredentials();
-            //});
-
-            // 利用配置文件实现
-            //CorsOptions _corsOption = corsOptions.Value;
-            //// 分割成字符串数组
-            //string[] hosts = _corsOption.Url.Split(',');
-
-            //// 设置跨域
-            //app.UseCors(options =>
-            //{
-            //    options.WithOrigins(hosts);
-            //    options.AllowAnyHeader();
-            //    options.AllowAnyMethod();
-            //    options.AllowCredentials();
-            //});
+           
 
         }
 
@@ -501,9 +434,6 @@ namespace YC.ServiceWebApi
         {
             services.Configure<CorsOptions>(Configuration.GetSection("AllowedHosts"));
         }
-
-        public  IQuartzRepository _quartzRepository;
-        public  IScheduler _scheduler;
 
 
 

@@ -33,7 +33,7 @@ namespace YC.Log.Serilog
                 var config = configuration
                     .ReadFrom.Configuration(context.Configuration)
                     .Enrich.FromLogContext();
-
+               
                 if (configAction != null) configAction.Invoke(config);
                 else
                 {

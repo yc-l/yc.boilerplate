@@ -14,6 +14,7 @@ using YC.QuartzService.JobService.CreateDirJobService;
 using YC.QuartzService.JobService.DeleteLogJobService;
 using YC.QuartzService.JobService.WriteFileJobService;
 using YC.QuartzServiceModule;
+using YC.ServiceWebApi.WebHostBuilderExtensions;
 
 namespace YC.ServiceWebApi
 {
@@ -26,7 +27,10 @@ namespace YC.ServiceWebApi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>().UseSerilogDefault();
+                .UseStartup<Startup>().UseSerilogDefault().UseInitCall(() => {
+                    //这里加入自定义相关服务
+                    InitHostingExtensions.Call("这是一个测试");
+                });
 
 
     }
