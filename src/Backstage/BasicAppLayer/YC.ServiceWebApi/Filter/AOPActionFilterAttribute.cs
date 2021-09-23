@@ -61,48 +61,52 @@ namespace YC.ServiceWebApi.Filter
                 _requestInfoDto.StopTime = DateTime.Now;
                 _requestInfoDto.ElapsedMilliseconds = Convert.ToInt64((_requestInfoDto.StopTime - _requestInfoDto.StartTime).TotalMilliseconds);
                 var obj = context.Result;
-                 if (obj==null)
+                _requestInfoDto.ResponseState = false;
+                var resultType = obj?.GetType();
+                if (obj!=null)//不为空，说明程序正常有返回值，如果为null，说明可能报空了
                 {
-                    throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "获取context.Result 对象为空！");
-                }
-                 _requestInfoDto.ResponseState = false;
-                 var resultType = context.Result?.GetType();
-                try  
-                {
-
-                    if (resultType.FullName.Equals(typeof(JsonResult).FullName))
+                  
+                    try
                     {
-                        var result = (JsonResult)obj;
-                        //_requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
-                        //aop拦截处理 如果不是我们已经定义标准化返回，那么我们需要在外层包一层，如果不是，就直接让他自己按照正常处理返回
-                        if ((result.Value.GetType().Name.Contains(typeof(ApiResult).Name) || result.Value.GetType().Name.Contains(typeof(ApiResult<>).Name)))
+
+                        if (resultType.FullName.Equals(typeof(JsonResult).FullName))
                         {
-                            var State = System.Text.Json.JsonSerializer.Serialize(result.Value).ToJObject().GetValue("State");
-                            _requestInfoDto.ResponseState =Convert.ToBoolean(State);
+                            var result = (JsonResult)obj;
+                            //_requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
+                            //aop拦截处理 如果不是我们已经定义标准化返回，那么我们需要在外层包一层，如果不是，就直接让他自己按照正常处理返回
+                            if ((result.Value.GetType().Name.Contains(typeof(ApiResult).Name) || result.Value.GetType().Name.Contains(typeof(ApiResult<>).Name)))
+                            {
+                                var State = System.Text.Json.JsonSerializer.Serialize(result.Value).ToJObject().GetValue("State");
+                                _requestInfoDto.ResponseState = Convert.ToBoolean(State);
+                            }
                         }
+                        if (resultType.FullName.Equals(typeof(ObjectResult).FullName))
+                        {
+                            var result = (ObjectResult)context.Result;
+                            //_requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
+                            //aop拦截处理 如果不是我们已经定义标准化返回，那么我们需要在外层包一层，如果不是，就直接让他自己按照正常处理返回
+                            if ((result.Value.GetType().Name.Contains(typeof(ApiResult).Name) || result.Value.GetType().Name.Contains(typeof(ApiResult<>).Name)))
+                            {
+                                var State = System.Text.Json.JsonSerializer.Serialize(result.Value).ToJObject().GetValue("State");
+                                _requestInfoDto.ResponseState = Convert.ToBoolean(State);
+                            }
+                        }
+
+
+
+
                     }
-                    if (resultType.FullName.Equals(typeof(ObjectResult).FullName))
+                    catch (Exception ex)
                     {
-                        var result = (ObjectResult)context.Result;
-                        //_requestInfoDto.ResponseData = result.Value == null ? "" : System.Text.Json.JsonSerializer.Serialize(result.Value);
-                        //aop拦截处理 如果不是我们已经定义标准化返回，那么我们需要在外层包一层，如果不是，就直接让他自己按照正常处理返回
-                        if ((result.Value.GetType().Name.Contains(typeof(ApiResult).Name) || result.Value.GetType().Name.Contains(typeof(ApiResult<>).Name)))
-                        {
-                            var State = System.Text.Json.JsonSerializer.Serialize(result.Value).ToJObject().GetValue("State");
-                            _requestInfoDto.ResponseState = Convert.ToBoolean(State);
-                        }
+                        throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "审计日志拦截返回值处理失败！" + ex.ToString());
                     }
 
-              
-                   
 
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "审计日志拦截返回值处理失败！" + ex.ToString());
-                }
-               
+                 
 
+                    //throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "获取context.Result 对象为空！");
+                }
+                //写入审计日志
                 WriteRequestLog(context, _requestInfoDto);
             }
 
@@ -132,18 +136,13 @@ namespace YC.ServiceWebApi.Filter
             string[] filterActions = DefaultConfig.FilterUrls;
             var controllerName = context.RouteData.Values["controller"]?.ToString();//获取当前控制器名称
             if (filterActions.Any(x => x.Contains(context.HttpContext.Request.Path)))
-            {//可以放行
+            {//可以放行,不校验
                 return;
             }
 
             #region 1-指定控制器允许通过 只要访问的是集合内的控制器，才允许请求
-            //string[] allowAnonymousStringArray = new string[] { "Values", "Car" };
 
-            //if (!allowAnonymousStringArray.Any(x => x == controllerName))
-            //{
-            //    context.Result = new JsonResult(new ApiResult<string>() { Code = 404, Message = "访问的api不存在或权限不足!", Value = "" });
-            //}
-            string requestPath = context.HttpContext.Request.Path.Value;//  /api/Identity/GetTokenByLogin
+            string requestPath = context.HttpContext.Request.Path.Value;
 
             #endregion
 

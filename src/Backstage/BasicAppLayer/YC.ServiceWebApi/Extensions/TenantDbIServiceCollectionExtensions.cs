@@ -23,11 +23,13 @@ namespace YC.ServiceWebApi.ServiceCollectionExtensions
                        DefaultConfig.TenantSettingDto.DefaultTenantId.ToString(),
                        DefaultConfig.TenantSettingDto.DataType,
                        DefaultConfig.TenantSettingDto.DefaultDbConnectionString);
-
-            foreach (var i in DefaultConfig.TenantSettingDto.TenantList)
-            {
-                SetTenantDb(services,ib, i.TenantId.ToString(), i.DataType, i.DbConnectionString);
+            if (DefaultConfig.TenantSettingDto.MultiTnancy) {
+                foreach (var i in DefaultConfig.TenantSettingDto.TenantList)
+                {
+                    SetTenantDb(services, ib, i.TenantId.ToString(), i.DataType, i.DbConnectionString);
+                }
             }
+            
 
             return ib;
             //services.AddSingleton(ib);//全局单例
