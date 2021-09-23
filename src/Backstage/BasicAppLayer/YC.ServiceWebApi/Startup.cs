@@ -385,10 +385,10 @@ namespace YC.ServiceWebApi
             _quartzRepository = quartzRepository;
             await _scheduler.Start();
 
-            List<QuartzJobsCollection> jobLibraysList = new List<QuartzJobsCollection>();
-            jobLibraysList.Add(new InitDbJobsConfig().InitDbJob);
+            //List<QuartzJobsCollection> jobLibraysList = new List<QuartzJobsCollection>();
+            //jobLibraysList.Add(new InitDbJobsConfig().InitDbJob);
 
-            var list = await _quartzRepository.DefaultRunningServer(jobLibraysList);
+            //var list = await _quartzRepository.DefaultRunningServer(jobLibraysList);
 
             //app.UseMvc(routes =>
             //{

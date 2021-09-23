@@ -41,6 +41,8 @@ namespace YC.ApplicationService
             CreateMap<SysOrganization, SysOrganizationAddOrEditDto>((MemberList.None)).ReverseMap();
             CreateMap<SysOrganization, SysOrganizationDto>((MemberList.None)).ReverseMap();
 
+          
+
         }
     }
 

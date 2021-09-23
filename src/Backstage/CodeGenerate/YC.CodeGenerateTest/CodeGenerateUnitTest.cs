@@ -52,9 +52,9 @@ namespace YC.CodeGenerateTest
                 string msg = "";
                 GenerateDbTableConfig config = new GenerateDbTableConfig();
                 config.GenerateDbTableEntityList = new List<string>();
-                config.GenerateDbTableEntityList.Add("SysOrganization");//要生成的表
-                config.GenerateDbTableEntityList.Add("SysAuditLog");
-                config.GenerateDbTableEntityList.Add("SysUserSysOrganization");
+                //config.GenerateDbTableEntityList.Add("TestUser");//要生成的表
+                //config.GenerateDbTableEntityList.Add("SysAuditLog");
+                //config.GenerateDbTableEntityList.Add("SysUserSysOrganization");
                 bool result = codeGenerateDBRepository.CreateTable(config,out msg, false);
                 Assert.IsTrue(result);
             }
@@ -83,7 +83,7 @@ namespace YC.CodeGenerateTest
             wantToGenerateCodeTypeList.Add(GenerateCodeEnumType.DefaultAddOrEditDto);//新增编辑Dto
             wantToGenerateCodeTypeList.Add(GenerateCodeEnumType.DefaultEntityDto);//实体Dto
 
-            bool isTree = true;
+            bool isTree = false;
             wantToGenerateCodeTypeList.Add(GenerateCodeEnumType.OtherCode);
             if (isTree)
             {
@@ -106,7 +106,7 @@ namespace YC.CodeGenerateTest
             //4、树的根节点要为0
 
             List<string> generateEntityList = new List<string>();
-            generateEntityList.Add("SysOrganization");
+            //generateEntityList.Add("TestUser");
             GenerateCodeConfig generateCodeConfig = new GenerateCodeConfig();
             generateCodeConfig.Template = templateDto;
             generateCodeConfig.WantToGenerateCodeTypeList = wantToGenerateCodeTypeList;

@@ -14,6 +14,7 @@ import SysOrganizations from '../view/SysOrganization/SysOrganizations'
 import Board from '../view/Board'
 
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -36,6 +37,7 @@ const routes = [
       { path: '/sysAuditLogs', component: SysAuditLogs },
       { path: '/sysOrganizations', component: SysOrganizations },
       { path: '/board', component: Board },  
+
 
     ]
   }    
