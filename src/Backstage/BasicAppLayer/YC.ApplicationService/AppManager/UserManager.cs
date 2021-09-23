@@ -47,8 +47,8 @@ namespace YC.ApplicationService
         {
             var res = new ApiResult<UserDto>();
             UserDto userDto = new UserDto();
-            if (_cacheManager.Get(guidKey).ToString().ToLower() != validateCode.ToLower()) {
-                return res.NotOk("验证码错误！");
+            if (_cacheManager.Get(guidKey)?.ToString().ToLower() != validateCode.ToLower()) {
+                return res.NotOk("验证码过期！");
             }
             var loginDto =  _sysUserService.Login(userId, pwd, tenantId);
             if (loginDto.State)

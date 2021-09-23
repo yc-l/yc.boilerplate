@@ -33,11 +33,11 @@ namespace YC.ServiceWebApi.Filter
         public override void OnResultExecuting(ResultExecutingContext context)
         {
             var obj = context.Result;
-            if (context.Result?.GetType() == typeof(ObjectResult))
+            if (obj?.GetType() == typeof(ObjectResult))
             {
                 try
                 {
-                    var result = (ObjectResult)context.Result;
+                    var result = (ObjectResult)obj;
 
                     //aop拦截处理 如果不是我们已经定义标准化返回，那么我们需要在外层包一层，如果不是，就直接让他自己按照正常处理返回
                     if (!(result.Value.GetType().Name.Contains(typeof(ApiResult).Name)|| result.Value.GetType().Name.Contains(typeof(ApiResult<>).Name)))

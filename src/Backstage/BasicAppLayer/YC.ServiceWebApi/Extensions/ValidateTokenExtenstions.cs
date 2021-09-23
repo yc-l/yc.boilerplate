@@ -22,10 +22,11 @@ namespace YC.ServiceWebApi.Extensions
                 try
                 {
                     var tenantObj = load[DefaultConfig.TenantSettingDto.TenantKeyName]?.ToString();
-                   
-                    if (string.IsNullOrWhiteSpace(tenantObj) || DefaultConfig.TenantSettingDto.TenantList.Where(x => x.TenantId == int.Parse(tenantObj)).FirstOrDefault() == null)//不存在租户id，或者租户id不在配置中
-                        throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "token 相关信息无效，请从新获取Token！");
-
+                    if (DefaultConfig.TenantSettingDto.MultiTnancy)
+                    {//开启租户情况下，进行校验
+                        if (string.IsNullOrWhiteSpace(tenantObj) || DefaultConfig.TenantSettingDto.TenantList.Where(x => x.TenantId == int.Parse(tenantObj)).FirstOrDefault() == null)//不存在租户id，或者租户id不在配置中
+                            throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "token 相关信息无效，请从新获取Token！");
+                    }
 
                     var tokenKey = load[DefaultConfig.DefaultAppConfigDto.TokenKeyName]?.ToString();
                     //刷新token，自动放过去

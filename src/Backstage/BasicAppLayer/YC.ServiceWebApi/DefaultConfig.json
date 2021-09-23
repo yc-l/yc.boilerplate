@@ -137,13 +137,12 @@
     
     **/
 
-    "MultiTnancy": true, //前端登录和后端要保持一致，否则拦截器那边会异常报错
+    "MultiTnancy": false, //前端登录和后端要保持一致，否则拦截器那边会异常报错
     "TenantKeyName": "tenantId",
-    "DefaultTenantId": 1,
+    "DefaultTenantId": 0,
     "DataType": 0,
     //sqlserver
-    //"DefaultDbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;",
-
+   
     //mysql
     "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
     "TenantList": [

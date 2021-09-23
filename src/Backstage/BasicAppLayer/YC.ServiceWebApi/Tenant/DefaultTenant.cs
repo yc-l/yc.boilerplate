@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YC.ApplicationService;
 using YC.ApplicationService.ApplicationService.Dto;
+using YC.ApplicationService.DefaultConfigure;
 using YC.Common.ShareUtils;
 using YC.Core;
 using YC.Core.Cache;
@@ -69,9 +70,7 @@ namespace YC.ServiceWebApi
                 }
                 else
                 {
-                    tenantObj = TokenContext.GetPayLoad(token)[DefaultConfig.TenantSettingDto.TenantKeyName]?.ToString();
-                    if (string.IsNullOrWhiteSpace(tenantObj) || DefaultConfig.TenantSettingDto.TenantList.Where(x => x.TenantId == int.Parse(tenantObj)).FirstOrDefault() == null)//不存在租户id，或者租户id不在配置中
-                        throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "token 相关信息无效，请从新获取Token！");
+
                     if (DefaultConfig.DefaultAppConfigDto.VerifyTokenUniqueness) {//演示系统，该属性不开启，默认不校验唯一性
                         ValidateTokenExtenstions.ValidateToken(token, _httpContextAccessor, _cacheManager);
                     }
@@ -81,38 +80,29 @@ namespace YC.ServiceWebApi
 
             }
 
-
-            //var tenantObj = _httpContextAccessor.HttpContext.Request.Form.Where(x => x.Key.Equals(DefaultConfig.TenantSettingDto.TenantKeyName)).Select(x => x.Value).FirstOrDefault();
-
-            //初始化做一次数据配置导入
-            if (string.IsNullOrEmpty(tenantObj))
-            {
-                tenantObj =DefaultConfig.TenantSettingDto.DefaultTenantId.ToString();
+            var tenantInfo = new TenantInfo();
+            if (!DefaultConfig.TenantSettingDto.MultiTnancy)
+            { //不开启多租户，采用默认配置
+                tenantInfo.DbConnectionString = DefaultConfig.TenantSettingDto.DefaultDbConnectionString;
+                tenantInfo.TenantId = DefaultConfig.TenantSettingDto.DefaultTenantId;
             }
-            var data = DefaultConfig.TenantSettingDto.TenantList.Where(x => x.TenantId == int.Parse(tenantObj)).FirstOrDefault();
+            else { //多租户情况下
+                   //初始化做一次数据配置导入
+                if (string.IsNullOrEmpty(tenantObj))
+                {
+                    tenantObj = DefaultConfig.TenantSettingDto.DefaultTenantId.ToString();
+                }
 
-            if (data == null)
-            {
-
-                if (DefaultConfig.TenantSettingDto.MultiTnancy)//如果开启多租户情况下，那么就必须查找
-                {////说明传入的租户不在配置中，这里可以改造在路由请求中租户采用对应的key 来进行判定，通过加解密进行拆解分析
+                tenantInfo = DefaultConfig.TenantSettingDto.TenantList.Where(x => x.TenantId == int.Parse(tenantObj)).FirstOrDefault();
+                if (string.IsNullOrWhiteSpace(tenantInfo.DbConnectionString)) {
                     throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "不存在对应的租户！");
                 }
-                else
-                {
-                    data = new ApplicationService.DefaultConfigure.TenantInfo();
-                    data.DbConnectionString = DefaultConfig.TenantSettingDto.DefaultDbConnectionString;
-                    data.TenantId = DefaultConfig.TenantSettingDto.DefaultTenantId;
-                }
-
             }
 
-            this.TenantId = data.TenantId;
-            this.TenantDbString = data.DbConnectionString;
-            //TenantId = 1;
-            //this.TenantDbString = "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;";
+        
 
-
+            this.TenantId = tenantInfo.TenantId;
+            this.TenantDbString = tenantInfo.DbConnectionString;
 
         }
 
