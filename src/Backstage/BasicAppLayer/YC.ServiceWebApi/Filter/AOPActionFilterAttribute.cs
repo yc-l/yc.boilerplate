@@ -67,7 +67,7 @@ namespace YC.ServiceWebApi.Filter
                 }
                  _requestInfoDto.ResponseState = false;
                  var resultType = context.Result?.GetType();
-                try
+                try  
                 {
 
                     if (resultType.FullName.Equals(typeof(JsonResult).FullName))
@@ -186,7 +186,6 @@ namespace YC.ServiceWebApi.Filter
             }
             #endregion
         }
-
 
         public void WriteRequestLog(ActionExecutedContext context, RequestInfoDto requestInfo)
         {
