@@ -17,5 +17,6 @@ namespace YC.FreeSqlFrameWork
 
     public interface IFreeSqlRepository<TEntity> : IDependencyInjectionSupport, IFreeSqlRepository<TEntity, long> where TEntity : class
     {
+       
     }
 }
