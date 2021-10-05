@@ -21,7 +21,7 @@ namespace YC.ElasticSearchXUnitTest
         public ElasticSearchUnitTest()
         {
 
-            string[] strArray = new string[] { "http://118.25.208.8:9200" };
+            string[] strArray = new string[] { "http://127.0.0.1:9200" };
             _elasticSearchDbContext = new ElasticSearchDbContext(strArray);
             _tenant = new TestTenant();
             _tenant.TenantId = 1;
