@@ -179,58 +179,7 @@ namespace YC.ElasticSearchXUnitTest
             Assert.NotNull(result);
         }
 
-        /// <summary>
-        /// 条件查询，多条件复合+条件范围查询
-        /// </summary>
-        /// <returns></returns>
-        [Fact]
-        public async Task GetByQueryTest()
-        {
-            Func<QueryContainerDescriptor<Book>, QueryContainer> query = q => q.Match(mq =>
-              mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
-              )
-              &&
-               q.TermRange(mq =>
-                mq.Field(f => f.Price).GreaterThanOrEquals("19").LessThan("100")
-              )//范围查询
-               ||
-              q.Match(mq =>
-              mq.Field(f => f.Auther).Query("老鹰捉小鸡12121").Operator(Operator.And)
-              )
-            ;//如果Operator.Or,那么经过分词之后其他数[万族]据也会出来
 
-            //Func<QueryContainerDescriptor<Book>, QueryContainer> query1 = q => q.Range(mq =>
-            //mq.Field(f=>f.Price).
-            // );
-            //排序
-            Func<SortDescriptor<Book>, IPromise<IList<ISort>>> sort = s => s.Ascending(a => a.PublishDate);
-            var result = await _elasticSearchRepository.GetByQueryAsync(query, sort);
-            List<Book> list = result.ToList();
-            Assert.True(list.Count > 0);
-        }
-
-
-
-        /// <summary>
-        /// 条件查询,全字匹配
-        /// </summary>
-        /// <returns></returns>
-        [Fact]
-        public async Task GetByQueryKeyWordTest()
-        {
-             
-            // "bookName" : {
-            //"type" : "keyword"
-            //},
-            //BookName 修改为keyword 所有必须完整匹配，不分词
-            Func<QueryContainerDescriptor<Book>, QueryContainer> query1 = q => q.Term(t => t.BookName, "万族123");
-            Func<QueryContainerDescriptor<Book>, QueryContainer> query2 = q => q.Match(mq =>
-              mq.Field(f => f.BookName).Query("万族").Operator(Operator.Or)
-              );//由于类型为 keyword，所以Match 查找不出来，只能使用Term 精确查询
-            var result = await _elasticSearchRepository.GetByQueryAsync(query1);
-            List<Book> list = result.ToList();
-            Assert.True(list.Count > 0);
-        }
 
         /// <summary>
         /// 查询获取所有
@@ -246,58 +195,7 @@ namespace YC.ElasticSearchXUnitTest
             Assert.True(list.Count > 0);
         }
 
-        /// <summary>
-        /// 条件查询,一个关键词，多个字段匹配
-        /// </summary>
-        /// <returns></returns>
-        [Fact]
-        public async Task GetByQueryMutiTest()
-        {
-            string searchKey = "羊皮";
-           //这里是等于平常查询一个关键词，多个字段去匹配，只要匹配到就显示
-            Func<QueryContainerDescriptor<Book>, QueryContainer> query = q => q.MultiMatch(m =>m.Fields(f=>f.Fields(ff=>ff.BookName).Fields(ff => ff.BookContent))
-                        .Query(searchKey));
-            var result = await _elasticSearchRepository.GetByQueryAsync(query);
-            List<Book> list = result.ToList();
-            Assert.True(list.Count > 0);
-        }
-
-        /// <summary>
-        /// 聚合查询
-        /// </summary>
-        /// <returns></returns>
-        [Fact]
-        public async Task GetByQueryAggregationsTest()
-        {
-            string searchKey = "羊皮";
-            string avgKeyName = "BookPrice_Average";
-            //1.全字匹配
-            Func<QueryContainerDescriptor<Book>, QueryContainer> query1 = q => q
-                           .Term(t => t.BookName, searchKey);
-
-            //2.宽泛查询
-            Func<QueryContainerDescriptor<Book>, QueryContainer> query2 = q => q
-                      .Match(m=>m.Field(f=>f.BookName).Query(searchKey));
-            Func<AggregationContainerDescriptor<Book>, IAggregationContainer> aggs1=a=>
-               a.Average(avgKeyName, aa => aa.Field(f => f.Price));//统计平均
-            Func<AggregationContainerDescriptor<Book>, IAggregationContainer> aggs2 = a =>
-                a.ExtendedStats(avgKeyName, aa => aa.Field(f => f.Price));//统计所有
-            Func<AggregationContainerDescriptor<Book>, IAggregationContainer> aggs3 = a =>
-              a.Max(avgKeyName, aa => aa.Field(f => f.Price));//最大
-            Func<AggregationContainerDescriptor<Book>, IAggregationContainer> aggs4 = a =>
-              a.Percentiles(avgKeyName, aa => aa.Field(f => f.Price));//百分数
-
-           
-
-            var result = await _elasticSearchRepository.GetByQueryAggregationsAsync(query2, aggs3);
-            List<Book> list = result.Item1.ToList();
-            var aggResult = result.Item2[avgKeyName];
-            //AggregateDictionary;
-            var data=(ExtendedStatsAggregate)aggResult;//这里要根据返回的结果转化指定的类型，通过AggregateDictionary查找对应的类型
-            var valueAggregate =((ValueAggregate)aggResult).Value;//获取得到指定的平局数
-            Assert.True(list.Count > 0);
-        }
-
+ 
         /// <summary>
         /// 通过id 更新
         /// </summary>
@@ -315,19 +213,6 @@ namespace YC.ElasticSearchXUnitTest
             var result = await _elasticSearchRepository.UpdateAsync(id, obj);
             Assert.NotNull(result);
         }
-
-
-
-        [Fact]
-        public async Task AllTest()
-        {
-
-           var result = await _elasticSearchDbContext.Client.UpdateByQueryAsync<Book>(s => s
-                              .Index(_elasticSearchRepository.MappingName) //or specify index via 
-                             .Query(q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And))));
-
-        }
-
 
 
 
