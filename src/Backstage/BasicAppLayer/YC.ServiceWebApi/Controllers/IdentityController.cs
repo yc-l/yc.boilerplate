@@ -52,7 +52,7 @@ namespace YC.ServiceWebApi.Controllers
         /// </summary>
         /// <param name="userId">用户id</param>
         /// <param name="pwd">用户密码</param>
-        /// <returns></returns>
+        /// <returns>返回登录结果</returns>
         [HttpPost]
 
         public IActionResult GetTokenByLogin([FromBody] LoginUserDto loginUserDto)
@@ -68,7 +68,7 @@ namespace YC.ServiceWebApi.Controllers
         /// <summary>
         /// 刷新token
         /// </summary>
-        /// <param name="token"></param>
+        /// <param name="token">原始token</param>
         /// <returns></returns>
         [HttpPost]
         public IApiResult RefreshToken(string token)
