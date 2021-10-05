@@ -61,19 +61,69 @@ namespace YC.ElasticSearch
         }
 
         /// <summary>
-        /// 分页查询
+        /// 查询
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<ISearchResponse<T>> GetByQueryAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query)
+        public async Task<IEnumerable<T>> GetByQueryAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query,
+            Func<SortDescriptor<T>, IPromise<IList<ISort>>> selector = null)
         {
 
             var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
                              .Index(this.MappingName)
-                            .Query(query));
-            return result;
+                            .Query(query).Sort(selector));
+            return result.Documents;
             //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
         }
+
+        /// <summary>
+        /// 查询所有
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<T>> GetAllAsync(
+            Func<SortDescriptor<T>, IPromise<IList<ISort>>> selector = null)
+        {
+
+            var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
+                             .Index(this.MappingName)
+                            .Query(q => q.MatchAll()).Sort(selector));
+            return result.Documents;
+            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+        }
+
+        /// <summary>
+        /// 聚合查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<Tuple<IEnumerable<T>, AggregateDictionary>> GetByQueryAggregationsAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query,
+            Func<AggregationContainerDescriptor<T>, IAggregationContainer> aggregationsSelector)
+        {
+            Tuple<IEnumerable<T>, AverageAggregation> tuple;
+            var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
+                             .Index(this.MappingName)
+                            .Query(query).Aggregations(aggregationsSelector));
+
+            return new Tuple<IEnumerable<T>, AggregateDictionary>(result.Documents, result.Aggregations);
+            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+        }
+
+        public async Task<IEnumerable<T>> GetByQueryIdsAsync(List<string> ids)
+        {
+            List<T> list = new List<T>();
+            var response = await _elasticSearchDbContext.Client.GetManyAsync<T>(ids, this.MappingName);
+
+            foreach (var multiGetHit in response)
+            {
+                if (multiGetHit.Found)
+                {
+                    list.Add(multiGetHit.Source);
+                }
+            }
+            return list;
+        }
+
 
         /// <summary>
         /// 分页查询
@@ -82,17 +132,32 @@ namespace YC.ElasticSearch
         /// <param name="currentPage">当前页面</param>
         /// <param name="pageSize">每页条数</param>
         /// <returns></returns>
-        public async Task<ISearchResponse<T>> GetPageByQueryAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, int currentPage, int pageSize = 10)
+        public async Task<IEnumerable<T>> GetPageByQueryAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, int currentPage, int pageSize = 10,
+             Func<SortDescriptor<T>, IPromise<IList<ISort>>> selector = null)
         {
 
             var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
                              .Index(this.MappingName) //or specify index via settings.DefaultIndex("mytweetindex");
                             .From((currentPage - 1) * pageSize)
                             .Size(pageSize)
-                            .Query(query));
-            return result;
+                            .Query(query).Sort(selector));
+            return result.Documents;
             //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
         }
+
+        /// <summary>
+        /// 创建Index，在第一次时候，需要创建数据库，必要的字段和model 需要映射，这个使用要先调用此方法
+        /// 否则直接插入，特定的数据类型都会变为默认的
+        /// </summary>
+        /// <returns></returns>
+        public async Task<CreateIndexResponse> CreateIndexAsync()
+        {
+            //
+            var createIndexResponse = await _elasticSearchDbContext.Client.Indices.CreateAsync(this.MappingName, c => c
+                .Map<T>(m => m.AutoMap())
+            );
+            return createIndexResponse;
+    }
 
         /// <summary>
         /// 新增，model 需要有一个id字段，采用我们自定义
@@ -100,9 +165,15 @@ namespace YC.ElasticSearch
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<OprateResult<Id>> CreateAsync(T input)
+        public async Task<OprateResult<Id>> CreateAsync(T input,bool isCeated=false)
         {
+            if (isCeated) {
+              await  CreateIndexAsync();
+            }
 
+            var createIndexResponse = _elasticSearchDbContext.Client.Indices.Create(this.MappingName, c => c
+               .Map<T>(m => m.AutoMap())
+           );
             var prId = input.GetType().GetProperty("Id");
             Id id = new Id(prId.GetValue(input).ToString());
             var result = await _elasticSearchDbContext.Client.DocumentExistsAsync<T>(id, idx => idx.Index(this.MappingName));
@@ -130,9 +201,12 @@ namespace YC.ElasticSearch
         /// </summary>
         /// <param name="input">新增数据集合</param>
         /// <returns></returns>
-        public async Task<BulkResponse> CreateListAsync(List<T> input)
+        public async Task<BulkResponse> CreateListAsync(List<T> input, bool isCeated = false)
         {
-
+            if (isCeated)
+            {
+                await CreateIndexAsync();
+            }
             var response = await _elasticSearchDbContext.Client.IndexManyAsync(input, this.MappingName);
             return response;
         }
@@ -214,6 +288,8 @@ namespace YC.ElasticSearch
         {
             var name = MappingIndexName(typeof(T));
             var result = await _elasticSearchDbContext.Client.DeleteAsync<T>(id, x => x.Index(name));
+
+            
             return result;
         }
         /// <summary>

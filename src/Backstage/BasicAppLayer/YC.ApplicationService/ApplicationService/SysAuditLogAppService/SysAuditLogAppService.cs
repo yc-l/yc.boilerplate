@@ -65,6 +65,11 @@ namespace YC.ApplicationService
         }
 
 
+        /// <summary>
+        /// 获取日志分页数据
+        /// </summary>
+        /// <param name="input">分页参数</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IApiResult> GetPageSysAuditLogListAsync(PageInput<PageInputDto> input)
         {
