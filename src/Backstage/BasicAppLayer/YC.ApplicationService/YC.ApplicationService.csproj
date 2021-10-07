@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\BasicLayer\YC.DapperFrameWork\YC.DapperFrameWork.csproj" />
     <ProjectReference Include="..\..\Module\YC.Cache.Redis\YC.Cache.Redis.csproj" />
     <ProjectReference Include="..\..\Module\YC.Core.DynamicApi\YC.Core.DynamicApi.csproj" />
+    <ProjectReference Include="..\..\Module\YC.ElasticSearch\YC.ElasticSearch.csproj" />
     <ProjectReference Include="..\YC.Model\YC.Model.csproj" />
   </ItemGroup>
 

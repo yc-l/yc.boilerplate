@@ -69,17 +69,37 @@
     //Mongodb 数据库名
     "MongoDbName": "BlockChainDb",
     //不需要token，可以请求访问
-    "FilterUrls": [
+    "AllowedNoTokenUrls": [
       { "url": "/api/Identity/GetTokenByLogin" },
       { "url": "/api/Identity/RefreshToken" },
       { "url": "/api/Identity/GetGuid" },
       { "url": "/api/Identity/GetVerificationCode" }
+
+    ],
+    ///允许不校验权限
+    "AllowedNoPermissionUrls": [
+      { "url": "Identity/RefreshToken" },
+      { "url": "Book/GetPageBookList" }
+
     ]
 
 
   },
   //verify token
-  
+
+  //大数据组件ElasticSearch 设置
+  "ElasticSearchSetting": {
+
+    ///elasticSearch节点集群
+    "Nodes": [
+      { "node": "http://127.0.0.1:9200" },
+      { "node": "http://127.0.0.1:9201" },
+      { "node": "http://127.0.0.1:9202" }
+
+    ]
+  },
+
+
   //默认租户配置
   "TenantSetting": {
 
@@ -142,7 +162,7 @@
     "DefaultTenantId": 0,
     "DataType": 0,
     //sqlserver
-   
+
     //mysql
     "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
     "TenantList": [
