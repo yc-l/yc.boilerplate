@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YC.Core;
+using YC.ElasticSearch.Domain;
 
 namespace YC.ElasticSearch
 {
@@ -12,7 +13,6 @@ namespace YC.ElasticSearch
     {
         public IElasticSearchDbContext _elasticSearchDbContext;
         public ITenant _tenant;
-
         public string MappingName
         {
 
@@ -22,10 +22,21 @@ namespace YC.ElasticSearch
             }
         }
 
+        public IElasticSearchDbContext ElasticSearchDbContext
+        {
+
+            get
+            {
+                return this._elasticSearchDbContext;
+            }
+        }
+
+    
         public ElasticSearchRepository(IElasticSearchDbContext elasticSearchDbContext, ITenant tenant)
         {
             _elasticSearchDbContext = elasticSearchDbContext;
             _tenant = tenant;
+           
         }
 
         //
@@ -77,7 +88,7 @@ namespace YC.ElasticSearch
         }
 
         /// <summary>
-        /// 查询所有
+        /// 查询所有，默认返回10条数据
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
@@ -86,29 +97,34 @@ namespace YC.ElasticSearch
         {
 
             var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
-                             .Index(this.MappingName)
+                             .Index(this.MappingName).TrackTotalHits(true)
                             .Query(q => q.MatchAll()).Sort(selector));
+          
             return result.Documents;
-            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+           
         }
 
+
         /// <summary>
-        /// 聚合查询
+        /// 查询index 的总数
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<Tuple<IEnumerable<T>, AggregateDictionary>> GetByQueryAggregationsAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query,
-            Func<AggregationContainerDescriptor<T>, IAggregationContainer> aggregationsSelector)
+        public async Task<long> GetCountAsync()
         {
-            Tuple<IEnumerable<T>, AverageAggregation> tuple;
-            var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
-                             .Index(this.MappingName)
-                            .Query(query).Aggregations(aggregationsSelector));
 
-            return new Tuple<IEnumerable<T>, AggregateDictionary>(result.Documents, result.Aggregations);
-            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+            var result = await _elasticSearchDbContext.Client.CountAsync<T>(s => s
+                              .Index(this.MappingName));
+
+            return result.Count;
+            
         }
 
+        /// <summary>
+        /// 通过Id集合查询列表
+        /// </summary>
+        /// <param name="ids">id集合</param>
+        /// <returns></returns>
         public async Task<IEnumerable<T>> GetByQueryIdsAsync(List<string> ids)
         {
             List<T> list = new List<T>();
@@ -125,26 +141,31 @@ namespace YC.ElasticSearch
         }
 
 
+
         /// <summary>
-        /// 分页查询
+        /// 分页查询,es 默认1w条，超过了有深度查询问题，超过要使用search after等操作
         /// </summary>
         /// <param name="query">查询 lambda </param>
         /// <param name="currentPage">当前页面</param>
         /// <param name="pageSize">每页条数</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetPageByQueryAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, int currentPage, int pageSize = 10,
-             Func<SortDescriptor<T>, IPromise<IList<ISort>>> selector = null)
+        public async Task<EsPageResult<T>> GetPageByQueryAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, int currentPage, int pageSize = 10,
+             Func<SortDescriptor<T>, IPromise<IList<ISort>>> sort = null, Func<HighlightDescriptor<T>, IHighlight> highlight=null)
         {
 
             var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
-                             .Index(this.MappingName) //or specify index via settings.DefaultIndex("mytweetindex");
+                             .Index(this.MappingName).TrackTotalHits(true) //or specify index via settings.DefaultIndex("mytweetindex");
                             .From((currentPage - 1) * pageSize)
                             .Size(pageSize)
-                            .Query(query).Sort(selector));
-            return result.Documents;
+                            .Query(query).Sort(sort).Highlight(highlight));
+            EsPageResult<T> pageResult = new EsPageResult<T>();
+            pageResult.Total = result.Total;
+            pageResult.List = result.Documents.ToList();
+            pageResult.Hits = result.Hits;
+            return pageResult;
             //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
         }
-
+       
         /// <summary>
         /// 创建Index，在第一次时候，需要创建数据库，必要的字段和model 需要映射，这个使用要先调用此方法
         /// 否则直接插入，特定的数据类型都会变为默认的
@@ -313,8 +334,103 @@ namespace YC.ElasticSearch
             var name = MappingIndexName(typeof(T));
             var result = await _elasticSearchDbContext.Client.DeleteByQueryAsync<T>(selector);
             return result;
+        
         }
 
+
+        #region 高级方案
+
+        /// <summary>
+        /// 聚合查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<Tuple<IEnumerable<T>, AggregateDictionary>> GetByQueryAggregationsAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query,
+            Func<AggregationContainerDescriptor<T>, IAggregationContainer> aggregationsSelector)
+        {
+            Tuple<IEnumerable<T>, AverageAggregation> tuple;
+            var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
+                             .Index(this.MappingName)
+                            .Query(query).Aggregations(aggregationsSelector));
+
+            return new Tuple<IEnumerable<T>, AggregateDictionary>(result.Documents, result.Aggregations);
+            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+        }
+
+        /// <summary>
+        /// 深度分页查询方案 searchAfter 只有每一页数据数量和下一页
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="selector"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchAfter">上一个查询获取的</param>
+        /// <returns></returns>
+        public async Task<SearchAfterResult<T>> GetPageByQuerySearchAfterAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, Func<SortDescriptor<T>, IPromise<IList<ISort>>> sort,
+            int pageSize = 10, IEnumerable<object> searchAfter = null, Func<HighlightDescriptor<T>, IHighlight> highlight = null)
+        {
+
+            var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
+                             .Index(this.MappingName).TrackTotalHits(true) //or specify index via settings.DefaultIndex("mytweetindex");
+                            .Size(pageSize)
+                            .Query(query).Sort(sort).Highlight(highlight).SearchAfter(searchAfter));
+            SearchAfterResult<T> pageResult = new SearchAfterResult<T>();
+            pageResult.SearchAfter = result.Hits.LastOrDefault().Sorts;//获取最后一页的标识
+            pageResult.List = result.Documents.ToList();
+            pageResult.Total = result.Total;
+            return pageResult;
+            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+        }
+        /// <summary>
+        /// 深度分页查询方案 scroll 一次性查询大量，采用过期时间来进行，牺牲了实时性，第一次查询会比较慢，毕竟要一次性查询大量数据
+        /// 后面的每次滚屏（或者叫翻页）都是基于这个快照的结果，也就是即使有新的数据进来也不会别查询到。
+        /// 第一步，查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="selector">排序</param>
+        /// <param name="time">过期时间</param>
+        /// <param name="pageSize">查询数据量</param>
+        /// <returns></returns>
+        public async Task<ScrollResult<T>> GetPageByQueryScrollAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, Func<SortDescriptor<T>, IPromise<IList<ISort>>> sort,
+           Time time, int pageSize = 10, Func<HighlightDescriptor<T>, IHighlight> highlight = null)
+        {
+            ISearchResponse<T> result;
+            result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
+                            .Index(this.MappingName).TrackTotalHits(true) //or specify index via settings.DefaultIndex("mytweetindex");
+                           .Size(pageSize)
+                           .Query(query).Sort(sort).Highlight(highlight).Scroll(time));//
+
+            ScrollResult<T> pageResult = new ScrollResult<T>();
+            pageResult.ScrollId = result.ScrollId;//获取最后一页的标识
+            pageResult.List = result.Documents.ToList();
+            pageResult.Total = result.Total;
+            pageResult.Hits=result.Hits;
+            return pageResult;
+            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+        }
+
+        /// <summary>
+        /// 深度分页查询方案 scroll 一次性查询大量，
+        /// 后面的每次滚屏（或者叫翻页）都是基于这个快照的结果，也就是即使有新的数据进来也不会别查询到。
+        /// 
+        /// 第二步 依靠scrollId 从缓存中查询
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="scrollId"></param>
+        /// <returns></returns>
+        public async Task<ScrollResult<T>> ScrollSearchAsync(Time time, string scrollId = null)
+        {
+            ISearchResponse<T> result;
+            result = await _elasticSearchDbContext.Client.ScrollAsync<T>(time, scrollId);
+            ScrollResult<T> pageResult = new ScrollResult<T>();
+            pageResult.ScrollId = result.ScrollId;//获取最后一页的标识
+            pageResult.List = result.Documents.ToList();
+            pageResult.Total = result.Total;
+            pageResult.Hits = result.Hits;
+            return pageResult;
+            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+        }
+
+        #endregion
 
     }
 }

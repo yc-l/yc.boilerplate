@@ -311,7 +311,8 @@ namespace YC.ServiceWebApi
             //automapper 注入
             builder.RegisterModule(new AutoMapperAutofacModule());
 
-             
+            //elasticSearch 注入
+            builder.RegisterModule(new ElasticSearchAutofacModule());
 
             //dapper 注入
             builder.RegisterModule(new DapperAutofacModule());

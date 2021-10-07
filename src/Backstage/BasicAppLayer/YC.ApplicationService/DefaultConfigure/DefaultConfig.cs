@@ -9,6 +9,7 @@ using YC.ApplicationService.DefaultConfigure;
 using YC.Common;
 using YC.Common.ShareUtils;
 using System.Linq;
+using YC.ApplicationService.DefaultConfigure.Dto;
 
 namespace YC.ApplicationService
 {
@@ -46,12 +47,39 @@ namespace YC.ApplicationService
             }
         }
 
-        public static string[] FilterUrls{
-            get {
-
-                return DefaultConfig.DefaultAppConfigDto.FilterUrls.Select(x => x.Url).ToArray();
+        public static ElasticSearchSettingDto ElasticSearchSettingDto
+        {
+            get
+            {
+                return JsonConfig.GetOjectByJsonKey<ElasticSearchSettingDto>("ElasticSearchSetting");
             }
-       }
+        }
+
+        public static string[] AllowedNoTokenUrls
+        {
+            get
+            {
+
+                return DefaultConfig.DefaultAppConfigDto.AllowedNoTokenUrls.Select(x => x.Url).ToArray();
+            }
+        }
+
+        public static string[] AllowedNoPermissionUrls
+        {
+            get
+            {
+
+                return DefaultConfig.DefaultAppConfigDto.AllowedNoPermissionUrls.Select(x => x.Url).ToArray();
+            }
+        }
+
+        public static string[] ElasticSearchNodes
+        {
+            get
+            {
+                return DefaultConfig.ElasticSearchSettingDto.Nodes.Select(x => x.Node).ToArray();
+            }
+        }
 
         public static string JsonConfig { get; set; }
        

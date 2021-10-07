@@ -133,7 +133,7 @@ namespace YC.ServiceWebApi.Filter
             _requestInfoDto.ParamsString = context.ActionArguments?.ToIndentedJson();
 
             #endregion
-            string[] filterActions = DefaultConfig.FilterUrls;
+            string[] filterActions = DefaultConfig.AllowedNoTokenUrls;
             var controllerName = context.RouteData.Values["controller"]?.ToString();//获取当前控制器名称
             if (filterActions.Any(x => x.Contains(context.HttpContext.Request.Path)))
             {//可以放行,不校验
@@ -178,7 +178,7 @@ namespace YC.ServiceWebApi.Filter
             }
             string requestApi = context.HttpContext.Request.Path.Value.Replace("/api/", "");
             var isAllowedPermission = userRolePermissions.PermissionList.Exists(x => x.Api.Contains(requestApi));
-            string[] isAllowedPaths = new string[] { "Identity/RefreshToken" };
+            string[] isAllowedPaths = DefaultConfig.AllowedNoPermissionUrls;
             if (!isAllowedPermission && !isAllowedPaths.Any(x => x.Contains(requestApi)))
             {
                 throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "没有对应的访问权限！");
