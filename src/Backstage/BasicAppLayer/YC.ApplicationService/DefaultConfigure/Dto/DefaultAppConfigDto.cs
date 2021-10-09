@@ -34,18 +34,22 @@ namespace YC.ApplicationService.DefaultConfigure
         public string MongoDbString { get; set; }
         public string MongoDbName { get; set; }
 
-
-        public List<FilterUrl> AllowedNoTokenUrls { get; set; }
+        public List<AllowedNoTokenUrl> AllowedNoTokenUrls { get; set; }
 
         public List<FilterUrl> AllowedNoPermissionUrls { get; set; }
 
-       
-
     }
-    public class FilterUrl { 
+    public class AllowedNoTokenUrl
+    {
+
+        public string Url { get; set; }
+        public bool NoCheckTenant { get; set; }
+    }
+
+    public class FilterUrl
+    {
+
+        public string Url { get; set; }
     
-     public   string Url { get; set; }
     }
-
-   
 }

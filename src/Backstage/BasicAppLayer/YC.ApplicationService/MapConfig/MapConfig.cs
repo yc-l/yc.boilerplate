@@ -8,6 +8,7 @@ using YC.ApplicationService.ApplicationService.Dto;
 using YC.ApplicationService.ApplicationService.SysUserAppService.Dto;
 using YC.ApplicationService.Dto;
 using YC.ApplicationService.SysUserAppService.Dto;
+using YC.ElasticSearch.Models;
 using YC.Model;
 using YC.Model.SysDbEntity;
 
@@ -41,7 +42,9 @@ namespace YC.ApplicationService
             CreateMap<SysOrganization, SysOrganizationAddOrEditDto>((MemberList.None)).ReverseMap();
             CreateMap<SysOrganization, SysOrganizationDto>((MemberList.None)).ReverseMap();
 
-          
+            CreateMap<Book, BookAddOrEditDto>((MemberList.None)).ReverseMap();
+            CreateMap<Book, BookDto>((MemberList.None)).ReverseMap();
+
 
         }
     }

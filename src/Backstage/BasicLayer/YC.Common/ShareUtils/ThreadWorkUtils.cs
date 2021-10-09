@@ -77,6 +77,12 @@ namespace YC.Common.ShareUtils
             sw.Stop();
             return Tuple.Create(workTimes);
         }
+
+        public  void ThreadPoolWork(WaitCallback callback, int minThreadCount = 1, int maxThreadCount = 10)
+        {
+            ThreadPool.SetMaxThreads(minThreadCount, maxThreadCount);
+            ThreadPool.QueueUserWorkItem(callback);
+        }
     }
 }
 

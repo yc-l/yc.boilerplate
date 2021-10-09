@@ -55,12 +55,12 @@ namespace YC.ApplicationService
             }
         }
 
-        public static string[] AllowedNoTokenUrls
+        public static List<AllowedNoTokenUrl> AllowedNoTokenUrls
         {
             get
             {
 
-                return DefaultConfig.DefaultAppConfigDto.AllowedNoTokenUrls.Select(x => x.Url).ToArray();
+                return DefaultConfig.DefaultAppConfigDto.AllowedNoTokenUrls;
             }
         }
 
@@ -82,7 +82,7 @@ namespace YC.ApplicationService
         }
 
         public static string JsonConfig { get; set; }
-       
+
         /// <summary>
         /// 获取指定的json对象
         /// </summary>

@@ -156,6 +156,8 @@ Vue.prototype.$sysOrganizationManager_CreateSysOrganizationUrl='SysOrganization/
 Vue.prototype.$sysOrganizationManager_EditSysOrganizationUrl ='SysOrganization/UpdateSysOrganization'
 Vue.prototype.$sysOrganizationManager_DeleteSysOrganizationUrl='SysOrganization/DeleteSysOrganizationById'
 
+Vue.prototype.$bookManagerUrl='Book/GetPageBookList'
+
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
