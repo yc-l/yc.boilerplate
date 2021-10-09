@@ -52,7 +52,7 @@ namespace YC.DapperFrameWork
                     {
                         if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeInt(DateTime.Now), pi.PropertyType), null);
+                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
                         }
                     }
 
@@ -81,7 +81,7 @@ namespace YC.DapperFrameWork
                     {
                         if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeInt(DateTime.Now), pi.PropertyType), null);
+                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
                         }
                     }
                     if (pi.Name == "IsActive")
@@ -125,7 +125,7 @@ namespace YC.DapperFrameWork
                     {
                         if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeInt(DateTime.Now), pi.PropertyType), null);
+                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
                         }
                     }
                     if (pi.Name == "IsDeleted")

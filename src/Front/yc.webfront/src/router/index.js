@@ -12,7 +12,7 @@ import NoPermission from '../view/NoPermission.vue'
 import SysAuditLogs from '../view/SysAuditLog/SysAuditLogs'
 import SysOrganizations from '../view/SysOrganization/SysOrganizations'
 import Board from '../view/Board'
-
+import Books from '../view/Book/Books'
 
 
 Vue.use(VueRouter)
@@ -37,7 +37,7 @@ const routes = [
       { path: '/sysAuditLogs', component: SysAuditLogs },
       { path: '/sysOrganizations', component: SysOrganizations },
       { path: '/board', component: Board },  
-
+      { path: '/books', component: Books }
 
     ]
   }    

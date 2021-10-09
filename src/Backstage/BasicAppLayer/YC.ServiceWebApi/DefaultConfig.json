@@ -69,13 +69,26 @@
     //Mongodb 数据库名
     "MongoDbName": "BlockChainDb",
     //不需要token，可以请求访问
-    "AllowedNoTokenUrls": [
-      { "url": "/api/Identity/GetTokenByLogin" },
-      { "url": "/api/Identity/RefreshToken" },
-      { "url": "/api/Identity/GetGuid" },
-      { "url": "/api/Identity/GetVerificationCode" }
+      "AllowedNoTokenUrls": [
+      {
+        "url": "/api/Identity/GetTokenByLogin",
+        "noCheckTenant": false
+      },
+      {
+        "url": "/api/Identity/RefreshToken",
+        "noCheckTenant": false
+      },
+      {
+        "url": "/api/Identity/GetGuid",
+        "noCheckTenant":true
+      },
+      {
+        "url": "/api/Identity/GetVerificationCode",
+        "noCheckTenant": true
+      }
 
     ],
+   
     ///允许不校验权限
     "AllowedNoPermissionUrls": [
       { "url": "Identity/RefreshToken" },
@@ -157,7 +170,7 @@
     
     **/
 
-    "MultiTnancy": false, //前端登录和后端要保持一致，否则拦截器那边会异常报错
+    "MultiTnancy": true, //前端登录和后端要保持一致，否则拦截器那边会异常报错
     "TenantKeyName": "tenantId",
     "DefaultTenantId": 0,
     "DataType": 0,

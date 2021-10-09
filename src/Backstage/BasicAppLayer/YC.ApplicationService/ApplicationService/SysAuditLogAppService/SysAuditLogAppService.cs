@@ -23,7 +23,8 @@ using YC.Core.DynamicApi.Attributes;
 using YC.Model.SysDbEntity;
 using YC.ApplicationService.Dto;
 using YC.Core.Domain.Output;
-
+using YC.ElasticSearch;
+using YC.ElasticSearch.Models;
 
 namespace YC.ApplicationService
 {
@@ -35,6 +36,7 @@ namespace YC.ApplicationService
         private readonly IFreeSqlRepository<SysAuditLog, Int64> _sysAuditLogFreeSqlRepository;
         private readonly ICacheManager _cacheManager;
         private readonly IMapper _mapper;
+
         /// <summary>
         /// 构造函数自动注入我们所需要的类或接口
         /// </summary>
@@ -44,6 +46,7 @@ namespace YC.ApplicationService
             _sysAuditLogFreeSqlRepository = sysAuditLogFreeSqlRepository;
             _cacheManager = cacheManager;
             _mapper = mapper;
+           
         }
 
 
@@ -59,7 +62,6 @@ namespace YC.ApplicationService
             var entity = await _sysAuditLogFreeSqlRepository.Select
             .WhereDynamic(id)
             .ToOneAsync();
-
             var entityDto = _mapper.Map<SysAuditLogAddOrEditDto>(entity);
             return res.Ok(entityDto);
         }

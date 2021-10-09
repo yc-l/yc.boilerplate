@@ -30,7 +30,7 @@ namespace YC.Common.ShareUtils
         /// </summary>
         /// <param name="time">时间</param>
         /// <returns>long</returns>
-        public static long ConvertDateTimeInt(System.DateTime time)
+        public static long ConvertDateTimeLong(System.DateTime time)
         {
             //double intResult = 0;
             System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1, 0, 0, 0, 0));
@@ -65,5 +65,7 @@ namespace YC.Common.ShareUtils
             return dtResult.ToString("yyyy-MM-dd HH:mm:ss");
 
         }
+
+
     }
 }
