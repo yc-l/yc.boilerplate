@@ -39,7 +39,7 @@ namespace YC.ElasticSearch
            
         }
 
-        //
+       
         public string MappingIndexName(Type type)
         {
 
@@ -55,8 +55,6 @@ namespace YC.ElasticSearch
 
             return name;
         }
-
-
 
         /// <summary>
         /// 通过指定 _id 获取对应的document
@@ -84,7 +82,7 @@ namespace YC.ElasticSearch
                              .Index(this.MappingName)
                             .Query(query).Sort(selector));
             return result.Documents;
-            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+           
         }
 
         /// <summary>
@@ -163,7 +161,7 @@ namespace YC.ElasticSearch
             pageResult.List = result.Documents.ToList();
             pageResult.Hits = result.Hits;
             return pageResult;
-            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+          
         }
        
         /// <summary>

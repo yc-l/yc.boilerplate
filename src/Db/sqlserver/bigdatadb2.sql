@@ -12,7 +12,7 @@
  Target Server Version : 11002100
  File Encoding         : 65001
 
- Date: 21/09/2021 23:27:08
+ Date: 10/10/2021 11:28:11
 */
 
 
@@ -24,7 +24,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sy
 GO
 
 CREATE TABLE [dbo].[sys_auditlog] (
-  [Id] bigint  NOT NULL,
+  [Id] bigint  IDENTITY(1,1) NOT NULL,
   [Key] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
   [IP] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
   [Browser] nvarchar(200) COLLATE Chinese_PRC_CI_AS  NULL,
@@ -172,6 +172,41 @@ GO
 -- ----------------------------
 -- Records of sys_auditlog
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_auditlog] ON
+GO
+
+INSERT INTO [dbo].[sys_auditlog] ([Id], [Key], [IP], [Browser], [Os], [Device], [BrowserInfo], [ElapsedMilliseconds], [TenantId], [UserId], [UserAccount], [ParamsString], [StartTime], [StopTime], [RequestMethod], [RequestApi], [CreationTime], [ResponseState], [ResponseData]) VALUES (N'1', N'f0256853-c3cf-4feb-87b7-38b8a14a2d82', N'127.0.0.1', N'Chrome', N'Windows', N'', N'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36', N'65', N'0', N'0', NULL, N'{
+  "loginUserDto": {
+    "userId": "T2admin",
+    "pwd": "111111",
+    "TenantId": 2,
+    "validateCode": "wgau",
+    "GuidKey": "ef387683-f387-4dbb-821e-91cd84be5f55"
+  }
+}', N'2021-10-10 11:20:05', N'2021-10-10 11:20:05', N'post', N'api/identity/gettokenbylogin', N'2021-10-10 11:20:05', N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_auditlog] ([Id], [Key], [IP], [Browser], [Os], [Device], [BrowserInfo], [ElapsedMilliseconds], [TenantId], [UserId], [UserAccount], [ParamsString], [StartTime], [StopTime], [RequestMethod], [RequestApi], [CreationTime], [ResponseState], [ResponseData]) VALUES (N'2', N'e1d16891-05fd-450c-b08a-154e79ce89ca', N'127.0.0.1', N'Chrome', N'Windows', N'', N'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36', N'46', N'0', N'1', N'T2admin', N'{
+  "input": {
+    "CurrentPage": 1,
+    "PageSize": 10,
+    "Filter": {
+      "QueryString": ""
+    }
+  }
+}', N'2021-10-10 11:20:06', N'2021-10-10 11:20:07', N'post', N'api/sysrole/getpagesysrolelist', N'2021-10-10 11:20:07', N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_auditlog] ([Id], [Key], [IP], [Browser], [Os], [Device], [BrowserInfo], [ElapsedMilliseconds], [TenantId], [UserId], [UserAccount], [ParamsString], [StartTime], [StopTime], [RequestMethod], [RequestApi], [CreationTime], [ResponseState], [ResponseData]) VALUES (N'3', N'ae2dd798-00d1-4018-b05a-f256eb30de0f', N'127.0.0.1', N'Chrome', N'Windows', N'', N'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36', N'33', N'0', N'1', N'T2admin', N'{
+  "input": {
+    "QueryString": ""
+  }
+}', N'2021-10-10 11:20:07', N'2021-10-10 11:20:07', N'post', N'api/sysdatadictionary/getsysdatadictionarylist', N'2021-10-10 11:20:07', N'1', NULL)
+GO
+
+SET IDENTITY_INSERT [dbo].[sys_auditlog] OFF
+GO
+
 
 -- ----------------------------
 -- Table structure for sys_datadictionary
@@ -186,7 +221,7 @@ CREATE TABLE [dbo].[sys_datadictionary] (
   [Memoni] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
   [Sort] int  NULL,
   [Value] nvarchar(128) COLLATE Chinese_PRC_CI_AS  NULL,
-  [Id] bigint  NOT NULL,
+  [Id] bigint  IDENTITY(1,1) NOT NULL,
   [IsActive] varchar(1) COLLATE Chinese_PRC_CI_AS  NULL,
   [IsDeleted] varchar(1) COLLATE Chinese_PRC_CI_AS  NULL,
   [CreationTime] datetime2(0)  NULL,
@@ -295,6 +330,9 @@ GO
 -- ----------------------------
 -- Records of sys_datadictionary
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_datadictionary] ON
+GO
+
 INSERT INTO [dbo].[sys_datadictionary] ([Key], [ParentId], [Memoni], [Sort], [Value], [Id], [IsActive], [IsDeleted], [CreationTime], [CreatorUserId], [TenantId], [Type], [Label]) VALUES (N'MenuType.Common', N'2', NULL, NULL, N'1', N'1', NULL, NULL, NULL, NULL, NULL, NULL, N'公共菜单')
 GO
 
@@ -302,6 +340,9 @@ INSERT INTO [dbo].[sys_datadictionary] ([Key], [ParentId], [Memoni], [Sort], [Va
 GO
 
 INSERT INTO [dbo].[sys_datadictionary] ([Key], [ParentId], [Memoni], [Sort], [Value], [Id], [IsActive], [IsDeleted], [CreationTime], [CreatorUserId], [TenantId], [Type], [Label]) VALUES (N'MenuType', N'1', N'', N'0', N'', N'5', N'0', N'0', NULL, N'0', NULL, N'0', N'菜单1')
+GO
+
+SET IDENTITY_INSERT [dbo].[sys_datadictionary] OFF
 GO
 
 
@@ -328,7 +369,7 @@ CREATE TABLE [dbo].[sys_organization] (
   [Linkman] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
   [CreatorUserId] bigint  NULL,
   [CreationTime] datetime2(0)  NULL,
-  [Id] bigint  NOT NULL,
+  [Id] bigint  IDENTITY(1,1) NOT NULL,
   [IsActive] varchar(1) COLLATE Chinese_PRC_CI_AS  NULL,
   [IsDeleted] varchar(1) COLLATE Chinese_PRC_CI_AS  NULL,
   [TenantId] int  NULL
@@ -475,6 +516,9 @@ GO
 -- ----------------------------
 -- Records of sys_organization
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_organization] ON
+GO
+
 INSERT INTO [dbo].[sys_organization] ([Label], [ParentId], [OrganType], [Sort], [PostId], [Fax], [Telephone], [Address], [Memoni], [Remark], [RangeType], [Range], [Linkman], [CreatorUserId], [CreationTime], [Id], [IsActive], [IsDeleted], [TenantId]) VALUES (N'租户2-总机构', N'0', N'1', N'1', N'0', N'', N'', N'', N'', N'', N'0', N'', N'', N'1', N'2021-05-05 17:41:59', N'1', N'0', N'0', N'1')
 GO
 
@@ -482,6 +526,9 @@ INSERT INTO [dbo].[sys_organization] ([Label], [ParentId], [OrganType], [Sort], 
 GO
 
 INSERT INTO [dbo].[sys_organization] ([Label], [ParentId], [OrganType], [Sort], [PostId], [Fax], [Telephone], [Address], [Memoni], [Remark], [RangeType], [Range], [Linkman], [CreatorUserId], [CreationTime], [Id], [IsActive], [IsDeleted], [TenantId]) VALUES (N'租户2-司法部', N'1', N'1', N'0', N'0', N'', N'', N'', N'', N'', N'0', N'', N'', N'1', N'2021-05-05 17:42:27', N'3', N'0', N'0', N'1')
+GO
+
+SET IDENTITY_INSERT [dbo].[sys_organization] OFF
 GO
 
 
@@ -493,7 +540,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sy
 GO
 
 CREATE TABLE [dbo].[sys_permission] (
-  [Id] bigint  NOT NULL,
+  [Id] bigint  IDENTITY(1,1) NOT NULL,
   [ParentId] bigint  NOT NULL,
   [Label] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
   [Code] nvarchar(550) COLLATE Chinese_PRC_CI_AS  NULL,
@@ -701,6 +748,9 @@ GO
 -- ----------------------------
 -- Records of sys_permission
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_permission] ON
+GO
+
 INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [View], [Api], [Path], [Icon], [Hidden], [IsActive], [Closable], [Opened], [NewWindow], [External], [Sort], [Description], [TenantId], [IsDeleted], [CreatorUserId], [CreationTime], [CreatedTime], [LastModifierUserId], [LastModificationTime]) VALUES (N'111', N'0', N'系统管理', N'systemManager', N'1', N'', N'', N'', N'el-icon-setting', N'1', N'1', N'1', N'1', N'1', N'1', N'8', N'', N'1', N'0', N'1', N'2021-05-02 18:35:03.773', NULL, N'0', N'2021-05-03 11:14:36')
 GO
 
@@ -803,6 +853,9 @@ GO
 INSERT INTO [dbo].[sys_permission] ([Id], [ParentId], [Label], [Code], [Type], [View], [Api], [Path], [Icon], [Hidden], [IsActive], [Closable], [Opened], [NewWindow], [External], [Sort], [Description], [TenantId], [IsDeleted], [CreatorUserId], [CreationTime], [CreatedTime], [LastModifierUserId], [LastModificationTime]) VALUES (N'144', N'0', N'看板', N'Board', N'2', N'board', N'', N'/board', N'el-icon-s-marketing', N'0', N'0', N'1', N'1', N'1', N'1', N'2', N'', NULL, N'0', N'0', NULL, NULL, N'0', N'0001-01-01 00:00:00')
 GO
 
+SET IDENTITY_INSERT [dbo].[sys_permission] OFF
+GO
+
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -812,7 +865,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sy
 GO
 
 CREATE TABLE [dbo].[sys_role] (
-  [Id] bigint  NOT NULL,
+  [Id] bigint  IDENTITY(1,1) NOT NULL,
   [Name] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NOT NULL,
   [IsActive] tinyint  NULL,
   [Memoni] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
@@ -901,10 +954,16 @@ GO
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_role] ON
+GO
+
 INSERT INTO [dbo].[sys_role] ([Id], [Name], [IsActive], [Memoni], [Sort], [IsDeleted], [LastModificationTime], [LastModifierUserId], [OrgId], [TenantId]) VALUES (N'1', N'超级管理员', N'0', N'superAdmin', NULL, N'0', N'2021-05-04 12:53:12', N'0', NULL, N'1')
 GO
 
 INSERT INTO [dbo].[sys_role] ([Id], [Name], [IsActive], [Memoni], [Sort], [IsDeleted], [LastModificationTime], [LastModifierUserId], [OrgId], [TenantId]) VALUES (N'2', N'运维管理员', N'0', N'operationAdmin', NULL, N'0', N'2021-05-04 12:53:03', N'0', NULL, N'1')
+GO
+
+SET IDENTITY_INSERT [dbo].[sys_role] OFF
 GO
 
 
@@ -916,7 +975,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sy
 GO
 
 CREATE TABLE [dbo].[sys_rolepermission] (
-  [Id] bigint  NOT NULL,
+  [Id] bigint  IDENTITY(1,1) NOT NULL,
   [RoleId] bigint  NOT NULL,
   [PermissionId] bigint  NOT NULL,
   [CreatorUserId] bigint  NULL,
@@ -972,6 +1031,9 @@ GO
 -- ----------------------------
 -- Records of sys_rolepermission
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_rolepermission] ON
+GO
+
 INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1136', N'2', N'116', N'1', N'2021-05-05 13:46:51')
 GO
 
@@ -1116,6 +1178,9 @@ GO
 INSERT INTO [dbo].[sys_rolepermission] ([Id], [RoleId], [PermissionId], [CreatorUserId], [CreationTime]) VALUES (N'1244', N'1', N'144', N'1', N'2021-09-21 23:21:31')
 GO
 
+SET IDENTITY_INSERT [dbo].[sys_rolepermission] OFF
+GO
+
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -1125,7 +1190,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sy
 GO
 
 CREATE TABLE [dbo].[sys_user] (
-  [Id] bigint  NOT NULL,
+  [Id] bigint  IDENTITY(1,1) NOT NULL,
   [NO] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
   [Name] nvarchar(32) COLLATE Chinese_PRC_CI_AS  NOT NULL,
   [Account] nvarchar(64) COLLATE Chinese_PRC_CI_AS  NOT NULL,
@@ -1278,10 +1343,16 @@ GO
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_user] ON
+GO
+
 INSERT INTO [dbo].[sys_user] ([Id], [NO], [Name], [Account], [Password], [Sex], [Mobile], [Email], [Remark], [IsActive], [LoginCount], [Memoni], [IsDeleted], [OrgId], [LastModificationTime], [ModifyUserId], [UserType], [InterDepartmental], [LastModifierUserId], [DeletionTime], [DeleterUserId], [CreationTime], [CreatorUserId], [TenantId]) VALUES (N'1', N'admin', N'超级管理员', N'T2admin', N'96e79218965eb72c92a549dd5a330112', N'1', N'13699856947', N'1@qq.con', N'abc', N'1', N'6', N'234', N'0', NULL, N'2021-05-04 13:17:00', N'1', N'0', NULL, NULL, NULL, NULL, NULL, NULL, N'1')
 GO
 
 INSERT INTO [dbo].[sys_user] ([Id], [NO], [Name], [Account], [Password], [Sex], [Mobile], [Email], [Remark], [IsActive], [LoginCount], [Memoni], [IsDeleted], [OrgId], [LastModificationTime], [ModifyUserId], [UserType], [InterDepartmental], [LastModifierUserId], [DeletionTime], [DeleterUserId], [CreationTime], [CreatorUserId], [TenantId]) VALUES (N'29', NULL, N'aaaaa', N'aaaaa', N'e10adc3949ba59abbe56e057f20f883e', N'0', N'13699854789', N'aaaa@wq.com', N'aaaaa', N'0', NULL, NULL, N'0', NULL, N'2021-05-04 13:17:32', NULL, NULL, NULL, N'0', NULL, N'0', N'2021-04-27 16:01:40', N'1', N'1')
+GO
+
+SET IDENTITY_INSERT [dbo].[sys_user] OFF
 GO
 
 
@@ -1293,7 +1364,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sy
 GO
 
 CREATE TABLE [dbo].[sys_usersysorganization] (
-  [Id] bigint  NOT NULL,
+  [Id] bigint  IDENTITY(1,1) NOT NULL,
   [SysUser_ID] int  NULL,
   [SysOrganization_ID] int  NULL
 )
@@ -1327,6 +1398,12 @@ GO
 -- ----------------------------
 -- Records of sys_usersysorganization
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_usersysorganization] ON
+GO
+
+SET IDENTITY_INSERT [dbo].[sys_usersysorganization] OFF
+GO
+
 
 -- ----------------------------
 -- Table structure for sys_usersysrole
@@ -1339,7 +1416,7 @@ CREATE TABLE [dbo].[sys_usersysrole] (
   [SysRole_ID] bigint  NOT NULL,
   [SysUser_ID] bigint  NOT NULL,
   [SysRole_Type] bigint  NULL,
-  [Id] bigint  NOT NULL
+  [Id] bigint  IDENTITY(1,1) NOT NULL
 )
 GO
 
@@ -1350,6 +1427,9 @@ GO
 -- ----------------------------
 -- Records of sys_usersysrole
 -- ----------------------------
+SET IDENTITY_INSERT [dbo].[sys_usersysrole] ON
+GO
+
 INSERT INTO [dbo].[sys_usersysrole] ([SysRole_ID], [SysUser_ID], [SysRole_Type], [Id]) VALUES (N'1', N'1', N'0', N'5')
 GO
 
@@ -1359,31 +1439,62 @@ GO
 INSERT INTO [dbo].[sys_usersysrole] ([SysRole_ID], [SysUser_ID], [SysRole_Type], [Id]) VALUES (N'2', N'29', N'0', N'7')
 GO
 
+SET IDENTITY_INSERT [dbo].[sys_usersysrole] OFF
+GO
+
+
+-- ----------------------------
+-- Auto increment value for sys_auditlog
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_auditlog]', RESEED, 3)
+GO
+
 
 -- ----------------------------
 -- Primary Key structure for table sys_auditlog
 -- ----------------------------
-ALTER TABLE [dbo].[sys_auditlog] ADD CONSTRAINT [PK__sys_audi__3214EC07749E28DB] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_auditlog] ADD CONSTRAINT [PK__sys_audi__3214EC07403BB9A3] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Auto increment value for sys_datadictionary
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_datadictionary]', RESEED, 5)
 GO
 
 
 -- ----------------------------
 -- Primary Key structure for table sys_datadictionary
 -- ----------------------------
-ALTER TABLE [dbo].[sys_datadictionary] ADD CONSTRAINT [PK__sys_data__3214EC07B063AD2A] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_datadictionary] ADD CONSTRAINT [PK__sys_data__3214EC073B51BA1C] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
 
 
 -- ----------------------------
+-- Auto increment value for sys_organization
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_organization]', RESEED, 3)
+GO
+
+
+-- ----------------------------
 -- Primary Key structure for table sys_organization
 -- ----------------------------
-ALTER TABLE [dbo].[sys_organization] ADD CONSTRAINT [PK__sys_orga__3214EC07A5816E3A] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_organization] ADD CONSTRAINT [PK__sys_orga__3214EC07A5BFDBDA] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Auto increment value for sys_permission
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_permission]', RESEED, 144)
 GO
 
 
@@ -1401,9 +1512,16 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_permission
 -- ----------------------------
-ALTER TABLE [dbo].[sys_permission] ADD CONSTRAINT [PK__sys_perm__3214EC0717C1A637] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_permission] ADD CONSTRAINT [PK__sys_perm__3214EC07BC08CCC2] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Auto increment value for sys_role
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_role]', RESEED, 2)
 GO
 
 
@@ -1438,9 +1556,16 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_role
 -- ----------------------------
-ALTER TABLE [dbo].[sys_role] ADD CONSTRAINT [PK__sys_role__3214EC074603E383] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_role] ADD CONSTRAINT [PK__sys_role__3214EC07D4A69B95] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Auto increment value for sys_rolepermission
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_rolepermission]', RESEED, 1244)
 GO
 
 
@@ -1458,9 +1583,16 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_rolepermission
 -- ----------------------------
-ALTER TABLE [dbo].[sys_rolepermission] ADD CONSTRAINT [PK__sys_role__3214EC07B2679DFE] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_rolepermission] ADD CONSTRAINT [PK__sys_role__3214EC074BD34EF2] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Auto increment value for sys_user
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_user]', RESEED, 29)
 GO
 
 
@@ -1477,18 +1609,32 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_user
 -- ----------------------------
-ALTER TABLE [dbo].[sys_user] ADD CONSTRAINT [PK__sys_user__3214EC0728C72565] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_user] ADD CONSTRAINT [PK__sys_user__3214EC0784D561C0] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
 
 
 -- ----------------------------
+-- Auto increment value for sys_usersysorganization
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_usersysorganization]', RESEED, 1)
+GO
+
+
+-- ----------------------------
 -- Primary Key structure for table sys_usersysorganization
 -- ----------------------------
-ALTER TABLE [dbo].[sys_usersysorganization] ADD CONSTRAINT [PK__sys_user__3214EC0733261E77] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_usersysorganization] ADD CONSTRAINT [PK__sys_user__3214EC07B583746B] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Auto increment value for sys_usersysrole
+-- ----------------------------
+DBCC CHECKIDENT ('[dbo].[sys_usersysrole]', RESEED, 7)
 GO
 
 
@@ -1505,7 +1651,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_usersysrole
 -- ----------------------------
-ALTER TABLE [dbo].[sys_usersysrole] ADD CONSTRAINT [PK__sys_user__3214EC07B708CB44] PRIMARY KEY CLUSTERED ([Id])
+ALTER TABLE [dbo].[sys_usersysrole] ADD CONSTRAINT [PK__sys_user__3214EC078DF5D984] PRIMARY KEY CLUSTERED ([Id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)  
 ON [PRIMARY]
 GO
