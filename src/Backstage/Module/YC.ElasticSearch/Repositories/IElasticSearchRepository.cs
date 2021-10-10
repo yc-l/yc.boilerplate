@@ -36,5 +36,14 @@ namespace YC.ElasticSearch
         Task<DeleteByQueryResponse> DeleteByQueryAsync(Func<DeleteByQueryDescriptor<T>, IDeleteByQueryRequest> selector);
 
 
+
+        #region 高级方案
+
+        Task<Tuple<IEnumerable<T>, AggregateDictionary>> GetByQueryAggregationsAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, Func<AggregationContainerDescriptor<T>, IAggregationContainer> aggregationsSelector
+          );
+    
+        Task<SearchAfterResult<T>> GetPageByQuerySearchAfterAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, Func<SortDescriptor<T>, IPromise<IList<ISort>>> sort,
+             int pageSize = 10, IEnumerable<object> searchAfter = null, Func<HighlightDescriptor<T>, IHighlight> highlight = null); 
+        #endregion
     }
 }
