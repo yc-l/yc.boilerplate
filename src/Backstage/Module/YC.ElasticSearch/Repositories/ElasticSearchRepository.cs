@@ -39,7 +39,7 @@ namespace YC.ElasticSearch
            
         }
 
-       
+        //
         public string MappingIndexName(Type type)
         {
 
@@ -55,6 +55,8 @@ namespace YC.ElasticSearch
 
             return name;
         }
+
+
 
         /// <summary>
         /// 通过指定 _id 获取对应的document
@@ -82,7 +84,27 @@ namespace YC.ElasticSearch
                              .Index(this.MappingName)
                             .Query(query).Sort(selector));
             return result.Documents;
-           
+            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
+        }
+
+        /// <summary>
+        /// 通过Id集合查询列表
+        /// </summary>
+        /// <param name="ids">id集合</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<T>> GetByQueryIdsAsync(List<string> ids)
+        {
+            List<T> list = new List<T>();
+            var response = await _elasticSearchDbContext.Client.GetManyAsync<T>(ids, this.MappingName);
+
+            foreach (var multiGetHit in response)
+            {
+                if (multiGetHit.Found)
+                {
+                    list.Add(multiGetHit.Source);
+                }
+            }
+            return list;
         }
 
         /// <summary>
@@ -117,26 +139,7 @@ namespace YC.ElasticSearch
             return result.Count;
             
         }
-
-        /// <summary>
-        /// 通过Id集合查询列表
-        /// </summary>
-        /// <param name="ids">id集合</param>
-        /// <returns></returns>
-        public async Task<IEnumerable<T>> GetByQueryIdsAsync(List<string> ids)
-        {
-            List<T> list = new List<T>();
-            var response = await _elasticSearchDbContext.Client.GetManyAsync<T>(ids, this.MappingName);
-
-            foreach (var multiGetHit in response)
-            {
-                if (multiGetHit.Found)
-                {
-                    list.Add(multiGetHit.Source);
-                }
-            }
-            return list;
-        }
+       
 
 
 
@@ -161,7 +164,7 @@ namespace YC.ElasticSearch
             pageResult.List = result.Documents.ToList();
             pageResult.Hits = result.Hits;
             return pageResult;
-          
+            //q => q.Match(mq => mq.Field(f => f.BookName).Query("万族123").Operator(Operator.And)
         }
        
         /// <summary>
@@ -336,6 +339,50 @@ namespace YC.ElasticSearch
         }
 
 
-   
+        #region 高级方案
+
+        /// <summary>
+        /// 聚合查询
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<Tuple<IEnumerable<T>, AggregateDictionary>> GetByQueryAggregationsAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query,
+            Func<AggregationContainerDescriptor<T>, IAggregationContainer> aggregationsSelector)
+        {
+            Tuple<IEnumerable<T>, AverageAggregation> tuple;
+            var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
+                             .Index(this.MappingName)
+                            .Query(query).Aggregations(aggregationsSelector));
+
+            return new Tuple<IEnumerable<T>, AggregateDictionary>(result.Documents, result.Aggregations);
+         
+        }
+
+        /// <summary>
+        /// 深度分页查询方案 searchAfter 只有每一页数据数量和下一页
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="selector"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchAfter">上一个查询获取的</param>
+        /// <returns></returns>
+        public async Task<SearchAfterResult<T>> GetPageByQuerySearchAfterAsync(Func<QueryContainerDescriptor<T>, QueryContainer> query, Func<SortDescriptor<T>, IPromise<IList<ISort>>> sort,
+            int pageSize = 10, IEnumerable<object> searchAfter = null, Func<HighlightDescriptor<T>, IHighlight> highlight = null)
+        {
+
+            var result = await _elasticSearchDbContext.Client.SearchAsync<T>(s => s
+                             .Index(this.MappingName).TrackTotalHits(true) //or specify index via settings.DefaultIndex("mytweetindex");
+                            .Size(pageSize)
+                            .Query(query).Sort(sort).Highlight(highlight).SearchAfter(searchAfter));
+            SearchAfterResult<T> pageResult = new SearchAfterResult<T>();
+            pageResult.SearchAfter = result.Hits.LastOrDefault().Sorts;//获取最后一页的标识
+            pageResult.List = result.Documents.ToList();
+            pageResult.Total = result.Total;
+            return pageResult;
+         
+        }
+       
+        #endregion
+
     }
 }
