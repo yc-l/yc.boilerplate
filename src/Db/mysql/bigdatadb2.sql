@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mariadb-3307
- Source Server Type    : MariaDB
- Source Server Version : 100510
- Source Host           : localhost:3307
+ Source Server         : 127.0.0.1
+ Source Server Type    : MySQL
+ Source Server Version : 50726
+ Source Host           : localhost:3306
  Source Schema         : bigdatadb2
 
- Target Server Type    : MariaDB
- Target Server Version : 100510
+ Target Server Type    : MySQL
+ Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 21/09/2021 23:24:30
+ Date: 10/10/2021 10:47:51
 */
 
 SET NAMES utf8mb4;
@@ -33,20 +33,16 @@ CREATE TABLE `sys_auditlog`  (
   `TenantId` int(11) NULL DEFAULT NULL COMMENT '租户Id',
   `UserId` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
   `UserAccount` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户账号',
-  `ParamsString` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求参数',
+  `ParamsString` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数',
   `StartTime` datetime(0) NULL DEFAULT NULL COMMENT '开始执行时间',
   `StopTime` datetime(0) NULL DEFAULT NULL COMMENT '结束执行时间',
   `RequestMethod` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求方式',
   `RequestApi` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求Api',
   `CreationTime` datetime(0) NULL DEFAULT NULL COMMENT ' 创建时间',
   `ResponseState` bit(1) NULL DEFAULT NULL,
-  `ResponseData` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ResponseData` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3589 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_auditlog
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 3663 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_datadictionary
@@ -324,10 +320,6 @@ CREATE TABLE `sys_usersysorganization`  (
   `SysOrganization_ID` int(11) NULL DEFAULT NULL COMMENT '组织Id',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_usersysorganization
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_usersysrole

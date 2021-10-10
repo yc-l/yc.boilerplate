@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mariadb-3307
- Source Server Type    : MariaDB
- Source Server Version : 100510
- Source Host           : localhost:3307
+ Source Server         : 127.0.0.1
+ Source Server Type    : MySQL
+ Source Server Version : 50726
+ Source Host           : localhost:3306
  Source Schema         : bigdatadb
 
- Target Server Type    : MariaDB
- Target Server Version : 100510
+ Target Server Type    : MySQL
+ Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 21/09/2021 23:24:18
+ Date: 10/10/2021 10:47:41
 */
 
 SET NAMES utf8mb4;
@@ -33,20 +33,16 @@ CREATE TABLE `sys_auditlog`  (
   `TenantId` int(11) NULL DEFAULT NULL COMMENT '租户Id',
   `UserId` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
   `UserAccount` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户账号',
-  `ParamsString` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求参数',
+  `ParamsString` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数',
   `StartTime` datetime(0) NULL DEFAULT NULL COMMENT '开始执行时间',
   `StopTime` datetime(0) NULL DEFAULT NULL COMMENT '结束执行时间',
   `RequestMethod` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求方式',
   `RequestApi` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求Api',
   `CreationTime` datetime(0) NULL DEFAULT NULL COMMENT ' 创建时间',
   `ResponseState` bit(1) NULL DEFAULT NULL,
-  `ResponseData` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ResponseData` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22809 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_auditlog
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 25620 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_datadictionary
@@ -67,7 +63,7 @@ CREATE TABLE `sys_datadictionary`  (
   `Type` int(11) NULL DEFAULT NULL COMMENT '类别:0 分组， 1叶子节点',
   `Label` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_datadictionary
@@ -141,7 +137,7 @@ CREATE TABLE `sys_permission`  (
   `LastModificationTime` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`Id`) USING BTREE,
   UNIQUE INDEX `idx_ad_permission_01`(`ParentId`, `Label`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 146 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 154 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_permission
@@ -180,6 +176,9 @@ INSERT INTO `sys_permission` VALUES (141, 139, '新增组织机构', 'sysOrganiz
 INSERT INTO `sys_permission` VALUES (142, 139, '编辑组织机构', 'sysOrganizationManager.editSysOrganization', 3, '', 'SysOrganization/UpdateSysOrganization', '', '', b'1', b'0', b'1', b'1', b'1', b'1', 0, '', 1, b'0', 1, '2021-05-05 17:22:03.526', NULL, 0, '0001-01-01 00:00:00.000');
 INSERT INTO `sys_permission` VALUES (143, 139, '删除组织机构', 'sysOrganizationManager.deleteSysOrganization', 3, '', 'SysOrganization/DeleteSysOrganizationById', '', '', b'1', b'0', b'1', b'1', b'1', b'1', 0, '', 1, b'0', 1, '2021-05-05 17:22:51.792', NULL, 0, '0001-01-01 00:00:00.000');
 INSERT INTO `sys_permission` VALUES (145, 0, '看板', 'Board', 2, 'board', '', '/board', 'el-icon-s-marketing', b'0', b'0', b'1', b'1', b'1', b'1', 2, '', NULL, b'0', 0, NULL, NULL, 0, '0001-01-01 00:00:00.000');
+INSERT INTO `sys_permission` VALUES (151, 0, '大数据组件', 'BigData', 1, '', '', '', 'el-icon-box', b'0', b'0', b'1', b'1', b'1', b'1', 15, '', NULL, b'0', 0, NULL, NULL, 0, '0001-01-01 00:00:00.000');
+INSERT INTO `sys_permission` VALUES (152, 151, 'ES 大数据检索示例', 'bookManager', 2, 'Books', '', '/books', 'el-icon-search', b'0', b'0', b'1', b'1', b'1', b'1', 0, '', NULL, b'0', 0, NULL, NULL, 0, '0001-01-01 00:00:00.000');
+INSERT INTO `sys_permission` VALUES (153, 152, '查看列表', 'bookManager.viewBook', 3, '', 'Book/GetPageBookList', '', '', b'0', b'0', b'1', b'1', b'1', b'1', 0, '', NULL, b'0', 0, NULL, NULL, 0, '0001-01-01 00:00:00.000');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -221,7 +220,7 @@ CREATE TABLE `sys_rolepermission`  (
   `CreationTime` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`Id`) USING BTREE,
   UNIQUE INDEX `idx_ad_role_permission_01`(`RoleId`, `PermissionId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1298 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色权限' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1335 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色权限' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_rolepermission
@@ -246,40 +245,43 @@ INSERT INTO `sys_rolepermission` VALUES (1260, 2, 141, 1, '2021-09-09 17:42:13.3
 INSERT INTO `sys_rolepermission` VALUES (1261, 2, 142, 1, '2021-09-09 17:42:13.314');
 INSERT INTO `sys_rolepermission` VALUES (1262, 2, 143, 1, '2021-09-09 17:42:13.314');
 INSERT INTO `sys_rolepermission` VALUES (1263, 2, 111, 1, '2021-09-09 17:42:13.314');
-INSERT INTO `sys_rolepermission` VALUES (1264, 1, 111, 1, '2021-09-21 21:34:32.159');
-INSERT INTO `sys_rolepermission` VALUES (1265, 1, 113, 1, '2021-09-21 21:34:32.160');
-INSERT INTO `sys_rolepermission` VALUES (1266, 1, 126, 1, '2021-09-21 21:34:32.160');
-INSERT INTO `sys_rolepermission` VALUES (1267, 1, 127, 1, '2021-09-21 21:34:32.160');
-INSERT INTO `sys_rolepermission` VALUES (1268, 1, 128, 1, '2021-09-21 21:34:32.160');
-INSERT INTO `sys_rolepermission` VALUES (1269, 1, 129, 1, '2021-09-21 21:34:32.160');
-INSERT INTO `sys_rolepermission` VALUES (1270, 1, 114, 1, '2021-09-21 21:34:32.160');
-INSERT INTO `sys_rolepermission` VALUES (1271, 1, 122, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1272, 1, 123, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1273, 1, 124, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1274, 1, 125, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1275, 1, 130, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1276, 1, 131, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1277, 1, 137, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1278, 1, 116, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1279, 1, 117, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1280, 1, 138, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1281, 1, 112, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1282, 1, 118, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1283, 1, 119, 1, '2021-09-21 21:34:32.161');
-INSERT INTO `sys_rolepermission` VALUES (1284, 1, 120, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1285, 1, 121, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1286, 1, 115, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1287, 1, 132, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1288, 1, 133, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1289, 1, 134, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1290, 1, 135, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1291, 1, 136, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1292, 1, 139, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1293, 1, 140, 1, '2021-09-21 21:34:32.162');
-INSERT INTO `sys_rolepermission` VALUES (1294, 1, 141, 1, '2021-09-21 21:34:32.163');
-INSERT INTO `sys_rolepermission` VALUES (1295, 1, 142, 1, '2021-09-21 21:34:32.163');
-INSERT INTO `sys_rolepermission` VALUES (1296, 1, 143, 1, '2021-09-21 21:34:32.163');
-INSERT INTO `sys_rolepermission` VALUES (1297, 1, 145, 1, '2021-09-21 21:34:32.163');
+INSERT INTO `sys_rolepermission` VALUES (1298, 1, 111, 1, '2021-10-09 19:31:41.035');
+INSERT INTO `sys_rolepermission` VALUES (1299, 1, 113, 1, '2021-10-09 19:31:41.036');
+INSERT INTO `sys_rolepermission` VALUES (1300, 1, 126, 1, '2021-10-09 19:31:41.037');
+INSERT INTO `sys_rolepermission` VALUES (1301, 1, 127, 1, '2021-10-09 19:31:41.037');
+INSERT INTO `sys_rolepermission` VALUES (1302, 1, 128, 1, '2021-10-09 19:31:41.037');
+INSERT INTO `sys_rolepermission` VALUES (1303, 1, 129, 1, '2021-10-09 19:31:41.037');
+INSERT INTO `sys_rolepermission` VALUES (1304, 1, 114, 1, '2021-10-09 19:31:41.038');
+INSERT INTO `sys_rolepermission` VALUES (1305, 1, 122, 1, '2021-10-09 19:31:41.038');
+INSERT INTO `sys_rolepermission` VALUES (1306, 1, 123, 1, '2021-10-09 19:31:41.038');
+INSERT INTO `sys_rolepermission` VALUES (1307, 1, 124, 1, '2021-10-09 19:31:41.038');
+INSERT INTO `sys_rolepermission` VALUES (1308, 1, 125, 1, '2021-10-09 19:31:41.038');
+INSERT INTO `sys_rolepermission` VALUES (1309, 1, 130, 1, '2021-10-09 19:31:41.039');
+INSERT INTO `sys_rolepermission` VALUES (1310, 1, 131, 1, '2021-10-09 19:31:41.039');
+INSERT INTO `sys_rolepermission` VALUES (1311, 1, 137, 1, '2021-10-09 19:31:41.039');
+INSERT INTO `sys_rolepermission` VALUES (1312, 1, 116, 1, '2021-10-09 19:31:41.039');
+INSERT INTO `sys_rolepermission` VALUES (1313, 1, 117, 1, '2021-10-09 19:31:41.040');
+INSERT INTO `sys_rolepermission` VALUES (1314, 1, 138, 1, '2021-10-09 19:31:41.040');
+INSERT INTO `sys_rolepermission` VALUES (1315, 1, 151, 1, '2021-10-09 19:31:41.040');
+INSERT INTO `sys_rolepermission` VALUES (1316, 1, 152, 1, '2021-10-09 19:31:41.040');
+INSERT INTO `sys_rolepermission` VALUES (1317, 1, 153, 1, '2021-10-09 19:31:41.041');
+INSERT INTO `sys_rolepermission` VALUES (1318, 1, 112, 1, '2021-10-09 19:31:41.041');
+INSERT INTO `sys_rolepermission` VALUES (1319, 1, 118, 1, '2021-10-09 19:31:41.041');
+INSERT INTO `sys_rolepermission` VALUES (1320, 1, 119, 1, '2021-10-09 19:31:41.041');
+INSERT INTO `sys_rolepermission` VALUES (1321, 1, 120, 1, '2021-10-09 19:31:41.041');
+INSERT INTO `sys_rolepermission` VALUES (1322, 1, 121, 1, '2021-10-09 19:31:41.042');
+INSERT INTO `sys_rolepermission` VALUES (1323, 1, 115, 1, '2021-10-09 19:31:41.042');
+INSERT INTO `sys_rolepermission` VALUES (1324, 1, 132, 1, '2021-10-09 19:31:41.042');
+INSERT INTO `sys_rolepermission` VALUES (1325, 1, 133, 1, '2021-10-09 19:31:41.042');
+INSERT INTO `sys_rolepermission` VALUES (1326, 1, 134, 1, '2021-10-09 19:31:41.043');
+INSERT INTO `sys_rolepermission` VALUES (1327, 1, 135, 1, '2021-10-09 19:31:41.043');
+INSERT INTO `sys_rolepermission` VALUES (1328, 1, 136, 1, '2021-10-09 19:31:41.043');
+INSERT INTO `sys_rolepermission` VALUES (1329, 1, 139, 1, '2021-10-09 19:31:41.043');
+INSERT INTO `sys_rolepermission` VALUES (1330, 1, 140, 1, '2021-10-09 19:31:41.044');
+INSERT INTO `sys_rolepermission` VALUES (1331, 1, 141, 1, '2021-10-09 19:31:41.044');
+INSERT INTO `sys_rolepermission` VALUES (1332, 1, 142, 1, '2021-10-09 19:31:41.044');
+INSERT INTO `sys_rolepermission` VALUES (1333, 1, 143, 1, '2021-10-09 19:31:41.044');
+INSERT INTO `sys_rolepermission` VALUES (1334, 1, 145, 1, '2021-10-09 19:31:41.044');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -318,7 +320,6 @@ CREATE TABLE `sys_user`  (
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES (1, 'admin', '超级管理员', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, '13699856947', '1@qq.con', 'abc', 1, 6, '234', 0, NULL, '2021-05-04 13:17:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `sys_user` VALUES (29, NULL, '222', 'aaaaa', 'e10adc3949ba59abbe56e057f20f883e', 0, '13699854789', 'aaaa@wq.com', 'aaaaa', 0, NULL, NULL, 0, NULL, '2021-05-04 13:17:32', NULL, NULL, NULL, 0, NULL, 0, '2021-04-27 16:01:40', 1, 1);
 
 -- ----------------------------
 -- Table structure for sys_usersysorganization
@@ -330,10 +331,6 @@ CREATE TABLE `sys_usersysorganization`  (
   `SysOrganization_ID` int(11) NULL DEFAULT NULL COMMENT '组织Id',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_usersysorganization
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_usersysrole
@@ -353,6 +350,5 @@ CREATE TABLE `sys_usersysrole`  (
 -- ----------------------------
 INSERT INTO `sys_usersysrole` VALUES (1, 1, 0, 5);
 INSERT INTO `sys_usersysrole` VALUES (2, 1, 0, 6);
-INSERT INTO `sys_usersysrole` VALUES (2, 29, 0, 12);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -96,7 +96,7 @@ namespace YC.ServiceWebApi
             }
             else { //多租户情况下
                    //初始化做一次数据配置导入
-                if (string.IsNullOrEmpty(tenantObj)|| tenantObj=="0")
+                if (string.IsNullOrEmpty(tenantObj)|| tenantObj== DefaultConfig.TenantSettingDto.DefaultTenantId.ToString())
                 {
                     tenantObj = DefaultConfig.TenantSettingDto.DefaultTenantId.ToString();
                 }

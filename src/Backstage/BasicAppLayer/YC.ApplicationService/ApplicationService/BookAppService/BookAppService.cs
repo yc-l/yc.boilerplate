@@ -85,22 +85,16 @@ namespace YC.ApplicationService
                     {
                         var startDate = DateTime.Parse(input.PublishDateRange[0]).ToLocalTime();
                         var stopDate = DateTime.Parse(input.PublishDateRange[1]).ToLocalTime();
-
-                        query = q => q.DateRange(mq =>
-                       mq.Field(f => f.PublishDate).GreaterThanOrEquals(startDate).LessThan(stopDate))&&( q.Term(t => t.BookName, input.Filter.QueryString) ||
-                         //q.Term(t => t.Price, "23") ||
-                         q.Match(mq => mq.Field(f => f.BookContent).Query(input.Filter.QueryString).Operator(Operator.And)) ||
-                          q.Match(mq => mq.Field(f => f.Auther).Query(input.Filter.QueryString).Operator(Operator.And)));
                         //全字匹配+ 分词查询 这种也可以
-                        //query = q => q.Bool(b =>
-                        // //should 必须要和must 一起用，must 中用and 操作
-                        // b.Must(m => m.Bool(mb => mb.Should(mbs => mbs.DateRange(mq =>
-                        //     mq.Field(f => f.PublishDate).GreaterThanOrEquals(startDate).LessThan(stopDate))))
-                        // , m => m.Bool(mb => mb.Should(s => s.Term(t => t.BookName, input.Filter.QueryString), s => s.Term(t => t.Price, 23)
-                        //     , s => s.Match(mq => mq.Field(f => f.BookContent).Query(input.Filter.QueryString).Operator(Operator.And))
-                        //     , s => s.Match(mq => mq.Field(f => f.Auther).Query(input.Filter.QueryString).Operator(Operator.And))
-                        //   ).MinimumShouldMatch(1)))
-                        // );
+                        query = q => q.Bool(b =>
+                         //should 必须要和must 一起用，must 中用and 操作
+                         b.Must(m => m.Bool(mb => mb.Should(mbs => mbs.DateRange(mq =>
+                             mq.Field(f => f.PublishDate).GreaterThanOrEquals(startDate).LessThan(stopDate))))
+                         , m => m.Bool(mb => mb.Should(s => s.Term(t => t.BookName, input.Filter.QueryString), s => s.Term(t => t.Price, 23)
+                             , s => s.Match(mq => mq.Field(f => f.BookContent).Query(input.Filter.QueryString).Operator(Operator.And))
+                             , s => s.Match(mq => mq.Field(f => f.Auther).Query(input.Filter.QueryString).Operator(Operator.And))
+                           ).MinimumShouldMatch(1)))
+                         );
                     }
                 }
                 else
