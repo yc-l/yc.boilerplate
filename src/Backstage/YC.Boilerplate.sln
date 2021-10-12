@@ -5,55 +5,55 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicLayer", "BasicLayer", "{8EE84D6A-8156-4448-A217-85C607BB8AD7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Common", "src\Backstage\BasicLayer\YC.Common\YC.Common.csproj", "{6CCCD13E-256F-4D7F-9DF2-F394EAAF77B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Common", "BasicLayer\YC.Common\YC.Common.csproj", "{6CCCD13E-256F-4D7F-9DF2-F394EAAF77B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Core", "src\Backstage\BasicLayer\YC.Core\YC.Core.csproj", "{1E15B233-453A-4425-A09D-E07E91EA1F63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Core", "BasicLayer\YC.Core\YC.Core.csproj", "{1E15B233-453A-4425-A09D-E07E91EA1F63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.DapperFrameWork", "src\Backstage\BasicLayer\YC.DapperFrameWork\YC.DapperFrameWork.csproj", "{3917C2B5-6FEF-4DE5-B4EF-5D5E262CE781}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.DapperFrameWork", "BasicLayer\YC.DapperFrameWork\YC.DapperFrameWork.csproj", "{3917C2B5-6FEF-4DE5-B4EF-5D5E262CE781}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGenerate", "CodeGenerate", "{72CC209E-19DE-4025-AD4F-9A8BA17C80C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.CodeGenerate", "src\Backstage\CodeGenerate\YC.CodeGenerate\YC.CodeGenerate.csproj", "{365500E0-00AC-48D4-AFBA-4F5F9C09D4C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.CodeGenerate", "CodeGenerate\YC.CodeGenerate\YC.CodeGenerate.csproj", "{365500E0-00AC-48D4-AFBA-4F5F9C09D4C8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.CodeGenerateTest", "src\Backstage\CodeGenerate\YC.CodeGenerateTest\YC.CodeGenerateTest.csproj", "{1D13D3CA-3E8E-4F1A-9284-BBDC97C3A6F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.CodeGenerateTest", "CodeGenerate\YC.CodeGenerateTest\YC.CodeGenerateTest.csproj", "{1D13D3CA-3E8E-4F1A-9284-BBDC97C3A6F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicAppLayer", "BasicAppLayer", "{F213774C-47AB-4315-A88B-80A054C6067A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module", "Module", "{3E77D5D2-7C7E-4F3E-BBB7-8005EAA64924}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Cache.Redis", "src\Backstage\Module\YC.Cache.Redis\YC.Cache.Redis.csproj", "{5DC7685F-5A70-4605-976B-C1AF8E35ECAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Cache.Redis", "Module\YC.Cache.Redis\YC.Cache.Redis.csproj", "{5DC7685F-5A70-4605-976B-C1AF8E35ECAA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.FreeSqlFrameWork", "src\Backstage\BasicLayer\YC.FreeSqlFrameWork\YC.FreeSqlFrameWork.csproj", "{6821347E-BFC4-4BF6-9A19-DB310053703B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.FreeSqlFrameWork", "BasicLayer\YC.FreeSqlFrameWork\YC.FreeSqlFrameWork.csproj", "{6821347E-BFC4-4BF6-9A19-DB310053703B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Log.Serilog", "src\Backstage\Module\YC.Log.Serilog\YC.Log.Serilog.csproj", "{418A312C-9E0A-48CB-8DBF-E10724D5D45E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Log.Serilog", "Module\YC.Log.Serilog\YC.Log.Serilog.csproj", "{418A312C-9E0A-48CB-8DBF-E10724D5D45E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Core.DynamicApi", "src\Backstage\Module\YC.Core.DynamicApi\YC.Core.DynamicApi.csproj", "{8871EF02-FCF2-453C-AFD2-0AF26378783F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Core.DynamicApi", "Module\YC.Core.DynamicApi\YC.Core.DynamicApi.csproj", "{8871EF02-FCF2-453C-AFD2-0AF26378783F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ApplicationService", "src\Backstage\BasicAppLayer\YC.ApplicationService\YC.ApplicationService.csproj", "{C943FF2D-3152-4B2D-8393-C35EB5080EE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ApplicationService", "BasicAppLayer\YC.ApplicationService\YC.ApplicationService.csproj", "{C943FF2D-3152-4B2D-8393-C35EB5080EE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Model", "src\Backstage\BasicAppLayer\YC.Model\YC.Model.csproj", "{D15B571C-2421-48EA-B5B7-51291EAF46D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Model", "BasicAppLayer\YC.Model\YC.Model.csproj", "{D15B571C-2421-48EA-B5B7-51291EAF46D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ServiceWebApi", "src\Backstage\BasicAppLayer\YC.ServiceWebApi\YC.ServiceWebApi.csproj", "{5976B891-DA0C-41DB-9684-E8A6DB0239D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ServiceWebApi", "BasicAppLayer\YC.ServiceWebApi\YC.ServiceWebApi.csproj", "{5976B891-DA0C-41DB-9684-E8A6DB0239D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.QuartzService", "src\Backstage\Module\YC.QuartzService\YC.QuartzService.csproj", "{F994B904-558D-41DE-ABB5-EA41D9A6997A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.QuartzService", "Module\YC.QuartzService\YC.QuartzService.csproj", "{F994B904-558D-41DE-ABB5-EA41D9A6997A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3BF48648-4A6C-43E4-B2F1-FFB7EDE70F33}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.MongoDB", "src\Backstage\Module\YC.MongoDB\YC.MongoDB.csproj", "{CFCBF849-9140-4C1C-82CC-3DFA7CCDF226}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.MongoDB", "Module\YC.MongoDB\YC.MongoDB.csproj", "{CFCBF849-9140-4C1C-82CC-3DFA7CCDF226}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.MongoDbXUnitTest", "src\Backstage\Test\YC.MongoDBXUnitTest\YC.MongoDbXUnitTest.csproj", "{E427767B-2A85-4009-8C26-4D452A577E3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.MongoDbXUnitTest", "Test\YC.MongoDBXUnitTest\YC.MongoDbXUnitTest.csproj", "{E427767B-2A85-4009-8C26-4D452A577E3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Neo4j", "src\Backstage\Module\YC.Neo4j\YC.Neo4j.csproj", "{9C51AD66-9899-4809-BA19-649A5A293DEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Neo4j", "Module\YC.Neo4j\YC.Neo4j.csproj", "{9C51AD66-9899-4809-BA19-649A5A293DEC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Neo4jXUnitTest", "src\Backstage\Test\YC.Neo4jXUnitTest\YC.Neo4jXUnitTest.csproj", "{E1160626-61CC-4484-B076-9B6C5CA59EDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Neo4jXUnitTest", "Test\YC.Neo4jXUnitTest\YC.Neo4jXUnitTest.csproj", "{E1160626-61CC-4484-B076-9B6C5CA59EDF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.QuartzTest", "src\Backstage\Test\YC.QuartzTest\YC.QuartzTest.csproj", "{704C6145-6166-4DFF-AF25-CBD17D5B02BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.QuartzTest", "Test\YC.QuartzTest\YC.QuartzTest.csproj", "{704C6145-6166-4DFF-AF25-CBD17D5B02BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Boilerplate.XUnitTest", "src\Backstage\Test\YC.Boilerplate.XUnitTest\YC.Boilerplate.XUnitTest.csproj", "{E8727832-DA2A-48DC-9807-BE129488C006}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Boilerplate.XUnitTest", "Test\YC.Boilerplate.XUnitTest\YC.Boilerplate.XUnitTest.csproj", "{E8727832-DA2A-48DC-9807-BE129488C006}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ElasticSearch", "src\Backstage\Module\YC.ElasticSearch\YC.ElasticSearch.csproj", "{2B6F02B7-0F1B-4FA7-B668-1FA524AEC22E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ElasticSearch", "Module\YC.ElasticSearch\YC.ElasticSearch.csproj", "{2B6F02B7-0F1B-4FA7-B668-1FA524AEC22E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ElasticSearchXUnitTest", "src\Backstage\Test\YC.ElasticSearchXUnitTest\YC.ElasticSearchXUnitTest.csproj", "{137625E5-82DF-4F5C-B24D-3D949F4F1BD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ElasticSearchXUnitTest", "Test\YC.ElasticSearchXUnitTest\YC.ElasticSearchXUnitTest.csproj", "{137625E5-82DF-4F5C-B24D-3D949F4F1BD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
