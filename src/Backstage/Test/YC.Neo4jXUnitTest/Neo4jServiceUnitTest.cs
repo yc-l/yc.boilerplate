@@ -16,21 +16,21 @@ namespace YC.Neo4jXUnitTest
         {
             neo4jRepository = new Neo4jRepository("testdb");
             userList = new List<UserInfo>();
-            userList.Add(new UserInfo() { Key = Guid.NewGuid().ToString(), Name = "ÕÅÈı", Sex = "ÄĞ", Type = "ÆÕÍ¨ÓÃ»§" });
-            userList.Add(new UserInfo() { Key = Guid.NewGuid().ToString(), Name = "ÀïË¹", Sex = "ÄĞ", Type = "¸ß¼¶ÓÃ»§" });
-            userList.Add(new UserInfo() { Key = Guid.NewGuid().ToString(), Name = "ÍõÎå", Sex = "ÄĞ", Type = "ÆÕÍ¨ÓÃ»§" });
-            userList.Add(new UserInfo() { Key = Guid.NewGuid().ToString(), Name = "ÕÅĞ¡Óñ", Sex = "Å®", Type = "¸ß¼¶ÓÃ»§" });
+            userList.Add(new UserInfo() { Key = Guid.NewGuid().ToString(), Name = "å¼ ä¸‰", Sex = "ç”·", Type = "æ™®é€šç”¨æˆ·" });
+            userList.Add(new UserInfo() { Key = Guid.NewGuid().ToString(), Name = "é‡Œæ–¯", Sex = "ç”·", Type = "é«˜çº§ç”¨æˆ·" });
+            userList.Add(new UserInfo() { Key = Guid.NewGuid().ToString(), Name = "ç‹äº”", Sex = "ç”·", Type = "æ™®é€šç”¨æˆ·" });
+            userList.Add(new UserInfo() { Key = Guid.NewGuid().ToString(), Name = "å¼ å°ç‰", Sex = "å¥³", Type = "é«˜çº§ç”¨æˆ·" });
             companyList = new List<Company>();
-            companyList.Add(new Company() { Key = Guid.NewGuid().ToString(), CompanyName = "Íò¶È¿Æ¼¼", CEO = "ÕÅÈı", Supervisor = "ÕÅĞ¡Óñ", Type = "¿Æ¼¼" });
-            companyList.Add(new Company() { Key = Guid.NewGuid().ToString(), CompanyName = "Ç©¹È¿Æ¼¼", CEO = "ÍõÎå", Supervisor = "ÕÅĞ¡Óñ", Type = "¿Æ¼¼" });
-            companyList.Add(new Company() { Key = Guid.NewGuid().ToString(), CompanyName = "¶«·½ÓéÀÖ", CEO = "ÕÅĞ¡Óñ", Supervisor = "ÕÅĞ¡Ğ¡", Type = "ÓéÀÖ" });
-            companyList.Add(new Company() { Key = Guid.NewGuid().ToString(), CompanyName = "½Ü·ÉÊµÒµ", CEO = "ÀïË¹", Supervisor = "ÕÅĞ¡Ğ¡", Type = "ÊµÒµ" });
+            companyList.Add(new Company() { Key = Guid.NewGuid().ToString(), CompanyName = "ä¸‡åº¦ç§‘æŠ€", CEO = "å¼ ä¸‰", Supervisor = "å¼ å°ç‰", Type = "ç§‘æŠ€" });
+            companyList.Add(new Company() { Key = Guid.NewGuid().ToString(), CompanyName = "ç­¾è°·ç§‘æŠ€", CEO = "ç‹äº”", Supervisor = "å¼ å°ç‰", Type = "ç§‘æŠ€" });
+            companyList.Add(new Company() { Key = Guid.NewGuid().ToString(), CompanyName = "ä¸œæ–¹å¨±ä¹", CEO = "å¼ å°ç‰", Supervisor = "å¼ å°å°", Type = "å¨±ä¹" });
+            companyList.Add(new Company() { Key = Guid.NewGuid().ToString(), CompanyName = "æ°é£å®ä¸š", CEO = "é‡Œæ–¯", Supervisor = "å¼ å°å°", Type = "å®ä¸š" });
 
 
         }
 
         /// <summary>
-        /// ´´½¨Ò»Ìõ¼ÇÂ¼
+        /// åˆ›å»ºä¸€æ¡è®°å½•
         /// </summary>
         /// <returns></returns>
         [Fact]
@@ -38,9 +38,9 @@ namespace YC.Neo4jXUnitTest
         {
             UserInfo u1 = new UserInfo();
             u1.Key = Guid.NewGuid().ToString();
-            u1.Name = "ÕÔĞ¡";
-            u1.Sex = "Å®";
-            u1.Type = "¸ß¼¶ÓÃ»§";
+            u1.Name = "èµµå°";
+            u1.Sex = "å¥³";
+            u1.Type = "é«˜çº§ç”¨æˆ·";
 
             var result = await neo4jRepository.CreateSingleNode<UserInfo>("UserInfo", u1);
 
@@ -48,7 +48,7 @@ namespace YC.Neo4jXUnitTest
         }
 
         /// <summary>
-        /// ´´½¨Ä¬ÈÏ²âÊÔÊı¾İ
+        /// åˆ›å»ºé»˜è®¤æµ‹è¯•æ•°æ®
         /// </summary>
         /// <returns></returns>
         [Fact]
@@ -75,38 +75,38 @@ namespace YC.Neo4jXUnitTest
         }
 
         /// <summary>
-        /// ´´½¨ ÕÆ¿Ø ¹ØÁªÊı¾İ¹ØÁª
+        /// åˆ›å»º æŒæ§ å…³è”æ•°æ®å…³è”
         /// </summary>
         /// <returns></returns>
         [Fact]
         public async Task MatchRelationControlTest()
         {
             string condition = $"{neo4jRepository.LeftKey}.Name={neo4jRepository.RightKey}.CEO";
-            var result = await neo4jRepository.MatchNodeByProperty("UserInfo", "Company", "ÕÆÈ¨", $"{neo4jRepository.LeftKey}.Name", condition);
+            var result = await neo4jRepository.MatchNodeByProperty("UserInfo", "Company", "æŒæƒ", $"{neo4jRepository.LeftKey}.Name", condition);
             Assert.True(result.Counters.ContainsUpdates);
         }
 
         /// <summary>
-        /// ´´½¨ ¹«Ë¾¹ØÁª ¹ØÁªÊı¾İ¹ØÁª
+        /// åˆ›å»º å…¬å¸å…³è” å…³è”æ•°æ®å…³è”
         /// </summary>
         /// <returns></returns>
         [Fact]
         public async Task MatchRelationLinkTest()
         {
             string condition = $"{neo4jRepository.LeftKey}.Name={neo4jRepository.RightKey}.Supervisor";
-            var result = await neo4jRepository.MatchNodeByProperty("UserInfo", "Company", "¹«Ë¾¹ØÁª", $"{neo4jRepository.LeftKey}.Name", condition);
+            var result = await neo4jRepository.MatchNodeByProperty("UserInfo", "Company", "å…¬å¸å…³è”", $"{neo4jRepository.LeftKey}.Name", condition);
             Assert.True(result.Counters.ContainsUpdates);
         }
 
         /// <summary>
-        /// ¸üĞÂ½ÚµãĞÅÏ¢
+        /// æ›´æ–°èŠ‚ç‚¹ä¿¡æ¯
         /// </summary>
         /// <returns></returns>
         [Fact]
         public async Task UpateNodeTest()
         {
-            string condtion = "Name:'ÀïË¹'";
-            string setStr = $"{neo4jRepository.Key}.Name='ÀïË¹Àî',{neo4jRepository.Key}.Type='VIPÓÃ»§'";
+            string condtion = "Name:'é‡Œæ–¯'";
+            string setStr = $"{neo4jRepository.Key}.Name='é‡Œæ–¯æ',{neo4jRepository.Key}.Type='VIPç”¨æˆ·'";
             var result = await neo4jRepository.UpdateNode("UserInfo", condtion, setStr);
 
             Assert.True(result.Counters.ContainsUpdates);
@@ -114,27 +114,27 @@ namespace YC.Neo4jXUnitTest
         }
 
         /// <summary>
-        /// ²éÑ¯Ö¸¶¨½ÚµãĞÅÏ¢
+        /// æŸ¥è¯¢æŒ‡å®šèŠ‚ç‚¹ä¿¡æ¯
         /// </summary>
         /// <returns></returns>
         [Fact]
         public async Task SelectNodeTest()
         {
-            string condtion = $"{neo4jRepository.Key}.Name='ÕÅĞ¡Óñ'";
+            string condtion = $"{neo4jRepository.Key}.Name='å¼ å°ç‰'";
             var list = await neo4jRepository.SelectNode<UserInfo>("UserInfo", condtion);
             Assert.True(list.Count > 0);
 
         }
 
         /// <summary>
-        /// Í¨¹ıÁ¬½Ó¹ØÏµ ²éÑ¯Ö¸¶¨½ÚµãĞÅÏ¢
+        /// é€šè¿‡è¿æ¥å…³ç³» æŸ¥è¯¢æŒ‡å®šèŠ‚ç‚¹ä¿¡æ¯
         /// </summary>
         /// <returns></returns>
         [Fact]
         public async Task SelectNodeByRelationShipTest()
         {
-            string relationShipName = "¹«Ë¾¹ØÁª";
-            string condition = "UserInfo.Name='ÕÅĞ¡Óñ'";
+            string relationShipName = "å…¬å¸å…³è”";
+            string condition = "UserInfo.Name='å¼ å°ç‰'";
             var tupleList = await neo4jRepository.SelectNodeByRelationShoip<UserInfo,Company>("UserInfo", "Company",relationShipName, condition);
             Assert.True(tupleList.Item1.Count>0);
             Assert.True(tupleList.Item2.Count>0);
@@ -144,7 +144,7 @@ namespace YC.Neo4jXUnitTest
         [Fact]
         public async Task DeleteNodeTest()
         {
-            string condtion = $"{neo4jRepository.Key}.Sex='ÄĞ'";
+            string condtion = $"{neo4jRepository.Key}.Sex='ç”·'";
             var result = await neo4jRepository.DeleteNode("UserInfo", condtion, true);
             Assert.True(result.Counters.NodesDeleted == 1);
         }

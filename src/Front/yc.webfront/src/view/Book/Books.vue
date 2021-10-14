@@ -11,12 +11,12 @@
       <el-col :span="24">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>搜索区域【本示例内置500多万条书籍演示数据】</span>
+            <span>搜索区域【本示例内置1000多万条书籍演示数据】</span>
           </div>
           <div class="text item">
             <!-- 搜索与添加区域 -->
-            <el-row>
-              <el-col :span="8">
+            <el-row :gutter="20">
+              <el-col :span="12">
                 <div class="grid-content bg-purple">
                   <div class="block">
                     发布时间范围：
@@ -35,10 +35,10 @@
                 </div>
               </el-col>
 
-              <el-col :span="10">
+              <el-col :span="12">
                 <div class="grid-content bg-purple-light">
                   <el-input
-                    placeholder="请输入书名/书内容/作者/价格"
+                    placeholder="请输入书名/书内容/作者"
                     class="input-with-select"
                     v-model="queryInfo.query"
                     clearable
