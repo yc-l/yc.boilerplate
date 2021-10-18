@@ -17,19 +17,20 @@ namespace YC.ServiceWebApi.ServiceCollectionExtensions
     {
         public static IdleBus<IFreeSql> AddTenantDb(this IServiceCollection services)
         {
-          
+
             IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(10));
-            SetTenantDb(services,ib,
+            SetTenantDb(services, ib,
                        DefaultConfig.TenantSettingDto.DefaultTenantId.ToString(),
-                       DefaultConfig.TenantSettingDto.DataType,
+                       DefaultConfig.TenantSettingDto.DefaultDbType,
                        DefaultConfig.TenantSettingDto.DefaultDbConnectionString);
-            if (DefaultConfig.TenantSettingDto.MultiTnancy) {
+            if (DefaultConfig.TenantSettingDto.MultiTnancy)
+            {
                 foreach (var i in DefaultConfig.TenantSettingDto.TenantList)
                 {
-                    SetTenantDb(services, ib, i.TenantId.ToString(), i.DataType, i.DbConnectionString);
+                    SetTenantDb(services, ib, i.TenantId.ToString(), i.DbType, i.DbConnectionString);
                 }
             }
-            
+
 
             return ib;
             //services.AddSingleton(ib);//全局单例
@@ -37,7 +38,7 @@ namespace YC.ServiceWebApi.ServiceCollectionExtensions
             //ib.Get("db1").Select<T>().Limit(10).ToList();
         }
 
-        private static void SetTenantDb(IServiceCollection services,IdleBus<IFreeSql> ib, string tenantKey, int dataType, string connectionString)
+        private static void SetTenantDb(IServiceCollection services, IdleBus<IFreeSql> ib, string tenantKey, int dataType, string connectionString)
         {
             ib.TryRegister(tenantKey, () =>
             {
@@ -60,13 +61,13 @@ namespace YC.ServiceWebApi.ServiceCollectionExtensions
                 //fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
 
 
-               
+
 
                 #region 监听Curd操作
                 fsql.Aop.CurdBefore += (s, e) =>
-                     {
-                         Console.WriteLine($"{e.Sql}\r\n");
-                     };
+                {
+                    Console.WriteLine($"{e.Sql}\r\n");
+                };
 
                 #endregion
 

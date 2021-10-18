@@ -122,36 +122,7 @@ namespace YC.ApplicationService
         }
 
 
-        /// <summary>
-        /// 创建库使用
-        /// </summary>
-        public static string MysqlDbConnectionString => DbConfigDto.DefaultMySqlConnectionString;
-
-        /// <summary>
-        /// 默认库
-        /// </summary>
-        public static string DefaultDbConnectionString => DbConfigDto.DefaultDBConnectionString;
-
-
-        /// <summary>
-        /// 第二个库，多库
-        /// </summary>
-        public string SecondDbConnectionString => DbConfigDto.DefaultSecondConnectionString;
-
-        /// <summary>
-        /// 随机获取一个读的库
-        /// </summary>
-        public string ReadDConcectionString => DbConfigDto.ReadDbConnectionStringList[new Random().Next(0, DbConfigDto.ReadDbConnectionStringList.Count - 1)].ConnectionString;
-        /// <summary>
-        /// 随机获取一个写的库
-        /// </summary>
-        public static string WirteDConcectionString => DbConfigDto.WriteDbConnectionStringList[new Random().Next(0, DbConfigDto.WriteDbConnectionStringList.Count - 1)].ConnectionString;
-
-        /// <summary>
-        /// 是否开启读写分离
-        /// </summary>
-        public static bool IsOpenReadWriteSeparation => DbConfigDto.IsOpenReadWriteSeparation;
-
+      
         public static ConnectionRedis ConnectionRedis => DbConfigDto.ConnectionRedis;
     }
 }

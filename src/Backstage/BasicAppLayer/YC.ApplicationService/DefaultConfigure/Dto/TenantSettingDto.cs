@@ -17,7 +17,7 @@ namespace YC.ApplicationService.DefaultConfigure
         /// </summary>
         public int DefaultTenantId { get; set; }
         public string DefaultDbConnectionString { get; set; }
-        public int DataType { get; set; }
+        public int DefaultDbType { get; set; }
         private string _TenantKeyName;
         public string TenantKeyName { get { return _TenantKeyName; } set { _TenantKeyName = value; } }
         /// <summary>
@@ -43,7 +43,7 @@ namespace YC.ApplicationService.DefaultConfigure
         /// 
         /// </summary>
         public string DbConnectionString { get; set; }
-        public int DataType { get; set; }
+        public int DbType { get; set; }
     }
 
 }

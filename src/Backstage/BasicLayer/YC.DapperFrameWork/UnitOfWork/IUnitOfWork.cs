@@ -21,7 +21,6 @@ namespace YC.DapperFrameWork
         void Commit();
         void Rollback();
 
-        SqlGeneratorImpl sqlGenerator { get; set; }
         IDatabase Db { get; set; }
     }
 }

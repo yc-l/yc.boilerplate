@@ -329,7 +329,7 @@ namespace Dapper
 
             if (Debugger.IsAttached)
                 Trace.WriteLine(String.Format("Get<{0}>: {1} with Id: {2}", currenttype, sb, id));
-           
+
             return connection.Query<T>(sb.ToString(), dynParms, transaction, true, commandTimeout).FirstOrDefault();
         }
 
@@ -1383,10 +1383,12 @@ namespace Dapper
         /// </summary>
         public enum Dialect
         {
-            SQLServer,
-            PostgreSQL,
-            SQLite,
-            MySQL,
+            MySQL = 0,
+            SQLServer = 1,
+            PostgreSQL = 2,
+            //Oracle = 3,
+            SQLite = 4
+
         }
 
         public interface ITableNameResolver

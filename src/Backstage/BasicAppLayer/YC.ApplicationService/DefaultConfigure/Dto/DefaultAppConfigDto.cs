@@ -37,7 +37,7 @@ namespace YC.ApplicationService.DefaultConfigure
         public List<AllowedNoTokenUrl> AllowedNoTokenUrls { get; set; }
 
         public List<FilterUrl> AllowedNoPermissionUrls { get; set; }
-
+        public bool QuartzSeverIsWork { get; set; }
     }
     public class AllowedNoTokenUrl
     {
