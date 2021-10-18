@@ -382,19 +382,16 @@ namespace YC.ServiceWebApi
             //使用中间件全局异常过滤器
             app.UseMiddleware<ExceptionMiddleware>();
 
-        
-            _quartzRepository = quartzRepository;
-            await _scheduler.Start();
 
-            //List<QuartzJobsCollection> jobLibraysList = new List<QuartzJobsCollection>();
-            //jobLibraysList.Add(new InitDbJobsConfig().InitDbJob);
-
-            //var list = await _quartzRepository.DefaultRunningServer(jobLibraysList);
-
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute("default", "api/[area]/[controller]/[action]/{id?}");
-            //});
+            ///定时服务处理
+            if (DefaultConfig.DefaultAppConfigDto.QuartzSeverIsWork)
+            {
+                _quartzRepository = quartzRepository;
+                await _scheduler.Start();
+                List<QuartzJobsCollection> jobLibraysList = new List<QuartzJobsCollection>();
+                jobLibraysList.Add(new InitDbJobsConfig().InitDbJob);
+                var list = await _quartzRepository.DefaultRunningServer(jobLibraysList);
+            }
 
             //配置端点
             app.UseEndpoints(endpoints =>
