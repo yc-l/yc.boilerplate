@@ -133,7 +133,7 @@ namespace YC.CodeGenerate
             return result;
         }
 
-        public bool CreateTable(GenerateDbTableConfig config, out string msg, bool isCovered = false, IDbTransaction transaction = null, int? commandTimeout = null)
+        public bool CreateTable(GenerateDbTableConfig config, out string msg,  bool isCovered = false, string AssemblyName = "YC.Model", IDbTransaction transaction = null, int? commandTimeout = null)
         {
             int i = 0;
             int modelCount = 0;
@@ -148,7 +148,7 @@ namespace YC.CodeGenerate
                 try
                 {
                     List<Assembly> assemblyList = new List<Assembly>();
-                    assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.Model")));
+                    assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(AssemblyName)));
                     List<Type> domainList = new List<Type>();
 
                     foreach (var assembly in assemblyList)
@@ -161,7 +161,7 @@ namespace YC.CodeGenerate
                             {
 
                                 string tableName = ((System.ComponentModel.DataAnnotations.Schema.TableAttribute)Attribute.GetCustomAttribute(l, typeof(System.ComponentModel.DataAnnotations.Schema.TableAttribute))).Name;
-                                if (config.GenerateDbTableEntityList.Exists(x => x == tableName))
+                                if (config.GenerateDbTableEntityList.Exists(x => x == l.Name))
                                     domainList.Add(l);
                             }
                             //var t = ((System.ComponentModel.DataAnnotations.Schema.TableAttribute)Attribute.GetCustomAttribute(l, typeof

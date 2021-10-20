@@ -210,7 +210,6 @@ namespace YC.ServiceWebApi
             // 默认配置
             services.AddDynamicWebApi((options) =>
             {
-
                 options.AddAssemblyOptions(this.GetType().Assembly, httpVerb: "POST");
             });
             // 自定义配置
@@ -281,7 +280,7 @@ namespace YC.ServiceWebApi
             var builder = new ContainerBuilder();
 
             var baseType = typeof(IDependencyInjectionSupport);
-            //var dynamicWebApiType = typeof(IDynamicWebApi);
+           
 
             #region 1、 加载类
 

@@ -28,26 +28,24 @@ using YC.ElasticSearch.Models;
 using YC.ElasticSearch;
 using Nest;
 using YC.ApplicationService.ApplicationService.BookAppService.Dto;
+using YC.ApplicationService.Base;
 
 namespace YC.ApplicationService
 {
     /// <summary>
     ///  业务实现接口
     /// </summary>
-    public class BookAppService : FreeSqlBaseApplicationService, IBookAppService
+    [DynamicWebApi]
+    public class BookAppService : FreeSqlEntityApplicationService<Book,long>, IBookAppService, IDynamicWebApi
     {
 
-        private readonly ICacheManager _cacheManager;
-        private readonly IMapper _mapper;
         private IElasticSearchRepository<Book> _elasticSearchRepository;
         /// <summary>
         /// 构造函数自动注入我们所需要的类或接口
         /// </summary>
         public BookAppService(
-        IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IMapper mapper, IElasticSearchRepository<Book> elasticSearchRepository) : base(httpContextAccessor, cacheManager)
+        IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IFreeSqlRepository<Book, long> entityFreeSqlRepository, IMapper mapper, IElasticSearchRepository<Book>  elasticSearchRepository) : base(httpContextAccessor, entityFreeSqlRepository, mapper, cacheManager)
         {
-            _cacheManager = cacheManager;
-            _mapper = mapper;
             _elasticSearchRepository = elasticSearchRepository;
         }
 
@@ -134,7 +132,7 @@ namespace YC.ApplicationService
                 list.ForEach(
                     x =>
                     {
-                        var tempHighlight = result.Hits.Where(t => t.Id.Contains(x.Id)).FirstOrDefault().Highlight;
+                        var tempHighlight = result.Hits.Where(t => t.Id.Contains(x.Id.ToString())).FirstOrDefault().Highlight;
                         IReadOnlyCollection<string> bookNameHighlightList;
                         tempHighlight.TryGetValue("bookName", out bookNameHighlightList);
                         if (bookNameHighlightList?.Count > 0)

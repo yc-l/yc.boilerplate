@@ -248,6 +248,7 @@ namespace YC.Core
         {
             return GenerateNewId(GetTimestampFromDateTime(DateTime.UtcNow));
         }
+      
 
         public static string Get()
         {

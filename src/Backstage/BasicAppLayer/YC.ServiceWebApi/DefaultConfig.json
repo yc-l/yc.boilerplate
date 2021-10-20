@@ -56,11 +56,17 @@
     ///允许不校验权限
     "AllowedNoPermissionUrls": [
       { "url": "Identity/RefreshToken" },
-      { "url": "Book/GetPageBookList" }
+      { "url": "Book/GetPageBookList" },
+      { "url": "Book/Create" },
+      { "url": "Book/DeleteById" },
+      { "url": "Book/Get" },
+      { "url": "Book/GetPageEntityList" },
+      { "url": "Book/UpdateEntity" }
 
     ],
     ///定时服务是否工作
-    "QuartzSeverIsWork": false
+    "QuartzSeverIsWork": false,
+    "DefaultVerifyCode":"999999"
 
 
 
