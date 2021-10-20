@@ -52,10 +52,10 @@ namespace YC.CodeGenerateTest
                 string msg = "";
                 GenerateDbTableConfig config = new GenerateDbTableConfig();
                 config.GenerateDbTableEntityList = new List<string>();
-                //config.GenerateDbTableEntityList.Add("TestUser");//要生成的表
+                config.GenerateDbTableEntityList.Add("Book");//要生成的表
                 //config.GenerateDbTableEntityList.Add("SysAuditLog");
                 //config.GenerateDbTableEntityList.Add("SysUserSysOrganization");
-                bool result = codeGenerateDBRepository.CreateTable(config,out msg, false);
+                bool result = codeGenerateDBRepository.CreateTable(config,out msg, false, "YC.ElasticSearch");
                 Assert.IsTrue(result);
             }
         }  

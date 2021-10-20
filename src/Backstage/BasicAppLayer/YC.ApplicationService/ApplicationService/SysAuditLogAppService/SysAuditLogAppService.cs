@@ -31,6 +31,7 @@ namespace YC.ApplicationService
     /// <summary>
     ///  业务实现接口
     /// </summary>
+    
     public class SysAuditLogAppService : FreeSqlBaseApplicationService, ISysAuditLogAppService
     {
         private readonly IFreeSqlRepository<SysAuditLog, Int64> _sysAuditLogFreeSqlRepository;

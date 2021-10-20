@@ -47,7 +47,7 @@ namespace YC.ApplicationService
         {
             var res = new ApiResult<UserDto>();
             UserDto userDto = new UserDto();
-            if (validateCode != "999999") {//特定放过不要验证码
+            if (validateCode != DefaultConfig.DefaultAppConfigDto.DefaultVerifyCode) {//特定放过不要验证码
                 if (_cacheManager.Get(guidKey)?.ToString().ToLower() != validateCode.ToLower())
                 {
                     return res.NotOk("验证码过期！");
@@ -77,7 +77,6 @@ namespace YC.ApplicationService
            
 
         }
-
 
         public bool CreateUserRolePermissionCache(UserRolePermissionDto input)
         {

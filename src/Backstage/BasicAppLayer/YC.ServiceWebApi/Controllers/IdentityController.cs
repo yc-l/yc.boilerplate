@@ -20,6 +20,7 @@ using YC.Core;
 using MongoDB.Driver;
 using YC.MongoDB;
 using YC.Core.Cache;
+using YC.ElasticSearch.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,13 +40,13 @@ namespace YC.ServiceWebApi.Controllers
         public readonly ISysUserAppService _sysUserService;
         public readonly IUserManager _userManager;
         public ICacheManager _cacheManager;
-        public IdentityController(ISysUserAppService sysUserService, IUserManager userManager,   ICacheManager cacheManager)
+       
+        public IdentityController(ISysUserAppService sysUserService, IUserManager userManager,
+            ICacheManager cacheManager)
         {
             _sysUserService = sysUserService;
             _userManager = userManager;
             _cacheManager = cacheManager;
-
-
         }
         /// <summary>
         /// 获取token，通过登录
@@ -57,7 +58,7 @@ namespace YC.ServiceWebApi.Controllers
 
         public IActionResult GetTokenByLogin([FromBody] LoginUserDto loginUserDto)
         {
-           
+
             //登录，先去数据库做验证，成功了，说明可以进行token创建，往payLoad字典中加入,如果没有传TenantId 默认就为默认租户
             IApiResult<UserDto> result = _userManager.UserLogin(loginUserDto.UserId, loginUserDto.Pwd, loginUserDto.GuidKey, loginUserDto.ValidateCode, loginUserDto.TenantId == 0 ? 1 : loginUserDto.TenantId);
             return new JsonResult(result);

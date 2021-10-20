@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\BasicLayer\YC.Common\YC.Common.csproj" />
     <ProjectReference Include="..\..\BasicLayer\YC.Core\YC.Core.csproj" />
     <ProjectReference Include="..\..\BasicLayer\YC.DapperFrameWork\YC.DapperFrameWork.csproj" />
+    <ProjectReference Include="..\..\Module\YC.ElasticSearch\YC.ElasticSearch.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,6 +7,8 @@ using YC.Core;
 using YC.Core.Autofac;
 using YC.Core.Domain;
 using YC.Core.DynamicApi;
+using YC.Core.DynamicApi.Attributes;
+using YC.ElasticSearch.Models;
 using YC.Model;
 
 namespace YC.ApplicationService
@@ -15,7 +17,8 @@ namespace YC.ApplicationService
     /// <summary>
     ///  业务接口
     /// </summary>
-    public interface IBookAppService : IApplicationService, IDependencyInjectionSupport
+   
+    public interface IBookAppService : IEntityApplicationService<Book,long>, IDependencyInjectionSupport
     {
 
 
