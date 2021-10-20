@@ -18,7 +18,7 @@ namespace YC.ApplicationService
     ///  业务接口
     /// </summary>
    
-    public interface IBookAppService : IEntityApplicationService<Book,long>, IDependencyInjectionSupport
+    public interface IBookAppService : IEntityApplicationService<Book,string>, IDependencyInjectionSupport
     {
 
 
