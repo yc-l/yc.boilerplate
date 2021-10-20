@@ -1,27 +1,18 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Autofac.Extras.DynamicProxy;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-
-using YC.Model;
 using YC.Core;
 using AutoMapper;
 using System.Linq.Expressions;
-using YC.Core.Attribute;
-using YC.Core.Domain;
-using YC.Core.Autofac;
 using YC.Common.ShareUtils;
 using YC.Core.Cache;
-using YC.ApplicationService.DefaultConfigure;
 using YC.FreeSqlFrameWork;
 using YC.Core.DynamicApi;
 using YC.Core.DynamicApi.Attributes;
-using YC.Model.SysDbEntity;
 using YC.ApplicationService.Dto;
 using YC.Core.Domain.Output;
 using YC.ElasticSearch.Models;
@@ -36,7 +27,7 @@ namespace YC.ApplicationService
     ///  业务实现接口
     /// </summary>
     [DynamicWebApi]
-    public class BookAppService : FreeSqlEntityApplicationService<Book,long>, IBookAppService, IDynamicWebApi
+    public class BookAppService : FreeSqlEntityApplicationService<Book,string>, IBookAppService, IDynamicWebApi
     {
 
         private IElasticSearchRepository<Book> _elasticSearchRepository;
@@ -44,7 +35,7 @@ namespace YC.ApplicationService
         /// 构造函数自动注入我们所需要的类或接口
         /// </summary>
         public BookAppService(
-        IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IFreeSqlRepository<Book, long> entityFreeSqlRepository, IMapper mapper, IElasticSearchRepository<Book>  elasticSearchRepository) : base(httpContextAccessor, entityFreeSqlRepository, mapper, cacheManager)
+        IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IFreeSqlRepository<Book, string> entityFreeSqlRepository, IMapper mapper, IElasticSearchRepository<Book>  elasticSearchRepository) : base(httpContextAccessor, entityFreeSqlRepository, mapper, cacheManager)
         {
             _elasticSearchRepository = elasticSearchRepository;
         }

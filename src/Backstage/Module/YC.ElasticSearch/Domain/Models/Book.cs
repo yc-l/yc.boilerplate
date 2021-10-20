@@ -17,7 +17,7 @@ namespace YC.ElasticSearch.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DisplayName("主键Id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 指定映射为KeyWord 不进行text 映射【不分词】
