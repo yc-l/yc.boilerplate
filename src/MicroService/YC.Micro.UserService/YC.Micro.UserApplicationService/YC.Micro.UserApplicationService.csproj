@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Backstage\BasicAppLayer\YC.Model\YC.Model.csproj" />
+    <ProjectReference Include="..\..\..\Backstage\BasicLayer\YC.Core\YC.Core.csproj" />
+    <ProjectReference Include="..\..\..\Backstage\BasicLayer\YC.FreeSqlFrameWork\YC.FreeSqlFrameWork.csproj" />
+  </ItemGroup>
+
+</Project>

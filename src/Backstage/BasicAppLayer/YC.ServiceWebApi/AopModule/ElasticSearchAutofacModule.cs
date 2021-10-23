@@ -13,12 +13,12 @@ using YC.FreeSqlFrameWork;
 namespace YC.ServiceWebApi.AopModule
 {
     /// <summary>
-    /// FreeSql 注入模块
+    /// ElasticSearch 注入模块
     /// </summary>
     public class ElasticSearchAutofacModule : Autofac.Module
     {
         /// <summary>
-        /// FreeSql 注入模块操作
+        ///ElasticSearch注入模块操作
         /// </summary>
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
