@@ -47,7 +47,7 @@ namespace YC.ApplicationService
         {
             var res = new ApiResult<UserDto>();
             UserDto userDto = new UserDto();
-            if (validateCode != DefaultConfig.DefaultAppConfigDto.DefaultVerifyCode) {//特定放过不要验证码
+            if (validateCode != DefaultConfig.DefaultAppConfig.DefaultVerifyCode) {//特定放过不要验证码
                 if (_cacheManager.Get(guidKey)?.ToString().ToLower() != validateCode.ToLower())
                 {
                     return res.NotOk("验证码过期！");

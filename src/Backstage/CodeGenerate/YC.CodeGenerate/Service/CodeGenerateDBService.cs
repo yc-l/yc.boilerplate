@@ -23,7 +23,7 @@ namespace YC.CodeGenerate
         private RepositoryUtils.Dialect _dbtype;
         public string dbConfigFilePath = System.Environment.CurrentDirectory + "\\DefaultConfig.json";
 
-        // public DbDto dbDto = CodeGenerateConfig<DbDto>.GetJsonList(dbConfigFilePath);
+        // public DatabaseConfig DatabaseConfig = CodeGenerateConfig<DatabaseConfig>.GetJsonList(dbConfigFilePath);
         public IDbConnection GetOpenConnection(string DbConnectionString = null, RepositoryUtils.Dialect dbtype = RepositoryUtils.Dialect.MySQL)
         {
 
@@ -95,15 +95,15 @@ namespace YC.CodeGenerate
             msg = "";
             try
             {
-                DbDto dbDto = new DbConfig().DatabaseConfig;
-                SetInitConnection(dbDto.DefaultMySqlConnectionString);
-                string dbName = dbDto.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
+                DatabaseConfig DatabaseConfig = new DbConfig().DatabaseConfig;
+                SetInitConnection(DatabaseConfig.DefaultMySqlConnectionString);
+                string dbName = DatabaseConfig.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
 
                 using (connection)
                 {
 
                     List<string> databaseList = connection.Query<string>("show databases;", null, transaction, true, commandTimeout).AsList<string>();
-                    if ((databaseList.Any(x => x.Contains(dbName)) && dbDto.IsCoverExistDb) || (!databaseList.Any(x => x.Contains(dbName))))
+                    if ((databaseList.Any(x => x.Contains(dbName)) && DatabaseConfig.IsCoverExistDb) || (!databaseList.Any(x => x.Contains(dbName))))
                     {
                         //只有不存在数据库，或已经设置覆盖同名数据库的，才允许进行如下操作
                         StringBuilder sb = new StringBuilder();
@@ -139,9 +139,9 @@ namespace YC.CodeGenerate
             int modelCount = 0;
             bool resultState = false;
             msg = "";
-            DbDto dbDto = new DbConfig().DatabaseConfig;
-            string dbName = dbDto.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
-            SetInitConnection(dbDto.DefaultDBConnectionString);
+            DatabaseConfig DatabaseConfig = new DbConfig().DatabaseConfig;
+            string dbName = DatabaseConfig.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
+            SetInitConnection(DatabaseConfig.DefaultDBConnectionString);
             using (connection)
             {
 

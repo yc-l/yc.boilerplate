@@ -25,33 +25,33 @@ namespace YC.ApplicationService
         public const string CACHE_USER_ROLE_PEMISSION = "CACHE_USER_ROLE_PEMISSION_{0}";//用户角色权限
 
 
-        public static DbDto DbConfigDto
+        public static DatabaseConfig DatabaseConfig
         {
             get
             {
-                return JsonConfig.ToObject<DbDto>();
+                return JsonConfig.ToObject<DatabaseConfig>();
             }
         }
-        public static TenantSettingDto TenantSettingDto
+        public static TenantSetting TenantSetting
         {
             get
             {
-                return JsonConfig.GetOjectByJsonKey<TenantSettingDto>("TenantSetting");
+                return JsonConfig.GetOjectByJsonKey<TenantSetting>("TenantSetting");
             }
         }
-        public static DefaultAppConfigDto DefaultAppConfigDto
+        public static DefaultAppConfig DefaultAppConfig
         {
             get
             {
-                return JsonConfig.GetOjectByJsonKey<DefaultAppConfigDto>("AppSetting");
+                return JsonConfig.GetOjectByJsonKey<DefaultAppConfig>("AppSetting");
             }
         }
 
-        public static ElasticSearchSettingDto ElasticSearchSettingDto
+        public static ElasticSearchSetting ElasticSearchSetting
         {
             get
             {
-                return JsonConfig.GetOjectByJsonKey<ElasticSearchSettingDto>("ElasticSearchSetting");
+                return JsonConfig.GetOjectByJsonKey<ElasticSearchSetting>("ElasticSearchSetting");
             }
         }
 
@@ -60,7 +60,7 @@ namespace YC.ApplicationService
             get
             {
 
-                return DefaultConfig.DefaultAppConfigDto.AllowedNoTokenUrls;
+                return DefaultConfig.DefaultAppConfig.AllowedNoTokenUrls;
             }
         }
 
@@ -69,7 +69,7 @@ namespace YC.ApplicationService
             get
             {
 
-                return DefaultConfig.DefaultAppConfigDto.AllowedNoPermissionUrls.Select(x => x.Url).ToArray();
+                return DefaultConfig.DefaultAppConfig.AllowedNoPermissionUrls.Select(x => x.Url).ToArray();
             }
         }
 
@@ -77,7 +77,7 @@ namespace YC.ApplicationService
         {
             get
             {
-                return DefaultConfig.ElasticSearchSettingDto.Nodes.Select(x => x.Node).ToArray();
+                return DefaultConfig.ElasticSearchSetting.Nodes.Select(x => x.Node).ToArray();
             }
         }
 
@@ -123,6 +123,6 @@ namespace YC.ApplicationService
 
 
       
-        public static ConnectionRedis ConnectionRedis => DbConfigDto.ConnectionRedis;
+        public static ConnectionRedis ConnectionRedis => DatabaseConfig.ConnectionRedis;
     }
 }

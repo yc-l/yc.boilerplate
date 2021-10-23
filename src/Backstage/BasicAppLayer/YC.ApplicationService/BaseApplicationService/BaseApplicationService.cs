@@ -51,8 +51,8 @@ namespace YC.ApplicationService
                 {
                     try
                     {
-                        var tenantObj = load[DefaultConfig.TenantSettingDto.TenantKeyName]?.ToString();
-                        var tokenKey = load[DefaultConfig.DefaultAppConfigDto.TokenKeyName]?.ToString();
+                        var tenantObj = load[DefaultConfig.TenantSetting.TenantKeyName]?.ToString();
+                        var tokenKey = load[DefaultConfig.DefaultAppConfig.TokenKeyName]?.ToString();
                         obj = _cacheManager.Get<UserDto>(string.Format(DefaultConfig.CACHE_TOKEN_USER, tokenKey));
                         return true;
                     }

@@ -16,9 +16,9 @@ namespace YC.CodeGenerateTest
             #region 第一种直接转换写入，格式比较乱
             //string dbConfigFilePath = System.Environment.CurrentDirectory + "\\DefaultConfig.json";
             //string tempJson = CodeGenerateConfig.GetConfigJson(dbConfigFilePath);
-            //DbDto dbDto = CodeGenerateConfig.GetJsonList<DbDto>(tempJson);
-            //dbDto.DefaultDBConnectionString = dbDto.DefaultDBConnectionString.Replace("{%dbName%}", "test");
-            //bool result = CodeGenerateConfig.SetConfigJson(dbConfigFilePath, dbDto.ToJson()); 
+            //DatabaseConfig DatabaseConfig = CodeGenerateConfig.GetJsonList<DatabaseConfig>(tempJson);
+            //DatabaseConfig.DefaultDBConnectionString = DatabaseConfig.DefaultDBConnectionString.Replace("{%dbName%}", "test");
+            //bool result = CodeGenerateConfig.SetConfigJson(dbConfigFilePath, DatabaseConfig.ToJson()); 
             #endregion
 
             #region 第二种，格式不会变

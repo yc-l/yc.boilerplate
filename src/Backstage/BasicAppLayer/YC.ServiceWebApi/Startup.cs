@@ -383,7 +383,7 @@ namespace YC.ServiceWebApi
 
 
             ///定时服务处理
-            if (DefaultConfig.DefaultAppConfigDto.QuartzSeverIsWork)
+            if (DefaultConfig.DefaultAppConfig.QuartzSeverIsWork)
             {
                 _quartzRepository = quartzRepository;
                 await _scheduler.Start();

@@ -28,7 +28,7 @@ namespace YC.ServiceWebApi.AopModule
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly());//注入当前程程序集
 
-            builder.RegisterType<DefaultUnitOfWork>().As<DapperFrameWork.IUnitOfWork>().WithParameter("dbConnectionString", DefaultConfig.TenantSettingDto.DefaultDbConnectionString).WithParameter("defaultDbType", GetDbType()).AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
+            builder.RegisterType<DefaultUnitOfWork>().As<DapperFrameWork.IUnitOfWork>().WithParameter("dbConnectionString", DefaultConfig.TenantSetting.DefaultDbConnectionString).WithParameter("defaultDbType", GetDbType()).AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
             //builder.RegisterType<TenantIdentificationStrategy>().As<ITenantIdentificationStrategy>().AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
 
 
@@ -37,7 +37,7 @@ namespace YC.ServiceWebApi.AopModule
         private static RepositoryUtils.Dialect GetDbType()
         {
             RepositoryUtils.Dialect dbType;
-            switch (DefaultConfig.TenantSettingDto.DefaultDbType)
+            switch (DefaultConfig.TenantSetting.DefaultDbType)
             {
                 case 0: dbType = RepositoryUtils.Dialect.MySQL; break;
                 case 1: dbType = RepositoryUtils.Dialect.SQLServer; break;
