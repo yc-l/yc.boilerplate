@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YC.ApplicationService.DefaultConfigure
 {
-    public class DefaultAppConfigDto
+    public class DefaultAppConfig
     {
         public bool IsDebug { get; set; }
         public string ExceptionKey { get; set; }

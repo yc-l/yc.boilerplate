@@ -35,14 +35,14 @@ namespace YC.ServiceWebApi.Filter
             {
                 var result = new ApiResult<string>();
                 LogUtils.WriteLog(new LogDto() { TypeName = "Action执行异常日志", Message = "异常：" + context.Exception?.ToString() });//可以在这里统一全局拦截返回
-                if (DefaultConfig.DefaultAppConfigDto.IsDebug)//开发状态下显示所有异常信息
+                if (DefaultConfig.DefaultAppConfig.IsDebug)//开发状态下显示所有异常信息
                 {
                     result = new ApiResult<string>().NotOk(context.Exception?.ToString());
 
                 }
                 else//生产状态，如果有自定义异常，就抛出，如果不是提示默认
                 {
-                    result = new ApiResult<String>().NotOk(DefaultConfig.DefaultAppConfigDto.DefaultExceptionString);
+                    result = new ApiResult<String>().NotOk(DefaultConfig.DefaultAppConfig.DefaultExceptionString);
 
                 }
                 context.Result = new JsonResult(result);

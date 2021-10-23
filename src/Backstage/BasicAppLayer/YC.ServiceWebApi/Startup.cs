@@ -402,7 +402,7 @@ namespace YC.ServiceWebApi
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
-                KnownProxies = { IPAddress.Parse(DefaultConfig.DefaultAppConfigDto.NginxAgentIP) }
+                KnownProxies = { IPAddress.Parse(DefaultConfig.DefaultAppConfig.NginxAgentIP) }
             });
 
             // 添加NLog日志支持

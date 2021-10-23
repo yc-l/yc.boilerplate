@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YC.ApplicationService.DefaultConfigure
 {
-    public class TenantSettingDto
+    public class TenantSetting
     {
         /// <summary>
         /// 

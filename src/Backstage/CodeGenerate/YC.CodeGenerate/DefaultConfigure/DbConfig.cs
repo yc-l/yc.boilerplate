@@ -18,11 +18,11 @@ namespace YC.CodeGenerate
         /// 默认连接的数据库类型
         /// </summary>
         public Dapper.RepositoryUtils.Dialect defaultDbType;
-        public DbDto dbConfigDto;
+        public DbDto DatabaseConfig;
         public DbConfig()
         {
 
-            dbConfigDto = GetConfigJson(dbConfigFilePath).ToObject<DbDto>();
+            DatabaseConfig = GetConfigJson(dbConfigFilePath).ToObject<DbDto>();
             defaultDbType = Dapper.RepositoryUtils.Dialect.MySQL;
         }
         /// <summary>
@@ -67,31 +67,31 @@ namespace YC.CodeGenerate
         /// <summary>
         /// 创建库使用
         /// </summary>
-        public string MysqlDbConnectionString => dbConfigDto.DefaultMySqlConnectionString;
+        public string MysqlDbConnectionString => DatabaseConfig.DefaultMySqlConnectionString;
 
         /// <summary>
         /// 默认库
         /// </summary>
-        public string DefaultDbConnectionString => dbConfigDto.DefaultDBConnectionString;
+        public string DefaultDbConnectionString => DatabaseConfig.DefaultDBConnectionString;
 
 
         /// <summary>
         /// 第二个库，多库
         /// </summary>
-        public string SecondDbConnectionString => dbConfigDto.DefaultSecondConnectionString;
+        public string SecondDbConnectionString => DatabaseConfig.DefaultSecondConnectionString;
 
         /// <summary>
         /// 随机获取一个读的库
         /// </summary>
-        public string ReadDConcectionString => dbConfigDto.ReadDbConnectionStringList[new Random().Next(0, dbConfigDto.ReadDbConnectionStringList.Count - 1)].ConnectionString;
+        public string ReadDConcectionString => DatabaseConfig.ReadDbConnectionStringList[new Random().Next(0, DatabaseConfig.ReadDbConnectionStringList.Count - 1)].ConnectionString;
         /// <summary>
         /// 随机获取一个写的库
         /// </summary>
-        public string WirteDConcectionString => dbConfigDto.WriteDbConnectionStringList[new Random().Next(0, dbConfigDto.WriteDbConnectionStringList.Count - 1)].ConnectionString;
+        public string WirteDConcectionString => DatabaseConfig.WriteDbConnectionStringList[new Random().Next(0, DatabaseConfig.WriteDbConnectionStringList.Count - 1)].ConnectionString;
 
         /// <summary>
         /// 是否开启读写分离
         /// </summary>
-        public bool IsOpenReadWriteSeparation => dbConfigDto.IsOpenReadWriteSeparation;
+        public bool IsOpenReadWriteSeparation => DatabaseConfig.IsOpenReadWriteSeparation;
     }
 }
