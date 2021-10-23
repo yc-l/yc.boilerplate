@@ -41,7 +41,7 @@ namespace YC.ApplicationService
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="pwd"></param>
-        /// <param name=DefaultConfig.TenantSettingDto.TenantKeyName></param>
+        /// <param name=DefaultConfig.TenantSetting.TenantKeyName></param>
         /// <returns></returns>
         public IApiResult<UserDto> UserLogin(string userId, string pwd,string guidKey,string validateCode, int tenantId = 1)
         {
@@ -61,7 +61,7 @@ namespace YC.ApplicationService
                 userDto.Token = CreateToken(loginDto.Data);
                 //claimsPrincipal 存储报错到缓存报错
                 userDto.Authentication = true.ToString();
-                userDto.Expired = DefaultConfig.DefaultAppConfigDto.CacheExpire.ToString();
+                userDto.Expired = DefaultConfig.DefaultAppConfig.CacheExpire.ToString();
                 userDto.TenantId = tenantId;
                 var tempData = _sysUserService.GetUserRolePermission(loginDto.Data.Id).Data;
                 userDto.RoleInfoList = tempData.RoleInfoList;
@@ -88,7 +88,7 @@ namespace YC.ApplicationService
                 _cacheManager.Remove(userRolePermissionCacheKey);
             }
           
-            var isSuccessed=_cacheManager.Add(userRolePermissionCacheKey, input, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfigDto.CacheExpire));
+            var isSuccessed=_cacheManager.Add(userRolePermissionCacheKey, input, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.CacheExpire));
           
             return isSuccessed;
         }
@@ -105,13 +105,13 @@ namespace YC.ApplicationService
                     new Claim(ClaimTypes.Name, loginUserDto.Name??""),
                     //new Claim(ClaimTypes.Email, loginUserDto.Email??""),
                     //new Claim(ClaimTypes.MobilePhone, loginUserDto.Mobile??""),
-                    new Claim(ClaimTypes.Expired,DefaultConfig.DefaultAppConfigDto.TokenExpire.ToString()),
-                     new Claim("RefreshTokenExpired",DefaultConfig.DefaultAppConfigDto.RefreshTokenExpire.ToString()),
+                    new Claim(ClaimTypes.Expired,DefaultConfig.DefaultAppConfig.TokenExpire.ToString()),
+                     new Claim("RefreshTokenExpired",DefaultConfig.DefaultAppConfig.RefreshTokenExpire.ToString()),
                     new Claim(ClaimTypes.Authentication, true.ToString()),
-                    new Claim(DefaultConfig.DefaultAppConfigDto.TokenKeyName,  string.Format("tenantId_{0}_userId_{1}",_tenant.TenantId.ToString(),loginUserDto.Id)),
-                    new Claim(DefaultConfig.TenantSettingDto.TenantKeyName,_tenant.TenantId.ToString()),
-                    new Claim("Issuer",DefaultConfig.DefaultAppConfigDto.TokenIssuer),
-                    new Claim("Audience",DefaultConfig.DefaultAppConfigDto.TokenAudience),
+                    new Claim(DefaultConfig.DefaultAppConfig.TokenKeyName,  string.Format("tenantId_{0}_userId_{1}",_tenant.TenantId.ToString(),loginUserDto.Id)),
+                    new Claim(DefaultConfig.TenantSetting.TenantKeyName,_tenant.TenantId.ToString()),
+                    new Claim("Issuer",DefaultConfig.DefaultAppConfig.TokenIssuer),
+                    new Claim("Audience",DefaultConfig.DefaultAppConfig.TokenAudience),
 
              };
 
@@ -122,7 +122,7 @@ namespace YC.ApplicationService
                 payLoad.Add(i.Type, i.Value);
             }
 
-            token = TokenContext.CreateTokenByHandler(payLoad, DefaultConfig.DefaultAppConfigDto.TokenExpire);//创建token
+            token = TokenContext.CreateTokenByHandler(payLoad, DefaultConfig.DefaultAppConfig.TokenExpire);//创建token
             var identity = new ClaimsIdentity("合法访问Token");
 
             identity.AddClaims(claims);
@@ -134,13 +134,13 @@ namespace YC.ApplicationService
             var userDto = _mapper.Map<UserDto>(loginUserDto);
             //claimsPrincipal 存储报错到缓存报错
             userDto.Authentication = true.ToString();
-            userDto.Expired = DefaultConfig.DefaultAppConfigDto.CacheExpire.ToString();
+            userDto.Expired = DefaultConfig.DefaultAppConfig.CacheExpire.ToString();
             userDto.TenantId = _tenant.TenantId;
             userDto.Token = token;
             userDto.IP = IPUtils.GetIP(_httpContextAccessor?.HttpContext?.Request);
-            _cacheManager.Add(string.Format(DefaultConfig.CACHE_TOKEN_USER, string.Format("tenantId_{0}_userId_{1}", _tenant.TenantId.ToString(), loginUserDto.Id)), userDto, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfigDto.TokenExpire));
+            _cacheManager.Add(string.Format(DefaultConfig.CACHE_TOKEN_USER, string.Format("tenantId_{0}_userId_{1}", _tenant.TenantId.ToString(), loginUserDto.Id)), userDto, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.TokenExpire));
             //刷新缓存token
-            _cacheManager.Add(string.Format(DefaultConfig.CACHE_RETOKEN_USER, string.Format("tenantId_{0}_userId_{1}", _tenant.TenantId.ToString(), loginUserDto.Id)), userDto, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfigDto.RefreshTokenExpire));
+            _cacheManager.Add(string.Format(DefaultConfig.CACHE_RETOKEN_USER, string.Format("tenantId_{0}_userId_{1}", _tenant.TenantId.ToString(), loginUserDto.Id)), userDto, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.RefreshTokenExpire));
             return token;
         }
 
@@ -151,7 +151,7 @@ namespace YC.ApplicationService
             payloadDic.Remove("nbf");
             payloadDic.Remove("exp");
             var newToken = "";
-            var tokenKey = payloadDic[DefaultConfig.DefaultAppConfigDto.TokenKeyName];
+            var tokenKey = payloadDic[DefaultConfig.DefaultAppConfig.TokenKeyName];
             var userInfo = _cacheManager.Get<UserDto>(string.Format(DefaultConfig.CACHE_TOKEN_USER, tokenKey));
             var refreshUserInfo = _cacheManager.Get<UserDto>(string.Format(DefaultConfig.CACHE_RETOKEN_USER, tokenKey));
             string tokenCacheKey = string.Format(DefaultConfig.CACHE_TOKEN_USER, tokenKey);
@@ -160,7 +160,7 @@ namespace YC.ApplicationService
             {
                 return newToken;
             }
-            newToken = TokenContext.CreateTokenByHandler(payloadDic, DefaultConfig.DefaultAppConfigDto.TokenExpire);//创建token
+            newToken = TokenContext.CreateTokenByHandler(payloadDic, DefaultConfig.DefaultAppConfig.TokenExpire);//创建token
             if (_cacheManager.Exists(tokenCacheKey))
             {
                 _cacheManager.Remove(tokenCacheKey);
@@ -171,8 +171,8 @@ namespace YC.ApplicationService
                 _cacheManager.Remove(refreshTokenCacheKey);
             }
 
-            _cacheManager.Add(tokenCacheKey, userInfo, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfigDto.RefreshTokenExpire));
-            _cacheManager.Add(refreshTokenCacheKey, userInfo, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfigDto.TokenExpire));
+            _cacheManager.Add(tokenCacheKey, userInfo, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.RefreshTokenExpire));
+            _cacheManager.Add(refreshTokenCacheKey, userInfo, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.TokenExpire));
             return newToken;
         }
     }

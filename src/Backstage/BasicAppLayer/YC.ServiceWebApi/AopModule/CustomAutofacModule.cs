@@ -22,7 +22,7 @@ namespace YC.ServiceWebApi.AopModule
             builder.RegisterType<AopInterceptor>();
             //builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().InstancePerLifetimeScope();
             //Mongodb 注入
-            // builder.RegisterType<MongoDbRepository>().As<IMongoDbRepository>().WithParameter("connectionString", DefaultConfig.DefaultAppConfigDto.MongoDbString).WithParameter("dbName", DefaultConfig.DefaultAppConfigDto.MongoDbName).AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired(); 
+            // builder.RegisterType<MongoDbRepository>().As<IMongoDbRepository>().WithParameter("connectionString", DefaultConfig.DefaultAppConfig.MongoDbString).WithParameter("dbName", DefaultConfig.DefaultAppConfig.MongoDbName).AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired(); 
 
             #region redis cache
             var tempConfigOptions = new StackExchange.Redis.ConfigurationOptions();

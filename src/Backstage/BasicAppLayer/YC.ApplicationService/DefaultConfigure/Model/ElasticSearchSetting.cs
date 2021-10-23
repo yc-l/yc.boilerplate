@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YC.ApplicationService.DefaultConfigure.Dto
 {
-   public class ElasticSearchSettingDto
+   public class ElasticSearchSetting
     {
         public List<ElasticSearchNode> Nodes { get; set; }
     }

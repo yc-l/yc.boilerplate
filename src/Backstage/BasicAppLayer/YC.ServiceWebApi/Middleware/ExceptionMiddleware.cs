@@ -58,7 +58,7 @@ namespace YC.ServiceWebApi.Middleware
                 {
                     ReadException(ex.InnerException);
 
-                    if (ex.InnerException.Message.Contains(DefaultConfig.DefaultAppConfigDto.ExceptionKey))
+                    if (ex.InnerException.Message.Contains(DefaultConfig.DefaultAppConfig.ExceptionKey))
                     {
                         errorMessage += ex.InnerException.Message;
                         isExistCustomError = true;
@@ -70,14 +70,14 @@ namespace YC.ServiceWebApi.Middleware
             ReadException(e);
             _logger.LogError(e.ToString());
             var result = new ApiResult<string>();
-            if (DefaultConfig.DefaultAppConfigDto.IsDebug)//开发状态下显示所有异常信息
+            if (DefaultConfig.DefaultAppConfig.IsDebug)//开发状态下显示所有异常信息
             {
                 result = new ApiResult<string>().NotOk(e?.ToString());
                 //error = JsonConvert.SerializeObject(result);
             }
             else//生产状态，如果有自定义异常，就抛出，如果不是提示默认
             {
-                result = e.Message.Contains(DefaultConfig.DefaultAppConfigDto.ExceptionKey)? new ApiResult<String>().NotOk(e.Message): new ApiResult<String>().NotOk(DefaultConfig.DefaultAppConfigDto.DefaultExceptionString);
+                result = e.Message.Contains(DefaultConfig.DefaultAppConfig.ExceptionKey)? new ApiResult<String>().NotOk(e.Message): new ApiResult<String>().NotOk(DefaultConfig.DefaultAppConfig.DefaultExceptionString);
                 //error = JsonConvert.SerializeObject(result);
             }
 

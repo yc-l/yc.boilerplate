@@ -27,7 +27,7 @@ namespace YC.QuartzService.JobService.DeleteLogJobService
 
         public async  Task Execute(IJobExecutionContext context)
         {
-           var tenantList = DefaultConfig.TenantSettingDto.TenantList;
+           var tenantList = DefaultConfig.TenantSetting.TenantList;
             string sqlFile = System.Environment.CurrentDirectory + @"\DbSqlFile\bigdatadb.sql";
             tenantList = tenantList.Where(x => x.TenantId == 1 || x.TenantId == 2).ToList();
             foreach (var t in tenantList) {

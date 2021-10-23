@@ -99,7 +99,7 @@ namespace YC.ServiceWebApi.Controllers
         public IActionResult GetVerificationCode(string guidKey)
         {
             if (string.IsNullOrWhiteSpace(guidKey)) {
-                throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey+"验证码指定Key不存在！");
+                throw new Exception(DefaultConfig.DefaultAppConfig.ExceptionKey+"验证码指定Key不存在！");
             }
             string verificationCode = "";
             var imageMemoryStream=  VerificationCodeUtils.CreateVerificationCodeImage(out verificationCode);        

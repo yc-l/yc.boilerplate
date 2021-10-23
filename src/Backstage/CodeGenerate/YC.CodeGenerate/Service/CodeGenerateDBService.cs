@@ -95,7 +95,7 @@ namespace YC.CodeGenerate
             msg = "";
             try
             {
-                DbDto dbDto = new DbConfig().dbConfigDto;
+                DbDto dbDto = new DbConfig().DatabaseConfig;
                 SetInitConnection(dbDto.DefaultMySqlConnectionString);
                 string dbName = dbDto.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
 
@@ -139,7 +139,7 @@ namespace YC.CodeGenerate
             int modelCount = 0;
             bool resultState = false;
             msg = "";
-            DbDto dbDto = new DbConfig().dbConfigDto;
+            DbDto dbDto = new DbConfig().DatabaseConfig;
             string dbName = dbDto.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
             SetInitConnection(dbDto.DefaultDBConnectionString);
             using (connection)

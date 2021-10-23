@@ -4,7 +4,7 @@ using System.Text;
 
 namespace YC.ApplicationService
 {
-    public class DbDto
+    public class DatabaseConfig
     {
 
         public ConnectionRedis ConnectionRedis { get; set; }

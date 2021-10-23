@@ -98,13 +98,13 @@ namespace YC.ServiceWebApi.Filter
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "审计日志拦截返回值处理失败！" + ex.ToString());
+                        throw new Exception(DefaultConfig.DefaultAppConfig.ExceptionKey + "审计日志拦截返回值处理失败！" + ex.ToString());
                     }
 
 
                  
 
-                    //throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "获取context.Result 对象为空！");
+                    //throw new Exception(DefaultConfig.DefaultAppConfig.ExceptionKey + "获取context.Result 对象为空！");
                 }
                 //写入审计日志
                 WriteRequestLog(context, _requestInfoDto);
@@ -157,31 +157,31 @@ namespace YC.ServiceWebApi.Filter
 
             token = token.ToString().Replace("Bearer", "").Trim();
             UserDto userInfo = new UserDto();
-            if (DefaultConfig.DefaultAppConfigDto.VerifyTokenUniqueness)
+            if (DefaultConfig.DefaultAppConfig.VerifyTokenUniqueness)
             {//演示系统，该属性不开启，默认不校验唯一性
                 ValidateTokenExtenstions.ValidateToken(token, _httpContextAccessor, _cacheManager);
             }
             
             var payloadDic = TokenContext.GetPayLoad(token);
-            var tokenKey = payloadDic[DefaultConfig.DefaultAppConfigDto.TokenKeyName]?.ToString();//拿到唯一Id
+            var tokenKey = payloadDic[DefaultConfig.DefaultAppConfig.TokenKeyName]?.ToString();//拿到唯一Id
             userInfo = _cacheManager.Get<UserDto>(string.Format(DefaultConfig.CACHE_TOKEN_USER, tokenKey));
             _requestInfoDto.User = userInfo;
 
             #endregion
 
             #region 3-权限校验
-            //权限校验,如果自定义抛出异常，需要展示给前端看，那么必须 添加DefaultConfig.DefaultAppConfigDto.ExceptionKey ，全局日志校验，就会放通
+            //权限校验,如果自定义抛出异常，需要展示给前端看，那么必须 添加DefaultConfig.DefaultAppConfig.ExceptionKey ，全局日志校验，就会放通
             var userRolePermissions = GetUserRolePermissionCache(userInfo.TenantId, userInfo.Id);
             if (userRolePermissions == null)//如果角色权限获取异常直接抛出
             {
-                throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "用户角色权限数据获取异常！");
+                throw new Exception(DefaultConfig.DefaultAppConfig.ExceptionKey + "用户角色权限数据获取异常！");
             }
             string requestApi = context.HttpContext.Request.Path.Value.Replace("/api/", "");
             var isAllowedPermission = userRolePermissions.PermissionList.Exists(x => x.Api.Contains(requestApi));
             string[] isAllowedPaths = DefaultConfig.AllowedNoPermissionUrls;
             if (!isAllowedPermission && !isAllowedPaths.Any(x => x.Contains(requestApi)))
             {
-                throw new Exception(DefaultConfig.DefaultAppConfigDto.ExceptionKey + "没有对应的访问权限！");
+                throw new Exception(DefaultConfig.DefaultAppConfig.ExceptionKey + "没有对应的访问权限！");
             }
             #endregion
         }
@@ -235,7 +235,7 @@ namespace YC.ServiceWebApi.Filter
             {
                 result = _sysUserService.GetUserRolePermission(id).Data;//查询
                 //再次进行缓存
-                var isSuccessed = _cacheManager.Add(userRolePermissionCacheKey, result, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfigDto.CacheExpire));
+                var isSuccessed = _cacheManager.Add(userRolePermissionCacheKey, result, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.CacheExpire));
 
             }
             return result;
