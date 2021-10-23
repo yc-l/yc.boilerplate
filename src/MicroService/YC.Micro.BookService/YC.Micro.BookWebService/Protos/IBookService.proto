@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option csharp_namespace = "YC.Micro.BookWebService";
+
+package BookService;
+
+// The greeting service definition.
+service IBookService {
+  // Sends a greeting
+  rpc GetBookList (BookFormRequest) returns (BookDtoList);
+}
+
+// The request message containing the user's name.
+message BookFormRequest {
+  string QueryFilterString = 1;
+  int32 CurrentPage=2;
+  int32 PageSize=3;
+}
+
+message BookDto{
+
+string Id=1;
+string BookName=2;
+string BookContent=3;
+string Auther=4;
+string PublishDate=5;
+double Price=6;
+string CreateDate=7;
+
+}
+
+// The response message containing the greetings.
+message BookDtoList {
+  repeated BookDto  BookDto= 1;
+}

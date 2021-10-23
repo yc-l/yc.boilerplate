@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option csharp_namespace = "YC.Micro.UserWebService";
+
+package UserService;
+
+// The greeting service definition.
+service IUserService {
+  // Sends a greeting
+  rpc GetUserList (UserFormRequest) returns (UserDtoList);
+}
+
+// The request message containing the user's name.
+message UserFormRequest {
+ int32 id =1;
+}
+
+// The response message containing the greetings.
+// 4、定义出参
+message UserDto{
+    int64 Id =1; 
+    string UserName = 2; 
+    string Account = 3; 
+    string Password=4;
+    int32 Sex=5;
+    string Mobile=6;
+    string Email=7;
+    string Remark=8;
+    
+}
+
+// 4.1 定义出参List
+message UserDtoList{
+    repeated UserDto UserDto = 1;
+}
