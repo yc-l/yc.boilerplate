@@ -20,12 +20,12 @@ namespace YC.ServiceWebApi.ServiceCollectionExtensions
 
             IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(10));
             SetTenantDb(services, ib,
-                       DefaultConfig.TenantSettingDto.DefaultTenantId.ToString(),
-                       DefaultConfig.TenantSettingDto.DefaultDbType,
-                       DefaultConfig.TenantSettingDto.DefaultDbConnectionString);
-            if (DefaultConfig.TenantSettingDto.MultiTnancy)
+                       DefaultConfig.TenantSetting.DefaultTenantId.ToString(),
+                       DefaultConfig.TenantSetting.DefaultDbType,
+                       DefaultConfig.TenantSetting.DefaultDbConnectionString);
+            if (DefaultConfig.TenantSetting.MultiTnancy)
             {
-                foreach (var i in DefaultConfig.TenantSettingDto.TenantList)
+                foreach (var i in DefaultConfig.TenantSetting.TenantList)
                 {
                     SetTenantDb(services, ib, i.TenantId.ToString(), i.DbType, i.DbConnectionString);
                 }

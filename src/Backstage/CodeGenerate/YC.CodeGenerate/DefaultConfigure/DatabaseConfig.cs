@@ -4,7 +4,7 @@ using System.Text;
 
 namespace YC.CodeGenerate
 {
-   public class DbDto
+   public class DatabaseConfig
     {
         /// <summary>
         /// 默认使用的数据库类别

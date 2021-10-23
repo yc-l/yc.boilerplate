@@ -18,11 +18,11 @@ namespace YC.CodeGenerate
         /// 默认连接的数据库类型
         /// </summary>
         public Dapper.RepositoryUtils.Dialect defaultDbType;
-        public DbDto DatabaseConfig;
+        public DatabaseConfig DatabaseConfig;
         public DbConfig()
         {
 
-            DatabaseConfig = GetConfigJson(dbConfigFilePath).ToObject<DbDto>();
+            DatabaseConfig = GetConfigJson(dbConfigFilePath).ToObject<DatabaseConfig>();
             defaultDbType = Dapper.RepositoryUtils.Dialect.MySQL;
         }
         /// <summary>
