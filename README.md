@@ -10,6 +10,8 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 
 ```框架最新版本已经引入 ElasticSearch 等大数据套件，实现千万级别以上的分布式检索、统计、分析。详细请看最新的文档。```
 
+```框架微服务版本见：YC.MicroService.sln```
+
 元磁之力框架技术群QQ：1060819005
 
 
@@ -41,7 +43,9 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 - 当下流行的开发模式，分层明确。
 - 配合框架自带代码生成器快速完成CRUD和树形等复杂功能逻辑实现，不敲一行代码，节省60%工作量。
 
-#### 框架分层介绍
+#### YC.Boilerplate 框架分层介绍
+
+> 常规版本框架分层
 
 - 核心层：```YC.Core``` 主要实现顶层设计类接口规范和一些类的封装，比如：租户接口、AopInterceptor AOP 拦截注入、TokenContext token逻辑、公共特性等等。
 - 数据层：```YC.DapperFrameWork```、```YC.FreeSqlFrameWork``` 多项ORM 封装，主要存在仓储、工作单元等。
@@ -49,6 +53,13 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 - 业务服务层：```YC.ApplicationService``` 业务逻辑实现，默认实现动态webapi。
 - 实体层:```YC..Model``` 常规的数据表实体，枚举等，以及常规的model需要用的基础方法。
 - 业务Api层：```YC.ServiceWebApi``` 提供对外接口服务启动项目。
+
+> 微服务版本框架分层
+
+- 聚合服务层：```YC.Micro.AggregateServiceWebApi```,多种服务融合调用。
+- 公共常用配置层：```YC.Micro.Configuration``` 公共常用配置层。
+- 各个独立服务：```YC.Micro.xxxxWebService``` 指定服务。
+- 其他：注册、熔断、负载均衡、日志运维、身份认证中心、容器化等敬请期待。
 
 > 模块层（按需使用）
 
