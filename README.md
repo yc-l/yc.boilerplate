@@ -11,6 +11,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 ```框架最新版本已经引入 ElasticSearch 等大数据套件，实现千万级别以上的分布式检索、统计、分析。详细请看最新的文档。```
 
 ```常规前后端分离框架：前端：src\Front\yc.webfront ，后端：src\Backstage\YC.Boilerplate.sln ```
+
 ```框架微服务版本见：src\MicroService\YC.MicroService.sln```
 
 元磁之力框架技术群QQ：1060819005
@@ -60,7 +61,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 - 聚合服务层：```YC.Micro.AggregateServiceWebApi```,多种服务融合调用。
 - 公共常用配置层：```YC.Micro.Configuration``` 公共常用配置层。
 - 各个独立服务：```YC.Micro.xxxxWebService``` 指定服务。
-- 其他：注册、熔断、负载均衡、日志运维、身份认证中心、容器化等敬请期待。
+- 其他：注册、熔断、负载均衡、日志运维、身份认证中心、容器化等,敬请期待。
 
 > 模块层（按需使用）
 
