@@ -304,22 +304,9 @@ namespace YC.ServiceWebApi
             #endregion
             #region 2、注入操作
 
-            builder.RegisterModule(new CustomAutofacModule());
-
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
-            //automapper 注入
-            builder.RegisterModule(new AutoMapperAutofacModule());
 
-            //elasticSearch 注入
-            builder.RegisterModule(new ElasticSearchAutofacModule());
-
-            //dapper 注入
-            builder.RegisterModule(new DapperAutofacModule());
-
-            //freesql 注入
-            builder.RegisterModule(new FreesqlAutofacModule());
-            //Quartz服务注入
-            builder.RegisterModule(new QuartzModule());
+            services.AddDependOnModule(builder);//模块注入
             var idle = services.AddTenantDb();//租户注入
             builder.RegisterInstance(idle).SingleInstance();//单例注册 
 

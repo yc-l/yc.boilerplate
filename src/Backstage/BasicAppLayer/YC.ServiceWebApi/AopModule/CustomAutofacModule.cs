@@ -14,7 +14,7 @@ using YC.MongoDB;
 
 namespace YC.ServiceWebApi.AopModule
 {
-
+    [DependsOn]
     public class CustomAutofacModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)

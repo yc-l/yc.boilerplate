@@ -15,6 +15,7 @@ namespace YC.ServiceWebApi.AopModule
     /// <summary>
     /// ElasticSearch 注入模块
     /// </summary>
+    [DependsOn]
     public class ElasticSearchAutofacModule : Autofac.Module
     {
         /// <summary>
