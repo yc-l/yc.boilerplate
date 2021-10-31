@@ -18,6 +18,7 @@ using YC.ServiceWebApi.Filter;
 
 namespace YC.ServiceWebApi.AopModule
 {
+    [DependsOn]
     public class DapperAutofacModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
