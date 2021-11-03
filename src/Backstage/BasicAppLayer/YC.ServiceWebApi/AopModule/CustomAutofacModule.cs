@@ -35,7 +35,7 @@ namespace YC.ServiceWebApi.AopModule
                 Configuration = DefaultConfig.ConnectionRedis.Connection,
                 InstanceName = DefaultConfig.ConnectionRedis.InstanceName,
                 ConfigurationOptions = tempConfigOptions,
-            }).InstancePerLifetimeScope();
+            }).SingleInstance();
             #endregion
             //多租户注入
             builder.RegisterType<DefaultTenant>().As<ITenant>().AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
