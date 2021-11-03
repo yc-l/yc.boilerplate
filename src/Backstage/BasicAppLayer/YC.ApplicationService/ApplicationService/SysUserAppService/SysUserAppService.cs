@@ -80,8 +80,8 @@ namespace YC.ApplicationService.SysUserAppService
             }
             pwd = EncryptUtils.MD5(pwd);
 
-            //var freeObj = _sysUserFreeSqlRepository.Where(x => x.Account == userId && x.Password == pwd).ToList().FirstOrDefault();
-            var resultList = _sysUserRepository.GetList(new { Account = userId, Password = pwd });
+            var resultList = _sysUserFreeSqlRepository.Where(x => x.Account == userId && x.Password == pwd).ToList();
+            //var resultList = _sysUserRepository.GetList(new { Account = userId, Password = pwd });
             if (resultList.Count > 0)
             {
                 return res.Ok(resultList.FirstOrDefault(), "登录成功！");

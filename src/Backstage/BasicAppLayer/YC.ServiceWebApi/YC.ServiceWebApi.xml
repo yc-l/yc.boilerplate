@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YC.ServiceWebApi</name>
+    </assembly>
+    <members>
+        <member name="T:YC.ServiceWebApi.AopModule.AutoMapperAutofacModule">
+            <summary>
+            autoMapper 单例注入
+            </summary>
+        </member>
+        <member name="T:YC.ServiceWebApi.AopModule.ElasticSearchAutofacModule">
+            <summary>
+            FreeSql 注入模块
+            </summary>
+        </member>
+        <member name="M:YC.ServiceWebApi.AopModule.ElasticSearchAutofacModule.Load(Autofac.ContainerBuilder)">
+            <summary>
+            FreeSql 注入模块操作
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:YC.ServiceWebApi.AopModule.FreesqlAutofacModule">
+            <summary>
+            FreeSql 注入模块
+            </summary>
+        </member>
+        <member name="M:YC.ServiceWebApi.AopModule.FreesqlAutofacModule.Load(Autofac.ContainerBuilder)">
+            <summary>
+            FreeSql 注入模块操作
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:YC.ServiceWebApi.AopModule.QuartzModule">
+            <summary>
+            QuartzModule 注入模块
+            </summary>
+        </member>
+        <member name="M:YC.ServiceWebApi.AopModule.QuartzModule.Load(Autofac.ContainerBuilder)">
+            <summary>
+             QuartzModule 注入模块操作
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:YC.ServiceWebApi.VersionRouteAttribute">
+            <summary>
+            自定义路由 /api/{version}/[area]/[controler]/[action]
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:YC.ServiceWebApi.ApiVersion" -->
+        <member name="F:YC.ServiceWebApi.ApiVersion.V1">
+            <summary>
+            V1 版本
+            </summary>
+        </member>
+        <member name="F:YC.ServiceWebApi.ApiVersion.V2">
+            <summary>
+            V2 版本
+            </summary>
+        </member>
+        <member name="T:YC.ServiceWebApi.Controllers.AreaController">
+            <summary>
+            域控制器
+            </summary>
+        </member>
+        <member name="T:YC.ServiceWebApi.Controllers.IdentityController">
+            <summary>
+            接口服务身份认证
+            </summary>
+        </member>
+        <member name="M:YC.ServiceWebApi.Controllers.IdentityController.GetTokenByLogin(ServiceWebApi.Dto.LoginUserDto)">
+            <summary>
+            获取token，通过登录
+            </summary>
+            <param name="userId">用户id</param>
+            <param name="pwd">用户密码</param>
+            <returns>返回登录结果</returns>
+        </member>
+        <member name="M:YC.ServiceWebApi.Controllers.IdentityController.RefreshToken(System.String)">
+            <summary>
+            刷新token
+            </summary>
+            <param name="token">原始token</param>
+            <returns></returns>
+        </member>
+        <member name="M:YC.ServiceWebApi.Controllers.IdentityController.GetGuid">
+            <summary>
+            返回一个guid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YC.ServiceWebApi.Controllers.IdentityController.GetVerificationCode(System.String)">
+            <summary>
+            返回验证码如图片
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YC.ServiceWebApi.Extensions.RawRequestBodyFormatter">
+            <summary>
+            该类主要是用于验证如果输入对象参数类型与绑定对象参数类型不一致时，api接口会包错误。
+            进行重新绑定数据，然后得到对象对应的数据类型
+            </summary>
+        </member>
+        <member name="M:YC.ServiceWebApi.Extensions.RawRequestBodyFormatter.CanRead(Microsoft.AspNetCore.Mvc.Formatters.InputFormatterContext)">
+            <summary>
+            做指定类型的处理
+            </summary>
+            <param name="context">上下文内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:YC.ServiceWebApi.Extensions.RawRequestBodyFormatter.ReadAsync(Microsoft.AspNetCore.Mvc.Formatters.InputFormatterContext)">
+            <summary>
+            读取
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YC.ServiceWebApi.Filter.AOPActionFilterAttribute.GetUserRolePermissionCache(System.Int32,System.Int64)">
+            <summary>
+            获取缓存中的对应用户的角色权限
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YC.ServiceWebApi.Filter.AOPResourceFilterAttribute.OnResourceExecuted(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutedContext)">
+            <summary>
+            拦截action 级别错误日志
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.ParamsString">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.StartTime">
+            <summary>
+            开始执行时间
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Filter.Dto.RequestInfoDto.StopTime">
+            <summary>
+            结束执行时间
+            </summary>
+        </member>
+        <member name="T:YC.ServiceWebApi.Result.ApiResultDto`1">
+            <summary>
+            统一返回接口数据
+            </summary>
+            <typeparam name="T">特定返回的数据</typeparam>
+        </member>
+        <member name="P:YC.ServiceWebApi.Result.ApiResultDto`1.Code">
+            <summary>
+            状态标识
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Result.ApiResultDto`1.Message">
+            <summary>
+            提示消息
+            </summary>
+        </member>
+        <member name="P:YC.ServiceWebApi.Result.ApiResultDto`1.Value">
+            <summary>
+            返回的特定接口数据
+            </summary>
+        </member>
+        <member name="M:YC.ServiceWebApi.WebHostBuilderExtensions.InitHostingExtensions.UseInitCall(Microsoft.AspNetCore.Hosting.IWebHostBuilder,System.Action)">
+            <summary>
+            自定义初始化相关的附加任务
+            </summary>
+            <param name="hostBuilder"></param>
+            <param name="test"></param>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
