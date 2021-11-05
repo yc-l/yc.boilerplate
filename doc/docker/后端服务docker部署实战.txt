@@ -1,0 +1,65 @@
+一、服务器版本部署
+
+1、将镜像保存为文件
+docker save -o ycImages1.tar  ycboilerplate:v1.1
+
+2、在操作命令目录下 将文件copy 服务器上
+
+3、在服务器上导入镜像
+
+docker load -i ycImages1.tar 
+
+4、部署容器从镜像中
+
+docker run -d  -p 8001:8001  ycboilerplate:v1.1 -t
+
+5、开启redis 远程访问
+(1)vim /etc/redis/redis.conf
+(2) 注释掉bind 127.0.0.1
+(3)设置密码：requirepass 123qwe
+(4) 重启 redis:sudo service redis-server restart
+
+6、mysql 远程访问
+（1）登录
+使用mysql权限用户登录
+
+（2）修改外部可以访问
+vim /etc/mysql/mysql.conf.d/mysqld.cnf
+bind-address = 127.0.0.1 //找到此内容并且注释
+改成 bind-address = 0.0.0.0 
+
+（3）添加如下配置，设置不区分大小写
+
+lower_case_table_names=1
+
+（4）重启
+sudo service mysql restart
+
+
+7、修改镜像中的文件，copy 处理修改
+
+（1）获取 指定镜像运行的容器
+  docker ps -a
+
+（2） 先将配置文件copy 出来
+docker cp 容器id:/app/DefaultConfig.json  ./ 
+
+（3）修改配置文件
+
+修改redis、es、mysql 数据库连接配置
+
+（6）重新将配置文件copy 到容器中
+
+docker cp  DefaultConfig.json  容器id:/app/DefaultConfig.json  
+
+（7） 重启容器
+
+docker restart 容器id
+
+8、项目查看
+
+（1）打开项目
+http://ip:8001/swagger/index.html
+
+
+

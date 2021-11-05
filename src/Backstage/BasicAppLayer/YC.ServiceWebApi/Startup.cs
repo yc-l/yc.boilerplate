@@ -400,7 +400,7 @@ namespace YC.ServiceWebApi
             //进行services.BuildServiceProvider()就会出现非单例
             AutofacUtils.Configure(app.ApplicationServices);
 
-
+           
             //添加swagger
             app.UseSwagger();
             app.UseSwaggerUI(c =>

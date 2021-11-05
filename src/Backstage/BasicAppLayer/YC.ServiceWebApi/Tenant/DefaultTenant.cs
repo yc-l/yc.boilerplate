@@ -41,6 +41,7 @@ namespace YC.ServiceWebApi
             {//这里功能不涉及到租户，所以为了保证流程通畅，提供默认租户，方便注入地方流程顺利通过
                 this.TenantId = DefaultConfig.TenantSetting.DefaultTenantId;
                 this.TenantDbString = DefaultConfig.TenantSetting.DefaultDbConnectionString;
+                this.TenantDbType = DefaultConfig.TenantSetting.DefaultDbType;
                 return;
             }
             if (checkTenantData.Contains(rpv))//不需要token验证
