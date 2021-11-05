@@ -25,6 +25,9 @@
     <None Update="CodeTemplate\EntityDtoTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="CodeTemplate\EntityTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="CodeTemplate\TreeAppServiceTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
