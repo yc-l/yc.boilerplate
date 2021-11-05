@@ -116,6 +116,24 @@ namespace YC.CodeGenerateTest
             var result = generateCodeRepository.GenerateWork();
             Assert.IsTrue(result.Success);
         }
-
+        /// <summary>
+        /// Mysql代码生成器-生成对应表模型
+        /// </summary>
+        [TestMethod]
+        public void GenerateEntityCodeTest()
+        {
+            #region 模板和生成代码路径配置
+            string _entityFilePath = System.AppContext.BaseDirectory + @"CodeTemplate\EntityTemplate.txt";
+            string _saveDir = System.AppContext.BaseDirectory + "GenerateCode\\";//生成代码保存位置
+            #endregion
+            GenerateCodeService generateCodeRepository = new GenerateCodeService();
+            HashSet<string> _tables = new HashSet<string>();
+            //若果是全表生成则不需要表名
+            _tables = null;
+            //否则需要
+            //_tables.Add("sys_user");
+            var result = generateCodeRepository.GenerateEntityCode(_tables, _entityFilePath, _saveDir);
+            Assert.IsTrue(result.Success);
+        }
     }
 }
