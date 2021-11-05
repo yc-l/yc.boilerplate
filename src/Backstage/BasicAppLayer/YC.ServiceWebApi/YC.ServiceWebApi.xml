@@ -11,14 +11,14 @@
         </member>
         <member name="T:YC.ServiceWebApi.AopModule.ElasticSearchAutofacModule">
             <summary>
-            FreeSql 注入模块
+            ElasticSearch 注入模块
             </summary>
         </member>
         <member name="M:YC.ServiceWebApi.AopModule.ElasticSearchAutofacModule.Load(Autofac.ContainerBuilder)">
-            <summary>
-            FreeSql 注入模块操作
-            </summary>
-            <param name="builder"></param>
+             <summary>
+            ElasticSearch注入模块操作
+             </summary>
+             <param name="builder"></param>
         </member>
         <member name="T:YC.ServiceWebApi.AopModule.FreesqlAutofacModule">
             <summary>

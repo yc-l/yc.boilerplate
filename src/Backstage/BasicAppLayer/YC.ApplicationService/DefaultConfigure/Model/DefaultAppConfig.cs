@@ -39,6 +39,8 @@ namespace YC.ApplicationService.DefaultConfigure
         public List<FilterUrl> AllowedNoPermissionUrls { get; set; }
         public bool QuartzSeverIsWork { get; set; }
         public string DefaultVerifyCode { get; set; }
+
+        public int UseCacheModuleType { get; set; }
     }
     public class AllowedNoTokenUrl
     {

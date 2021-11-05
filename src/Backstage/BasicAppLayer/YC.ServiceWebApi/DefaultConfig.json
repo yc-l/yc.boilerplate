@@ -66,7 +66,9 @@
     ],
     ///定时服务是否工作
     "QuartzSeverIsWork": false,
-    "DefaultVerifyCode": "999999"
+    "DefaultVerifyCode": "999999",
+    //使用缓存组件选择
+    "UseCacheModuleType":0//0 redis,1 内存
 
 
   },

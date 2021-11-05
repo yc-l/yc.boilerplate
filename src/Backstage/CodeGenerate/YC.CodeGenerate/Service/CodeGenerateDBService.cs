@@ -95,15 +95,15 @@ namespace YC.CodeGenerate
             msg = "";
             try
             {
-                DatabaseConfig DatabaseConfig = new DbConfig().DatabaseConfig;
-                SetInitConnection(DatabaseConfig.DefaultMySqlConnectionString);
-                string dbName = DatabaseConfig.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
+                DatabaseConfig databaseConfig = new DbConfig().DatabaseConfig;
+                SetInitConnection(databaseConfig.DefaultMySqlConnectionString, databaseConfig.GetDbType());
+                string dbName = databaseConfig.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
 
                 using (connection)
                 {
 
                     List<string> databaseList = connection.Query<string>("show databases;", null, transaction, true, commandTimeout).AsList<string>();
-                    if ((databaseList.Any(x => x.Contains(dbName)) && DatabaseConfig.IsCoverExistDb) || (!databaseList.Any(x => x.Contains(dbName))))
+                    if ((databaseList.Any(x => x.Contains(dbName)) && databaseConfig.IsCoverExistDb) || (!databaseList.Any(x => x.Contains(dbName))))
                     {
                         //只有不存在数据库，或已经设置覆盖同名数据库的，才允许进行如下操作
                         StringBuilder sb = new StringBuilder();
@@ -139,9 +139,9 @@ namespace YC.CodeGenerate
             int modelCount = 0;
             bool resultState = false;
             msg = "";
-            DatabaseConfig DatabaseConfig = new DbConfig().DatabaseConfig;
-            string dbName = DatabaseConfig.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
-            SetInitConnection(DatabaseConfig.DefaultDBConnectionString);
+            DatabaseConfig databaseConfig = new DbConfig().DatabaseConfig;
+            string dbName = databaseConfig.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
+            SetInitConnection(databaseConfig.DefaultDBConnectionString, databaseConfig.GetDbType());
             using (connection)
             {
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -1324,7 +1325,7 @@ namespace YC.CodeGenerate
         {
             DatabaseConfig _dbDto = new DbConfig().DatabaseConfig;
             CodeGenerateDBService _service = new CodeGenerateDBService();
-            _service.SetInitConnection(_dbDto.DefaultMySqlConnectionString);
+            _service.SetInitConnection(_dbDto.DefaultDBConnectionString, _dbDto.GetDbType());
             string _dbName = _dbDto.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
             if (tables is null)
             {
@@ -1455,7 +1456,7 @@ namespace YC.CodeGenerate
                     _templateContent = _templateContent.Replace("<%=tableName%>", _entityName.ToString()).Replace("<%=modelInfo%>", _sbModel.ToString()).Replace("<%=tableDisplayName%>", _moduleName.ToString());
                     _sbModel.Clear();
                     _moduleName.Clear();
-                    string _savePath = (saveDir.LastIndexOf("/") > 0 ? saveDir : $"{saveDir}/") + "Entity//";
+                    string _savePath = Path.Combine(saveDir, "Entity\\"); 
                     FileUtils.CreateDirectory(_savePath);
                     _savePath = _savePath + $"{_entityName}.cs";
                     if (FileUtils.IsExistFile(_savePath))
@@ -1464,7 +1465,7 @@ namespace YC.CodeGenerate
                     }
                     string _error = string.Empty;
                     //3、写入文件
-                    bool _isWriteSucces = FileUtils.CoverWriteFile(_savePath, _templateContent, out _error);
+                    bool _isWriteSucces = FileUtils.CoverWriteFile(_savePath, _templateContent,out _error);
                     if (_isWriteSucces)
                     {
                         _generateResult.Success = true;
