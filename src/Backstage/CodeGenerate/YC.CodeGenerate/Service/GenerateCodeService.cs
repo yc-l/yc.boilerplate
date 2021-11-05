@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dapper;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +21,9 @@ namespace YC.CodeGenerate
         public List<GenerateCodeEnumType> _wantToGenerateCodeTypeList = null;//想要生成的代码类型
         public List<string> _generateEntityList = null;//想要生成的代码的实体列表
         public GenerateCodeConfig _generateCodeConfig;
+        public GenerateCodeService()
+        {
+        }
         public GenerateCodeService(GenerateCodeConfig generateCodeConfig)
         {
             _templateDto = generateCodeConfig.Template;
@@ -254,7 +259,7 @@ namespace YC.CodeGenerate
                 {
                     var peropertyTypeName = p.PropertyType.Name;
 
-                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(NotMappedAttribute).Name);
+                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute).Name);
                     if (noppedAttr.Any())
                     {//如果存在NotMaped 说明不映射直接跳过
                         continue;
@@ -419,7 +424,7 @@ namespace YC.CodeGenerate
 
                         peropertyTypeName = $"Nullable<{p.PropertyType.GetProperties()[1].PropertyType.Name}>";
                     }
-                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(NotMappedAttribute).Name);
+                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute).Name);
                     if (noppedAttr.Any())
                     {//如果存在NotMaped 说明不映射直接跳过
                         continue;
@@ -557,7 +562,7 @@ namespace YC.CodeGenerate
 
                         peropertyTypeName = $"Nullable<{p.PropertyType.GetProperties()[1].PropertyType.Name}>";
                     }
-                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(NotMappedAttribute).Name);
+                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute).Name);
                     if (noppedAttr.Any())
                     {//如果存在NotMaped 说明不映射直接跳过
                         continue;
@@ -844,7 +849,7 @@ namespace YC.CodeGenerate
                 {
                     var peropertyTypeName = p.PropertyType.Name;
 
-                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(NotMappedAttribute).Name);
+                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute).Name);
                     if (noppedAttr.Any())
                     {//如果存在NotMaped 说明不映射直接跳过
                         continue;
@@ -1028,7 +1033,7 @@ namespace YC.CodeGenerate
 
                         peropertyTypeName = $"Nullable<{p.PropertyType.GetProperties()[1].PropertyType.Name}>";
                     }
-                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(NotMappedAttribute).Name);
+                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute).Name);
                     if (noppedAttr.Any())
                     {//如果存在NotMaped 说明不映射直接跳过
                         continue;
@@ -1233,7 +1238,7 @@ namespace YC.CodeGenerate
 
                         peropertyTypeName = $"Nullable<{p.PropertyType.GetProperties()[1].PropertyType.Name}>";
                     }
-                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(NotMappedAttribute).Name);
+                    var noppedAttr = p.GetCustomAttributes().Where(x => x.GetType().Name == typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute).Name);
                     if (noppedAttr.Any())
                     {//如果存在NotMaped 说明不映射直接跳过
                         continue;
@@ -1308,5 +1313,179 @@ namespace YC.CodeGenerate
         }
 
         #endregion
+        /// <summary>
+        /// 创建 Entity
+        /// </summary>
+        /// <param name="baseType"></param>
+        /// <param name="templateFilePath"></param>
+        /// <param name="saveDir"></param>
+        /// <returns></returns>
+        public GenerateResult GenerateEntityCode(HashSet<string> tables, string templateFilePath, string saveDir)
+        {
+            DatabaseConfig _dbDto = new DbConfig().DatabaseConfig;
+            CodeGenerateDBService _service = new CodeGenerateDBService();
+            _service.SetInitConnection(_dbDto.DefaultMySqlConnectionString);
+            string _dbName = _dbDto.DefaultDBConnectionString.Split(';').AsEnumerable().Where(x => x.Contains("Database")).FirstOrDefault().Split('=')[1];
+            if (tables is null)
+            {
+                tables = new HashSet<string>();
+                IEnumerable<dynamic> _dynamicTables = null;
+                using (_service.connection)
+                {
+                    string _sqlTable = $@"SELECT
+                                            TABLE_NAME, -- 表名
+	                                        TABLE_TYPE,-- 表类型
+	                                        ENGINE,-- 表引擎
+	                                        TABLE_COLLATION,-- 排序规则
+	                                        TABLE_COMMENT -- 表注释	
+                                        FROM
+	                                        information_schema.TABLES 
+                                        WHERE
+	                                        TABLE_SCHEMA = '{_dbName}'";
+                    _dynamicTables = _service.connection.Query(_sqlTable);
+                }
+                foreach (var item in _dynamicTables)
+                {
+                    tables.Add((item as IDictionary<string, object>)["TABLE_NAME"].ToString());
+                }
+            }
+
+            GenerateResult _generateResult = new GenerateResult();
+            foreach (var item in tables)
+            {
+                IEnumerable<dynamic> _dynamicColumns = null;
+                IEnumerable<dynamic> _dynamicDefaults = null;
+                IEnumerable<dynamic> _dynamicTables = null;
+                using (_service.connection)
+                {
+                    string _sql = $@"SELECT
+	                            COLUMN_NAME,-- 列名
+	                            COLUMN_COMMENT,-- 注释
+	                            DATA_TYPE,-- 数据类型
+                                CASE DATA_TYPE WHEN 'bigint' THEN 'int' 
+                                            WHEN 'tinyint' THEN 'int' 
+                                            WHEN 'smallint' THEN 'int' 
+                                            WHEN 'varchar' THEN 'string'
+                                            WHEN 'varbinary' THEN 'string'
+                                            WHEN 'text' THEN 'string'
+                                            WHEN 'char' THEN 'string'
+                                            WHEN 'datetime' THEN 'DateTime'
+                                            WHEN 'bit' THEN 'bool'
+                                            WHEN 'decimal' THEN 'decimal'
+                                            ELSE DATA_TYPE END AS DATA_TYPEC,
+	                            IS_NULLABLE, -- 列为空
+	                            CHARACTER_MAXIMUM_LENGTH, -- 最大长度
+	                            COLUMN_KEY
+                            FROM
+	                            information_schema.COLUMNS 
+                            WHERE
+	                            TABLE_NAME = '{item}' 
+	                            AND TABLE_SCHEMA = '{_dbName}'
+                            ";
+                    _dynamicColumns = _service.connection.Query(_sql);
+
+                    string _sqlDefaults = $"desc `{item}`";
+                    _dynamicDefaults = _service.connection.Query(_sqlDefaults);
+
+                    string _sqlTable = $@"SELECT
+	                                        TABLE_TYPE,-- 表类型
+	                                        ENGINE,-- 表引擎
+	                                        TABLE_COLLATION,-- 排序规则
+	                                        TABLE_COMMENT -- 表注释	
+                                        FROM
+	                                        information_schema.TABLES 
+                                        WHERE
+	                                        TABLE_SCHEMA = '{_dbName}'
+                                            AND TABLE_NAME ='{item}'";
+                    _dynamicTables = _service.connection.Query(_sqlTable);
+                }
+
+                IDictionary<string, object> _dynamicModule = _dynamicTables.FirstOrDefault() as IDictionary<string, object>;
+                _generateResult.Success = true;
+                string _templateContent = "";
+                string _entityName = item;//类名称
+                StringBuilder _moduleName = new StringBuilder();//类注释显示的模块名
+                _moduleName.AppendLine(" /// <summary>");
+                _moduleName.AppendLine($"/// {_entityName} {_dynamicModule["TABLE_COMMENT"]}");
+                _moduleName.AppendLine("/// </summary>");
+                _moduleName.AppendLine($"[Table(\"{_entityName}\")]");
+                _moduleName.AppendLine($"[Display(Name = \"{_dynamicModule["TABLE_COMMENT"]}\")]");
+                try
+                {
+                    #region 业务操作
+                    //1、校验模板不能为空
+                    FileUtils.ReadFile(templateFilePath, out _templateContent);
+
+                    if (string.IsNullOrWhiteSpace(_templateContent))
+                    {
+                        _generateResult.Success = false;
+                        _generateResult.Message = "Entity模板文件内容读取为空！";
+                        return _generateResult;
+                    }
+
+                    StringBuilder _sbModel = new StringBuilder();
+
+                    ///字段数据类型映射
+                    foreach (var p in _dynamicColumns)
+                    {
+                        IDictionary<string, object> _dic = p as IDictionary<string, object>;
+
+                        _sbModel.AppendLine(" /// <summary>");
+                        _sbModel.AppendLine($"/// {_dic["COLUMN_COMMENT"]}");
+                        _sbModel.AppendLine("/// </summary>");
+                        //当前字段是不是主键
+                        if (_dic["COLUMN_KEY"].Equals("PRI"))
+                        {
+                            _sbModel.AppendLine("[Key]");
+                            _sbModel.AppendLine("[DatabaseGenerated(DatabaseGeneratedOption.Identity)]");
+                        }
+                        _sbModel.AppendLine($"[DisplayName(\"{_dic["COLUMN_COMMENT"]}\")]");
+                        if (_dic["IS_NULLABLE"].Equals("NO"))
+                        {
+                            _sbModel.AppendLine("[Required]");
+                            if (_dic["CHARACTER_MAXIMUM_LENGTH"] != null)
+                            {
+                                _sbModel.AppendLine($"[StringLength({_dic["CHARACTER_MAXIMUM_LENGTH"]}, ErrorMessage = \"{{0}}不能超过{_dic["CHARACTER_MAXIMUM_LENGTH"]}个字符！\")]");
+                            }
+                        }
+                        _sbModel.AppendLine($"public {_dic["DATA_TYPEC"]} {_dic["COLUMN_NAME"]} {{get;set;}}");
+                    }
+
+                    //2、模板替换修改内容
+                    _templateContent = _templateContent.Replace("<%=tableName%>", _entityName.ToString()).Replace("<%=modelInfo%>", _sbModel.ToString()).Replace("<%=tableDisplayName%>", _moduleName.ToString());
+                    _sbModel.Clear();
+                    _moduleName.Clear();
+                    string _savePath = (saveDir.LastIndexOf("/") > 0 ? saveDir : $"{saveDir}/") + "Entity//";
+                    FileUtils.CreateDirectory(_savePath);
+                    _savePath = _savePath + $"{_entityName}.cs";
+                    if (FileUtils.IsExistFile(_savePath))
+                    {
+                        FileUtils.DeleteFile(_savePath);
+                    }
+                    string _error = string.Empty;
+                    //3、写入文件
+                    bool _isWriteSucces = FileUtils.CoverWriteFile(_savePath, _templateContent, out _error);
+                    if (_isWriteSucces)
+                    {
+                        _generateResult.Success = true;
+                        _generateResult.Message = $"创建{_entityName}代码成功.";
+                        _generateResult.Content = _templateContent;
+                    }
+                    else
+                    {
+                        _generateResult.Success = false;
+                        _generateResult.Message = $"创建{_entityName}失败，出错位置：写入文件.";
+                    }
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    _generateResult.Success = false;
+                    _generateResult.Message = $"创建{_entityName}代码失败." + ex.ToString();
+                }
+            }
+
+            return _generateResult;
+        }
     }
 }

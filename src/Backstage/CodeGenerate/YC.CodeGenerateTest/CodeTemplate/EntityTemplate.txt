@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//----------------------------------------------
+//简介：YC.Model 数据传输对象
+//
+//
+//
+//auther：
+//----------------------------------------------
+namespace YC.Model.SysDbEntity
+{
+    <%=tableDisplayName%>
+    public partial class <%=tableName%>
+    {
+       <%=modelInfo%>
+    }
+}
