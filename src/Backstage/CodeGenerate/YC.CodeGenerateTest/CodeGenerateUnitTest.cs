@@ -129,9 +129,9 @@ namespace YC.CodeGenerateTest
             GenerateCodeService generateCodeRepository = new GenerateCodeService();
             HashSet<string> _tables = new HashSet<string>();
             //若果是全表生成则不需要表名
-            _tables = null;
+            //_tables = null;
             //否则需要
-            //_tables.Add("sys_user");
+            _tables.Add("sys_user");
             var result = generateCodeRepository.GenerateEntityCode(_tables, _entityFilePath, _saveDir);
             Assert.IsTrue(result.Success);
         }

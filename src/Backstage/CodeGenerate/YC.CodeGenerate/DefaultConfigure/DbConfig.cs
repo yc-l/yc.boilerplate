@@ -23,7 +23,7 @@ namespace YC.CodeGenerate
         {
 
             DatabaseConfig = GetConfigJson(dbConfigFilePath).ToObject<DatabaseConfig>();
-            defaultDbType = Dapper.RepositoryUtils.Dialect.MySQL;
+            defaultDbType = DatabaseConfig.GetDbType();
         }
         /// <summary>
         /// 获取指定的json对象

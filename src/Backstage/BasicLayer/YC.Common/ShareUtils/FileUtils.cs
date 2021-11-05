@@ -952,7 +952,7 @@ namespace YC.Common.ShareUtils
             try
             {
                 //FileMode.Truncate 为清空操作
-                FileStream fs = new FileStream(filePath, FileMode.Truncate, FileAccess.Write, FileShare.None);
+                FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
                 StreamWriter sw = new StreamWriter(fs, System.Text.ASCIIEncoding.UTF8);
                 string textContent = writeContent;
                 sw.Write(textContent);
