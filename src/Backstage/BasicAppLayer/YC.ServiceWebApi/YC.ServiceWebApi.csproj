@@ -60,6 +60,7 @@
     <ProjectReference Include="..\..\Module\YC.MongoDB\YC.MongoDB.csproj" />
     <ProjectReference Include="..\..\Module\YC.QuartzService\YC.QuartzService.csproj" />
     <ProjectReference Include="..\YC.ApplicationService\YC.ApplicationService.csproj" />
+    <ProjectReference Include="..\YC.Model\YC.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
