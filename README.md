@@ -116,6 +116,16 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 <img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
 <img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
 
+捐赠人 | 捐赠金额（元）
+---|---
+小蚂蚁| 66.66
+张三家的猫 | 100
+刘茜 | 99
+ak11 | 8.8
+弗拉门 | 200
+
+
+
 #### 参与贡献
 
 1. Fork 本仓库
