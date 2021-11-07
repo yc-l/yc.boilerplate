@@ -7,15 +7,12 @@
 
 ## Framework introduction
 
-YC. Boilerplate is a set of rapid development framework, which adopts the current popular front-end and back-end separation development mode, with Vue in the front end and net 5.0 in the back end; The framework implements
-
-Multi tenant, dynamic webapi, multiple ORM, IOC, database table and business code generation, and developed user management, role permissions, organization
-
+YC.Boilerplate is a set of rapid development framework, which adopts the current popular front-end and back-end separation development mode, with Vue 2.0 in the front end and net 5.0 in the back end; The framework implements Multi tenant, dynamic webapi, multiple ORM, IOC, database table and business code generation, and developed user management, role permissions, organization
 General functions such as data dictionary and audit log.
 
 The purpose of the framework is to build a model development framework with loose coupling, flexible combination, complete functions, convenient development and reducing development workload.
 
-yc.boilerplate framework technology group QQ: 1060819005
+YC.boilerplate framework technology group QQ: 1060819005
 
 
 ## Latest iteration
@@ -33,10 +30,10 @@ yc.boilerplate framework technology group QQ: 1060819005
 ## Quick start
 1. [Online demonstration]（ http://yc.yc-l.com/ )
 2. [online document]（ http://doc.yc-l.com/ )
-3. Conventional front and rear end separation frame: front end: SRC \ front \ yc.webfront, back end: SRC \ backstage \ yc.boilerplate.sln
-4. See SRC \ microservice \ yc.microservice.sln for the framework microservice version
+3. Conventional front and rear end separation frame: front end: src\front\yc.webfront, back end: src\backstage\yc.boilerplate.sln
+4. See src\microservice\yc.microservice.sln for the framework microservice version
 5. The latest version of the framework has introduced elasticsearch and other big data suites to realize distributed retrieval, statistics and analysis of more than ten million levels. Please see the latest documentation for details.
-6. Initialize the database: Src / DB (tenant 1 and tenant 2 sub database presentation data)
+6. Initialize the database: src\DB (tenant 1 and tenant 2 sub database presentation data)
 
 
 ## Framework technology stack and development mode
