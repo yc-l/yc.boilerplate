@@ -19,15 +19,15 @@
        <el-menu-item index="1"> <a
        style="text-decoration:none"
               target="_blank"
-              href="https://github.com/linbin524/yc.boilerplate"
+              href="https://github.com/yc-l/yc.boilerplate"
             >
               <img
                 style="margin-right: 10px"
-                src="https://img.shields.io/github/stars/linbin524/yc.boilerplate?style=flat-square&label=Stars&logo=github"
+                src="https://img.shields.io/github/stars/yc-l/yc.boilerplate?style=flat-square&label=Stars&logo=github"
               />
                 <img
                 style="margin-right: 10px"
-                src="https://img.shields.io/github/forks/linbin524/yc.boilerplate?style=flat-square&label=Forks&logo=github"
+                src="https://img.shields.io/github/forks/yc-l/yc.boilerplate?style=flat-square&label=Forks&logo=github"
               />
             </a></el-menu-item>
        
