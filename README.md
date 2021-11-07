@@ -1,124 +1,122 @@
 # YC.Boilerplate
 
-#### 介绍
+<p align="center">
+    <a href="README.zh.md">中文</a> |  
+    <span>English</a>
+</p>
 
-YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分离开发模式，前端 采用VUE、后端采用Net 5.0；框架实现了
-多租户、动态webApi、多种ORM、IOC、数据库表和业务代码生成等等一系列模块，并开发了用户管理、角色权限、组织机构、
-数据字典、审计日志等常规功能。
+## Framework introduction
 
-框架的宗旨:构建一套松耦合、灵活组合、功能齐全、开发便捷、减少开发工作量的样板化开发框架。
+YC. Boilerplate is a set of rapid development framework, which adopts the current popular front-end and back-end separation development mode, with Vue in the front end and net 5.0 in the back end; The framework implements
+
+Multi tenant, dynamic webapi, multiple ORM, IOC, database table and business code generation, and developed user management, role permissions, organization
+
+General functions such as data dictionary and audit log.
+
+The purpose of the framework is to build a model development framework with loose coupling, flexible combination, complete functions, convenient development and reducing development workload.
+
+yc.boilerplate framework technology group QQ: 1060819005
 
 
+## Latest iteration
 
-元磁之力框架技术群QQ：1060819005
+1. Integrate docker related
+2. Built in docker container monitoring tool
+3. There are relevant packaged images in the group data
+4. Provide image deployment operation tutorial [see doc directory]
 
-#### 最新迭代
+## Video tutorial
+-Introduction to the original center and frame design of yuanci force frame (Part I):< https://www.bilibili.com/video/BV1VM4y1G7hC/ >
+-Introduction to the original center and frame design of yuanci force frame (Part 2):< https://www.bilibili.com/video/BV15h411s7w6/ >
+-Meta magnetic force framework database table and code generation tutorial practice:< https://www.bilibili.com/video/BV1oM4y137D5/ >
 
-1. 集成docker 相关
-2. 内置docker 容器监测工具
-3. 群资料中有相关打包镜像
-4. 提供镜像部署操作教程【见doc目录】
+## Quick start
+1. [Online demonstration]（ http://yc.yc-l.com/ )
+2. [online document]（ http://doc.yc-l.com/ )
+3. Conventional front and rear end separation frame: front end: SRC \ front \ yc.webfront, back end: SRC \ backstage \ yc.boilerplate.sln
+4. See SRC \ microservice \ yc.microservice.sln for the framework microservice version
+5. The latest version of the framework has introduced elasticsearch and other big data suites to realize distributed retrieval, statistics and analysis of more than ten million levels. Please see the latest documentation for details.
+6. Initialize the database: Src / DB (tenant 1 and tenant 2 sub database presentation data)
 
-#### 版本说明
 
-1. 框架最新版本已经引入 ElasticSearch 等大数据套件，实现千万级别以上的分布式检索、统计、分析。详细请看最新的文档。
+## Framework technology stack and development mode
+- Development mode: the current popular front and rear end separation.
+- Front end: vue2.0, elementui and other technology stacks, which provide project templates for single page applications.
+- The back end adopts net 5.0.
+#### Frame features
+- Modular development, flexible combination, decoupling to the end, injection and use on demand.
+- The current popular development model has clear layers.
+- Cooperate with the built-in code generator of the framework to quickly complete the logic implementation of complex functions such as crud and tree without typing a line of code, saving 60% of the workload.
 
-2. 常规前后端分离框架：前端：src\Front\yc.webfront ，后端：src\Backstage\YC.Boilerplate.sln 
+#### YC. Boilerplate framework layered introduction
 
-3. 框架微服务版本见：src\MicroService\YC.MicroService.sln
+>General version framework hierarchy
 
-#### 视频教程
+- Core layer: ```YC.Core ``` mainly implements the top-level design class interface specification and encapsulation of some classes, such as tenant interface, aopinterceptor AOP interception injection, tokencontext token logic, public features, etc.
+- Data layer: ```YC.Dapperframework ```, ``` YC.Freesqlframework ``` multiple ORM packages, mainly including storage, work unit, etc.
+- Public layer: ``` YC.Common ``` is mainly used by various public classes.
+- Business service layer: ``` YC.Applicationservice ``` business logic implementation, which implements dynamic webapi by default.
+- Entity layer: ``` YC.model ``` regular data tables, entities, enumerations, etc., as well as the basic methods required by the regular model.
+- Business API layer: ```YC.Servicewebapi ``` provides external interface service startup project.
 
-- 元磁之力框架开源初心和框架设计介绍（上）： <https://www.bilibili.com/video/BV1VM4y1G7hC/>
-- 元磁之力框架开源初心和框架设计介绍（下）： <https://www.bilibili.com/video/BV15h411s7w6/>
-- 元磁之力框架数据库表和代码生成使用教程实战： <https://www.bilibili.com/video/BV1oM4y137D5/>
+>Microservice version framework layering
 
-#### 快速入门
-
-1. [在线演示](http://yc.yc-l.com/)
-2. [在线文档](http://doc.yc-l.com/)
-
-- 前端代码：src/Front
-- 服务端代码：src/Backstage
-- 初始化数据库：src/Db (租户1 和租户2 分库演示数据)
-
-#### 框架技术栈和开发模式
-
-- 开发模式：当下流行的前后端分离。
-- 前端：vue、elementUI等技术栈，为单页面应用程序提供了项目模板。
-- 后端采用NET 5.0。
-
-#### 框架特点
-
-- 模块化开发，灵活组合，将解耦进行到底，按需注入使用。
-- 当下流行的开发模式，分层明确。
-- 配合框架自带代码生成器快速完成CRUD和树形等复杂功能逻辑实现，不敲一行代码，节省60%工作量。
-
-#### YC.Boilerplate 框架分层介绍
-
-> 常规版本框架分层
-
-- 核心层：```YC.Core``` 主要实现顶层设计类接口规范和一些类的封装，比如：租户接口、AopInterceptor AOP 拦截注入、TokenContext token逻辑、公共特性等等。
-- 数据层：```YC.DapperFrameWork```、```YC.FreeSqlFrameWork``` 多项ORM 封装，主要存在仓储、工作单元等。
-- 公共层：```YC.Common``` 主要是各种公共类的使用。
-- 业务服务层：```YC.ApplicationService``` 业务逻辑实现，默认实现动态webapi。
-- 实体层:```YC..Model``` 常规的数据表实体，枚举等，以及常规的model需要用的基础方法。
-- 业务Api层：```YC.ServiceWebApi``` 提供对外接口服务启动项目。
-
-> 微服务版本框架分层
-
-- 聚合服务层：```YC.Micro.AggregateServiceWebApi```,多种服务融合调用。
-- 公共常用配置层：```YC.Micro.Configuration``` 公共常用配置层。
-- 各个独立服务：```YC.Micro.xxxxWebService``` 指定服务。
-- 其他：注册、熔断、负载均衡、日志运维、身份认证中心、容器化等,敬请期待。
-
-> 模块层（按需使用）
-
-- 数据库表和代码生成模块：```YC.CodeGenerate```
-- Redis 缓存模块：```YC.Cache.Redis```
-- 动态WebApi模块：```YC.Core.DynamicApi```
-- 日志模块：```YC.Log.Serilog```
-- 定时服务 Quartz.net ```YC.QuartzService```
-- Mongodb 模块 ```YC.MongoDB```
-- 图数据库Neo4j ```YC.Neo4j```
-- 大数据套件ElasticSearch ```YC.ElasticSearch```
+- Aggregation service layer: ``` YC.Micro.Aggregateservicewebapi ```, multiple service fusion calls.
+- Common configuration layer: ```YC.Micro.Configuration ``` common configuration layer.
+- Independent services: ```YC.Micro.Xxxwebservice ``` specify the service.
+- Others: registration, fusing, load balancing, log operation and maintenance, identity authentication center, containerization, etc. Please look forward to it.
   
-> 单元测试
+>Module layer (on demand)
+- Database table and code generation module: ```YC.codegenerate```
+- Redis cache module: ```YC.cache.redis```
+- Dynamic webapi module: ```YC.core.dynamicapi```
+- Log module: ```YC.log.serial```
+- Timing service quartz.net ```YC.quartzservice```
+- Mongodb module ```YC.mongodb```
+- Figure database neo4j ``` YC.neo4j```
+-Big data suite elasticsearch ``` YC.elasticsearch```
 
-单元测试：```UnitTestProject```
-数据库表和代码生成测试：```YC.CodeGenerateTest```
-其他各个模块配套的单元测试:```YC.QuartzTest```、```YC.MongoDbXUnitTest```、```YC.Neo4jXUnitTest```、```YC.ElasticSearchXUnitTest```
+>Unit test
 
-#### 框架功能模块
+Unit test: ```unittestproject```
+Database table and code generation test:
+- ```yc.codegeneratetest```
+Unit tests for other modules: 
+- ```YC.Quartztest ```
+- ```YC.Mongodbxunittest ```
+- ```YC.Neo4jxunittest ```
+- ```YC.Elasticsearchxunittest ```
+
+#### FrameWork function module
 
 ![image](https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/%E6%A1%86%E6%9E%B6%E5%9B%BE.png)
 
-## 框架特性
+#### FrameWork properties
+1. Based on the latest. Net technology net 5.0.
+2. Implement Domain Driven Design (entity, warehouse, domain service, domain event, application service, data transmission object, work unit, etc.).
+3. Implement layered architecture (domain layer, application layer, presentation layer and infrastructure layer).
+4. Provide an infrastructure to develop reusable and configurable modules.
+5. Integrate some of the most popular open source frameworks / libraries, perhaps some of which you are using.
+6. An infrastructure is provided to facilitate the use of dependency injection (using Autofac as the container for dependency injection).
+7. Provide repository storage mode to support different ORM (dapper framework, freesqlframework, redis, etc. have been implemented).
+8. Support and implement database migration (using free mapping table).
+9. Modular development (each module has its own, which adopts the form of Autofac module injection, and can dynamically switch the specified database according to different services).
+10. Unified exception handling (the application layer hardly needs to write its own exception handling code).
+11. Automatically create the web API layer through application services (there is no need to write the apicontroller layer).
+12. Providing base classes and help classes allows us to easily implement some common tasks.
+13. Use "agreement over configuration principle".
+14. Realize multi tenancy, and divide the server according to different tenants.
+15. The corresponding whole process code is generated based on the table model, including model, dto, service, front-end display interface (conventional crud and tree functions), routing rules, mapper model and dto mapping.
+16. The framework has realized conventional basic functions, such as authentication user &amp; role management, system setting, access management (system level, tenant level, user level, automatic scope management), audit log (automatically recording the callers and parameters of each interface), organization, etc., so as to realize the out of the box use of the framework.
+17. The framework uses redis as cache and session storage, which is separated from cookies to solve non web problems. The framework can also be used to transform various scene requirements.
 
-1. 基于最新的.NET技术 NET 5.0。
-2. 实现领域驱动设计（实体、仓储、领域服务、领域事件、应用服务、数据传输对象，工作单元等等）。
-3. 实现分层体系结构（领域层，应用层，展现层和基础设施层）。
-4. 提供了一个基础架构来开发可重用可配置的模块。
-5. 集成一些最流行的开源框架/库，也许有些是你正在使用的。
-6. 提供了一个基础架构让我们很方便地使用依赖注入（使用Autofac作为依赖注入的容器）。
-7. 提供Repository仓储模式支持不同的ORM（已实现dapperFramework 、freesqlFrameWork、Redis等）。
-8. 支持并实现数据库迁移（采用自由映射Table ）。
-9. 模块化开发（每个模块有独立的采用autofac模块注入形式，根据不同业务可以动态切换指定数据库）。
-10. 统一的异常处理（应用层几乎不需要处理自己写异常处理代码）。
-11. 通过Application Services自动创建Web Api层（不需要写ApiController层了）。
-12. 提供基类和帮助类让我们方便地实现一些常见的任务。
-13. 使用“约定优于配置原则”。
-14. 实现多租户，按照不同的租户分库服务端。
-15. 实现了基于表模型生成对应的全流程代码，包括：model、DTO、Service、前端展示界面（常规CRUD和树形功能）、路由规则、Mapper model和Dto映射等代码。
-16. 框架已经实现常规基础功能，如：身份验证用户&角色管理、系统设置、存取管理（系统级、租户级、用户级，作用范围自动管理）、审计日志（自动记录每一次接口的调用者和参数）、组织机构等，实现框架开箱即用。
-17. 框架采用redis 作为cache和session 存储，脱离cookie 使用，解决非web的等也可以使用框架进行多样的场景需求改造。
-
-#### 打赏支持
+## Reward support
 
 <img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
 <img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
 
-捐赠人 | 捐赠金额（元）
+
+Donor | Donation amount (¥)
 ---|---
 小蚂蚁| 66.66
 张三家的猫 | 100
@@ -126,11 +124,10 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 ak11 | 8.8
 弗拉门 | 200
 
+## Participation contribution
+1. Fork warehouse
+2. New feat_ XXX branch
+3. Submission code
+4. Create a new pull request
 
 
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
