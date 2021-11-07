@@ -33,7 +33,7 @@ namespace YC.CodeGenerate
             _generateCodeConfig = generateCodeConfig;
             FileUtils.CreateDirectory(_templateDto.SaveDir);
             List<Assembly> assemblyList = new List<Assembly>();
-            assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.Model")));
+            assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(generateCodeConfig.AssemblyName)));
             //1、加载程序集
             foreach (var assembly in assemblyList)
             {
@@ -45,8 +45,8 @@ namespace YC.CodeGenerate
                         if (_generateEntityList.Count > 0)
                         {//如果指定生成实体存在，那么只生成对应的实体业务代码 
 
-                            string tableName = ((System.ComponentModel.DataAnnotations.Schema.TableAttribute)Attribute.GetCustomAttribute(l, typeof(System.ComponentModel.DataAnnotations.Schema.TableAttribute))).Name;
-                            if (_generateEntityList.Exists(x => x == tableName))
+                            //string tableName = ((System.ComponentModel.DataAnnotations.Schema.TableAttribute)Attribute.GetCustomAttribute(l, typeof(System.ComponentModel.DataAnnotations.Schema.TableAttribute))).Name;
+                            if (_generateEntityList.Exists(x => x == l.Name))
                                 _domainList.Add(l);
                         }
                         else

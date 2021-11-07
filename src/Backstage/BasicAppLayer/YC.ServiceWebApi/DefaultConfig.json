@@ -151,7 +151,7 @@
     //sqlserver
     //"DefaultDbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;",
     //mysql
-    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;Charset=utf8;",
+    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;Charset=utf8;",
     "TenantList": [
       {
         "TenantId": 1,
@@ -161,7 +161,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB;Charset=utf8;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;Charset=utf8;"
       },
       {
         "TenantId": 2,
@@ -171,7 +171,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB2;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB2;Charset=utf8;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB2;Charset=utf8;"
       },
       {
         "TenantId": 3,
@@ -181,7 +181,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB3;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB3;Charset=utf8;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB3;Charset=utf8;"
       }
 
     ]
