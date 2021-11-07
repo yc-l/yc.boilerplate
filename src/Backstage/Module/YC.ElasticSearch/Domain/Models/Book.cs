@@ -15,7 +15,7 @@ namespace YC.ElasticSearch.Models
     public class Book
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DisplayName("主键Id")]
         public string Id { get; set; }
 

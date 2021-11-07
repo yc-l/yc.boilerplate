@@ -40,6 +40,20 @@ namespace YC.ApplicationService
             _elasticSearchRepository = elasticSearchRepository;
         }
 
+        public async override Task<IApiResult> CreateAsync(Book input)
+        {
+            input = SetIdKey(input);
+            var obj = await _entityFreeSqlRepository.InsertAsync(input);
+
+            string keyName = "";
+            keyName = GetKeyName<Book>(input);
+            var objId = obj?.GetType().GetProperty(keyName).GetValue(obj);
+            if (objId == null)
+            {
+                return ApiResult.NotOk();
+            }
+            return ApiResult.Ok();
+        }
 
         /// <summary>
         /// 查查默认1页10条

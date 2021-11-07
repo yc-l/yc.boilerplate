@@ -106,12 +106,13 @@ namespace YC.CodeGenerateTest
             //4、树的根节点要为0
 
             List<string> generateEntityList = new List<string>();
-            //generateEntityList.Add("TestUser");
+            generateEntityList.Add("Book");
             GenerateCodeConfig generateCodeConfig = new GenerateCodeConfig();
             generateCodeConfig.Template = templateDto;
             generateCodeConfig.WantToGenerateCodeTypeList = wantToGenerateCodeTypeList;
             generateCodeConfig.GenerateEntityList = generateEntityList;
             generateCodeConfig.IsTree = isTree;
+            generateCodeConfig.AssemblyName = "YC.ElasticSearch";
             GenerateCodeService generateCodeRepository = new GenerateCodeService(generateCodeConfig);
             var result = generateCodeRepository.GenerateWork();
             Assert.IsTrue(result.Success);

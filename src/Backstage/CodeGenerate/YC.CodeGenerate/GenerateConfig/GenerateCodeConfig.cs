@@ -16,5 +16,10 @@ namespace YC.CodeGenerate
         public TemplateDto Template { get; set; }
 
         public bool IsTree { get; set; }
+
+        /// <summary>
+        /// 去哪个程序集查找指定的Entity
+        /// </summary>
+        public string AssemblyName { get; set; }
     }
 }
