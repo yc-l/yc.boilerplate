@@ -1,17 +1,22 @@
 
 <p align="center">
-    <img height="130" src="https://github.com/yc-l/yc.boilerplate/blob/master/assets/images/logo1.png" style="height: 130px">
+    <img height="260" src="https://github.com/yc-l/yc.boilerplate/blob/master/assets/images/logo1.png">
 </p>
- 
+
+
+
 <p align="center">
     <a href="README.zh.md">中文</a> |  
     <span>English</a>
 </p>
 
+    
 ![GitHub stars](https://img.shields.io/github/stars/yc-l/yc.boilerplate)
 ![GitHub fork](https://img.shields.io/github/forks/yc-l/yc.boilerplate?style=flat-square&label=Forks&logo=github)
 ![Commit Date](https://img.shields.io/github/last-commit/yc-l/yc.boilerplate/master.svg?logo=github&logoColor=green&label=commit)
 ![GitHub license](https://img.shields.io/github/license/yc-l/yc.boilerplate)
+
+
 
 ## Framework introduction
 
