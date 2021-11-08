@@ -1,6 +1,6 @@
 
 <p align="center">
-    <img height="260" src="https://github.com/yc-l/yc.boilerplate/blob/master/assets/images/logo1.png">
+    <img height="260" src="https://gitee.com/yc-power/yc.boilerplate/raw/master/assets/images/logo1.png">
 </p>
 
 
