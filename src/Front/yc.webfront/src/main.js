@@ -14,6 +14,8 @@ import TreeTable from 'vue-table-with-tree-grid'
 
 import _ from 'lodash'
 import store from './utils/store.js'
+//import config from '../public/static/config.js'
+
 import {
   listToTree,
   getTreeParents,
@@ -25,7 +27,7 @@ import {
 
 /* 配置全局http 远程连接，并完成默认的连接前缀 */
 import axios from 'axios'
-axios.defaults.baseURL = 'https://localhost:5001/api/'
+axios.defaults.baseURL = window.config.baseUrl;
 
 /*添加axios 拦截器  */
 axios.interceptors.request.use(config => {
@@ -41,7 +43,7 @@ axios.interceptors.request.use(config => {
 /* 使用treetable 名字是自定义的 */
 Vue.component('tree-table', TreeTable)
 
-
+Vue.prototype.defaultConfig=window.config
 Vue.prototype.$http = axios
 Vue.prototype._ = _
 // 配置全局请求后端url路径
