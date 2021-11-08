@@ -3,7 +3,7 @@
     <!-- header区域 -->
     <el-header>
       <div>
-        <h3>元磁之力快速开发系统</h3>
+        <h3>{{defaultConfig.systemName}}</h3>
           <div class="toggle-button" @click="toggleCollapse">
              <i :class="isCollapse? 'el-icon-s-unfold' : 'el-icon-s-fold'  "></i>
           </div>
@@ -14,25 +14,25 @@
         mode="horizontal"
         background-color="#118eeb"
         text-color="#fff"
-        active-text-color="#303133"
+      active-text-color="#bdbdbe"
       >
        <el-menu-item index="1"> <a
        style="text-decoration:none"
               target="_blank"
-              href="https://github.com/yc-l/yc.boilerplate"
+              :href="defaultConfig.githubSourceCodeUrl"
             >
               <img
                 style="margin-right: 10px"
-                src="https://img.shields.io/github/stars/yc-l/yc.boilerplate?style=flat-square&label=Stars&logo=github"
+                :src='defaultConfig.githubStarUrl'
               />
                 <img
                 style="margin-right: 10px"
-                src="https://img.shields.io/github/forks/yc-l/yc.boilerplate?style=flat-square&label=Forks&logo=github"
+                :src='defaultConfig.githubForkUrl'
               />
             </a></el-menu-item>
        
-        <el-submenu index="2" style="">
-          <template slot="title">我的工作台</template>
+        <el-submenu index="2" style="color:#fff;">
+          <template slot="title" style="color:#fff;">我的工作台</template>
           <el-menu-item index="2-1">
             <i class="el-icon-user"></i>
             <span slot="title">个人中心</span>
@@ -44,7 +44,20 @@
         <el-menu-item index="2-2" @click="loginOut">
           <i class="el-icon-switch-button"></i>退出登录</el-menu-item
         >
+         <el-menu-item class="themeBtn" index="2-3" @click="drawer = true" type="primary">
+      
+          <i class="el-icon-eleme" ></i>
+         
+          </el-menu-item>
+       
       </el-menu>
+      <el-drawer
+  title="配色主题"
+  :visible.sync="drawer"
+  :direction="direction"
+  size="15%">
+  <span></span>
+</el-drawer>
     </el-header>
     <!-- 下部区域 内部分为 左侧和中间区域 -->
     <el-container style="overflow-y:visible;">
@@ -104,12 +117,13 @@
            <router-view></router-view>
         </div>
        
-        <el-footer>Copyright 2020-{{fullYear}} 元磁之力框架 YC.Boilerplate.AllRightsReserved.</el-footer>
+        <el-footer>Copyright 2020-{{fullYear}} {{defaultConfig.systemName}} {{defaultConfig.frameWorkName}}.AllRightsReserved.</el-footer>
       </el-main>
        <el-backtop />
     </el-container>
   </el-container>
 </template>
+
 <script>
   export default {
     data() {
@@ -123,6 +137,9 @@
         activePath: '',
         // 是否折叠
         isCollapse: false,
+        systemName:"",
+        drawer: false,
+        direction: 'rtl',
       }
     },
     created() {
@@ -188,6 +205,24 @@
 
 }
 
+//左侧菜单ui
+/* 深选择器：如果相对设置了scoped的子组件里的元素进行控制可以使用'>>>'或者'deep'设置选中或悬浮的颜色*/
+.el-submenu /deep/ .el-submenu__title i {
+   color: #bdbdbe;
+  }
+
+.el-submenu /deep/ el-submenu__title{
+
+  //border-bottom-color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    background-color: rgb(17, 142, 235);
+}
+
+//左侧菜单ui
+.el-menu-item i {
+    color: #bdbdbe;
+}
+
 .el-header {
   background-color: #118eeb;
   display: flex;
@@ -207,12 +242,18 @@
   }
 }
 
+//设置左侧菜单
 .el-aside {
   background-color: #ffff;
 
   .el-menu {
     border-right: none;
   }
+}
+
+.el-menu:link{
+
+   background-color: #fff;
 }
 
 .el-menu:hover {
