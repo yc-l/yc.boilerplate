@@ -41,9 +41,9 @@ YC.boilerplate framework technology group QQ: 1060819005
 -Meta magnetic force framework database table and code generation tutorial practice:< https://www.bilibili.com/video/BV1oM4y137D5/ >
 
 ## Quick start
-1. [Online demonstration]（ http://yc.yc-l.com/ )
-2. [online document]（ http://doc.yc-l.com/ )
-3. Conventional front and rear end separation frame: front end: src\front\yc.webfront, back end: src\backstage\yc.boilerplate.sln
+1. [Online demonstration](http://yc.yc-l.com/)
+2. [online document](http://doc.yc-l.com/)
+3. Conventional front and rear end separation frame: front src\front\yc.webfront,  Server: src\backstage\yc.boilerplate.sln
 4. See src\microservice\yc.microservice.sln for the framework microservice version
 5. The latest version of the framework has introduced elasticsearch and other big data suites to realize distributed retrieval, statistics and analysis of more than ten million levels. Please see the latest documentation for details.
 6. Initialize the database: src\DB (tenant 1 and tenant 2 sub database presentation data)
