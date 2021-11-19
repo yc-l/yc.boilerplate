@@ -37,23 +37,23 @@ YC.boilerplate framework technology group QQ: 1060819005
 5. New micro services: Ocelot gateway, consumer, load balancing, fuse, identityserver 4 identity authentication
    
 ## Video tutorial
-- Introduction to the original center and frame design of yuanci force frame (Part I):https://www.bilibili.com/video/BV1VM4y1G7hC/
-- Introduction to the original center and frame design of yuanci force frame (Part 2):https://www.bilibili.com/video/BV15h411s7w6/
-- Meta magnetic force framework database table and code generation tutorial practice: https://www.bilibili.com/video/BV1oM4y137D5/
+-Introduction to the original center and frame design of yuanci force frame (Part I):< https://www.bilibili.com/video/BV1VM4y1G7hC/ >
+-Introduction to the original center and frame design of yuanci force frame (Part 2):< https://www.bilibili.com/video/BV15h411s7w6/ >
+-Meta magnetic force framework database table and code generation tutorial practice:< https://www.bilibili.com/video/BV1oM4y137D5/ >
 
 ## Quick start
-1. [Online demonstration](http://yc.yc-l.com/)
-2. [online document](http://doc.yc-l.com/)
-3. Conventional front and rear end separation frame: front ```src\front\yc.webfront```,  Server: ```src\backstage\yc.boilerplate.sln```
-4. See ```src\microservice\yc.microservice.sln``` for the framework microservice version
+1. [Online demonstration]（ http://yc.yc-l.com/ )
+2. [online document]（ http://doc.yc-l.com/ )
+3. Conventional front and rear end separation frame: front end: src\front\yc.webfront, back end: src\backstage\yc.boilerplate.sln
+4. See src\microservice\yc.microservice.sln for the framework microservice version
 5. The latest version of the framework has introduced elasticsearch and other big data suites to realize distributed retrieval, statistics and analysis of more than ten million levels. Please see the latest documentation for details.
-6. Initialize the database: ```src\DB (tenant 1 and tenant 2 sub database presentation data)```
+6. Initialize the database: src\DB (tenant 1 and tenant 2 sub database presentation data)
 
 
 ## Framework technology stack and development mode
 - Development mode: the current popular front and rear end separation.
-- Front : vue2.0, elementui and other technology stacks, which provide project templates for single page applications.
-- The Server adopts net 5.0.
+- Front end: vue2.0, elementui and other technology stacks, which provide project templates for single page applications.
+- The back end adopts net 5.0.
 #### Frame features
 - Modular development, flexible combination, decoupling to the end, injection and use on demand.
 - The current popular development model has clear layers.
@@ -79,7 +79,7 @@ YC.boilerplate framework technology group QQ: 1060819005
 - Other combinations: configuration center, consumer, load balancing, loadbalance, identity authentication center ids4, container docker.
 - Please look forward to log operation and maintenance, distributed transactions, etc.
   
-![image](https://gitee.com/yc-power/yc.boilerplate/raw/master/assets/images/YC.Micro.jpg)
+![image](https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/YC.Micro.jpg)
 
 >Module layer (on demand)
 - Database table and code generation module: ```YC.codegenerate```
