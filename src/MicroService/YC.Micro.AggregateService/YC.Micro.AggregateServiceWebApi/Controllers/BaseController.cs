@@ -65,19 +65,7 @@ namespace YC.Micro.AggregateServiceWebApi.Controllers
             return grpcChannel;
         }
 
-        protected GrpcChannel GetGrpcChannelByDefaultSslCert(string serviceName)
-        {
-            var certificate = new X509Certificate2("./crt/server.crt");
-            string url = _serviceDiscovery.GetLoadBalanceActivityServiceAddress(serviceName);
-            var handler = new HttpClientHandler();
-            handler.ClientCertificates.Add(certificate);
-
-            var channel = GrpcChannel.ForAddress(url, new GrpcChannelOptions
-            {
-                HttpHandler = handler
-            });
-            return channel;
-        }
+      
         protected GrpcChannel GetGrpcChannelBySslCert(string serviceName)
         {
            

@@ -34,18 +34,6 @@
     <ProjectReference Include="..\..\YC.Micro.Consul\YC.Micro.Consul.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="crt\cacert.pem">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="crt\privkey.pem">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="crt\server.crt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="crt\server.key">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="devCert.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
