@@ -79,7 +79,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 - 其他组合：配置中心 consul、熔断 polly、负载均衡loadbalance、身份认证中心Ids4、容器化docker。
 - 日志运维、分布式事务等,敬请期待。
 
-![image](https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/YC.Micro.jpg)
+![image](https://gitee.com/yc-power/yc.boilerplate/raw/master/assets/images/YC.Micro.jpg)
 
 
 > 模块层（按需使用）
