@@ -1,0 +1,87 @@
+﻿@model GrantsViewModel
+
+<div class="grants-page">
+    <div class="lead">
+        <h1>客户端应用程序权限</h1>
+        <p>下面是您已授予权限的应用程序列表以及它们可以访问的资源</p>
+    </div>
+
+    @if (Model.Grants.Any() == false)
+    {
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="alert alert-info">
+                    您尚未授予访问任何应用程序的权限
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var grant in Model.Grants)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-8 card-title">
+                            @if (grant.ClientLogoUrl != null)
+                            {
+                                <img src="@grant.ClientLogoUrl">
+                            }
+                            <strong>@grant.ClientName</strong>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <form asp-action="Revoke">
+                                <input type="hidden" name="clientId" value="@grant.ClientId">
+                                <button class="btn btn-danger">撤销访问权</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <ul class="list-group list-group-flush">
+                    @if (grant.Description != null)
+                    {
+                        <li class="list-group-item">
+                            <label>Description:</label> @grant.Description
+                        </li>   
+                    }
+                    <li class="list-group-item">
+                        <label>Created:</label> @grant.Created.ToString("yyyy-MM-dd")
+                    </li>
+                    @if (grant.Expires.HasValue)
+                    {
+                        <li class="list-group-item">
+                            <label>到期:</label> @grant.Expires.Value.ToString("yyyy-MM-dd")
+                        </li>
+                    }
+                    @if (grant.IdentityGrantNames.Any())
+                    {
+                        <li class="list-group-item">
+                            <label>Identity Grants</label>
+                            <ul>
+                                @foreach (var name in grant.IdentityGrantNames)
+                                {
+                                    <li>@name</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (grant.ApiGrantNames.Any())
+                    {
+                        <li class="list-group-item">
+                            <label>API Grants</label>
+                            <ul>
+                                @foreach (var name in grant.ApiGrantNames)
+                                {
+                                    <li>@name</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    }
+</div>

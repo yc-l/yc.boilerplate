@@ -34,7 +34,8 @@ YC.boilerplate framework technology group QQ: 1060819005
 2. Built in docker container monitoring tool
 3. There are relevant packaged images in the group data
 4. Provide image deployment operation tutorial [see doc directory]
-
+5. New micro services: Ocelot gateway, consumer, load balancing, fuse, identityserver 4 identity authentication
+   
 ## Video tutorial
 - Introduction to the original center and frame design of yuanci force frame (Part I):https://www.bilibili.com/video/BV1VM4y1G7hC/
 - Introduction to the original center and frame design of yuanci force frame (Part 2):https://www.bilibili.com/video/BV15h411s7w6/
@@ -75,6 +76,8 @@ YC.boilerplate framework technology group QQ: 1060819005
 - Common configuration layer: ```YC.Micro.Configuration ``` common configuration layer.
 - Independent services: ```YC.Micro.Xxxwebservice ``` specify the service.
 - Others: registration, fusing, load balancing, log operation and maintenance, identity authentication center, containerization, etc. Please look forward to it.
+- Other combinations: configuration center, consumer, load balancing, loadbalance, identity authentication center ids4, container docker.
+- Please look forward to log operation and maintenance, distributed transactions, etc.
   
 >Module layer (on demand)
 - Database table and code generation module: ```YC.codegenerate```

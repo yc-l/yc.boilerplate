@@ -7,45 +7,55 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{A6993AA8-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{6FEB5CCC-55FA-471A-84D9-51E5EC80FC32}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityTestClient", "..\IdentityServer\IdentityTestClient\IdentityTestClient.csproj", "{77F5BCF1-11F0-49C1-9803-56F9D340EEB1}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module", "Module", "{3E77D5D2-7C7E-4F3E-BBB7-8005EAA64924}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroService", "MicroService", "{92024886-A202-49C0-8C80-FC218190DAE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ElasticSearch", "..\..\src\Backstage\Module\YC.ElasticSearch\YC.ElasticSearch.csproj", "{EBF904C4-E04F-4039-81B2-622ED9208E2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.ElasticSearch", "..\Backstage\Module\YC.ElasticSearch\YC.ElasticSearch.csproj", "{EBF904C4-E04F-4039-81B2-622ED9208E2C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Cache.Redis", "..\..\src\Backstage\Module\YC.Cache.Redis\YC.Cache.Redis.csproj", "{4034E1D3-4504-4042-AC51-FE6113AEA7A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Cache.Redis", "..\Backstage\Module\YC.Cache.Redis\YC.Cache.Redis.csproj", "{4034E1D3-4504-4042-AC51-FE6113AEA7A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Log.Serilog", "..\..\src\Backstage\Module\YC.Log.Serilog\YC.Log.Serilog.csproj", "{3F4D8333-7AEE-4D41-A61D-366ACD7890BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Log.Serilog", "..\Backstage\Module\YC.Log.Serilog\YC.Log.Serilog.csproj", "{3F4D8333-7AEE-4D41-A61D-366ACD7890BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.MongoDB", "..\..\src\Backstage\Module\YC.MongoDB\YC.MongoDB.csproj", "{82EBD888-A7EB-4AF2-A789-7B17931BFC1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.MongoDB", "..\Backstage\Module\YC.MongoDB\YC.MongoDB.csproj", "{82EBD888-A7EB-4AF2-A789-7B17931BFC1F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Neo4j", "..\..\src\Backstage\Module\YC.Neo4j\YC.Neo4j.csproj", "{A1FF144A-E946-4866-801E-FF493C78712F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Neo4j", "..\Backstage\Module\YC.Neo4j\YC.Neo4j.csproj", "{A1FF144A-E946-4866-801E-FF493C78712F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.FreeSqlFrameWork", "..\..\src\Backstage\BasicLayer\YC.FreeSqlFrameWork\YC.FreeSqlFrameWork.csproj", "{1C17114F-B629-412B-B49A-A8BB5F086541}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.FreeSqlFrameWork", "..\Backstage\BasicLayer\YC.FreeSqlFrameWork\YC.FreeSqlFrameWork.csproj", "{1C17114F-B629-412B-B49A-A8BB5F086541}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Common", "..\..\src\Backstage\BasicLayer\YC.Common\YC.Common.csproj", "{E80E4500-F6D4-43A9-B060-0AB3978B711F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Common", "..\Backstage\BasicLayer\YC.Common\YC.Common.csproj", "{E80E4500-F6D4-43A9-B060-0AB3978B711F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Core", "..\..\src\Backstage\BasicLayer\YC.Core\YC.Core.csproj", "{B3F6392E-C691-4785-BFC2-0E4D665CF3E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Core", "..\Backstage\BasicLayer\YC.Core\YC.Core.csproj", "{B3F6392E-C691-4785-BFC2-0E4D665CF3E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "YC.Micro.UserService", "YC.Micro.UserService", "{965057BB-9BBC-4B67-A200-BF7E13650384}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "YC.Micro.BookService", "YC.Micro.BookService", "{5F25025B-AA9C-4A6F-AACF-4588524551F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.UserWebService", "..\..\src\MicroService\YC.Micro.UserService\YC.Micro.UserWebService\YC.Micro.UserWebService.csproj", "{73A52A7D-B1A0-4B5D-9612-E4A363C3E0C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.UserWebService", "YC.Micro.UserService\YC.Micro.UserWebService\YC.Micro.UserWebService.csproj", "{73A52A7D-B1A0-4B5D-9612-E4A363C3E0C5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "YC.Micro.AggregateService", "YC.Micro.AggregateService", "{181FEF9B-983F-4C2E-B7D5-CDFF135B546A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.AggregateServiceWebApi", "..\..\src\MicroService\YC.Micro.AggregateService\YC.Micro.AggregateServiceWebApi\YC.Micro.AggregateServiceWebApi.csproj", "{038BD9ED-8048-4B63-877C-077C34FEDCC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.AggregateServiceWebApi", "YC.Micro.AggregateService\YC.Micro.AggregateServiceWebApi\YC.Micro.AggregateServiceWebApi.csproj", "{038BD9ED-8048-4B63-877C-077C34FEDCC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.BookWebService", "..\..\src\MicroService\YC.Micro.BookService\YC.Micro.BookWebService\YC.Micro.BookWebService.csproj", "{69CE1DC5-B37C-4823-B69A-F64FE4301D1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.BookWebService", "YC.Micro.BookService\YC.Micro.BookWebService\YC.Micro.BookWebService.csproj", "{69CE1DC5-B37C-4823-B69A-F64FE4301D1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicLayer", "BasicLayer", "{E188EE73-A26D-461F-A0E7-31C45BB54B5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Model", "..\..\src\Backstage\BasicAppLayer\YC.Model\YC.Model.csproj", "{56B10A68-5F2D-4597-A563-42E6302F5F36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Model", "..\Backstage\BasicAppLayer\YC.Model\YC.Model.csproj", "{56B10A68-5F2D-4597-A563-42E6302F5F36}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "YC.Micro.Common", "YC.Micro.Common", "{DE10FE30-FBCA-4B29-A123-F6EAD3DC8E77}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.Configuration", "..\..\src\MicroService\YC.Micro.Common\YC.Micro.Configuration\YC.Micro.Configuration.csproj", "{8330DA1A-C9F1-43E5-80DC-96A4BB63DC26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.Configuration", "YC.Micro.Common\YC.Micro.Configuration\YC.Micro.Configuration.csproj", "{8330DA1A-C9F1-43E5-80DC-96A4BB63DC26}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.Core", "YC.Micro.Common\YC.Micro.Core\YC.Micro.Core.csproj", "{0FF58EAE-ED84-4353-9AD2-F92A32C90F62}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.Consul", "YC.Micro.Consul\YC.Micro.Consul.csproj", "{096A8848-73CA-42E2-BD5A-B62A8B573EA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Micro.OcelotGateway", "YC.Micro.OcelotGateway\YC.Micro.OcelotGateway.csproj", "{E25556E6-FD7B-41C8-9C4D-DAE1CB2DCD71}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.IdentityServerWeb", "..\IdentityServer\YC.IdentityServerWeb\YC.IdentityServerWeb.csproj", "{A5DA67DC-68C6-42CC-86DA-37414D756915}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +63,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77F5BCF1-11F0-49C1-9803-56F9D340EEB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F5BCF1-11F0-49C1-9803-56F9D340EEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F5BCF1-11F0-49C1-9803-56F9D340EEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F5BCF1-11F0-49C1-9803-56F9D340EEB1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBF904C4-E04F-4039-81B2-622ED9208E2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EBF904C4-E04F-4039-81B2-622ED9208E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBF904C4-E04F-4039-81B2-622ED9208E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -105,11 +119,28 @@ Global
 		{8330DA1A-C9F1-43E5-80DC-96A4BB63DC26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8330DA1A-C9F1-43E5-80DC-96A4BB63DC26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8330DA1A-C9F1-43E5-80DC-96A4BB63DC26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF58EAE-ED84-4353-9AD2-F92A32C90F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF58EAE-ED84-4353-9AD2-F92A32C90F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF58EAE-ED84-4353-9AD2-F92A32C90F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF58EAE-ED84-4353-9AD2-F92A32C90F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{096A8848-73CA-42E2-BD5A-B62A8B573EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096A8848-73CA-42E2-BD5A-B62A8B573EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{096A8848-73CA-42E2-BD5A-B62A8B573EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{096A8848-73CA-42E2-BD5A-B62A8B573EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E25556E6-FD7B-41C8-9C4D-DAE1CB2DCD71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E25556E6-FD7B-41C8-9C4D-DAE1CB2DCD71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E25556E6-FD7B-41C8-9C4D-DAE1CB2DCD71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E25556E6-FD7B-41C8-9C4D-DAE1CB2DCD71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DA67DC-68C6-42CC-86DA-37414D756915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DA67DC-68C6-42CC-86DA-37414D756915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DA67DC-68C6-42CC-86DA-37414D756915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DA67DC-68C6-42CC-86DA-37414D756915}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{77F5BCF1-11F0-49C1-9803-56F9D340EEB1} = {6FEB5CCC-55FA-471A-84D9-51E5EC80FC32}
 		{EBF904C4-E04F-4039-81B2-622ED9208E2C} = {3E77D5D2-7C7E-4F3E-BBB7-8005EAA64924}
 		{4034E1D3-4504-4042-AC51-FE6113AEA7A2} = {3E77D5D2-7C7E-4F3E-BBB7-8005EAA64924}
 		{3F4D8333-7AEE-4D41-A61D-366ACD7890BA} = {3E77D5D2-7C7E-4F3E-BBB7-8005EAA64924}
@@ -125,8 +156,11 @@ Global
 		{038BD9ED-8048-4B63-877C-077C34FEDCC9} = {181FEF9B-983F-4C2E-B7D5-CDFF135B546A}
 		{69CE1DC5-B37C-4823-B69A-F64FE4301D1D} = {5F25025B-AA9C-4A6F-AACF-4588524551F7}
 		{56B10A68-5F2D-4597-A563-42E6302F5F36} = {E188EE73-A26D-461F-A0E7-31C45BB54B5F}
-		{DE10FE30-FBCA-4B29-A123-F6EAD3DC8E77} = {92024886-A202-49C0-8C80-FC218190DAE1}
 		{8330DA1A-C9F1-43E5-80DC-96A4BB63DC26} = {DE10FE30-FBCA-4B29-A123-F6EAD3DC8E77}
+		{0FF58EAE-ED84-4353-9AD2-F92A32C90F62} = {DE10FE30-FBCA-4B29-A123-F6EAD3DC8E77}
+		{096A8848-73CA-42E2-BD5A-B62A8B573EA6} = {DE10FE30-FBCA-4B29-A123-F6EAD3DC8E77}
+		{E25556E6-FD7B-41C8-9C4D-DAE1CB2DCD71} = {DE10FE30-FBCA-4B29-A123-F6EAD3DC8E77}
+		{A5DA67DC-68C6-42CC-86DA-37414D756915} = {6FEB5CCC-55FA-471A-84D9-51E5EC80FC32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2286F1C-A8B5-4BE5-9081-16E02C40FC5C}

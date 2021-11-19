@@ -1,0 +1,39 @@
+{
+  "ReRoutes": [
+    {
+      "UpstreamPathTemplate": "/AggregateService",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/Teams",
+      "DownstreamScheme": "https",
+      "ServiceName": "AggregateService",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "Key": "AggregateService",
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5m",
+        "PeriodTimespan": 10,
+        "Limit": 20
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 15,
+        "Region": "somename"
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    },
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Customize Tips!",
+      "HttpStatusCode": 999,
+      "ClientIdHeader": "Test"
+    }
+  }
+}

@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
     <PackageReference Include="Grpc.Core" Version="2.34.0" />
     <PackageReference Include="Grpc.Core.Api" Version="2.34.0" />
@@ -29,8 +30,25 @@
     <ProjectReference Include="..\..\..\Backstage\BasicAppLayer\YC.Model\YC.Model.csproj" />
     <ProjectReference Include="..\..\..\Backstage\Module\YC.ElasticSearch\YC.ElasticSearch.csproj" />
     <ProjectReference Include="..\..\YC.Micro.Common\YC.Micro.Configuration\YC.Micro.Configuration.csproj" />
+    <ProjectReference Include="..\..\YC.Micro.Common\YC.Micro.Core\YC.Micro.Core.csproj" />
+    <ProjectReference Include="..\..\YC.Micro.Consul\YC.Micro.Consul.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="crt\cacert.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="crt\privkey.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="crt\server.crt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="crt\server.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="devCert.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Protos\IUserService.proto">
       <GrpcServices>Server</GrpcServices>
     </None>
@@ -50,7 +68,7 @@
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
 	  <Content Update="appsettings.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>

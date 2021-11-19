@@ -12,6 +12,7 @@ namespace YC.Micro.UserWebService
     /// <summary>
     /// FreeSql 注入模块
     /// </summary>
+    [DependsOn]
     public class FreesqlAutofacModule : Autofac.Module
     {
         /// <summary>

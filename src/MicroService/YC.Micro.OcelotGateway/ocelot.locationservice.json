@@ -1,0 +1,22 @@
+{
+  "ReRoutes": [
+    {
+      "UpstreamPathTemplate": "/LocationService",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/Locations",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "Key": "LocationService",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5000,
+        "TimeoutValue": 5000
+      }
+    }
+  ]
+}

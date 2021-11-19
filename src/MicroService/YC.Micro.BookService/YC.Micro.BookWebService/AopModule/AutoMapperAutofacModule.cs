@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
+using YC.Core.Autofac;
 using YC.Model.SysDbEntity;
 
 namespace YC.Micro.BookWebService.AopModule
@@ -13,6 +14,7 @@ namespace YC.Micro.BookWebService.AopModule
     /// <summary>
     /// autoMapper 单例注入
     /// </summary>
+    [DependsOn]
     public class AutoMapperAutofacModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)

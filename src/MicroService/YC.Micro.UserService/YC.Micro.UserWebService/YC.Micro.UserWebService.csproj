@@ -9,6 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+	<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
@@ -19,10 +21,18 @@
     <ProjectReference Include="..\..\..\Backstage\BasicAppLayer\YC.Model\YC.Model.csproj" />
     <ProjectReference Include="..\..\..\Backstage\BasicLayer\YC.FreeSqlFrameWork\YC.FreeSqlFrameWork.csproj" />
     <ProjectReference Include="..\..\YC.Micro.Common\YC.Micro.Configuration\YC.Micro.Configuration.csproj" />
+    <ProjectReference Include="..\..\YC.Micro.Common\YC.Micro.Core\YC.Micro.Core.csproj" />
+    <ProjectReference Include="..\..\YC.Micro.Consul\YC.Micro.Consul.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

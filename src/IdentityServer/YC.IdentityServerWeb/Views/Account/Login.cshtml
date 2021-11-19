@@ -1,0 +1,91 @@
+﻿@model LoginViewModel
+
+@section styles{
+    <link rel="stylesheet" href="~/login/css/style.css" type="text/css" media="all" />
+
+}
+
+<section class="w3l-forms-23">
+    <div class="forms23-block-hny">
+        <div class="wrapper">
+            <h1>身份认证中心</h1>
+            <!-- if logo is image enable this
+        <a class="logo" href="index.html">
+          <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+        </a>
+    -->
+            @if (Model.EnableLocalLogin)
+            {
+               <div class="d-grid forms23-grids">
+            <div class="form23">
+                <div class="main-bg">
+                    <h6 class="sec-one">身份授权</h6>
+                    <div class="speci-login first-look">
+                        <img src="~/login/images/user.png" alt="" class="img-responsive">
+                    </div>
+                </div>
+                <partial name="_ValidationSummary" />
+                <div class="bottom-content">
+                    <form asp-route="Login">
+                        <input type="hidden" asp-for="ReturnUrl" />
+                        <input class="input-form" placeholder="Username" asp-for="Username" autofocus>
+                        <input type="password" class="input-form" placeholder="Password" asp-for="Password" autocomplete="off">
+                        @if (Model.AllowRememberLogin)
+                        {
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" asp-for="RememberLogin">
+
+                                </div>
+                            </div>
+                         }
+                        <button class="loginhny-btn btn" name="button" value="login">登录</button>
+                    </form>
+                    <p>还没有账号? <a href="#">注册</a></p>
+                </div>
+            </div>
+        </div>
+              }
+            @if (Model.VisibleExternalProviders.Any())
+            {
+            <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>外部账户</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="list-inline">
+                        @foreach (var provider in Model.VisibleExternalProviders)
+                        {
+                    <li class="list-inline-item">
+                        <a class="btn btn-secondary"
+                           asp-controller="External"
+                           asp-action="Challenge"
+                           asp-route-scheme="@provider.AuthenticationScheme"
+                           asp-route-returnUrl="@Model.ReturnUrl">
+                            @provider.DisplayName
+                        </a>
+                    </li>}
+                    </ul>
+                </div>
+            </div>
+        </div>
+             }
+
+            @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
+            {
+                <div class="alert alert-warning">
+                    <strong>无效的登录请求</strong>
+                    没有为此请求配置登录方案
+                 </div>   
+             }
+
+            <div class="w3l-copy-right text-center">
+                <p>
+                    © 2020 YC.IdentityServerWeb All rights reserved | Design by
+                    <a href="#" target="_blank">YC.IdentityServerWeb</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

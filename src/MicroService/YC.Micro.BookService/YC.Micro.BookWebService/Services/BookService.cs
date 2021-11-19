@@ -1,5 +1,6 @@
 using AutoMapper;
 using Grpc.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Nest;
 using System;
@@ -13,17 +14,19 @@ using YC.Micro.BookWebService;
 
 namespace YC.Micro.BookWebService
 {
+    [Authorize]
     public class BookService : IBookService.IBookServiceBase
     {
         private IElasticSearchRepository<Book> _elasticSearchRepository;
         private readonly IMapper _mapper;
+
         public BookService(IElasticSearchRepository<Book> elasticSearchRepository, IMapper mapper)
         {
             _elasticSearchRepository = elasticSearchRepository;
             _mapper = mapper;
         }
 
-        public override  async Task<BookDtoList> GetBookList(BookFormRequest request, ServerCallContext context)
+        public override async Task<BookDtoList> GetBookList(BookFormRequest request, ServerCallContext context)
         {
             Func<QueryContainerDescriptor<Book>, QueryContainer> query = null;
             //全字匹配+ 分词查询 double 不能直接用string 丢进去查询
@@ -41,6 +44,7 @@ namespace YC.Micro.BookWebService
             long total = esPageResult.Total >= 10000 ? 10000 : esPageResult.Total;//查询总数,如果大于10000 默认显示10000。这是es深度分页需要处理，或使用searchAfter
 
             #region 高亮数据处理
+
             if (list.Count > 0)
             {
                 list.ForEach(
@@ -79,18 +83,15 @@ namespace YC.Micro.BookWebService
                                 x.Auther += v;
                             });
                         }
-
-
                     }
                     );
-
             }
-            #endregion
+
+            #endregion 高亮数据处理
 
             var result = _mapper.Map<BookDtoList>(list);
-          
+
             return result;
         }
     }
-
 }

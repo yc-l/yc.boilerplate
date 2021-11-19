@@ -29,6 +29,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 2. 内置docker 容器监测工具
 3. 群资料中有相关打包镜像
 4. 提供镜像部署操作教程【见doc目录】
+5. 微服务新增：ocelot网关、consul、负载均衡、熔断、identityServer4 身份认证
 
 
 ## 视频教程
@@ -75,7 +76,8 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 - 聚合服务层：```YC.Micro.AggregateServiceWebApi```,多种服务融合调用。
 - 公共常用配置层：```YC.Micro.Configuration``` 公共常用配置层。
 - 各个独立服务：```YC.Micro.xxxxWebService``` 指定服务。
-- 其他：注册、熔断、负载均衡、日志运维、身份认证中心、容器化等,敬请期待。
+- 其他组合：配置中心 consul、熔断 polly、负载均衡loadbalance、身份认证中心Ids4、容器化docker。
+- 日志运维、分布式事务等等等敬请期待。
 
 > 模块层（按需使用）
 
