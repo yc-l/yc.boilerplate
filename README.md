@@ -54,6 +54,7 @@ YC.boilerplate framework technology group QQ: 1060819005
 - Development mode: the current popular front and rear end separation.
 - Front end: vue2.0, elementui and other technology stacks, which provide project templates for single page applications.
 - The back end adopts net 5.0.
+
 #### Frame features
 - Modular development, flexible combination, decoupling to the end, injection and use on demand.
 - The current popular development model has clear layers.
@@ -79,7 +80,7 @@ YC.boilerplate framework technology group QQ: 1060819005
 - Other combinations: configuration center, consumer, load balancing, loadbalance, identity authentication center ids4, container docker.
 - Please look forward to log operation and maintenance, distributed transactions, etc.
   
-![image](https://gitee.com/yc-power/yc.boilerplate/raw/master/assets/images/YC.Micro.jpg)
+![image](https://github.com/yc-l/yc.boilerplate/blob/master/assets/images/YC.Micro%20%E5%BE%AE%E6%9C%8D%E5%8A%A1.jpg)
 
 >Module layer (on demand)
 - Database table and code generation module: ```YC.codegenerate```
