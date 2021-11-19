@@ -79,6 +79,8 @@ YC.boilerplate framework technology group QQ: 1060819005
 - Other combinations: configuration center, consumer, load balancing, loadbalance, identity authentication center ids4, container docker.
 - Please look forward to log operation and maintenance, distributed transactions, etc.
   
+![image](https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/YC.Micro.jpg)
+
 >Module layer (on demand)
 - Database table and code generation module: ```YC.codegenerate```
 - Redis cache module: ```YC.cache.redis```
