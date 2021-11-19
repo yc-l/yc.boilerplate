@@ -31,3 +31,6 @@ obj
 /src/Front.rar
 /src/Backstage.zip
 /src/Backstage/TestResults
+/src/MicroService/Software
+/src/IdentityServer/YC.IdentityServerWeb/obj
+/src/IdentityServer/YC.IdentityServerWeb/bin
