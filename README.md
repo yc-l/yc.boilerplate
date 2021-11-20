@@ -37,10 +37,11 @@ YC.boilerplate framework technology group QQ: 1060819005
 5. New micro services: Ocelot gateway, consumer, load balancing, fuse, identityserver 4 identity authentication
    
 ## Video tutorial
--Introduction to the original center and frame design of yuanci force frame (Part I):< https://www.bilibili.com/video/BV1VM4y1G7hC/ >
--Introduction to the original center and frame design of yuanci force frame (Part 2):< https://www.bilibili.com/video/BV15h411s7w6/ >
--Meta magnetic force framework database table and code generation tutorial practice:< https://www.bilibili.com/video/BV1oM4y137D5/ >
-
+- Introduction to the original center and frame design of yuanci force frame (Part I):< https://www.bilibili.com/video/BV1VM4y1G7hC/ >
+- Introduction to the original center and frame design of yuanci force frame (Part 2):< https://www.bilibili.com/video/BV15h411s7w6/ >
+- Meta magnetic force framework database table and code generation tutorial practice:< https://www.bilibili.com/video/BV1oM4y137D5/ >
+- Introduction to microservice version experience：<https://www.bilibili.com/video/BV1X44y1a7xU?spm_id_from=333.999.0.0>
+  
 ## Quick start
 1. [Online demonstration]（ http://yc.yc-l.com/ )
 2. [online document]（ http://doc.yc-l.com/ )

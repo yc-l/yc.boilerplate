@@ -37,6 +37,7 @@ YC.Boilerplate 是一套快速开发框架，采用当下流行的前后端分�
 - 元磁之力框架开源初心和框架设计介绍（上）： <https://www.bilibili.com/video/BV1VM4y1G7hC/>
 - 元磁之力框架开源初心和框架设计介绍（下）： <https://www.bilibili.com/video/BV15h411s7w6/>
 - 元磁之力框架数据库表和代码生成使用教程实战： <https://www.bilibili.com/video/BV1oM4y137D5/>
+- 微服务版本体验入门：https://www.bilibili.com/video/BV1X44y1a7xU?spm_id_from=333.999.0.0
 
 ## 快速入门
 
