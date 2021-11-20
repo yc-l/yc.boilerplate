@@ -1,6 +1,6 @@
 
 <p align="center">
-    <img height="260" src="https://gitee.com/yc-power/yc.boilerplate/raw/master/assets/images/logo1.png">
+    <img height="260" src="https://github.com/yc-l/yc.boilerplate/blob/master/assets/images/logo1.png">
 </p>
 
 
@@ -105,7 +105,7 @@ Unit tests for other modules:
 
 #### FrameWork function module
 
-![image](https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/%E6%A1%86%E6%9E%B6%E5%9B%BE.png)
+![image](https://github.com/yc-l/yc.boilerplate/blob/master/assets/images/%E6%A1%86%E6%9E%B6%E5%9B%BE.png)
 
 #### FrameWork properties
 1. Based on the latest. Net technology net 5.0.
@@ -128,8 +128,8 @@ Unit tests for other modules:
 
 ## Reward support
 
-<img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
-<img src="https://gitee.com/linxuanming/yc.boilerplate/raw/master/assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
+<img src="https://github.com/yc-l/yc.boilerplate/blob/master/assets/images/payCode/weixin_CollectionCode.jpg" width="36%" height="36%">
+<img src="https://github.com/yc-l/yc.boilerplate/blob/master/assets/images/payCode/alipay_CollectionCode.jpg" width="36%" height="36%">
 
 
 Donor | Donation amount (¥)
