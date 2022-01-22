@@ -12,6 +12,7 @@ namespace YC.Common.ShareUtils
     public sealed class ConvertUtils
     {
         #region 各进制数间转换
+
         /// <summary>
         /// 实现各进制数间的转换。ConvertBase("15",10,16)表示将十进制数15转换为16进制的数。
         /// </summary>
@@ -36,15 +37,19 @@ namespace YC.Common.ShareUtils
                     case 7:
                         result = "0" + result;
                         break;
+
                     case 6:
                         result = "00" + result;
                         break;
+
                     case 5:
                         result = "000" + result;
                         break;
+
                     case 4:
                         result = "0000" + result;
                         break;
+
                     case 3:
                         result = "00000" + result;
                         break;
@@ -65,7 +70,7 @@ namespace YC.Common.ShareUtils
             return false;
         }
 
-        #endregion
+        #endregion 各进制数间转换
 
         #region 使用指定字符集将string转换成byte[]
 
@@ -88,7 +93,7 @@ namespace YC.Common.ShareUtils
             return encoding.GetBytes(text);
         }
 
-        #endregion
+        #endregion 使用指定字符集将string转换成byte[]
 
         #region 使用指定字符集将byte[]转换成string
 
@@ -110,9 +115,11 @@ namespace YC.Common.ShareUtils
         {
             return encoding.GetString(bytes);
         }
-        #endregion
+
+        #endregion 使用指定字符集将byte[]转换成string
 
         #region 将byte[]转换成int
+
         /// <summary>
         /// 将byte[]转换成int
         /// </summary>
@@ -144,7 +151,8 @@ namespace YC.Common.ShareUtils
             //返回整数
             return num;
         }
-        #endregion
+
+        #endregion 将byte[]转换成int
 
         public static byte[] StringToBytesByUtf8(string data)
         {
@@ -152,7 +160,8 @@ namespace YC.Common.ShareUtils
             return decBytes;
         }
 
-        public static string BytesToStringByUtf8(byte[] data) {
+        public static string BytesToStringByUtf8(byte[] data)
+        {
             string str = System.Text.Encoding.UTF8.GetString(data);
             return str;
         }
@@ -167,6 +176,7 @@ namespace YC.Common.ShareUtils
             stream.Dispose();
             return datas;
         }
+
         //反序列化
         public static object Deserialize(byte[] datas)
         {
@@ -176,7 +186,6 @@ namespace YC.Common.ShareUtils
             stream.Dispose();
             return obj;
         }
-
 
         #region 将数据转换为整型
 
@@ -203,7 +212,6 @@ namespace YC.Common.ShareUtils
             {
                 return defValue;
             }
-
         }
 
         /// <summary>
@@ -255,7 +263,7 @@ namespace YC.Common.ShareUtils
             }
         }
 
-        #endregion
+        #endregion 将数据转换为整型
 
         #region 将数据转换为布尔型
 
@@ -309,7 +317,6 @@ namespace YC.Common.ShareUtils
             }
         }
 
-
         /// <summary>
         /// 将数据转换为布尔类型  转换失败返回 默认值
         /// </summary>
@@ -334,11 +341,9 @@ namespace YC.Common.ShareUtils
             }
         }
 
-
-        #endregion
+        #endregion 将数据转换为布尔型
 
         #region 将数据转换为单精度浮点型
-
 
         /// <summary>
         /// 将数据转换为单精度浮点型  转换失败 返回默认值
@@ -415,11 +420,9 @@ namespace YC.Common.ShareUtils
             }
         }
 
-
-        #endregion
+        #endregion 将数据转换为单精度浮点型
 
         #region 将数据转换为双精度浮点型
-
 
         /// <summary>
         /// 将数据转换为双精度浮点型   转换失败返回默认值
@@ -472,8 +475,6 @@ namespace YC.Common.ShareUtils
             }
         }
 
-
-
         /// <summary>
         /// 将数据转换为双精度浮点型  转换失败返回默认值
         /// </summary>
@@ -496,7 +497,6 @@ namespace YC.Common.ShareUtils
             {
                 return defValue;
             }
-
         }
 
         /// <summary>
@@ -523,9 +523,7 @@ namespace YC.Common.ShareUtils
             {
                 return defValue;
             }
-
         }
-
 
         /// <summary>
         /// 将数据转换为双精度浮点型,并设置小数位  转换失败返回默认值
@@ -579,10 +577,10 @@ namespace YC.Common.ShareUtils
             }
         }
 
-
-        #endregion
+        #endregion 将数据转换为双精度浮点型
 
         #region 将数据转换为指定类型
+
         /// <summary>
         /// 将数据转换为指定类型
         /// </summary>
@@ -646,7 +644,8 @@ namespace YC.Common.ShareUtils
             }
             return (T)obj;
         }
-        #endregion
+
+        #endregion 将数据转换为指定类型
 
         #region 将数据转换Decimal
 
@@ -674,7 +673,6 @@ namespace YC.Common.ShareUtils
                 return defValue;
             }
         }
-
 
         /// <summary>
         /// 将数据转换为Decimal  转换失败返回 默认值
@@ -726,8 +724,7 @@ namespace YC.Common.ShareUtils
             }
         }
 
-
-        #endregion
+        #endregion 将数据转换Decimal
 
         #region 将数据转换为DateTime
 
@@ -755,7 +752,6 @@ namespace YC.Common.ShareUtils
                 return defValue;
             }
         }
-
 
         /// <summary>
         /// 将数据转换为DateTime  转换失败返回 默认值
@@ -807,9 +803,10 @@ namespace YC.Common.ShareUtils
             }
         }
 
-        #endregion
+        #endregion 将数据转换为DateTime
 
         #region 半角全角转换
+
         /// <summary>
         /// 转全角的函数(SBC case)
         /// </summary>
@@ -838,7 +835,6 @@ namespace YC.Common.ShareUtils
             return new string(c);
         }
 
-
         /// <summary> 转半角的函数(DBC case) </summary>
         /// <param name="input">任意字符串</param>
         /// <returns>半角字符串</returns>
@@ -861,8 +857,84 @@ namespace YC.Common.ShareUtils
             }
             return new string(c);
         }
-        #endregion
 
+        #endregion 半角全角转换
 
+        /// <summary>
+        /// 将 Stream 转成 byte[]
+        /// </summary>
+        public static byte[] StreamToBytes(Stream stream)
+
+        {
+            byte[] bytes = new byte[stream.Length];
+
+            stream.Read(bytes, 0, bytes.Length);
+
+            // 设置当前流的位置为流的开始
+
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return bytes;
+        }
+
+        /// <summary>
+        /// 将 byte[] 转成 Stream
+        /// </summary>
+
+        public static Stream BytesToStream(byte[] bytes)
+        {
+            Stream stream = new MemoryStream(bytes);
+            return stream;
+        }
+
+        /// <summary>
+        /// 将 Stream 写入文件
+        /// </summary>
+        public static void StreamToFile(Stream stream, string fileName)
+        {
+            // 把 Stream 转换成 byte[]
+
+            byte[] bytes = new byte[stream.Length];
+
+            stream.Read(bytes, 0, bytes.Length);
+
+            // 设置当前流的位置为流的开始
+
+            stream.Seek(0, SeekOrigin.Begin);
+
+            // 把 byte[] 写入文件
+
+            FileStream fs = new FileStream(fileName, FileMode.Create);
+
+            BinaryWriter bw = new BinaryWriter(fs);
+
+            bw.Write(bytes);
+
+            bw.Close();
+
+            fs.Close();
+        }
+
+        /// <summary>
+        /// 从文件读取 Stream
+        /// </summary>
+        public static Stream FileToStream(string fileName)
+        {
+            // 打开文件
+            FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            // 读取文件的 byte[]
+            byte[] bytes = new byte[fileStream.Length];
+
+            fileStream.Read(bytes, 0, bytes.Length);
+
+            fileStream.Close();
+
+            // 把 byte[] 转换成 Stream
+
+            Stream stream = new MemoryStream(bytes);
+
+            return stream;
+        }
     }
 }

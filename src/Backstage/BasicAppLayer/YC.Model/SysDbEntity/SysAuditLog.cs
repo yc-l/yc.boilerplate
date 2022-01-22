@@ -17,7 +17,6 @@ namespace YC.Model.SysDbEntity
         [DisplayName("主键Id")]
         public long Id { get; set; }
 
-
         [DisplayName("拦截Key")]
         public string Key { get; set; }
         /// <summary>

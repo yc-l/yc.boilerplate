@@ -19,8 +19,7 @@ namespace YC.ApplicationService
         public MapConfig()
         {
             CreateMap<SysUser, UserDto>((MemberList.None)).ReverseMap();
-
-
+            CreateMap<SysUser, PersonInfoDto>((MemberList.None)).ReverseMap();
             CreateMap<SysUser, PageUserOutputDto>((MemberList.None)).ReverseMap();
             CreateMap<SysUser, UserAddOrEditDto>((MemberList.None)).
                 ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name))
@@ -44,9 +43,6 @@ namespace YC.ApplicationService
 
             CreateMap<Book, BookAddOrEditDto>((MemberList.None)).ReverseMap();
             CreateMap<Book, BookDto>((MemberList.None)).ReverseMap();
-
-
         }
     }
-
 }

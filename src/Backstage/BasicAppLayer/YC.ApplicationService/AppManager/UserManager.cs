@@ -25,10 +25,10 @@ namespace YC.ApplicationService
         public ICacheManager _cacheManager;
         public ITenant _tenant;
         public IMapper _mapper;
-      
+
         public UserManager(ISysUserAppService sysUserService, ICacheManager cacheManager,
             IHttpContextAccessor httpContextAccessor, ITenant tenant,
-            IMapper mapper) :base(httpContextAccessor, tenant, cacheManager)
+            IMapper mapper) : base(httpContextAccessor, tenant, cacheManager)
         {
             _sysUserService = sysUserService;
             _cacheManager = cacheManager;
@@ -43,18 +43,19 @@ namespace YC.ApplicationService
         /// <param name="pwd"></param>
         /// <param name=DefaultConfig.TenantSetting.TenantKeyName></param>
         /// <returns></returns>
-        public IApiResult<UserDto> UserLogin(string userId, string pwd,string guidKey,string validateCode, int tenantId = 1)
+        public IApiResult<UserDto> UserLogin(string userId, string pwd, string guidKey, string validateCode, int tenantId = 1)
         {
             var res = new ApiResult<UserDto>();
             UserDto userDto = new UserDto();
-            if (validateCode != DefaultConfig.DefaultAppConfig.DefaultVerifyCode) {//特定放过不要验证码
+            if (validateCode != DefaultConfig.DefaultAppConfig.DefaultVerifyCode)
+            {//特定放过不要验证码
                 if (_cacheManager.Get(guidKey)?.ToString().ToLower() != validateCode.ToLower())
                 {
                     return res.NotOk("验证码过期！");
                 }
             }
-           
-            var loginDto =  _sysUserService.Login(userId, pwd, tenantId);
+
+            var loginDto = _sysUserService.Login(userId, pwd, tenantId);
             if (loginDto.State)
             {
                 userDto = _mapper.Map<UserDto>(loginDto.Data);
@@ -70,34 +71,30 @@ namespace YC.ApplicationService
                 CreateUserRolePermissionCache(tempData);
                 return res.Ok(userDto, loginDto.Message);
             }
-            else {
-
+            else
+            {
                 return res.NotOk(loginDto.Message);
             }
-           
-
         }
 
         public bool CreateUserRolePermissionCache(UserRolePermissionDto input)
         {
-           
-            string userRolePermissionCacheKey = string.Format(DefaultConfig.CACHE_USER_ROLE_PEMISSION, string.Format("tenantId_{0}_userId_{1}",input.TenantId, input.Id));
-            
+            string userRolePermissionCacheKey = string.Format(DefaultConfig.CACHE_USER_ROLE_PEMISSION, string.Format("tenantId_{0}_userId_{1}", input.TenantId, input.Id));
+
             if (_cacheManager.Exists(userRolePermissionCacheKey))
             {
                 _cacheManager.Remove(userRolePermissionCacheKey);
             }
-          
-            var isSuccessed=_cacheManager.Add(userRolePermissionCacheKey, input, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.CacheExpire));
-          
+
+            var isSuccessed = _cacheManager.Add(userRolePermissionCacheKey, input, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.CacheExpire));
+
             return isSuccessed;
         }
-
 
         public string CreateToken(SysUser loginUserDto)
         {
             string token = "";
-           
+
             IEnumerable<Claim> claims = new Claim[]
              {
                     new Claim("Id", loginUserDto.Id.ToString()),
@@ -112,9 +109,7 @@ namespace YC.ApplicationService
                     new Claim(DefaultConfig.TenantSetting.TenantKeyName,_tenant.TenantId.ToString()),
                     new Claim("Issuer",DefaultConfig.DefaultAppConfig.TokenIssuer),
                     new Claim("Audience",DefaultConfig.DefaultAppConfig.TokenAudience),
-
              };
-
 
             var payLoad = new Dictionary<string, object>();
             foreach (var i in claims)
@@ -146,7 +141,6 @@ namespace YC.ApplicationService
 
         public string RefreshToken(string token)
         {
-
             var payloadDic = TokenContext.GetPayLoad(token);
             payloadDic.Remove("nbf");
             payloadDic.Remove("exp");

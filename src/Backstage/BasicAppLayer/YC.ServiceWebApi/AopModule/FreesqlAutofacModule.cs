@@ -22,17 +22,14 @@ namespace YC.ServiceWebApi.AopModule
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterGeneric(typeof(FreeSqlRepository<,>)).As(typeof(IFreeSqlRepository<,>)).InstancePerLifetimeScope().EnableInterfaceInterceptors()
-                                 .InterceptedBy(typeof(AopInterceptor));//freeSql 注入
+                                 .InterceptedBy(typeof(AopInterceptor)).PropertiesAutowired();//freeSql 注入
 
             builder.RegisterGeneric(typeof(FreeSqlRepository<>)).As(typeof(IFreeSqlRepository<>)).InstancePerLifetimeScope().EnableInterfaceInterceptors()
-                     .InterceptedBy(typeof(AopInterceptor));//freeSql 注入
+                     .InterceptedBy(typeof(AopInterceptor)).PropertiesAutowired();//freeSql 注入
 
             //这个自带DI注入，也是可以的，反正后面都会被autofac接管
             //services.AddScoped(typeof(IFreeSqlRepository<,>), typeof(FreeSqlRepository<,>));
             //services.AddScoped(typeof(IFreeSqlRepository<>), typeof(FreeSqlRepository<>));
-
-           
         }
     }
 }
-

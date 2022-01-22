@@ -20,11 +20,11 @@ namespace YC.ServiceWebApi.Tenant
                 encoding = Encoding.UTF8;
             }
 
-            //httpRequest.Body.CopyTo(tempStream);
+            httpRequest.EnableBuffering();
             using (StreamReader reader = new StreamReader(httpRequest.Body, encoding))
             {
                 var data = reader.ReadToEnd();//
-
+                httpRequest.Body.Seek(0, SeekOrigin.Begin);
                 return data;
             }
 

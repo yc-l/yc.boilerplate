@@ -8,7 +8,7 @@ using YC.Model.DbEntity;
 
 namespace YC.Model
 {
-   public abstract class DeleteEntity<T>: BaseEntity<T>
+   public abstract class DeleteEntity<T>: BaseEntity<T> 
     {
         [DisplayName(" 删除时间")]
         public DateTime? DeletionTime { get; set; }

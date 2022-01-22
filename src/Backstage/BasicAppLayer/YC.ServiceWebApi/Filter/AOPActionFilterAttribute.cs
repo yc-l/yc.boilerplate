@@ -55,7 +55,7 @@ namespace YC.ServiceWebApi.Filter
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
-        {
+          {
             if (_requestInfoDto.Key == context.ActionDescriptor.Id)
             {
                 _requestInfoDto.StopTime = DateTime.Now;
@@ -130,6 +130,7 @@ namespace YC.ServiceWebApi.Filter
             _requestInfoDto.Device = device;
             _requestInfoDto.BrowserInfo = ua;
             _requestInfoDto.IP = IPUtils.GetIP(context?.HttpContext?.Request);
+          
             _requestInfoDto.ParamsString = context.ActionArguments?.ToIndentedJson();
 
             #endregion
@@ -212,7 +213,15 @@ namespace YC.ServiceWebApi.Filter
             }
             //sysAuditLog.ResponseData = requestInfo.ResponseData;
             sysAuditLog.ResponseState = requestInfo.ResponseState;
-            _sysAuditLogAppService.CreateSysAuditLog(sysAuditLog);
+            try
+            {
+                _sysAuditLogAppService.CreateSysAuditLog(sysAuditLog);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         /// <summary>

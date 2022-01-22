@@ -23,7 +23,6 @@ namespace YC.ServiceWebApi.AopModule
     {
         protected override void Load(ContainerBuilder builder)
         {
-
             builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope().EnableInterfaceInterceptors()
                      .InterceptedBy(typeof(AopInterceptor));//这一步是仓储注入的重要的点，允许拦截器
 
@@ -31,8 +30,6 @@ namespace YC.ServiceWebApi.AopModule
 
             builder.RegisterType<DefaultUnitOfWork>().As<DapperFrameWork.IUnitOfWork>().WithParameter("dbConnectionString", DefaultConfig.TenantSetting.DefaultDbConnectionString).WithParameter("defaultDbType", GetDbType()).AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
             //builder.RegisterType<TenantIdentificationStrategy>().As<ITenantIdentificationStrategy>().AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
-
-
         }
 
         private static RepositoryUtils.Dialect GetDbType()
@@ -47,7 +44,6 @@ namespace YC.ServiceWebApi.AopModule
                 default: dbType = RepositoryUtils.Dialect.SQLServer; break;
             }
             return dbType;
-
         }
     }
 }

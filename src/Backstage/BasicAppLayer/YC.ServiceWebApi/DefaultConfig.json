@@ -1,5 +1,4 @@
 ﻿{
-
   //redis Session 连接
   "ConnectionRedis": {
     "Connection": "127.0.0.1:6379,allowAdmin=true,password=123qwe,defaultdatabase=0",
@@ -8,7 +7,7 @@
   },
   //系统默认设置
   "AppSetting": {
-    "IsDebug": false, //如果是true 直接显示相关的异常报错信息，false 显示处理过的异常信息等
+    "IsDebug": true, //如果是true 直接显示相关的异常报错信息，false 显示处理过的异常信息等
     //拦截只要有这个关键字，全局异常拦截器会自动识别获取
     "ExceptionKey": "错误信息：",
     //全局默认错误提示文本
@@ -52,7 +51,6 @@
       }
 
     ],
-    
     ///允许不校验权限
     "AllowedNoPermissionUrls": [
       { "url": "Identity/RefreshToken" },
@@ -61,32 +59,30 @@
       { "url": "Book/DeleteById" },
       { "url": "Book/Get" },
       { "url": "Book/GetPageEntityList" },
-      { "url": "Book/UpdateEntity" }
+      { "url": "Book/UpdateEntity" },
+      { "url": "Book/GetAll" },
+      { "url": "Book/GetFile" }
 
     ],
     ///定时服务是否工作
     "QuartzSeverIsWork": false,
     "DefaultVerifyCode": "999999",
-    //使用缓存组件选择
-    "UseCacheModuleType":0//0 redis,1 内存
+    //使用缓存组件选择 0 redis,1 内存
+    "UseCacheModuleType": 0
 
 
   },
-  //verify token
+
 
   //大数据组件ElasticSearch 设置
-  "ElasticSearchSetting": {
+  "ElasticSearchSeting": {
 
     ///elasticSearch节点集群
     "Nodes": [
-      { "Node": "http://127.0.0.1:9200" },
-      { "Node": "http://127.0.0.1:9201" },
-      { "Node": "http://127.0.0.1:9202" }
+      { "Node": "http://118.25.208.8:9200" }
 
     ]
   },
-
-
   //默认租户配置
   "TenantSetting": {
 
@@ -146,12 +142,11 @@
 
     "MultiTnancy": true, //前端登录和后端要保持一致，否则拦截器那边会异常报错
     "TenantKeyName": "tenantId",
-    "DefaultTenantId": 0, //默认不要去修改
+    "DefaultTenantId": 0,
     "DefaultDbType": 0,
     //sqlserver
-    //"DefaultDbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;",
     //mysql
-    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;Charset=utf8;",
+    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;",
     "TenantList": [
       {
         "TenantId": 1,
@@ -161,7 +156,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;Charset=utf8;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB;"
       },
       {
         "TenantId": 2,
@@ -171,7 +166,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB2;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB2;Charset=utf8;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB2;"
       },
       {
         "TenantId": 3,
@@ -181,7 +176,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB3;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB3;Charset=utf8;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB3;"
       }
 
     ]

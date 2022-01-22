@@ -19,7 +19,7 @@ namespace YC.ServiceWebApi.AopModule
     public class ElasticSearchAutofacModule : Autofac.Module
     {
         /// <summary>
-        ///ElasticSearch注入模块操作
+        /// ElasticSearch 注入模块操作
         /// </summary>
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
@@ -31,7 +31,7 @@ namespace YC.ServiceWebApi.AopModule
                                                                        
             var dbType =
         builder.RegisterType<ElasticSearchDbContext>().As<IElasticSearchDbContext>().WithParameter("nodesArray", DefaultConfig.ElasticSearchNodes).AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
-          
+            //builder.RegisterType<TenantIdentificationStrategy>().As<ITenantIdentificationStrategy>().AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
 
 
 

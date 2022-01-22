@@ -13,25 +13,54 @@ using YC.ApplicationService.DefaultConfigure.Dto;
 
 namespace YC.ApplicationService
 {
+    /// <summary>
+    /// 默认配置
+    /// </summary>
     public class DefaultConfig
     {
-        //如果是应用，默认要在开启时候，做一次设置动作
+        /// <summary>
+        /// 如果是应用，默认要在开启时候，做一次设置动作
+        /// </summary>
         public static string dbConfigFilePath = System.Environment.CurrentDirectory + "//DefaultConfig.json";
-        public const string SESSION_TENANT = "TENANT_";//租户session 前缀
-        public const string SESSIONT_TENANT_USER = "TENANT_{0}_USER";//用户session 前缀
-        public const string SESSION_VERIFICATIONCODE = "LOGIN_VERIFICATIONCODE";//登录验证码
-        public const string CACHE_TOKEN_USER = "CACHE_TOKEN_USER_{0}";//用户缓存前缀
-        public const string CACHE_RETOKEN_USER = "CACHE_RETOKEN_USER_{0}";//用户刷新缓存前缀
-        public const string CACHE_USER_ROLE_PEMISSION = "CACHE_USER_ROLE_PEMISSION_{0}";//用户角色权限
+        /// <summary>
+        /// 租户session 前缀
+        /// </summary>
+        public const string SESSION_TENANT = "TENANT_";
+        /// <summary>
+        ///用户session 前缀
+        /// </summary>
+        public const string SESSIONT_TENANT_USER = "TENANT_{0}_USER";
+        /// <summary>
+        /// //登录验证码
+        /// </summary>
+        public const string SESSION_VERIFICATIONCODE = "LOGIN_VERIFICATIONCODE";
+        /// <summary>
+        /// 用户缓存前缀
+        /// </summary>
+        public const string CACHE_TOKEN_USER = "CACHE_TOKEN_USER_{0}";
+        /// <summary>
+        /// 用户刷新缓存前缀
+        /// </summary>
+        public const string CACHE_RETOKEN_USER = "CACHE_RETOKEN_USER_{0}";
+        /// <summary>
+        /// 用户角色权限
+        /// </summary>
+        public const string CACHE_USER_ROLE_PEMISSION = "CACHE_USER_ROLE_PEMISSION_{0}";
 
-
-        public static DatabaseConfig DatabaseConfig
+        /// <summary>
+        /// 数据库配置
+        /// </summary>
+        public static DataBaseConfig DbConfig
         {
             get
             {
-                return JsonConfig.ToObject<DatabaseConfig>();
+                return JsonConfig.ToObject<DataBaseConfig>();
             }
         }
+
+        /// <summary>
+        /// 租户配置
+        /// </summary>
         public static TenantSetting TenantSetting
         {
             get
@@ -39,6 +68,10 @@ namespace YC.ApplicationService
                 return JsonConfig.GetOjectByJsonKey<TenantSetting>("TenantSetting");
             }
         }
+
+        /// <summary>
+        /// 默认app设置
+        /// </summary>
         public static DefaultAppConfig DefaultAppConfig
         {
             get
@@ -47,14 +80,20 @@ namespace YC.ApplicationService
             }
         }
 
-        public static ElasticSearchSetting ElasticSearchSetting
+        /// <summary>
+        /// es配置
+        /// </summary>
+        public static ElasticSearchSeting ElasticSearchSeting
         {
             get
             {
-                return JsonConfig.GetOjectByJsonKey<ElasticSearchSetting>("ElasticSearchSetting");
+                return JsonConfig.GetOjectByJsonKey<ElasticSearchSeting>("ElasticSearchSeting");
             }
         }
 
+        /// <summary>
+        /// 允许不需要token访问URL
+        /// </summary>
         public static List<AllowedNoTokenUrl> AllowedNoTokenUrls
         {
             get
@@ -64,6 +103,9 @@ namespace YC.ApplicationService
             }
         }
 
+        /// <summary>
+        /// 允许不做权限校验url
+        /// </summary>
         public static string[] AllowedNoPermissionUrls
         {
             get
@@ -72,17 +114,25 @@ namespace YC.ApplicationService
                 return DefaultConfig.DefaultAppConfig.AllowedNoPermissionUrls.Select(x => x.Url).ToArray();
             }
         }
-
+        /// <summary>
+        /// es 集群节点
+        /// </summary>
         public static string[] ElasticSearchNodes
         {
             get
             {
-                return DefaultConfig.ElasticSearchSetting.Nodes.Select(x => x.Node).ToArray();
+                return DefaultConfig.ElasticSearchSeting.Nodes.Select(x => x.Node).ToArray();
             }
         }
-
+        /// <summary>
+        /// json配置
+        /// </summary>
         public static string JsonConfig { get; set; }
 
+        /// <summary>
+        /// redis 配置
+        /// </summary>
+        public static ConnectionRedis ConnectionRedis => DbConfig.ConnectionRedis;
         /// <summary>
         /// 获取指定的json对象
         /// </summary>
@@ -114,6 +164,12 @@ namespace YC.ApplicationService
 
         }
 
+        /// <summary>
+        /// 修改json配置
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         public static bool SetConfigJson(string path, string content)
         {
             string error = "";
@@ -121,8 +177,5 @@ namespace YC.ApplicationService
             return result;
         }
 
-
-      
-        public static ConnectionRedis ConnectionRedis => DatabaseConfig.ConnectionRedis;
     }
 }

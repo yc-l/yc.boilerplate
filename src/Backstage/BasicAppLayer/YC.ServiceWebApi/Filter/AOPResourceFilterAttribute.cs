@@ -18,6 +18,7 @@ namespace YC.ServiceWebApi.Filter
     public class AOPResourceFilterAttribute : Attribute, IResourceFilter
     {
         private readonly ILogger<AOPResourceFilterAttribute> logger;
+
         public AOPResourceFilterAttribute(ILoggerFactory loggerFactory)
         {
             logger = loggerFactory.CreateLogger<AOPResourceFilterAttribute>();
@@ -29,8 +30,6 @@ namespace YC.ServiceWebApi.Filter
         /// <param name="context"></param>
         public void OnResourceExecuted(ResourceExecutedContext context)
         {
-
-        
             if (context.Exception != null)//如果异常不为空
             {
                 var result = new ApiResult<string>();
@@ -38,21 +37,18 @@ namespace YC.ServiceWebApi.Filter
                 if (DefaultConfig.DefaultAppConfig.IsDebug)//开发状态下显示所有异常信息
                 {
                     result = new ApiResult<string>().NotOk(context.Exception?.ToString());
-
                 }
                 else//生产状态，如果有自定义异常，就抛出，如果不是提示默认
                 {
                     result = new ApiResult<String>().NotOk(DefaultConfig.DefaultAppConfig.DefaultExceptionString);
-
                 }
                 context.Result = new JsonResult(result);
+                }
             }
-            
-         
-        }
+
         public void OnResourceExecuting(ResourceExecutingContext context)
         {
-            logger.LogInformation("ResourceFilter Executing!");
+            // logger.LogInformation("ResourceFilter Executing!");
         }
     }
 }

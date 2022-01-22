@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using YC.ApplicationService.ApplicationService.BookAppService.Dto;
@@ -27,8 +28,11 @@ namespace YC.ApplicationService
         /// </summary>
         /// <returns>返回数据集合</returns>
         Task<IApiResult> GetPageBookListAsync(BookPageInput<PageInputDto> input);
-
-
+        /// <summary>
+        /// 获取文件
+        /// </summary>
+        /// <returns></returns>
+        Task<FileStreamResult> GetFileAsync();
 
     }
 

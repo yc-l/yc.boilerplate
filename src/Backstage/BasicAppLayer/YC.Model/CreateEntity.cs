@@ -8,7 +8,7 @@ using YC.Model.DbEntity;
 
 namespace YC.Model
 {
-   public  class CreateEntity<T>: BaseEntity<T>
+   public  class CreateEntity<T>: BaseEntity<T> 
     {
         [DisplayName(" 创建ID")]
         public T CreatorUserId { get; set; }

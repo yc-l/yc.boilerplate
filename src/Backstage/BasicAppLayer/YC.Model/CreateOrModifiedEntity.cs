@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace YC.Model
 {
-   public class CreateOrModifiedEntity<T>: CreateEntity<T>
+   public class CreateOrModifiedEntity<T>: CreateEntity<T> 
     {
         [DisplayName(" 最后编辑时间")]
         public DateTime LastModificationTime { get; set; }

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +19,7 @@ namespace YC.ApplicationService
         public string RefreshTokenExpired { get; set; }
         public string Authentication { get; set; }
         public string IP { get; set; }
-
+        public string Avatar { get; set; }
         public List<RoleInfoDto> RoleInfoList { get; set; }
 
         public List<SysPermissionDto> PermissionList { get; set; }
@@ -28,4 +27,4 @@ namespace YC.ApplicationService
 
         public string Token { get; set; }
     }
-    }
+}

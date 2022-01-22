@@ -18,8 +18,8 @@ namespace YC.ApplicationService.DefaultConfigure
         public int DefaultTenantId { get; set; }
         public string DefaultDbConnectionString { get; set; }
         public int DefaultDbType { get; set; }
-        private string _TenantKeyName;
-        public string TenantKeyName { get { return _TenantKeyName; } set { _TenantKeyName = value; } }
+        private string _tenantKeyName;
+        public string TenantKeyName { get { return _tenantKeyName; } set { _tenantKeyName = value; } }
         /// <summary>
         /// 
         /// </summary>

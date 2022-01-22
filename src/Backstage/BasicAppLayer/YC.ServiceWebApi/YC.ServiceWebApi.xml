@@ -15,10 +15,10 @@
             </summary>
         </member>
         <member name="M:YC.ServiceWebApi.AopModule.ElasticSearchAutofacModule.Load(Autofac.ContainerBuilder)">
-             <summary>
-            ElasticSearch注入模块操作
-             </summary>
-             <param name="builder"></param>
+            <summary>
+            ElasticSearch 注入模块操作
+            </summary>
+            <param name="builder"></param>
         </member>
         <member name="T:YC.ServiceWebApi.AopModule.FreesqlAutofacModule">
             <summary>
@@ -83,9 +83,21 @@
             <param name="token">原始token</param>
             <returns></returns>
         </member>
+        <member name="M:YC.ServiceWebApi.Controllers.IdentityController.UploadImage">
+            <summary>
+            上传图片,通过Form表单提交
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:YC.ServiceWebApi.Controllers.IdentityController.GetGuid">
             <summary>
             返回一个guid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YC.ServiceWebApi.Controllers.IdentityController.GetImage(System.String)">
+            <summary>
+            返回图片
             </summary>
             <returns></returns>
         </member>
@@ -203,6 +215,13 @@
             <summary>
             返回的特定接口数据
             </summary>
+        </member>
+        <member name="M:YC.ServiceWebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+             可选初始化配置
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
         </member>
         <member name="M:YC.ServiceWebApi.WebHostBuilderExtensions.InitHostingExtensions.UseInitCall(Microsoft.AspNetCore.Hosting.IWebHostBuilder,System.Action)">
             <summary>

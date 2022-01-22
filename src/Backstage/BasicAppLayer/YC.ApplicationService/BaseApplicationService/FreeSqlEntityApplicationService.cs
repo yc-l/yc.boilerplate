@@ -55,7 +55,6 @@ namespace YC.ApplicationService.Base
                 keyName = GetKeyName<T>(t);
                 var keyProperInfo = t.GetType().GetProperty(keyName);
                 result = (await _entityFreeSqlRepository.DeleteAsync((TKey)id)) > 0;
-              
             }
 
             return ApiResult.Result(result);
@@ -65,10 +64,8 @@ namespace YC.ApplicationService.Base
         {
             var res = new ApiResult<T>();
 
-            var entity = await _entityFreeSqlRepository.Select
-            .WhereDynamic(id)
-            .ToOneAsync();
-
+            var entity = await _entityFreeSqlRepository.GetAsync(id);
+         
             return res.Ok(entity);
         }
 

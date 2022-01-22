@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
-using YC.Model.DbEntity;
+using System.Threading.Tasks;
 
-namespace YC.Model.SysDbEntity
+namespace YC.ApplicationService.ApplicationService.SysUserAppService.Dto
 {
-    [Table("Sys_User")]
-    public partial class SysUser : FullEntity<long>
+    public class PersonInfoDto
     {
         #region Declarations
+
+        public string Id { get; set; }
 
         [Display(Name = "员工编号")]
         [StringLength(32, ErrorMessage = "{0}不能超过32个字符！")]
@@ -45,52 +46,10 @@ namespace YC.Model.SysDbEntity
         [StringLength(128, ErrorMessage = "{0}不能超过128个字符！")]
         public string? Remark { get; set; }
 
-        [Display(Name = "登录次数")]
-        public int? LoginCount { get; set; }
-
-        [Display(Name = "助记符")]
-        [StringLength(32, ErrorMessage = "{0}不能超过32个字符！")]
-        public string? Memoni { get; set; }
-
         [Display(Name = "头像")]
         [StringLength(500, ErrorMessage = "{0}不能超过500个字符！")]
         public string? Avatar { get; set; }
 
         #endregion Declarations
-    }
-
-    public partial class SysUser
-    {
-        public SysUser()
-        {
-            this.SysRole = new List<SysRole>();
-        }
-
-        [Display(Name = "所属角色")]
-        [NotMapped]
-        public string[] RoleIDs { get; set; }
-
-        [Display(Name = "可分配角色")]
-        [NotMapped]
-        public string[] AssignableRoleIDs { get; set; }
-
-        [Display(Name = "所属部门")]
-        [NotMapped]
-        public string[] OrganizationIDs { get; set; }
-
-        [Display(Name = "用户类型")]
-        [NotMapped]
-        public UserType UserType { get; set; }
-
-        [Display(Name = "跨部门查看权限")]
-        [NotMapped]
-        public bool? InterDepartmental { get; set; }
-
-        [NotMapped]
-        [Display(Name = "所属部门")]
-        public string OrgNames { get; set; }
-
-        [NotMapped]
-        public List<SysRole> SysRole { get; set; }
     }
 }

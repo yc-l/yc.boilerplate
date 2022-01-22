@@ -41,6 +41,7 @@ namespace YC.Common.ShareUtils
             if (ip.IsNull())
             {
                 ip = request.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+                //ip = request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString()
             }
             if (ip.IsNull() || !IsIP(ip.Split(":")[0]))
             {

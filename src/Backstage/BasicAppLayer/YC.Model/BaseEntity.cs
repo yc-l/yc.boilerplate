@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 
 namespace YC.Model.DbEntity
 {
-   public class BaseEntity<T>
+   public class BaseEntity<T> 
     {
 
         [Key]
@@ -18,9 +18,9 @@ namespace YC.Model.DbEntity
         [DisplayName("主键Id")]
         public T Id { get; set; }
         [DisplayName("是否启用标识")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
         [DisplayName(" 是否删除标识")]
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
 
         [DisplayName("租户名")]
         public virtual int? TenantId { get; set; }

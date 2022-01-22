@@ -1,11 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -18,6 +18,7 @@ namespace YC.Common.ShareUtils
         public static string ContentType_ApplicationJson = "Application/json";
 
         #region POST
+
         /// <summary>
         /// HTTP POST方式请求数据
         /// </summary>
@@ -28,7 +29,7 @@ namespace YC.Common.ShareUtils
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是发送HTTPS请求
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -50,7 +51,7 @@ namespace YC.Common.ShareUtils
                     request.Headers.Set(i.Key, i.Value);
                 }
             }
-           
+
             request.Timeout = 150000;
             request.AllowAutoRedirect = false;
             // HttpRequestHeader.Authorization
@@ -87,6 +88,7 @@ namespace YC.Common.ShareUtils
 
             return responseStr.ToString();
         }
+
         /// <summary>
         /// HTTP POST方式请求数据
         /// </summary>
@@ -97,7 +99,7 @@ namespace YC.Common.ShareUtils
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是发送HTTPS请求
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -157,7 +159,7 @@ namespace YC.Common.ShareUtils
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是发送HTTPS请求
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -221,8 +223,9 @@ namespace YC.Common.ShareUtils
 
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
-            return true; //总是接受  
+            return true; //总是接受
         }
+
         public static string BuildRequest(string strUrl, Dictionary<string, string> dicPara, string fileName)
         {
             string contentType = "image/jpeg";
@@ -230,6 +233,7 @@ namespace YC.Common.ShareUtils
             FileStream Pic = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             byte[] PicByte = new byte[Pic.Length];
             Pic.Read(PicByte, 0, PicByte.Length);
+            Pic.Close();
             int lengthFile = PicByte.Length;
 
             //构造请求地址
@@ -301,9 +305,11 @@ namespace YC.Common.ShareUtils
 
             return responseData.ToString();
         }
-        #endregion
+
+        #endregion POST
 
         #region Put
+
         /// <summary>
         /// HTTP Put方式请求数据.
         /// </summary>
@@ -313,7 +319,7 @@ namespace YC.Common.ShareUtils
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是发送HTTPS请求
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -361,9 +367,11 @@ namespace YC.Common.ShareUtils
 
             return responseStr;
         }
-        #endregion
+
+        #endregion Put
 
         #region Delete
+
         /// <summary>
         /// HTTP Delete方式请求数据.
         /// </summary>
@@ -373,7 +381,7 @@ namespace YC.Common.ShareUtils
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是发送HTTPS请求
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -414,9 +422,11 @@ namespace YC.Common.ShareUtils
             }
             return responseStr;
         }
-        #endregion
+
+        #endregion Delete
 
         #region Get
+
         /// <summary>
         /// HTTP GET方式请求数据.
         /// </summary>
@@ -426,7 +436,7 @@ namespace YC.Common.ShareUtils
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是发送HTTPS请求
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -469,11 +479,12 @@ namespace YC.Common.ShareUtils
             }
             return responseStr;
         }
+
         public static string HttpGet(string url, Encoding encodeing, Hashtable headht = null)
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是发送HTTPS请求
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -516,10 +527,12 @@ namespace YC.Common.ShareUtils
             }
             return responseStr;
         }
-        #endregion
+
+        #endregion Get
 
         #region Post With Pic
-        private string HttpPost(string url, IDictionary<object, object> param, string filePath)
+
+        public static string HttpPost(string url, IDictionary<object, object> param, string filePath = "")
         {
             string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
             byte[] boundarybytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
@@ -536,27 +549,34 @@ namespace YC.Common.ShareUtils
             string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
             foreach (string key in param.Keys)
             {
-                rs.Write(boundarybytes, 0, boundarybytes.Length);
-                string formitem = string.Format(formdataTemplate, key, param[key]);
-                byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
-                rs.Write(formitembytes, 0, formitembytes.Length);
+                if (param[key].GetType().Equals(typeof(byte[])))
+                {
+                    byte[] temp = (byte[])param[key];
+                    rs.Write(temp, 0, temp.Length);
+                }
+                else
+                {
+                    string formitem = string.Format(formdataTemplate, key, param[key]);
+                    byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+                    rs.Write(formitembytes, 0, formitembytes.Length);
+                }
             }
             rs.Write(boundarybytes, 0, boundarybytes.Length);
-
-            string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
-            string header = string.Format(headerTemplate, "pic", filePath, "text/plain");
-            byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
-            rs.Write(headerbytes, 0, headerbytes.Length);
-
-            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            byte[] buffer = new byte[4096];
-            int bytesRead = 0;
-            while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+            if (!string.IsNullOrWhiteSpace(filePath))
             {
-                rs.Write(buffer, 0, bytesRead);
+                string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
+                string header = string.Format(headerTemplate, "pic", filePath, "text/plain");
+                byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
+                rs.Write(headerbytes, 0, headerbytes.Length);
+                FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                byte[] buffer = new byte[4096];
+                int bytesRead = 0;
+                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                {
+                    rs.Write(buffer, 0, bytesRead);
+                }
+                fileStream.Close();
             }
-            fileStream.Close();
-
             byte[] trailer = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
             rs.Write(trailer, 0, trailer.Length);
             rs.Close();
@@ -582,13 +602,15 @@ namespace YC.Common.ShareUtils
             }
             return responseStr;
         }
-        #endregion
+
+        #endregion Post With Pic
 
         #region Post With Pic
+
         /// <summary>
         /// HTTP POST方式请求数据(带图片)
         /// </summary>
-        /// <param name="url">URL</param>        
+        /// <param name="url">URL</param>
         /// <param name="param">POST的数据</param>
         /// <param name="fileByte">图片</param>
         /// <returns></returns>
@@ -648,9 +670,11 @@ namespace YC.Common.ShareUtils
             }
             return responseStr;
         }
-        #endregion
+
+        #endregion Post With Pic
 
         #region HttpsClient
+
         /// <summary>
         /// 创建HttpClient
         /// </summary>
@@ -658,7 +682,7 @@ namespace YC.Common.ShareUtils
         public static HttpClient CreateHttpClient(string url)
         {
             HttpClient httpclient;
-            //如果是发送HTTPS请求  
+            //如果是发送HTTPS请求
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
@@ -670,8 +694,7 @@ namespace YC.Common.ShareUtils
             }
             return httpclient;
         }
-        #endregion
- 
-  
+
+        #endregion HttpsClient
     }
 }

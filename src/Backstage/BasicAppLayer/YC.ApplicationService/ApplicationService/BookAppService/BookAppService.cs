@@ -1,18 +1,27 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using Autofac.Extras.DynamicProxy;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+
+using YC.Model;
 using YC.Core;
 using AutoMapper;
 using System.Linq.Expressions;
+using YC.Core.Attribute;
+using YC.Core.Domain;
+using YC.Core.Autofac;
 using YC.Common.ShareUtils;
 using YC.Core.Cache;
+using YC.ApplicationService.DefaultConfigure;
 using YC.FreeSqlFrameWork;
 using YC.Core.DynamicApi;
 using YC.Core.DynamicApi.Attributes;
+using YC.Model.SysDbEntity;
 using YC.ApplicationService.Dto;
 using YC.Core.Domain.Output;
 using YC.ElasticSearch.Models;
@@ -20,6 +29,7 @@ using YC.ElasticSearch;
 using Nest;
 using YC.ApplicationService.ApplicationService.BookAppService.Dto;
 using YC.ApplicationService.Base;
+using System.IO;
 
 namespace YC.ApplicationService
 {
@@ -40,19 +50,12 @@ namespace YC.ApplicationService
             _elasticSearchRepository = elasticSearchRepository;
         }
 
-        public async override Task<IApiResult> CreateAsync(Book input)
-        {
-            input = SetIdKey(input);
-            var obj = await _entityFreeSqlRepository.InsertAsync(input);
+        public async Task<FileStreamResult> GetFileAsync() {
 
-            string keyName = "";
-            keyName = GetKeyName<Book>(input);
-            var objId = obj?.GetType().GetProperty(keyName).GetValue(obj);
-            if (objId == null)
-            {
-                return ApiResult.NotOk();
-            }
-            return ApiResult.Ok();
+            string filePath = System.Environment.CurrentDirectory + "//DefaultConfig.json";
+            FileStreamResult fileStreamResult=
+                  new FileStreamResult(new FileStream(filePath, FileMode.Open), "application/octet-stream") { FileDownloadName = "测试.json" };
+            return fileStreamResult; 
         }
 
         /// <summary>

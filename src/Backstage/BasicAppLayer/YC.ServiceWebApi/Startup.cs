@@ -70,11 +70,13 @@ namespace YC.ServiceWebApi
 
         public IConfiguration Configuration { get; }
 
-
-        // 可选初始化配置
+        /// <summary>
+        ///  可选初始化配置
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-
             OptionConfigure(services);
 
             // 设置允许所有来源跨域
@@ -91,11 +93,11 @@ namespace YC.ServiceWebApi
                  .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
 
             var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
-            //全局静态配置类，第一次配置，如果变更，需要重新启动项目，或者重新给JsonConfig 赋值 
+            //全局静态配置类，第一次配置，如果变更，需要重新启动项目，或者重新给JsonConfig 赋值
             DefaultConfig.JsonConfig = DefaultConfig.GetConfigJson(DefaultConfig.dbConfigFilePath);
 
-
             #region 使用Redis保存Session
+
             //services.Configure<CookiePolicyOptions>(options =>
             //{
             //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -112,14 +114,15 @@ namespace YC.ServiceWebApi
             //}
             //);
 
-            ////添加session 设置过期时长分钟  
+            ////添加session 设置过期时长分钟
             //var sessionOutTime = dbConfig.ConnectionRedis.SessionTimeOut;
             //services.AddSession(options =>
             //{
             //    options.IdleTimeout = TimeSpan.FromMinutes(Convert.ToDouble(sessionOutTime)); //session活期时间
             //    options.Cookie.HttpOnly = true;//设为httponly
             //});
-            #endregion
+
+            #endregion 使用Redis保存Session
 
             //默认的session 添加session 和请求上下文的注入
             services.AddSession();
@@ -144,10 +147,9 @@ namespace YC.ServiceWebApi
                 options.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-              
             });
 
-            #region  配置webapi 多版本
+            #region 配置webapi 多版本
 
             //services.AddApiVersioning(options =>
             //{
@@ -155,9 +157,11 @@ namespace YC.ServiceWebApi
             //    options.AssumeDefaultVersionWhenUnspecified = true;
             //    options.DefaultApiVersion = new ApiVersion(1, 0);
             //});
-            #endregion
+
+            #endregion 配置webapi 多版本
 
             #region swagger 配置
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -184,7 +188,7 @@ namespace YC.ServiceWebApi
                             }
                         });
 
-                //swagger 那边的值直接填写 token值，不要写Bearer token的内容 
+                //swagger 那边的值直接填写 token值，不要写Bearer token的内容
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "Value: Bearer {token}",
@@ -200,10 +204,9 @@ namespace YC.ServiceWebApi
                 var xmlFile = System.AppDomain.CurrentDomain.FriendlyName + ".xml";
                 var xmlPath = Path.Combine(baseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
-
             });
 
-            #endregion
+            #endregion swagger 配置
 
             #region 动态WebApi
 
@@ -245,10 +248,12 @@ namespace YC.ServiceWebApi
             //     * 如: http://localhost:8080/apis/User/CreateUser
             //     */
             //    options.AddAssemblyOptions(this.GetType().Assembly, apiPreFix: "api", httpVerb: "POST");
-            //}); 
-            #endregion
+            //});
+
+            #endregion 动态WebApi
 
             #region 1、IdentityServer
+
             //services.AddMvcCore()
             //  .AddAuthorization()
             //  .AddJsonFormatters();
@@ -272,7 +277,8 @@ namespace YC.ServiceWebApi
             //            .AllowAnyMethod();
             //    });
             //});
-            #endregion
+
+            #endregion 1、IdentityServer
 
             #region 2、autofac dependencyInjection
 
@@ -280,35 +286,37 @@ namespace YC.ServiceWebApi
             var builder = new ContainerBuilder();
 
             var baseType = typeof(IDependencyInjectionSupport);
-           
 
             #region 1、 加载类
 
             List<Assembly> assemblyList = new List<Assembly>();
+            //assemblyList.Add(Assembly.GetExecutingAssembly());//获取添加当前活动的程序集
             //但是实际上，很多项目都会把项目分到其他的类库里面，如果使用Assembly.GetEntryAssembly();，放到其他的项目里面的可以被注入的类就无法被注入了，所以需要手动去加载其他的程序集，当然也可以用代码去扫描一下
             assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.ApplicationService")));
             assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.DapperFrameWork")));
             assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.FreeSqlFrameWork")));
             assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.ServiceWebApi")));
             assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.QuartzService")));
+            assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName("YC.Core")));
             foreach (var assembly in assemblyList)
             {
+                //这个只注册 继承指定接口IDependencyInjectionSupport，并对象是类，且有对应的接口继承，
+                //如果一个类AA即使继承IDependencyInjectionSupport，单它没有IAA它无法再批量注册中进行，需要模块自定义注册
                 builder.RegisterAssemblyTypes(assembly).Where(x => (baseType.IsAssignableFrom(x) && x.IsClass))
-              .AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();//指明创建的stypes这个集合中所有类的对象实例，以其接口的形式保存  
+              .AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();//指明创建的stypes这个集合中所有类的对象实例，以其接口的形式保存
 
                 foreach (var repo in assembly.GetTypes().Where(a => (a.IsAbstract == false && typeof(IBaseRepository).IsAssignableFrom(a))))
                     services.AddScoped(repo);//freesql的注入
-
             }
-           
-            #endregion
+
+            #endregion 1、 加载类
+
             #region 2、注入操作
 
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
-
-            services.AddDependOnModule(builder);//模块注入
+            services.AddDependOnModule(builder);
             var idle = services.AddTenantDb();//租户注入
-            builder.RegisterInstance(idle).SingleInstance();//单例注册 
+            builder.RegisterInstance(idle).SingleInstance();//单例注册
 
             //最后的注入处理
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly());//注入当前程程序集
@@ -318,13 +326,10 @@ namespace YC.ServiceWebApi
             AutofacUtils.Container = container;
             return new AutofacServiceProvider(container);//那就返回默认的注入模式
 
+            #endregion 2、注入操作
 
-            #endregion
-            #endregion
-
-
+            #endregion 2、autofac dependencyInjection
         }
-
 
         public IQuartzRepository _quartzRepository;
         public IScheduler _scheduler;
@@ -332,23 +337,28 @@ namespace YC.ServiceWebApi
         // 必选，
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<CorsOptions> corsOptions, IScheduler _scheduler, IQuartzRepository quartzRepository)
         {
-            #region 1、使用静态页面
-            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            defaultFilesOptions.DefaultFileNames.Clear();
-            defaultFilesOptions.DefaultFileNames.Add("index.html");
-            app.UseDefaultFiles(defaultFilesOptions);
-            app.UseStaticFiles();
-            #endregion
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //添加swagger
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI V1");
+                });
             }
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //允许body重用
+            app.Use(next => context =>
+            {
+                context.Request.EnableBuffering();
+                return next(context);
+            });
 
             app.UseSession();
 
@@ -357,7 +367,6 @@ namespace YC.ServiceWebApi
             //路由
             app.UseRouting();
 
-          
             // 使用跨域配置
             app.UseCors("CorsPolicy");
 
@@ -366,10 +375,9 @@ namespace YC.ServiceWebApi
             app.UseAuthentication();
 
             //使用中间件全局异常过滤器
-            app.UseMiddleware<ExceptionMiddleware>();
+            // app.UseMiddleware<ExceptionMiddleware>();
 
-
-            ///定时服务处理
+            //定时服务处理
             if (DefaultConfig.DefaultAppConfig.QuartzSeverIsWork)
             {
                 _quartzRepository = quartzRepository;
@@ -392,25 +400,7 @@ namespace YC.ServiceWebApi
                 KnownProxies = { IPAddress.Parse(DefaultConfig.DefaultAppConfig.NginxAgentIP) }
             });
 
-            // 添加NLog日志支持
-            //loggerFactory.AddNLog();
-
-
-            //在这里注入，保证是上面的单例，如果在上面的IServiceProvider ConfigureServices(IServiceCollection services)
-            //进行services.BuildServiceProvider()就会出现非单例
             AutofacUtils.Configure(app.ApplicationServices);
-
-           
-            //添加swagger
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI V1");
-
-            });
-
-           
-
         }
 
         //跨域文件模式版本配置
@@ -418,8 +408,5 @@ namespace YC.ServiceWebApi
         {
             services.Configure<CorsOptions>(Configuration.GetSection("AllowedHosts"));
         }
-
-
-
-}
+    }
 }

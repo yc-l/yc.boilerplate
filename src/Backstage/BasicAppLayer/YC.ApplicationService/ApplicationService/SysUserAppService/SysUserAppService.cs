@@ -5,7 +5,9 @@ using YC.DapperFrameWork;
 using YC.Core.Domain;
 using System.Threading.Tasks;
 using Dapper;
+
 using YC.DapperFrameWork;
+
 using YC.Core.Autofac;
 using Autofac.Extras.DynamicProxy;
 using YC.Core.Attribute;
@@ -27,22 +29,21 @@ using AutoMapper;
 using System.Linq.Expressions;
 using YC.ApplicationService.Dto;
 using YC.ApplicationService.ApplicationService.SysUserAppService.Dto;
+using YC.ApplicationService.ApplicationService.SysUserAppService.Dto.Input;
+using System.IO;
 
 namespace YC.ApplicationService.SysUserAppService
 {
-
-
     public class SysUserAppService : DapperBaseApplicationService, ISysUserAppService
     {
-
-        public IRepository<SysUser> _sysUserRepository;
         public IFreeSqlRepository<SysPermission> _sysPermissionSqlRepository;
         public IFreeSqlRepository<SysUserSysRole> _sysUserSysRoleFreeSqlRepository;
-        public IFreeSqlRepository<SysUser> _sysUserFreeSqlRepository;
+        public IFreeSqlRepository<SysUser> _sysUserFreeSqlRepository { get; set; }
         public IFreeSqlRepository<SysRole> _sysRoleFreeSqlRepository;
         public IUserManager _userManager;//这边注入，变成循环依赖组件关系，会报异常
-        ICacheManager _cacheManager;
+        private ICacheManager _cacheManager;
         public IMapper _mapper;
+
         public SysUserAppService(IUnitOfWork unitOfWork, IRepository<SysUser> sysUserRepository,
             IFreeSqlRepository<SysPermission> sysPermissionSqlRepository,
             IFreeSqlRepository<SysUserSysRole> sysUserSysRoleFreeSqlRepository,
@@ -50,8 +51,6 @@ namespace YC.ApplicationService.SysUserAppService
         IHttpContextAccessor httpContextAccessor,
         IFreeSqlRepository<SysRole> sysRoleFreeSqlRepository, ICacheManager cacheManager, IMapper mapper) : base(unitOfWork, httpContextAccessor, cacheManager)
         {
-
-            _sysUserRepository = sysUserRepository;
             _sysPermissionSqlRepository = sysPermissionSqlRepository;
             _sysUserSysRoleFreeSqlRepository = sysUserSysRoleFreeSqlRepository;
             _sysUserFreeSqlRepository = sysUserFreeSqlRepository;
@@ -60,49 +59,176 @@ namespace YC.ApplicationService.SysUserAppService
             _sysRoleFreeSqlRepository = sysRoleFreeSqlRepository;
         }
 
-
         public List<SysUser> GetAllSysUserList()
         {
-            var resultList = _sysUserRepository.GetAllList();
+            var resultList = _sysUserFreeSqlRepository.Select.ToList();
             return resultList;
         }
 
         [NoDynamicMethod]
         public IApiResult<SysUser> Login(string userId, string pwd, int tenantId = 1)
         {
-           
             var res = new ApiResult<SysUser>();
 
             if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(pwd))
             {
-               
                 return res.NotOk("用户名或者密码不能为空！");
             }
             pwd = EncryptUtils.MD5(pwd);
 
-            var resultList = _sysUserFreeSqlRepository.Where(x => x.Account == userId && x.Password == pwd).ToList();
-            //var resultList = _sysUserRepository.GetList(new { Account = userId, Password = pwd });
-            if (resultList.Count > 0)
+            var freeObj = _sysUserFreeSqlRepository.Where(x => x.Account == userId && x.Password == pwd).ToList().FirstOrDefault();
+
+            if (freeObj != null)
             {
-                return res.Ok(resultList.FirstOrDefault(), "登录成功！");
+                return res.Ok(freeObj, "登录成功！");
             }
             else
             {
-               
-                return res.NotOk( "登录失败！用户名或密码不正确！");
+                return res.NotOk("登录失败！用户名或密码不正确！");
             }
-
-           
         }
-
 
         [HttpPost]
-        public List<SysUser> GetUserList(object condition)
+        public async Task<PersonInfoDto> GetUserInfo()
         {
-            //var temp=   this.LoginUser;
-            var resultList = _sysUserRepository.GetList(condition);
-            return resultList;
+            var data = GetLoginUser();
+            var user = await _sysUserFreeSqlRepository.GetAsync(data.Id);
+            PersonInfoDto personInfoDto = _mapper.Map<PersonInfoDto>(user);
+            if (!string.IsNullOrWhiteSpace(personInfoDto.Avatar))
+            {
+                var webRootPath = System.Environment.CurrentDirectory;
+                personInfoDto.Avatar = ImageUtils.GetBase64FromImage(webRootPath + personInfoDto.Avatar);
+            }
+            return personInfoDto;
         }
+
+        public async Task<IApiResult> ChangePassword(ChangePasswordInputDto input)
+        {
+            if (input.NewPassword != input.ConfirmPassword)
+            {
+                return ApiResult.NotOk("修改密码和确认密码不一致！");
+            }
+            var data = GetLoginUser();
+            if (data.Id.ToString() != input.Id)
+            {
+                return ApiResult.NotOk("修改密码用户与当前登录用户不一致！");
+            }
+            string inputOldPwd = EncryptUtils.MD5(input.OldPassword);
+            var user = await _sysUserFreeSqlRepository.GetAsync(data.Id);
+            if (user.Password != inputOldPwd)
+            {
+                return ApiResult.NotOk("原始密码错误！");
+            }
+            user.Password = EncryptUtils.MD5(input.NewPassword);
+            var result = await _sysUserFreeSqlRepository.UpdateAsync(user);
+            if (result > 0)
+            {
+                return ApiResult.Ok("修改密码成功！");
+            }
+            else
+            {
+                return ApiResult.NotOk("修改密码失败！");
+            }
+        }
+
+        public async Task<IApiResult> UploadUserAvatar(IFormFileCollection formFiles) {
+            // var file = uploadFileDto.File;
+            if (formFiles.Count==0)
+            {
+                return ApiResult.NotOk("文件为空！");
+            }
+            var file = formFiles[0];
+            //返回的文件地址
+            string filename = "";
+            var now = DateTime.Now;
+            //文件存储路径
+            var filePath = string.Format("/Uploads/{0}/{1}/{2}/", now.ToString("yyyy"), now.ToString("yyyyMM"), now.ToString("yyyyMMdd"));
+            //获取当前web目录
+            var webRootPath = System.Environment.CurrentDirectory;
+            if (!Directory.Exists(webRootPath + filePath))
+            {
+                Directory.CreateDirectory(webRootPath + filePath);
+            }
+
+            try
+            {
+                if (file != null)
+                {
+                    #region 图片文件的条件判断
+
+                    //文件后缀
+                    var fileExtension = Path.GetExtension(file.FileName);
+
+                    //判断后缀是否是图片
+                    const string fileFilt = ".gif|.jpg|.jpeg|.png";
+                    if (fileExtension == null)
+                    {
+                        //break;
+                        return ApiResult.NotOk("上传的文件没有后缀!");
+                    }
+                    if (fileFilt.IndexOf(fileExtension.ToLower(), StringComparison.Ordinal) <= -1)
+                    {
+                        //break;
+                        return ApiResult.NotOk("请上传jpg、png、gif格式的图片!");
+                    }
+
+                    //判断文件大小
+                    long length = file.Length;
+                    if (length > 1024 * 1024 * 2) //2M
+                    {
+                        //break;
+                        return ApiResult.NotOk("上传的文件不能大于2M!");
+                    }
+
+                    #endregion 图片文件的条件判断
+
+                    var strDateTime = DateTime.Now.ToString("yyMMddhhmmssfff"); //取得时间字符串
+                    var strRan = Convert.ToString(new Random().Next(100, 999)); //生成三位随机数
+                    var saveName = strDateTime + strRan + fileExtension;
+
+                    //插入图片数据
+                    using (FileStream fs = System.IO.File.Create(webRootPath + filePath + saveName))
+                    {
+                        file.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    filename = filePath + saveName;
+                }
+
+                var user = GetLoginUser();
+                var result =await UpdateUserAvatar(user.Id, filename);
+                if (result.State)
+                {
+                    string imgStr = ImageUtils.GetBase64FromImage(webRootPath + filename);
+                    return ApiResult.Ok<string>(imgStr);
+                }
+                else
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return ApiResult.NotOk("上传失败!" + ex.ToString());
+            }
+
+        }
+
+        public async Task<IApiResult> UpdateUserAvatar(long id, string filePath)
+        {
+            var tempUser = await _sysUserFreeSqlRepository.GetAsync(id);
+            tempUser.Avatar = filePath;
+            var updateState = await _sysUserFreeSqlRepository.UpdateAsync(tempUser);
+            if (updateState > 0)
+            {
+                return ApiResult.Ok();
+            }
+            else
+            {
+                return ApiResult.NotOk("上传失败!数据更新异常！");
+            }
+        }
+
         [HttpPost]
         public async Task<IApiResult> GetPageUserListAsync(PageInput<PageInputDto> input)
         {
@@ -150,7 +276,6 @@ namespace YC.ApplicationService.SysUserAppService
         [HttpPost]
         public async Task<IApiResult> CreateUserAsync(UserAddOrEditDto input)
         {
-
             input.Password = EncryptUtils.MD5(input.Password);
             input.Id = "0";//做一个处理，要不然automapper 无法转换
             var entity = _mapper.Map<SysUser>(input);
@@ -171,7 +296,7 @@ namespace YC.ApplicationService.SysUserAppService
 
                 foreach (var i in input.UserRoleIds)
                 {
-                    SysUserSysRole sysUserSysRole = new SysUserSysRole();//内部实例化一个，存入list，避免外部同一个对象，由于浅拷贝，导致list存入同一个对象  
+                    SysUserSysRole sysUserSysRole = new SysUserSysRole();//内部实例化一个，存入list，避免外部同一个对象，由于浅拷贝，导致list存入同一个对象
                     sysUserSysRole.SysRole_ID = long.Parse(i);
                     sysUserSysRole.SysUser_ID = user.Id;
                     sysUserSysRoleList.Add(sysUserSysRole);
@@ -192,7 +317,6 @@ namespace YC.ApplicationService.SysUserAppService
                         return ApiResult.NotOk();
                     }
                 }
-
             }
             return ApiResult.Ok();
         }
@@ -260,7 +384,6 @@ namespace YC.ApplicationService.SysUserAppService
 
                 foreach (var i in input.UserRoleIds)
                 {
-
                     SysUserSysRole sysUserSysRole = new SysUserSysRole();//内部实例化一个，存入list，避免外部同一个对象，由于浅拷贝，导致list存入同一个对象
                     sysUserSysRole.SysRole_ID = long.Parse(i);
                     sysUserSysRole.SysUser_ID = user.Id;
@@ -270,7 +393,6 @@ namespace YC.ApplicationService.SysUserAppService
                 //再批量新增
                 var sysUserRoles = await _sysUserSysRoleFreeSqlRepository.InsertAsync(sysUserSysRoleList);
                 uow.Commit();//提交事务
-
             }
 
             return ApiResult.Ok();
@@ -285,13 +407,15 @@ namespace YC.ApplicationService.SysUserAppService
         public IApiResult<UserRolePermissionDto> GetUserRolePermission(long id)
         {
             var res = new ApiResult<UserRolePermissionDto>();
-            var user =  _sysUserFreeSqlRepository.Get(id);
+            var user = _sysUserFreeSqlRepository.Get(id);
             if (!(user?.Id > 0))
             {
                 return res.NotOk("用户不存在！");
             }
+
             #region 多表连接查询
-            var list =  _sysUserFreeSqlRepository.Orm.Select<SysUserSysRole, SysRole, SysRolePermission, SysPermission>()
+
+            var list = _sysUserFreeSqlRepository.Orm.Select<SysUserSysRole, SysRole, SysRolePermission, SysPermission>()
                                  .InnerJoin((a, b, c, d) => a.SysRole_ID == b.Id)
                                 .InnerJoin((a, b, c, d) => b.Id == c.RoleId)
                                  .InnerJoin((a, b, c, d) => c.PermissionId == d.Id)
@@ -299,10 +423,11 @@ namespace YC.ApplicationService.SysUserAppService
                                 .ToList((a, b, c, d) => new
                                 {
                                     roleId = b.Id,
-                                    roleName =b.Name,
+                                    roleName = b.Name,
                                     d
                                 });
-            #endregion
+
+            #endregion 多表连接查询
 
             if (list.Count == 0)
             {
@@ -311,7 +436,6 @@ namespace YC.ApplicationService.SysUserAppService
             }
             var permissionList = list.Select(x => x.d).ToList();
             var permissionDistinctList = new List<SysPermission>();
-
 
             //1、获取去重权限集合
             permissionList.ForEach(x =>//整理去重的权限集合
@@ -322,9 +446,9 @@ namespace YC.ApplicationService.SysUserAppService
                 }
             });
             var permissions = permissionDistinctList.Select(x => x.Id).ToList();
-        
-             //2、获取所有数据的去重集合
-             var distinctAllList = list.Where(x => permissions.Contains(x.d.Id)).ToList();//所有数据去重
+
+            //2、获取所有数据的去重集合
+            var distinctAllList = list.Where(x => permissions.Contains(x.d.Id)).ToList();//所有数据去重
             //3、获取角色去重数据
             var roleList = new List<RoleInfoDto>();
             distinctAllList.ForEach(x =>
@@ -335,12 +459,9 @@ namespace YC.ApplicationService.SysUserAppService
 
             var entityDto = _mapper.Map<UserRolePermissionDto>(user);
             entityDto.RoleInfoList = roleList;
-            entityDto.PermissionList = _mapper.Map<List<SysPermissionDto>>(permissionDistinctList);
+            entityDto.PermissionList = _mapper.Map<List<SysPermissionDto>>(permissionDistinctList).OrderBy(x => x.Sort).ToList();
 
             return res.Ok(entityDto);
         }
-
-
-
     }
 }
