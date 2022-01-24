@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './router'//这里的别名必须是router 不可以修改，不然会冲突报错
 /* 导入全局样式 */
 import './assets/css/global.css'
 // 手动配置element-ui
@@ -13,9 +13,13 @@ import './assets/fonts/iconfont.css'
 import TreeTable from 'vue-table-with-tree-grid'
 
 import _ from 'lodash'
-import store from './utils/store.js'
+import Store from './utils/store.js'
 //import config from '../public/static/config.js'
-
+import eIconPicker from 'e-icon-picker';
+import "e-icon-picker/lib/symbol.js"; //基本彩色图标库
+import 'e-icon-picker/lib/index.css'; // 基本样式，包含基本图标
+import 'font-awesome/css/font-awesome.min.css'; //font-awesome 图标库
+import 'element-ui/lib/theme-chalk/icon.css'; //element-ui 图标库
 import {
   listToTree,
   getTreeParents,
@@ -31,11 +35,19 @@ axios.defaults.baseURL = window.config.baseUrl;
 
 /*添加axios 拦截器  */
 axios.interceptors.request.use(config => {
-  console.log(config)
+  //console.log(config)
   const tokenStr = window.sessionStorage.getItem('token')
   if (tokenStr != null) {
     config.headers.Authorization = 'Bearer ' + tokenStr
   }
+  // if (config.url === Vue.prototype.$gersonalManager_UploadImageUrl) {
+  //   // 此处设置文件上传，配置单独请求头
+  //   config.headers = {
+  //     'Content-Type': 'multipart/form-data'
+  //   }
+  //   config.headers.Authorization = 'Bearer ' + tokenStr
+  // }
+
   //最后必须要加上这个
   return config
 })
@@ -158,14 +170,29 @@ Vue.prototype.$sysOrganizationManager_CreateSysOrganizationUrl='SysOrganization/
 Vue.prototype.$sysOrganizationManager_EditSysOrganizationUrl ='SysOrganization/UpdateSysOrganization'
 Vue.prototype.$sysOrganizationManager_DeleteSysOrganizationUrl='SysOrganization/DeleteSysOrganizationById'
 
+//7.个人中心
+Vue.prototype.$gersonalManager_GetUserInfoUrl='SysUser/GetUserInfo'
+Vue.prototype.$gersonalManager_ChangePasswordUrl='SysUser/ChangePassword'
+Vue.prototype.$gersonalManager_UploadImageUrl='SysUser/UploadUserAvatar'
+
+
 Vue.prototype.$bookManagerUrl='Book/GetPageBookList'
 
-
+//全局删除增加图标
+Vue.use(eIconPicker, {
+  FontAwesome: true,
+  ElementUI: true,
+  eIcon: true,//自带的图标，来自阿里妈妈
+  eIconSymbol: true,//是否开启彩色图标
+  addIconList: [],
+  removeIconList: [],
+  zIndex: 3100//选择器弹层的最低层,全局配置
+});
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 new Vue({
   router,
   render: h => h(App),
-  store,
+  Store,
 }).$mount('#app')

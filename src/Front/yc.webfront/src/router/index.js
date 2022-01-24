@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '../view/Login.vue'
 import Home from '../view/Home.vue'
 import Welcome from '../view/Welcome'
+import Personal from '../view/Personal'
 import Users from '../view/User/Users'
 import SysRoles from '../view/SysRole/SysRoles'
 import SysRolePemission from '../view/SysRolePermission/SysRolePermissions'
@@ -15,7 +16,25 @@ import Board from '../view/Board'
 import Books from '../view/Book/Books'
 
 
+
 Vue.use(VueRouter)
+
+// 捕获push replace中的错误
+// 当然在replace中的错误也是可以相同的进行捕获
+const originalPush = VueRouter.prototype.push
+const originalReplace = VueRouter.prototype.replace
+// push
+// VueRouter.prototype.push = function push(location, onResolve, onReject) {
+//   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+//   return originalPush.call(this, location).catch(err => err)
+// }
+// // replace
+// VueRouter.prototype.replace = function push(location, onResolve, onReject) {
+//   if (onResolve || onReject) return originalReplace.call(this, location, onResolve, onReject)
+//   return originalReplace.call(this, location).catch(err => err)
+// }
+
+
 
 const routes = [
   { path: '/', redirect: '/login' },
@@ -29,6 +48,7 @@ const routes = [
     redirect: '/welcome',
     children: [
       { path: '/welcome', component: Welcome },
+      { path: '/personal', component: Personal },
       { path: '/users', component: Users },
       { path: '/sysRoles', component: SysRoles },
       { path: '/sysRolePemissions', component: SysRolePemission },
@@ -42,6 +62,8 @@ const routes = [
     ]
   }    
 ]
+
+
 
 const router = new VueRouter({
   mode: 'hash',

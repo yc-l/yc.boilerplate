@@ -26,8 +26,13 @@ import {
   CheckboxGroup,
   Checkbox,
   Select,
-  Backtop
+  Backtop,
+  Descriptions,
+  DescriptionsItem
 } from 'element-ui'
+
+Vue.use(Descriptions)
+Vue.use(DescriptionsItem)
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)

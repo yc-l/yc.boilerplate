@@ -157,24 +157,17 @@
               </el-col>
             </el-row>
 
-            <el-row :gutter="20">
-              <el-col :span="12">
-                <el-form-item label="接口：" prop="apiId">
-                  <el-input v-model="addOrEditForm.api" :disabled="addOrEditForm.type!=3"></el-input>
-                </el-form-item>
-              </el-col>
-
-              <el-col :span="12">
-                <el-form-item label="视图：" prop="viewId">
-                  <el-input v-model="addOrEditForm.view" :disabled="addOrEditForm.type!=2"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+           
 
             <el-row :gutter="20">
               <el-col :span="12">
                 <el-form-item label=" 图标：" prop="icon">
-                  <el-input v-model="addOrEditForm.icon" :disabled="addOrEditForm.type!=2 && addOrEditForm.type!=1"></el-input>
+                  
+                   <e-icon-picker v-model="addOrEditForm.icon" :highLightColor="highLightColor" :options="options" :zIndex="zIndex" />
+                <!-- 名称： {{ addOrEditForm.icon }}
+                <e-icon :icon-name="addOrEditForm.icon"/> -->
+              
+                  <!-- <el-input v-model="addOrEditForm.icon" :disabled="addOrEditForm.type!=2 && addOrEditForm.type!=1"></el-input> -->
                 </el-form-item>
               </el-col>
 
@@ -184,7 +177,35 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
+            <el-row :gutter="20">
+            
+               <el-col :span="12">
+                <el-form-item label=" 排序：" prop="sort">
+                  <el-input v-model="addOrEditForm.sort"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="视图：" prop="viewId">
+                  <el-input v-model="addOrEditForm.view" :disabled="addOrEditForm.type!=2"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          <el-row :gutter="20">
+            
+              <el-col :span="24">
+                <el-form-item label="接口：" prop="apiId">
+                  <el-input type="textarea" v-model="addOrEditForm.api" :disabled="addOrEditForm.type!=3"></el-input>
+                </el-form-item>
+              </el-col>
+              
+            </el-row>
+            <el-row :gutter="20">
+               <el-col :span="24">
+                <el-form-item label=" 描述：" prop="description">
+                  <el-input type="textarea" v-model="addOrEditForm.description"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
             <el-row :gutter="20">
               <el-col :span="12">
                 <el-form-item label=" 可关闭：" prop="closable">
@@ -233,13 +254,7 @@
               </el-col>
             </el-row>
 
-            <el-row :gutter="20">
-              <el-col :span="12">
-                <el-form-item label=" 排序：" prop="sort">
-                  <el-input v-model="addOrEditForm.sort"></el-input>
-                </el-form-item>
-              </el-col>
-
+            <el-row :gutter="20">           
               <el-col :span="12">
                 <el-form-item label=" 链接外显：" prop="external">
                   <el-switch
@@ -252,13 +267,7 @@
               </el-col>
             </el-row>
 
-            <el-row :gutter="20">
-              <el-col :span="12">
-                <el-form-item label=" 描述：" prop="description">
-                  <el-input v-model="addOrEditForm.description"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+        
           </el-form>
         </el-tab-pane>
       </el-tabs>
@@ -281,15 +290,18 @@
     getListParents,
     getTreeParentsWithSelf,
   } from '../../utils/tree.js'
-  
+
   export default {
+  
     data() {
 
       return {
         queryInfo: {
           query: '',
         },
-
+     highLightColor: "#fc1944",
+      options: {FontAwesome: true, ElementUI: true},
+      zIndex:3500,
         sysPermissionList: [],
         activeName: 'first',
         // 控制添加权限对话框的显示与隐藏
@@ -708,5 +720,3 @@
   }
 
 </script>
-<style lang="less" scoped>
-</style>

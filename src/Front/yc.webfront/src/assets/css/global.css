@@ -5,7 +5,7 @@ body,
   margin: 0;
   padding: 0;
   /* 滚动条隐藏 */
-  scrollbar-width: none; /* firefox */
+  scrollbar-width: none;  /*firefox */
   -ms-overflow-style: none; /* IE 10+ */
  
 }

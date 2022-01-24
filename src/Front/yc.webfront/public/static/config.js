@@ -1,5 +1,6 @@
 
 window.config = {
+    serviceUrl:"https://localhost:5001",
     baseUrl:"https://localhost:5001/api/",//后端接口地址
     systemName: "元磁之力快速开发框架",
     frameWorkName:"YC.Boilerplate",

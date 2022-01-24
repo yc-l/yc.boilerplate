@@ -33,10 +33,12 @@
        
         <el-submenu index="2" style="color:#fff;">
           <template slot="title" style="color:#fff;">我的工作台</template>
-          <el-menu-item index="2-1">
+          <!-- <el-menu-item index="2-1" >
             <i class="el-icon-user"></i>
-            <span slot="title">个人中心</span>
-          </el-menu-item>
+            <span slot="title">
+             个人中心
+              </span>
+          </el-menu-item> -->
           <el-menu-item index="2-3" @click="refreshToken">
             <i class="el-icon-refresh"></i>刷新token</el-menu-item
           >
@@ -74,7 +76,7 @@
           <el-menu-item
             :index="item.path + ''"
             v-for="item in this.menuListNoChild"
-            :key="item.id"
+            :key="item.id"  @click="addTab(item.path,item.label)" 
           >
             <i :class="item.icon"></i>
             <span slot="title">{{ item.label }}</span>
@@ -84,10 +86,11 @@
           <el-submenu
             :index="item.id + ''"
             v-for="item in this.menuListHaveChild"
-            :key="item.id"
+            :key="item.id" 
           >
             <!-- 一级菜单的模板区域 -->
             <template slot="title">
+            
               <!-- 图标 -->
               <i :class="item.icon"></i>
               <!-- 文本 -->
@@ -99,7 +102,7 @@
               :index="subItem.path"
               v-for="subItem in item.children"
               :key="subItem.id"
-              @click="saveNavState(subItem.path)"
+              @click="saveNavState(subItem.path,subItem.label)"
             >
               <template slot="title">
                 <!-- 图标 -->
@@ -113,10 +116,19 @@
       </el-aside>
       <!-- 下部区域的中间区域 -->
       <el-main style="overflow-y:visible;">
-        <div style="min-height:100%;">
+
+  <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="tabChange">
+  <el-tab-pane
+    v-for="(item, index) in editableTabs"
+    :key="item.name"
+    :label="item.title"
+    :name="item.name"
+  >
+     <div style="min-height:600px; padding-bottom: 150px;">
            <router-view></router-view>
         </div>
-       
+   </el-tab-pane>
+      </el-tabs>
         <el-footer>Copyright 2020-{{fullYear}} {{defaultConfig.systemName}} {{defaultConfig.frameWorkName}}.AllRightsReserved.</el-footer>
       </el-main>
        <el-backtop />
@@ -140,6 +152,10 @@
         systemName:"",
         drawer: false,
         direction: 'rtl',
+        //tab 切换
+        editableTabsValue: '0',
+        editableTabs:  [],
+        tabIndex: 0
       }
     },
     created() {
@@ -147,8 +163,74 @@
       this.menuListNoChild = _.cloneDeep(this.menuList).filter(x => x.children == undefined)
       this.menuListHaveChild = _.cloneDeep(this.menuList).filter(x => x.children !== undefined)
       this.activePath = window.sessionStorage.getItem('activePath')
+      //this.$router.push('/welcome')
+      this.addTab('/welcome','首页')
     },
     methods: {
+
+tabChange(){
+//alert("我是tabIndex:"+this.tabIndex+",editableTabsValue="+this.editableTabsValue)
+    for(var i = 0; i < this.editableTabs.length; i++){
+          if(this.editableTabsValue === this.editableTabs[i].name){
+              this.$router.push(this.editableTabs[i].path)
+            this.editableTabsValue = this.editableTabs[i].name;
+            break;
+        }}
+
+},
+    // handleSelect(key, keyPath) {
+    //     //console.log(key, keyPath);
+    //     for(var i = 0; i < this.editableTabs.length; i++){
+    //       if(keyPath === this.editableTabs[i].path){
+    //         this.$router.push(this.editableTabs[i].path)
+    //         this.editableTabsValue = this.editableTabs[i].name;
+    //         console.log("存在了")
+    //         break;
+    //     }}
+    //   },
+
+      addTab(path,targetName) {
+      
+      this.$router.push(path)
+      
+      let newTabName = ++this.tabIndex + '';
+        let isExist=false;
+        for(var i = 0; i < this.editableTabs.length; i++){
+          if(targetName === this.editableTabs[i].title){
+            isExist= true;
+           this.editableTabsValue = this.editableTabs[i].name;
+            break;
+        }
+     }
+     if(!isExist){//不存在就添加
+       
+       this.editableTabs.push({
+          title: targetName,
+          name: newTabName,
+          path:path
+        });
+        this.editableTabsValue = newTabName;
+     }
+    
+      },
+
+        removeTab(targetName) {
+        let tabs = this.editableTabs;
+        let activeName = this.editableTabsValue;
+        if (activeName === targetName) {
+          tabs.forEach((tab, index) => {
+            if (tab.name === targetName) {
+              let nextTab = tabs[index + 1] || tabs[index - 1];
+              if (nextTab) {
+                activeName = nextTab.name;
+              }
+            }
+          });
+        }
+        
+        this.editableTabsValue = activeName;
+        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+      },
       loginOut() {
         window.sessionStorage.clear()
         this.$router.push('/login')
@@ -160,10 +242,12 @@
         this.isCollapse = !this.isCollapse
       },
 
-      // 保存链接的激活状态
-      saveNavState(activePath) {
+      // 保存链接的激活状态,打开tab
+      saveNavState(activePath,activeLabel) {
+         this.addTab(activePath,activeLabel)
         window.sessionStorage.setItem('activePath', activePath)
         this.activePath = activePath
+       
         // console.log("激活的菜单:"+activePath)
       },
        //刷新token
@@ -277,9 +361,9 @@
     background-color: #fff;
     color: #333;
     text-align: center;
-    line-height: 60px;
+    line-height: 30px;
  
-    //bottom: 0px;
+  position: relative; height: 150px;  clear:both;  margin-top: -150px; /* footer高度的负值 */ 
 
   }
 </style>

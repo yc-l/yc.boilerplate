@@ -97,7 +97,11 @@ namespace YC.ApplicationService.SysUserAppService
             if (!string.IsNullOrWhiteSpace(personInfoDto.Avatar))
             {
                 var webRootPath = System.Environment.CurrentDirectory;
-                personInfoDto.Avatar = ImageUtils.GetBase64FromImage(webRootPath + personInfoDto.Avatar);
+                string filePath = webRootPath + personInfoDto.Avatar;
+                if (File.Exists(filePath))
+                {
+                    personInfoDto.Avatar = ImageUtils.GetBase64FromImage(filePath);
+                }
             }
             return personInfoDto;
         }
@@ -131,9 +135,10 @@ namespace YC.ApplicationService.SysUserAppService
             }
         }
 
-        public async Task<IApiResult> UploadUserAvatar(IFormFileCollection formFiles) {
+        public async Task<IApiResult> UploadUserAvatar(IFormFileCollection formFiles)
+        {
             // var file = uploadFileDto.File;
-            if (formFiles.Count==0)
+            if (formFiles.Count == 0)
             {
                 return ApiResult.NotOk("文件为空！");
             }
@@ -196,7 +201,7 @@ namespace YC.ApplicationService.SysUserAppService
                 }
 
                 var user = GetLoginUser();
-                var result =await UpdateUserAvatar(user.Id, filename);
+                var result = await UpdateUserAvatar(user.Id, filename);
                 if (result.State)
                 {
                     string imgStr = ImageUtils.GetBase64FromImage(webRootPath + filename);
@@ -211,7 +216,6 @@ namespace YC.ApplicationService.SysUserAppService
             {
                 return ApiResult.NotOk("上传失败!" + ex.ToString());
             }
-
         }
 
         public async Task<IApiResult> UpdateUserAvatar(long id, string filePath)

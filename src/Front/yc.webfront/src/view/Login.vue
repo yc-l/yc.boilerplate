@@ -84,6 +84,7 @@
 <script>
 export default {
   created() {
+
     this.init()
   },
   data() {
@@ -111,9 +112,9 @@ export default {
             trigger: 'blur'
           },
           {
-            min: 5,
+            min: 3,
             max: 20,
-            message: '长度在 5 到 20个字符',
+            message: '长度在 3 到 20个字符',
             trigger: 'blur'
           }
         ],
@@ -144,6 +145,11 @@ export default {
   },
   methods: {
     async init() {
+      //如果已经登录就跳转到内容页面
+      const loginToken=window.sessionStorage.getItem('token')
+      if(loginToken!=null){
+       this.$router.replace('/welcome')
+      }
       const key = await this.getGuidKey() //获取全局Key
       window.sessionStorage.setItem('guidKey', key)
       this.loginGuid = key
