@@ -11,13 +11,11 @@ namespace YC.Cache.Redis
 {
     public class RedisCacheManager : ICacheManager
     {
-
         protected IDatabase _cache;
 
         private ConnectionMultiplexer _connection;
 
         private readonly string _instance;
-
 
         public RedisCacheManager(RedisCacheOptions options, int database = 0)
         {
@@ -42,6 +40,7 @@ namespace YC.Cache.Redis
             {
                 throw new ArgumentNullException(nameof(key));
             }
+
             return _cache.KeyExists(GetKeyForRedis(key));
         }
 
@@ -59,6 +58,7 @@ namespace YC.Cache.Redis
             }
             return _cache.StringSet(GetKeyForRedis(key), JsonSerializer.SerializeToUtf8Bytes(value));
         }
+
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -75,6 +75,7 @@ namespace YC.Cache.Redis
             }
             return _cache.StringSet(GetKeyForRedis(key), JsonSerializer.SerializeToUtf8Bytes(value), expiressAbsoulte);
         }
+
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -106,6 +107,7 @@ namespace YC.Cache.Redis
             }
             return _cache.KeyDelete(GetKeyForRedis(key));
         }
+
         /// <summary>
         /// 批量删除缓存
         /// </summary>
@@ -142,6 +144,7 @@ namespace YC.Cache.Redis
 
             return JsonSerializer.Deserialize<T>(value);
         }
+
         /// <summary>
         /// 获取缓存
         /// </summary>
@@ -162,6 +165,7 @@ namespace YC.Cache.Redis
             }
             return JsonSerializer.Deserialize<object>(value);
         }
+
         /// <summary>
         /// 获取缓存集合
         /// </summary>
@@ -198,8 +202,8 @@ namespace YC.Cache.Redis
                     return false;
 
             return Add(key, value);
-
         }
+
         /// <summary>
         /// 修改缓存
         /// </summary>
@@ -221,6 +225,7 @@ namespace YC.Cache.Redis
 
             return Add(key, value, expiresSliding, expiressAbsoulte);
         }
+
         /// <summary>
         /// 修改缓存
         /// </summary>
@@ -248,6 +253,5 @@ namespace YC.Cache.Redis
                 _connection.Dispose();
             GC.SuppressFinalize(this);
         }
-
     }
 }
