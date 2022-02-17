@@ -78,7 +78,7 @@
             v-for="item in this.menuListNoChild"
             :key="item.id"  @click="addTab(item.path,item.label)" 
           >
-            <i :class="item.icon"></i>
+            <i :class="item.icon"  style="width:24px;height:18px; margin-right:5px;"></i>
             <span slot="title">{{ item.label }}</span>
           </el-menu-item>
 
@@ -92,7 +92,7 @@
             <template slot="title">
             
               <!-- 图标 -->
-              <i :class="item.icon"></i>
+              <i :class="item.icon" style="width:24px;height:18px;margin-right:5px;"></i>
               <!-- 文本 -->
               <span>{{ item.label }}</span>
             </template>
@@ -106,7 +106,7 @@
             >
               <template slot="title">
                 <!-- 图标 -->
-                <i :class="subItem.icon"></i>
+                <i :class="subItem.icon" style="width:24px;height:18px;margin-right:5px;"></i>
                 <!-- 文本 -->
                 <span>{{ subItem.label }}</span>
               </template>
@@ -116,8 +116,10 @@
       </el-aside>
       <!-- 下部区域的中间区域 -->
       <el-main style="overflow-y:visible;">
-
-  <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="tabChange">
+ <div style="min-height:600px; padding-bottom: 150px;">
+           <router-view></router-view>
+        </div>
+  <!-- <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="tabChange">
   <el-tab-pane
     v-for="(item, index) in editableTabs"
     :key="item.name"
@@ -128,7 +130,7 @@
            <router-view></router-view>
         </div>
    </el-tab-pane>
-      </el-tabs>
+      </el-tabs> -->
         <el-footer>Copyright 2020-{{fullYear}} {{defaultConfig.systemName}} {{defaultConfig.frameWorkName}}.AllRightsReserved.</el-footer>
       </el-main>
        <el-backtop />
@@ -163,8 +165,9 @@
       this.menuListNoChild = _.cloneDeep(this.menuList).filter(x => x.children == undefined)
       this.menuListHaveChild = _.cloneDeep(this.menuList).filter(x => x.children !== undefined)
       this.activePath = window.sessionStorage.getItem('activePath')
-      //this.$router.push('/welcome')
-      this.addTab('/welcome','首页')
+      this.$router.push('/welcome')
+      //this.addTab('/welcome','首页')
+     
     },
     methods: {
 
@@ -174,6 +177,8 @@ tabChange(){
           if(this.editableTabsValue === this.editableTabs[i].name){
               this.$router.push(this.editableTabs[i].path)
             this.editableTabsValue = this.editableTabs[i].name;
+              window.sessionStorage.setItem('activePath', this.editableTabs[i].path)
+              this.activePath = this.editableTabs[i].path
             break;
         }}
 
@@ -191,27 +196,29 @@ tabChange(){
 
       addTab(path,targetName) {
       
-      this.$router.push(path)
+      //this.$router.push(path)
       
-      let newTabName = ++this.tabIndex + '';
-        let isExist=false;
-        for(var i = 0; i < this.editableTabs.length; i++){
-          if(targetName === this.editableTabs[i].title){
-            isExist= true;
-           this.editableTabsValue = this.editableTabs[i].name;
-            break;
-        }
-     }
-     if(!isExist){//不存在就添加
+    //   let newTabName = ++this.tabIndex + '';
+    //     let isExist=false;
+    //     for(var i = 0; i < this.editableTabs.length; i++){
+    //       if(targetName === this.editableTabs[i].title){
+    //         isExist= true;
+    //        this.editableTabsValue = this.editableTabs[i].name;
+    //         break;
+    //     }
+    //  }
+    //  if(!isExist){//不存在就添加
        
-       this.editableTabs.push({
-          title: targetName,
-          name: newTabName,
-          path:path
-        });
-        this.editableTabsValue = newTabName;
-     }
+    //    this.editableTabs.push({
+    //       title: targetName,
+    //       name: newTabName,
+    //       path:path
+    //     });
+    //     this.editableTabsValue = newTabName;
+    //  }
     
+      window.sessionStorage.setItem('activePath', path)
+        this.activePath = path
       },
 
         removeTab(targetName) {
@@ -244,7 +251,7 @@ tabChange(){
 
       // 保存链接的激活状态,打开tab
       saveNavState(activePath,activeLabel) {
-         this.addTab(activePath,activeLabel)
+         //this.addTab(activePath,activeLabel)
         window.sessionStorage.setItem('activePath', activePath)
         this.activePath = activePath
        
