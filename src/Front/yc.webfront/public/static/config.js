@@ -1,7 +1,7 @@
 
 window.config = {
    
-    baseUrl:"'https://106.54.54.39:8910/api/",//后端接口地址
+    baseUrl:"'https://192.168.0.1:5001/api/",//后端接口地址
     systemName: "区块链溯源存证系统",
     frameWorkName:"YC.Boilerplate",
     githubSourceCodeUrl:"https://github.com/yc-l/yc.boilerplate",
