@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 127.0.0.1
- Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : localhost:3306
+ Source Server         : mariadb-3307
+ Source Server Type    : MariaDB
+ Source Server Version : 100510
+ Source Host           : localhost:3307
  Source Schema         : bigdatadb2
 
- Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Type    : MariaDB
+ Target Server Version : 100510
  File Encoding         : 65001
 
- Date: 10/10/2021 10:47:51
+ Date: 22/01/2022 18:02:13
 */
 
 SET NAMES utf8mb4;
@@ -33,16 +33,20 @@ CREATE TABLE `sys_auditlog`  (
   `TenantId` int(11) NULL DEFAULT NULL COMMENT '租户Id',
   `UserId` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
   `UserAccount` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户账号',
-  `ParamsString` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数',
+  `ParamsString` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求参数',
   `StartTime` datetime(0) NULL DEFAULT NULL COMMENT '开始执行时间',
   `StopTime` datetime(0) NULL DEFAULT NULL COMMENT '结束执行时间',
   `RequestMethod` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求方式',
   `RequestApi` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求Api',
   `CreationTime` datetime(0) NULL DEFAULT NULL COMMENT ' 创建时间',
   `ResponseState` bit(1) NULL DEFAULT NULL,
-  `ResponseData` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `ResponseData` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3663 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3667 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_auditlog
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_datadictionary
@@ -300,6 +304,7 @@ CREATE TABLE `sys_user`  (
   `CreationTime` datetime(0) NULL DEFAULT NULL,
   `CreatorUserId` bigint(20) NULL DEFAULT NULL,
   `TenantId` int(11) NULL DEFAULT NULL,
+  `Avatar` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `Id`(`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
@@ -307,8 +312,8 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '超级管理员', 'T2admin', '96e79218965eb72c92a549dd5a330112', 1, '13699856947', '1@qq.con', 'abc', 1, 6, '234', 0, NULL, '2021-05-04 13:17:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `sys_user` VALUES (29, NULL, 'aaaaa', 'aaaaa', 'e10adc3949ba59abbe56e057f20f883e', 0, '13699854789', 'aaaa@wq.com', 'aaaaa', 0, NULL, NULL, 0, NULL, '2021-05-04 13:17:32', NULL, NULL, NULL, 0, NULL, 0, '2021-04-27 16:01:40', 1, 1);
+INSERT INTO `sys_user` VALUES (1, 'admin', '超级管理员', 'T2admin', '96e79218965eb72c92a549dd5a330112', 1, '13699856947', '1@qq.con', 'abc', 1, 6, '234', 0, NULL, '2021-05-04 13:17:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL);
+INSERT INTO `sys_user` VALUES (29, NULL, 'aaaaa', 'aaaaa', 'e10adc3949ba59abbe56e057f20f883e', 0, '13699854789', 'aaaa@wq.com', 'aaaaa', 0, NULL, NULL, 0, NULL, '2021-05-04 13:17:32', NULL, NULL, NULL, 0, NULL, 0, '2021-04-27 16:01:40', 1, 1, NULL);
 
 -- ----------------------------
 -- Table structure for sys_usersysorganization
@@ -320,6 +325,10 @@ CREATE TABLE `sys_usersysorganization`  (
   `SysOrganization_ID` int(11) NULL DEFAULT NULL COMMENT '组织Id',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_usersysorganization
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_usersysrole

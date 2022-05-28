@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicLayer", "BasicLayer", "{8EE84D6A-8156-4448-A217-85C607BB8AD7}"
 EndProject
@@ -58,6 +58,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{7C0DDA31-6525-48F1-B81F-48DBB3053160}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YC.Tools.DockerMonitor", "Tools\YC.Tools.DockerMonitor\YC.Tools.DockerMonitor.csproj", "{ABF0998A-5F97-491E-899A-40161FD70CEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlockChain", "BlockChain", "{344C7588-D55D-478B-B25D-94F97524C5E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FISCOBCOS.CSharpSdk", "BlockChain\FISCOBCOS.CSharpSdk\FISCOBCOS.CSharpSdk.csproj", "{FF85C43B-4F5D-4CAE-8BEA-B9B9126DE869}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +157,10 @@ Global
 		{ABF0998A-5F97-491E-899A-40161FD70CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABF0998A-5F97-491E-899A-40161FD70CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABF0998A-5F97-491E-899A-40161FD70CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF85C43B-4F5D-4CAE-8BEA-B9B9126DE869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF85C43B-4F5D-4CAE-8BEA-B9B9126DE869}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF85C43B-4F5D-4CAE-8BEA-B9B9126DE869}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF85C43B-4F5D-4CAE-8BEA-B9B9126DE869}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +188,7 @@ Global
 		{2B6F02B7-0F1B-4FA7-B668-1FA524AEC22E} = {3E77D5D2-7C7E-4F3E-BBB7-8005EAA64924}
 		{137625E5-82DF-4F5C-B24D-3D949F4F1BD5} = {3BF48648-4A6C-43E4-B2F1-FFB7EDE70F33}
 		{ABF0998A-5F97-491E-899A-40161FD70CEF} = {7C0DDA31-6525-48F1-B81F-48DBB3053160}
+		{FF85C43B-4F5D-4CAE-8BEA-B9B9126DE869} = {344C7588-D55D-478B-B25D-94F97524C5E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2286F1C-A8B5-4BE5-9081-16E02C40FC5C}

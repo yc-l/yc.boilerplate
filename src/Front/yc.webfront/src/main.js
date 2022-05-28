@@ -178,6 +178,13 @@ Vue.prototype.$gersonalManager_UploadImageUrl='SysUser/UploadUserAvatar'
 
 Vue.prototype.$bookManagerUrl='Book/GetPageBookList'
 
+//8. 区块链存证
+Vue.prototype.$bCEvidenceManagerUrl='BCEvidence/GetPageBCEvidenceList'
+Vue.prototype.$bCEvidenceManager_GetBCEvidenceUrl='BCEvidence/Get'
+Vue.prototype.$bCEvidenceManager_CreateBCEvidenceUrl='BCEvidence/CreateBCEvidence'
+Vue.prototype.$bCEvidenceManager_EditBCEvidenceUrl ='BCEvidence/UpdateBCEvidence'
+Vue.prototype.$bCEvidenceManager_DeleteBCEvidenceUrl='BCEvidence/DeleteBCEvidenceById'
+
 //全局删除增加图标
 Vue.use(eIconPicker, {
   FontAwesome: true,

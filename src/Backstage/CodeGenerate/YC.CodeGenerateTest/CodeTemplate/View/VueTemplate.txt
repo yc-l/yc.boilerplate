@@ -36,8 +36,11 @@
                          label="序号"> </el-table-column>
         {{table-Columns}}
         <el-table-column label="操作"
-                         width="220"  v-if="$hasPermission(['<%=serviceObjName%>Manager.edit<%=tableName%>'] || $hasPermission(['<%=serviceObjName%>Manager.delete<%=tableName%>']))">
+                         width="220"  v-if="$hasPermission(['<%=serviceObjName%>Manager.view<%=tableName%>']) || $hasPermission(['<%=serviceObjName%>Manager.edit<%=tableName%>'] || $hasPermission(['<%=serviceObjName%>Manager.delete<%=tableName%>']))">
           <template slot-scope="scope">
+           <!-- 查看按钮 -->
+            <el-button type="primary" icon="el-icon-document" size="mini" @click="showViewDialog(scope.row.id)"
+              v-if="$hasPermission(['<%=serviceObjName%>Manager.view<%=tableName%>'])"> 查看</el-button>
             <!-- 修改按钮 -->
             <el-button type="primary"
                        icon="el-icon-edit"
@@ -98,6 +101,31 @@
                        @click="addOrEdit<%=tableName%>()">确 定</el-button>
           </span>
     </el-dialog>
+
+    <!-- 查看<%=moduleName%>的对话框 -->
+    <el-dialog  :title=" '查看<%=moduleName%>'"
+               :visible.sync="viewDialogVisible"
+               width="60%"
+               @close="viewDialogClosed">
+      <!-- 内容主体区域 -->
+
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="<%=moduleName%>管理"
+                     name="first">
+          <el-form :model="viewForm"
+                   ref="viewFormRef"
+                   label-width="100px">
+            <el-input v-model="viewForm.id"
+                      prop="id"
+                      type="hidden"></el-input>
+
+            {{form-viewRows}}
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
+
+        
+    </el-dialog>
   </div>
 </template>
 
@@ -123,7 +151,13 @@ export default {
        
       },
       editState: false, //编辑状态
-
+       viewDialogVisible: false, //查看数据按钮
+      // 查看<%=moduleName%>的表单数据
+      viewForm: {
+        id: '',
+        {{addOrEditForm-properties}}
+       
+      },
       // 添加表单的验证规则对象
       addOrEditFormRules: {
         {{form-rules}}
@@ -265,6 +299,39 @@ export default {
 
       this.addOrEditDialogVisible = true
     },
+
+    // 展示查看看<%=moduleName%>的对话框
+    async showViewDialog(id) {
+      this.viewDialogVisible = true
+      if (id > 0) {
+        //编辑状态
+        // console.log(id)
+        const { data: res } = await this.$http.get(
+          this.$<%=serviceObjName%>Manager_Get<%=tableName%>Url + '?id=' + id
+        )
+
+        if (res.code !== 200) {
+          return this.$message.error('查询<%=moduleName%>信息失败！'+res.message)  
+        }
+
+        this.viewForm = res.data
+        
+      }
+
+      this.viewDialogVisible = true
+    },
+
+      // 监听查询区块链存证对话框的关闭事件
+      viewDialogClosed() {
+
+        this.viewForm={
+        id: '',
+        {{addOrEditForm-properties}}
+      
+      },
+
+          this.$refs.viewFormRef.resetFields()
+      },
   },
 }
 </script>

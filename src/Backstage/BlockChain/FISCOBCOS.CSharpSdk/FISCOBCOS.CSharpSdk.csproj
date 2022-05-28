@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>林宣名</Authors>
+    <Version>1.0.0.3</Version>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <NeutralLanguage>zh</NeutralLanguage>
+    <Description>FISCOBCOS BlockChain CSharpSdk</Description>
+    <PackageId>FISCOBCOS.CSharpSdk</PackageId>
+    <Product>FISCOBCOS.CSharpSdk</Product>
+    <AssemblyName>FISCOBCOS.CSharpSdk</AssemblyName>
+    <RootNamespace>FISCOBCOS.CSharpSdk</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DocumentationFile>D:\Develop\OpenSource\FISCOBCOS.CSharpSdk\Src\FISCOBCOS.CSharpSdk\FISCOBCOS.CSharpSdk.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nethereum.ABI" Version="3.8.0" />
+    <PackageReference Include="Nethereum.Contracts" Version="3.8.0" />
+    <PackageReference Include="Nethereum.Hex" Version="3.8.0" />
+    <PackageReference Include="Nethereum.JsonRpc.RpcClient" Version="3.8.0" />
+    <PackageReference Include="Nethereum.RLP" Version="3.8.0" />
+    <PackageReference Include="Nethereum.RPC" Version="3.8.0" />
+    <PackageReference Include="Nethereum.Signer" Version="3.8.0" />
+    <PackageReference Include="Nethereum.Util" Version="3.8.0" />
+    <PackageReference Include="Nethereum.Web3" Version="3.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Contract\TraceEvidence\EvidenceConV1.abi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Contract\TraceEvidence\EvidenceConV1.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Contract\TraceEvidence\EvidenceConV1.sol">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Contract\TraceEvidence\Table.abi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Contract\TraceEvidence\Table.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Contract\TraceEvidence\Table.sol">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

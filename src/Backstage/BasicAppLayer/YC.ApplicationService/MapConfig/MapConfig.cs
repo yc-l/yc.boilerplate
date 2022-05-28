@@ -10,6 +10,7 @@ using YC.ApplicationService.Dto;
 using YC.ApplicationService.SysUserAppService.Dto;
 using YC.ElasticSearch.Models;
 using YC.Model;
+using YC.Model.BlockChainEntity;
 using YC.Model.SysDbEntity;
 
 namespace YC.ApplicationService
@@ -43,6 +44,10 @@ namespace YC.ApplicationService
 
             CreateMap<Book, BookAddOrEditDto>((MemberList.None)).ReverseMap();
             CreateMap<Book, BookDto>((MemberList.None)).ReverseMap();
+
+            CreateMap<BCEvidence, BCEvidenceCreateDto>((MemberList.None)).ReverseMap();
+            CreateMap<BCEvidence, BCEvidenceAddOrEditDto>((MemberList.None)).ReverseMap();
+            CreateMap<BCEvidence, BCEvidenceDto>((MemberList.None)).ReverseMap();
         }
     }
 }

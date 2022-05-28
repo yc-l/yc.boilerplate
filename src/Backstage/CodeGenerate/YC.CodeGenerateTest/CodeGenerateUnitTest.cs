@@ -52,10 +52,10 @@ namespace YC.CodeGenerateTest
                 string msg = "";
                 GenerateDbTableConfig config = new GenerateDbTableConfig();
                 config.GenerateDbTableEntityList = new List<string>();
-                config.GenerateDbTableEntityList.Add("Book");//要生成的表
+                config.GenerateDbTableEntityList.Add("BCEvidence");//要生成的表
                 //config.GenerateDbTableEntityList.Add("SysAuditLog");
                 //config.GenerateDbTableEntityList.Add("SysUserSysOrganization");
-                bool result = codeGenerateDBRepository.CreateTable(config,out msg, false, "YC.ElasticSearch");
+                bool result = codeGenerateDBRepository.CreateTable(config,out msg, false, "YC.Model");
                 Assert.IsTrue(result);
             }
         }  
@@ -106,13 +106,13 @@ namespace YC.CodeGenerateTest
             //4、树的根节点要为0
 
             List<string> generateEntityList = new List<string>();
-            generateEntityList.Add("Book");
+            generateEntityList.Add("BCEvidence");
             GenerateCodeConfig generateCodeConfig = new GenerateCodeConfig();
             generateCodeConfig.Template = templateDto;
             generateCodeConfig.WantToGenerateCodeTypeList = wantToGenerateCodeTypeList;
             generateCodeConfig.GenerateEntityList = generateEntityList;
             generateCodeConfig.IsTree = isTree;
-            generateCodeConfig.AssemblyName = "YC.ElasticSearch";
+            generateCodeConfig.AssemblyName = "YC.Model";
             GenerateCodeService generateCodeRepository = new GenerateCodeService(generateCodeConfig);
             var result = generateCodeRepository.GenerateWork();
             Assert.IsTrue(result.Success);

@@ -687,6 +687,7 @@ namespace YC.CodeGenerate
                      .Replace("<%=serviceObjName%>", serviceObjName)
                      .Replace("{{table-Columns}}", sbTableColumns.ToString())
                      .Replace("{{form-Rows}}", sbFormRows.ToString())
+                     .Replace("{{form-viewRows}}", sbFormRows.Replace("addOrEditForm", "viewForm").ToString())
                      .Replace("{{addOrEditForm-properties}}", sbFormParams.ToString())
                      .Replace("{{form-rules}}", sbFormValidateRules.ToString());
 
@@ -1158,6 +1159,7 @@ namespace YC.CodeGenerate
                      .Replace("<%=serviceObjName%>", serviceObjName)
                      .Replace("{{table-Columns}}", sbTableColumns.ToString())
                      .Replace("{{form-Rows}}", sbFormRows.ToString())
+                     .Replace("{{form-viewRows}}", sbFormRows.Replace("addOrEditForm", "viewForm").ToString())
                      .Replace("{{addOrEditForm-properties}}", sbFormParams.ToString())
                      .Replace("{{form-rules}}", sbFormValidateRules.ToString());
 
