@@ -30,8 +30,8 @@
             v-if="isMultiTnancy"
             @change="selectTenantIdChanged"
           >
-            <el-option label="租户1" :value="1"></el-option>
-            <el-option label="租户2" :value="2"></el-option>
+            <el-option label="测试用户1" :value="1"></el-option>
+            <el-option label="测试用户2" :value="2"></el-option>
           </el-select>
         </el-form-item>
 
@@ -93,7 +93,7 @@ export default {
       loginForm: {
         userName: 'admin',
         password: '123456',
-        tenantId: 1,
+        tenantId:1,
         validateCode: ''
       },
       loading: false,
@@ -191,7 +191,8 @@ export default {
         const { data: responseData } = await this.$http.post(this.$loginUrl, {
           userId: this.loginForm.userName,
           pwd: this.loginForm.password,
-          tenantId: this.loginForm.tenantId,
+           //tenantId: this.loginForm.tenantId,//全局身份中心开启，默认租户id参数都为0，之后用户查询完成，再流转各自租户
+         
           validateCode: this.loginForm.validateCode,
           guidKey: this.loginGuid
         })
@@ -211,14 +212,15 @@ export default {
         this.$initPermissions(responseData.data.permissionList)
         //this.$store.dispatch('initDataAsync',responseData.data.permissionList) //同步数据到vuex中
         console.log('权限列表:' + responseData.data.permissionList)
-        this.$router.push('/home') /* 跳转到后台页面 */
+        //this.$router.push('/home') /* 跳转到后台页面 */
+         this.$router.replace('/welcome')
       })
     },
     selectTenantIdChanged() {
       if (this.loginForm.tenantId == 2) {
         this.loginForm = {
-          userName: 'T2admin',
-          password: '111111',
+          userName: 'test',
+          password: '123456',
           tenantId: 2
         }
       } else if (this.loginForm.tenantId == 1) {

@@ -6,11 +6,9 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Autofac.Extras.DynamicProxy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,41 +17,17 @@ using Microsoft.OpenApi.Models;
 using YC.ServiceWebApi.Filter;
 using ServiceWebApi;
 using YC.ApplicationService;
-using YC.ApplicationService.ApplicationService;
 using YC.Core.Autofac;
-using YC.Core.HttpExtensions;
-using YC.DapperFrameWork;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using YC.Core.Cache;
-using StackExchange.Redis;
-using Microsoft.AspNetCore.DataProtection;
-using System.Configuration;
-using YC.Cache.Redis;
-using Microsoft.Extensions.Caching.Redis;
-using YC.ApplicationService.DefaultConfigure;
-
-using Autofac.Multitenant;
-using YC.ServiceWebApi.Tenant;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using YC.ServiceWebApi.Middleware;
 using YC.ServiceWebApi.ServiceCollectionExtensions;
-using YC.Core;
-using YC.FreeSqlFrameWork;
 using FreeSql;
-using YC.ServiceWebApi.AopModule;
 using Serilog;
 using YC.Core.DynamicApi;
-using YC.ServiceWebApi.Extensions;
-using System.Text.Encodings.Web;
-using System.Text.Json;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
-using System.Threading.Tasks;
-using YC.QuartzService.Interface;
-using YC.QuartzService.JobService.CreateDirJobService;
-using YC.QuartzService.JobService.WriteFileJobService;
 using YC.QuartzService.JobService.DeleteLogJobService;
 using YC.QuartzServiceModule;
 using Quartz;
@@ -95,6 +69,7 @@ namespace YC.ServiceWebApi
             var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
             //全局静态配置类，第一次配置，如果变更，需要重新启动项目，或者重新给JsonConfig 赋值
             DefaultConfig.JsonConfig = DefaultConfig.GetConfigJson(DefaultConfig.dbConfigFilePath);
+            DefaultConfig.InitializationRedis();//静态redis 初始化
 
             #region 使用Redis保存Session
 
@@ -138,6 +113,7 @@ namespace YC.ServiceWebApi
                  options.Filters.Add(typeof(AOPResourceFilterAttribute));
                  options.Filters.Add(typeof(AOPActionFilterAttribute));
                  options.Filters.Add(typeof(AOPResultFilterAttribute));
+                 options.Filters.Add<GlobalExceptionFilter>();
              });
 
             //全局配置Json序列化处理
@@ -375,7 +351,7 @@ namespace YC.ServiceWebApi
             app.UseAuthentication();
 
             //使用中间件全局异常过滤器
-            // app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
 
             //定时服务处理
             if (DefaultConfig.DefaultAppConfig.QuartzSeverIsWork)

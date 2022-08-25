@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,13 +21,13 @@ namespace YC.DapperFrameWork
             if (tenant != null)
             {
                 _connection = GetOpenConnection(tenant.TenantDbString, (RepositoryUtils.Dialect)tenant.TenantDbType);
-
+               
             }
             else
             {
                 _connection = GetOpenConnection(dbConnectionString, defaultDbType);
             }
-
+          
 
         }
         private RepositoryUtils.Dialect _dbtype;
@@ -43,7 +43,7 @@ namespace YC.DapperFrameWork
             else if (_dbtype == RepositoryUtils.Dialect.SQLServer)
             {
                 _connection = new SqlConnection(dbConnectionString);
-
+              
             }
             else
             {
@@ -99,7 +99,7 @@ namespace YC.DapperFrameWork
         }
         //这里没有用
         public IDatabase Db { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+       
         public IDbTransaction Begin()
         {
             _transaction = _transaction ?? _connection.BeginTransaction();

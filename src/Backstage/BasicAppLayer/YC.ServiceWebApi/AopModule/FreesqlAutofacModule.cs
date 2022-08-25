@@ -21,6 +21,7 @@ namespace YC.ServiceWebApi.AopModule
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
+            
             builder.RegisterGeneric(typeof(FreeSqlRepository<,>)).As(typeof(IFreeSqlRepository<,>)).InstancePerLifetimeScope().EnableInterfaceInterceptors()
                                  .InterceptedBy(typeof(AopInterceptor)).PropertiesAutowired();//freeSql 注入
 

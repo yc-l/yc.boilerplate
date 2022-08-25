@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YC.ApplicationService.ApplicationService.Dto;
 using YC.ApplicationService.ApplicationService.SysUserAppService.Dto;
+using YC.ApplicationService.DefaultConfigure;
 using YC.ApplicationService.Dto;
 using YC.ApplicationService.SysUserAppService.Dto;
 using YC.ElasticSearch.Models;
@@ -13,12 +14,14 @@ using YC.Model;
 using YC.Model.BlockChainEntity;
 using YC.Model.SysDbEntity;
 
+
 namespace YC.ApplicationService
 {
     public class MapConfig : Profile
     {
         public MapConfig()
         {
+
             CreateMap<SysUser, UserDto>((MemberList.None)).ReverseMap();
             CreateMap<SysUser, PersonInfoDto>((MemberList.None)).ReverseMap();
             CreateMap<SysUser, PageUserOutputDto>((MemberList.None)).ReverseMap();
@@ -44,10 +47,15 @@ namespace YC.ApplicationService
 
             CreateMap<Book, BookAddOrEditDto>((MemberList.None)).ReverseMap();
             CreateMap<Book, BookDto>((MemberList.None)).ReverseMap();
-
+            CreateMap<TenantInfo, SysTenant>((MemberList.None)).ReverseMap();
+            CreateMap<SysTenant, SysTenantAddOrEditDto>((MemberList.None)).ReverseMap();
+            CreateMap<SysTenant, SysTenantDto>((MemberList.None)).ReverseMap();
             CreateMap<BCEvidence, BCEvidenceCreateDto>((MemberList.None)).ReverseMap();
             CreateMap<BCEvidence, BCEvidenceAddOrEditDto>((MemberList.None)).ReverseMap();
             CreateMap<BCEvidence, BCEvidenceDto>((MemberList.None)).ReverseMap();
+
+            CreateMap<ProcessFlow, ProcessFlowAddOrEditDto>((MemberList.None)).ReverseMap();
+            CreateMap<ProcessFlow, ProcessFlowDto>((MemberList.None)).ReverseMap();
         }
     }
 }

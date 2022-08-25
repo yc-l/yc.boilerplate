@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,25 +36,26 @@ namespace YC.ApplicationService
     ///  业务实现接口
     /// </summary>
     [DynamicWebApi]
-    public class BookAppService : FreeSqlEntityApplicationService<Book,string>, IBookAppService, IDynamicWebApi
+    [ServiceFilter(typeof(AopTestAttribute))]
+    public class BookAppService : FreeSqlEntityApplicationService<Book, string>, IBookAppService, IDynamicWebApi
     {
-
         private IElasticSearchRepository<Book> _elasticSearchRepository;
+
         /// <summary>
         /// 构造函数自动注入我们所需要的类或接口
         /// </summary>
         public BookAppService(
-        IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IFreeSqlRepository<Book, string> entityFreeSqlRepository, IMapper mapper, IElasticSearchRepository<Book>  elasticSearchRepository) : base(httpContextAccessor, entityFreeSqlRepository, mapper, cacheManager)
+        IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IFreeSqlRepository<Book, string> entityFreeSqlRepository, IMapper mapper, IElasticSearchRepository<Book> elasticSearchRepository) : base(httpContextAccessor, entityFreeSqlRepository, mapper, cacheManager)
         {
             _elasticSearchRepository = elasticSearchRepository;
         }
 
-        public async Task<FileStreamResult> GetFileAsync() {
-
+        public async Task<FileStreamResult> GetFileAsync()
+        {
             string filePath = System.Environment.CurrentDirectory + "//DefaultConfig.json";
-            FileStreamResult fileStreamResult=
+            FileStreamResult fileStreamResult =
                   new FileStreamResult(new FileStream(filePath, FileMode.Open), "application/octet-stream") { FileDownloadName = "测试.json" };
-            return fileStreamResult; 
+            return fileStreamResult;
         }
 
         /// <summary>
@@ -107,11 +107,10 @@ namespace YC.ApplicationService
                 {
                     //全字匹配+ 分词查询 double 不能直接用string 丢进去查询
                     query = q => q.Term(t => t.BookName, input.Filter.QueryString) ||
-                           //q.Term(t => t.Price, "23") ||
+                          //q.Term(t => t.Price, "23") ||
                           q.Match(mq => mq.Field(f => f.BookContent).Query(input.Filter.QueryString).Operator(Operator.And)) ||
                            q.Match(mq => mq.Field(f => f.Auther).Query(input.Filter.QueryString).Operator(Operator.And));
                 }
-
             }
             else
             {
@@ -134,7 +133,9 @@ namespace YC.ApplicationService
             var result = await _elasticSearchRepository.GetPageByQueryAsync(query, input.CurrentPage, input.PageSize, null, highlight);
             List<Book> list = result.List.ToList();
             long total = result.Total >= 10000 ? 10000 : result.Total;//查询总数,如果大于10000 默认显示10000。这是es深度分页需要处理，或使用searchAfter
+
             #region 高亮数据处理
+
             if (list.Count > 0)
             {
                 list.ForEach(
@@ -173,13 +174,12 @@ namespace YC.ApplicationService
                                 x.Auther += v;
                             });
                         }
-
-
                     }
                     );
-
             }
-            #endregion
+
+            #endregion 高亮数据处理
+
             //返回数据必须是明确实体，要不然可能存在json映射死循环
             var data = new PageOutput<BookAddOrEditDto>()
             {
@@ -190,6 +190,16 @@ namespace YC.ApplicationService
             return ApiResult.Ok(data);
         }
 
+        [HttpPost]
+        public async Task<List<TestDto>> GetData()
+        {
+            List<TestDto> list = new List<TestDto>();
+            for (int i = 1; i < 8; i++)
+            {
+                list.Add(new TestDto() { Month = $"{i}月", Name = "系列二", Value = new Random(DateTime.Now.Millisecond + i).Next(10, 200) }); ;
+            }
 
+            return list;
+        }
     }
 }

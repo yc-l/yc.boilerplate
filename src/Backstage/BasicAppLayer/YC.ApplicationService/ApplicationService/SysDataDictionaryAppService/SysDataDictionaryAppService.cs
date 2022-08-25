@@ -75,7 +75,7 @@ namespace YC.ApplicationService
                  || a.Key.Contains(input.Filter.QueryString);
             }
             var list = await _sysDataDictionaryFreeSqlRepository.Select.WhereIf(input.Filter.QueryString.NotNull(), exp)
-                .Count(out var total).OrderByDescending(true, a => a.Id).Page(input.CurrentPage, input.PageSize)
+                .Count(out var total).OrderByDescending(true, a => a.Sort).Page(input.CurrentPage, input.PageSize)
                 .ToListAsync();
 
              ///返回数据必须是明确实体，要不然可能存在json映射死循环
@@ -145,7 +145,7 @@ namespace YC.ApplicationService
             }
 
             _mapper.Map(input, obj);
-            var isExist = await _sysDataDictionaryFreeSqlRepository.Where(x => x.Key.Equals(input.Key)).AnyAsync();
+            var isExist = await _sysDataDictionaryFreeSqlRepository.Where(x => x.Key.Equals(input.Key)&&x.Id!=id).AnyAsync();
             if (isExist)
             {
                 return ApiResult.NotOk("指定的Key已经存在!");

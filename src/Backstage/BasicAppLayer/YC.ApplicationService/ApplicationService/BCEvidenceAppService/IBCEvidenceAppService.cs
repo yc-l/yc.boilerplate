@@ -23,6 +23,8 @@ namespace YC.ApplicationService
         /// </summary>
         /// <returns>返回数据集合</returns>
         Task<IApiResult> GetPageBCEvidenceListAsync(PageInput<PageInputDto> input);
+
+       
         /// <summary>
         /// 区块链上链
         /// </summary>

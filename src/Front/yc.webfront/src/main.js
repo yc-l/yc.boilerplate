@@ -40,13 +40,13 @@ axios.interceptors.request.use(config => {
   if (tokenStr != null) {
     config.headers.Authorization = 'Bearer ' + tokenStr
   }
-  // if (config.url === Vue.prototype.$gersonalManager_UploadImageUrl) {
-  //   // 此处设置文件上传，配置单独请求头
-  //   config.headers = {
-  //     'Content-Type': 'multipart/form-data'
-  //   }
-  //   config.headers.Authorization = 'Bearer ' + tokenStr
-  // }
+  if (config.url === Vue.prototype.$gersonalManager_UploadImageUrl) {
+    // 此处设置文件上传，配置单独请求头
+    config.headers = {
+      'Content-Type': 'multipart/form-data'
+    }
+    config.headers.Authorization = 'Bearer ' + tokenStr
+  }
 
   //最后必须要加上这个
   return config
@@ -173,10 +173,25 @@ Vue.prototype.$sysOrganizationManager_DeleteSysOrganizationUrl='SysOrganization/
 //7.个人中心
 Vue.prototype.$gersonalManager_GetUserInfoUrl='SysUser/GetUserInfo'
 Vue.prototype.$gersonalManager_ChangePasswordUrl='SysUser/ChangePassword'
-Vue.prototype.$gersonalManager_UploadImageUrl='SysUser/UploadUserAvatar'
+Vue.prototype.$gersonalManager_UploadImageUrl='Identity/UploadImage'
 
 
 Vue.prototype.$bookManagerUrl='Book/GetPageBookList'
+
+//8. 租户管理
+Vue.prototype.$sysTenantManagerUrl='SysTenant/GetPageSysTenantList'
+Vue.prototype.$sysTenantManager_GetSysTenantUrl='SysTenant/Get'
+Vue.prototype.$sysTenantManager_CreateSysTenantUrl='SysTenant/CreateSysTenant'
+Vue.prototype.$sysTenantManager_EditSysTenantUrl ='SysTenant/UpdateSysTenant'
+Vue.prototype.$sysTenantManager_DeleteSysTenantUrl='SysTenant/DeleteSysTenantById'
+
+//9. 流程管理
+Vue.prototype.$processFlowManagerUrl='ProcessFlow/GetPageProcessFlowList'
+Vue.prototype.$processFlowManager_GetProcessFlowUrl='ProcessFlow/Get'
+Vue.prototype.$processFlowManager_CreateProcessFlowUrl='ProcessFlow/CreateProcessFlow'
+Vue.prototype.$processFlowManager_EditProcessFlowUrl ='ProcessFlow/UpdateProcessFlow'
+Vue.prototype.$processFlowManager_DeleteProcessFlowUrl='ProcessFlow/DeleteProcessFlowById'
+Vue.prototype.$processFlowManager_GetAllProcessFlowUrl='ProcessFlow/GetAllProcessFlowList'
 
 //8. 区块链存证
 Vue.prototype.$bCEvidenceManagerUrl='BCEvidence/GetPageBCEvidenceList'

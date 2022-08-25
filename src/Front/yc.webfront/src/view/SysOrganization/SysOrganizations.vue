@@ -447,11 +447,11 @@
           //   minWidth: '100px',
           //   prop: 'address'
           // },
-          {
-            label: '助记符',
-            minWidth: '100px',
-            prop: 'memoni'
-          },
+          // {
+          //   label: '助记符',
+          //   minWidth: '100px',
+          //   prop: 'memoni'
+          // },
           {
             label: '备注',
             minWidth: '100px',

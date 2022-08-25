@@ -44,6 +44,28 @@ namespace YC.Model.BlockChainEntity
 
         [Display(Name = "存证操作时间")]
         public DateTime OperaEvidenceDate { get; set; }
+
+        /// <summary>
+        /// 业务流程Id
+        /// </summary>
+        [Display(Name = "业务流程Id")]
+        public string BusinessFlowId { get; set; }
+        /// <summary>
+        /// 行为类别Id
+        /// </summary>
+        [Display(Name = "行为类别Id")]
+        public string BehaviorTypeId { get; set; }
+
+        /// <summary>
+        /// 业务流程名称
+        /// </summary>
+        [Display(Name = "业务流程名称")]
+        public string BusinessFlowName { get; set; }
+        /// <summary>
+        /// 行为类别名称
+        /// </summary>
+        [Display(Name = "行为类别名称")]
+        public string BehaviorTypeName{ get; set; }
         #endregion
     }
 }

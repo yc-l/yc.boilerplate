@@ -10,29 +10,31 @@ using System.Text.Json.Serialization;
 
 namespace YC.Model.DbEntity
 {
-   public class BaseEntity<T> 
+    public class BaseEntity<T>
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DisplayName("主键Id")]
         public T Id { get; set; }
+
         [DisplayName("是否启用标识")]
         public bool? IsActive { get; set; }
+
         [DisplayName(" 是否删除标识")]
         public bool? IsDeleted { get; set; }
 
-        [DisplayName("租户名")]
+        [DisplayName("租户Id")]
         public virtual int? TenantId { get; set; }
 
         #region 拓展
-        static readonly string DefaultKeyName = "Id";
+
+        private static readonly string DefaultKeyName = "Id";
         private static Dictionary<string, Dictionary<string, List<PropertyInfo>>> g_TableSpecialFields = new Dictionary<string, Dictionary<string, List<PropertyInfo>>>();
         private static Dictionary<string, string> g_Tables = new Dictionary<string, string>();
         private static Object fieldsLock = new Object();
         private static Object tableLock = new Object();
+
         [Key]
-       
 
         [NotMapped, JsonIgnore]
         public string Table
@@ -53,8 +55,6 @@ namespace YC.Model.DbEntity
             }
         }
 
-
-
         public string DisplayName(string field)
         {
             MetadataTypeAttribute metadataTypeAttr = this.GetType().GetCustomAttribute(typeof(MetadataTypeAttribute)) as MetadataTypeAttribute;
@@ -74,7 +74,7 @@ namespace YC.Model.DbEntity
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="entityType">实体类型</param>
         /// <param name="attrType">Attribute类型</param>
@@ -156,7 +156,6 @@ namespace YC.Model.DbEntity
             return specialFields.Count > 0 ? specialFields.First().Name : DefaultKeyName;
         }
 
-
         public string GetEnumName(Enum value)
         {
             if (value != null)
@@ -169,11 +168,9 @@ namespace YC.Model.DbEntity
             }
             return string.Empty;
         }
+
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]  --计算字段
 
-       
-
-        #endregion
-
+        #endregion 拓展
     }
 }

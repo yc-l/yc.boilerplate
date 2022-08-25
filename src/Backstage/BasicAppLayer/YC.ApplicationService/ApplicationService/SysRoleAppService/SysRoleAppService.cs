@@ -82,7 +82,7 @@ namespace YC.ApplicationService
                 exp = a => a.Name.Contains(input.Filter.QueryString);
             }
             var list = await _sysRoleFreeSqlRepository.Select.Where(exp)
-                .Count(out var total).OrderByDescending(true, a => a.Id).Page(input.CurrentPage, input.PageSize)
+                .Count(out var total).OrderByDescending(true, a => a.Sort).Page(input.CurrentPage, input.PageSize)
                 .ToListAsync();
 
             var data = new PageOutput<SysRoleAddOrEditDto>()

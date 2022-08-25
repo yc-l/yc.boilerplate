@@ -43,31 +43,47 @@ namespace YC.ApplicationService
         /// <param name="pwd"></param>
         /// <param name=DefaultConfig.TenantSetting.TenantKeyName></param>
         /// <returns></returns>
-        public IApiResult<UserDto> UserLogin(string userId, string pwd, string guidKey, string validateCode, int tenantId = 1)
+        public IApiResult<UserDto> UserLogin(string userId, string pwd, string guidKey, string validateCode, int tenantId = 0)
         {
             var res = new ApiResult<UserDto>();
             UserDto userDto = new UserDto();
             if (validateCode != DefaultConfig.DefaultAppConfig.DefaultVerifyCode)
             {//特定放过不要验证码
-                if (_cacheManager.Get(guidKey)?.ToString().ToLower() != validateCode.ToLower())
-                {
+                if (_cacheManager.Get(guidKey) == null) {
                     return res.NotOk("验证码过期！");
                 }
+                if (_cacheManager.Get(guidKey)?.ToString().ToLower() != validateCode.ToLower())
+                {
+                    return res.NotOk("验证码输入错误！");
+                }
             }
-
-            var loginDto = _sysUserService.Login(userId, pwd, tenantId);
+            var loginDto = _sysUserService.Login(userId, pwd, tenantId);//还没登录，到默认库查询用户
             if (loginDto.State)
             {
                 userDto = _mapper.Map<UserDto>(loginDto.Data);
-                userDto.Token = CreateToken(loginDto.Data);
+                
+               
                 //claimsPrincipal 存储报错到缓存报错
                 userDto.Authentication = true.ToString();
                 userDto.Expired = DefaultConfig.DefaultAppConfig.CacheExpire.ToString();
-                userDto.TenantId = tenantId;
-                var tempData = _sysUserService.GetUserRolePermission(loginDto.Data.Id).Data;
+
+                #region 原版本
+                //userDto.Token = CreateToken(loginDto.Data);
+                //userDto.TenantId = tenantId; 原版
+                //var tempData = _sysUserService.GetUserRolePermission(loginDto.Data.Id).Data; 
+                #endregion
+
+                #region 支持全局身份库，再到租户库的切换,获取指定的角色权限
+                userDto.TenantId = loginDto.Data.TenantId ?? 0;//登录后，获取总用户表获取用户和租户
+                var tempData = _sysUserService.GetUserRolePermissionByTid(loginDto.Data.Account, loginDto.Data.Password, userDto.TenantId).Data;//从租户id，调用指定数据库获取
+                loginDto.Data.Id = long.Parse(tempData.Id);//使用真正租户里面用户id代替中央用户库id，本来两者id需要guid，并且同步的
+                userDto.Id = long.Parse(tempData.Id);//使用真正租户里面用户id代替中央用户库id，本来两者id需要guid，并且同步的
+                userDto.Token = CreateTokenByChangeTid(loginDto.Data, userDto.TenantId);
+                #endregion
+
                 userDto.RoleInfoList = tempData.RoleInfoList;
                 userDto.PermissionList = tempData.PermissionList;
-                tempData.TenantId = tenantId;
+                tempData.TenantId = userDto.TenantId;
                 CreateUserRolePermissionCache(tempData);
                 return res.Ok(userDto, loginDto.Message);
             }
@@ -169,5 +185,55 @@ namespace YC.ApplicationService
             _cacheManager.Add(refreshTokenCacheKey, userInfo, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.TokenExpire));
             return newToken;
         }
+
+        public string CreateTokenByChangeTid(SysUser loginUserDto,int tenantId)
+        {
+            string token = "";
+
+            IEnumerable<Claim> claims = new Claim[]
+             {
+                    new Claim("Id", loginUserDto.Id.ToString()),
+                    new Claim("Account", loginUserDto.Account),
+                    new Claim(ClaimTypes.Name, loginUserDto.Name??""),
+                    //new Claim(ClaimTypes.Email, loginUserDto.Email??""),
+                    //new Claim(ClaimTypes.MobilePhone, loginUserDto.Mobile??""),
+                    new Claim(ClaimTypes.Expired,DefaultConfig.DefaultAppConfig.TokenExpire.ToString()),
+                     new Claim("RefreshTokenExpired",DefaultConfig.DefaultAppConfig.RefreshTokenExpire.ToString()),
+                    new Claim(ClaimTypes.Authentication, true.ToString()),
+                    new Claim(DefaultConfig.DefaultAppConfig.TokenKeyName,  string.Format("tenantId_{0}_userId_{1}",tenantId.ToString(),loginUserDto.Id)),
+                    new Claim(DefaultConfig.TenantSetting.TenantKeyName,tenantId.ToString()),
+                    new Claim("Issuer",DefaultConfig.DefaultAppConfig.TokenIssuer),
+                    new Claim("Audience",DefaultConfig.DefaultAppConfig.TokenAudience),
+             };
+
+            var payLoad = new Dictionary<string, object>();
+            foreach (var i in claims)
+            {
+                payLoad.Add(i.Type, i.Value);
+            }
+
+            token = TokenContext.CreateTokenByHandler(payLoad, DefaultConfig.DefaultAppConfig.TokenExpire);//创建token
+            var identity = new ClaimsIdentity("合法访问Token");
+
+            identity.AddClaims(claims);
+            identity.AddClaim(new Claim("Token", token));
+            var claimsPrincipal = new ClaimsPrincipal(identity);//证件主体，可以持有多个证件claimsIdentity
+            _httpContextAccessor.HttpContext.User = claimsPrincipal;//将信息复制给当前的httpContext的用户，结果是无效的，赋值进去后面也找不到。
+                                                                    //session保存当前用户,httpcontext User 这个获取不靠谱，因为没有完全实现
+            this.SetSession(string.Format(DefaultConfig.SESSIONT_TENANT_USER, tenantId), loginUserDto);
+            var userDto = _mapper.Map<UserDto>(loginUserDto);
+            //claimsPrincipal 存储报错到缓存报错
+            userDto.Authentication = true.ToString();
+            userDto.Expired = DefaultConfig.DefaultAppConfig.CacheExpire.ToString();
+            userDto.TenantId = tenantId;
+            userDto.Token = token;
+            userDto.IP = IPUtils.GetIP(_httpContextAccessor?.HttpContext?.Request);
+            _cacheManager.Add(string.Format(DefaultConfig.CACHE_TOKEN_USER, string.Format("tenantId_{0}_userId_{1}", tenantId.ToString(), loginUserDto.Id)), userDto, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.TokenExpire));
+            //刷新缓存token
+            _cacheManager.Add(string.Format(DefaultConfig.CACHE_RETOKEN_USER, string.Format("tenantId_{0}_userId_{1}", tenantId.ToString(), loginUserDto.Id)), userDto, TimeSpan.FromSeconds(DefaultConfig.DefaultAppConfig.RefreshTokenExpire));
+            return token;
+        }
+
+        
     }
 }

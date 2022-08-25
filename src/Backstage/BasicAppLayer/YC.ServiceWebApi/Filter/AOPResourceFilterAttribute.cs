@@ -43,8 +43,8 @@ namespace YC.ServiceWebApi.Filter
                     result = new ApiResult<String>().NotOk(DefaultConfig.DefaultAppConfig.DefaultExceptionString);
                 }
                 context.Result = new JsonResult(result);
-                }
             }
+        }
 
         public void OnResourceExecuting(ResourceExecutingContext context)
         {

@@ -9,13 +9,14 @@ namespace FISCOBCOS.CSharpSdk
     {
         public ReceiptResultDto ReceiptDto { get; set; }
         public int Count { get; set; }
-        public List<KeyValueDto> ListKeyValueDtos { get; set; }
+        public List<EviDataDto> EviDataDtos { get; set; }
 
     }
 
-    public class KeyValueDto { 
-    
-    public string Key { get; set; }
-    public string Value { get; set; }
+    public class  EviDataDto {
+        public string BusinessFlowId { get; set; }
+        public string BehaviorTypeId { get; set; }
+        public string DataValue { get; set; }
+        public string TransHash { get; set; }
     }
 }

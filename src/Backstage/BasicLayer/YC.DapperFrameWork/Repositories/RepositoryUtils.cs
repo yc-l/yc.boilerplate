@@ -89,7 +89,7 @@ namespace Dapper
                 case Dialect.MySQL:
                     _dialect = Dialect.MySQL;
                     _encapsulation = "`{0}`";
-                    _getIdentitySql = string.Format("SELECT LAST_INSERT_ID() AS id");
+                    _getIdentitySql = ""; string.Format("SELECT LAST_INSERT_ID() AS id");
                     _getPagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {Offset},{RowsPerPage}";
                     break;
                 default:
@@ -329,7 +329,7 @@ namespace Dapper
 
             if (Debugger.IsAttached)
                 Trace.WriteLine(String.Format("Get<{0}>: {1} with Id: {2}", currenttype, sb, id));
-
+           
             return connection.Query<T>(sb.ToString(), dynParms, transaction, true, commandTimeout).FirstOrDefault();
         }
 
@@ -599,6 +599,97 @@ namespace Dapper
                 return (TKey)idProps.First().GetValue(entityToInsert, null);
             }
             return (TKey)r.First().id;
+        }
+        /// <summary>
+        /// <para>Inserts a row into the database, using ONLY the properties defined by TEntity</para>
+        /// <para>By default inserts into the table matching the class name</para>
+        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
+        /// <para>Insert filters out Id column and any columns with the [Key] attribute</para>
+        /// <para>Properties marked with attribute [Editable(false)] and complex types are ignored</para>
+        /// <para>Supports transaction and command timeout</para>
+        /// <para>Returns the ID (primary key) of the newly inserted record if it is identity using the defined type, otherwise null</para>
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="entityToInsert"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The ID (primary key) of the newly inserted record if it is identity using the defined type, otherwise null</returns>
+        public static dynamic InsertByNotReturnId<TKey, TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+
+            var idProps = GetIdProperties(entityToInsert).ToList();
+
+            if (!idProps.Any())
+                throw new ArgumentException("Insert<T> only supports an entity with a [Key] or Id property");
+
+            var keyHasPredefinedValue = false;
+            var baseType = typeof(TKey);
+            var underlyingType = Nullable.GetUnderlyingType(baseType);
+            var keytype = underlyingType ?? baseType;
+            if (keytype != typeof(int) && keytype != typeof(uint) && keytype != typeof(long) && keytype != typeof(ulong) && keytype != typeof(short) && keytype != typeof(ushort) && keytype != typeof(Guid) && keytype != typeof(string))
+            {
+                throw new Exception("Invalid return type");
+            }
+
+            var name = GetTableName(entityToInsert);
+            var sb = new StringBuilder();
+            sb.AppendFormat("insert into {0}", name);
+            sb.Append(" (");
+            BuildInsertParameters<TEntity>(sb);
+            sb.Append(") ");
+            sb.Append("values");
+            sb.Append(" (");
+            BuildInsertValues<TEntity>(sb);
+            sb.Append(")");
+
+            if (keytype == typeof(Guid))
+            {
+                var guidvalue = (Guid)idProps.First().GetValue(entityToInsert, null);
+                if (guidvalue == Guid.Empty)
+                {
+                    var newguid = SequentialGuid();
+                    idProps.First().SetValue(entityToInsert, newguid, null);
+                }
+                else
+                {
+                    keyHasPredefinedValue = true;
+                }
+               
+            }
+
+            if (keytype == typeof(string))
+            {
+                var guidvalue = (string)idProps.First().GetValue(entityToInsert, null);
+                if (guidvalue == string.Empty)
+                {
+                    var newguid = SequentialGuid();
+                    idProps.First().SetValue(entityToInsert, newguid, null);
+                }
+                else
+                {
+                    keyHasPredefinedValue = true;
+                }
+               
+            }
+
+
+
+            if ((keytype == typeof(int) || keytype == typeof(long)) && Convert.ToInt64(idProps.First().GetValue(entityToInsert, null)) == 0)
+            {
+                sb.Append(";");
+                //sb.Append(";" + _getIdentitySql);
+            }
+            else
+            {
+                keyHasPredefinedValue = true;
+            }
+
+            if (Debugger.IsAttached)
+                Trace.WriteLine(String.Format("Insert: {0}", sb));
+
+            var r = connection.Query(sb.ToString(), entityToInsert, transaction, true, commandTimeout);
+
+          return r.FirstOrDefault();
         }
 
 
@@ -1307,7 +1398,9 @@ namespace Dapper
         //For Get(id) and Delete(id) we don't have an entity, just the type so this method is used
         private static IEnumerable<PropertyInfo> GetIdProperties(Type type)
         {
+           
             var tp = type.GetProperties().Where(p => p.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(KeyAttribute).Name)).ToList();
+            tp = tp.Where(x => x.Name.ToLower() != "table").ToList(); //过滤掉table
             return tp.Any() ? tp : type.GetProperties().Where(p => p.Name.Equals("Id", StringComparison.OrdinalIgnoreCase));
         }
 
@@ -1383,12 +1476,12 @@ namespace Dapper
         /// </summary>
         public enum Dialect
         {
-            MySQL = 0,
-            SQLServer = 1,
-            PostgreSQL = 2,
+            MySQL=0,
+            SQLServer=1,
+            PostgreSQL=2,
             //Oracle = 3,
             SQLite = 4
-
+           
         }
 
         public interface ITableNameResolver

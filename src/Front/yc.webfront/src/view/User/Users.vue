@@ -424,10 +424,10 @@
             )
 
             if (res.code !== 200) {
-              this.$message.error('添加用户失败！' + res.message)
+             return this.$message.error('添加用户失败！' + res.message)
             }
 
-            this.$message.success('添加用户成功！')
+           return  this.$message.success('添加用户成功！')
           }
 
           // 隐藏添加用户的对话框

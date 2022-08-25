@@ -1,18 +1,16 @@
-﻿
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+
 namespace YC.Common.ShareUtils
 {
-
-    public class CacheUtils
+    public class CacheUtils : IDisposable
     {
-
         private IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
 
-        public  TimeSpan _defaultTimeSpan = TimeSpan.FromSeconds(7200);
+        public TimeSpan _defaultTimeSpan = TimeSpan.FromSeconds(7200);
 
         /// <summary>
         /// 判断是否在缓存中
@@ -65,6 +63,7 @@ namespace YC.Common.ShareUtils
             });
             return vals;
         }
+
         /// <summary>
         /// 取得缓存数据
         /// </summary>
@@ -173,5 +172,4 @@ namespace YC.Common.ShareUtils
             GC.SuppressFinalize(this);
         }
     }
-
 }

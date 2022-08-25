@@ -18,11 +18,13 @@
       </template>
     <el-upload
   class="avatar-uploader"
-  action=""
+  :action="defaultConfig.baseUrl+$gersonalManager_UploadImageUrl"
   :show-file-list="false"
   :headers="headers"
       ref="upload"
-      :on-change="changeFile"
+      :on-success="uploadSuccess"
+      :on-error="uploadError"
+      :on-change="showChange"
       :auto-upload="false"
   :before-upload="beforeAvatarUpload">
   <img v-if="this.person.avatar" :src="this.person.avatar" class="avatar">
@@ -400,9 +402,11 @@
     uploadError(response, file, fileList) {
       console.log("项目添加失败");
     },
-    changeFile(file, fileList){
+    showChange(file, fileList){
+     
       this.person.avatar = URL.createObjectURL(file.raw);
-      this.uploadForm.file= file.raw
+    this.uploadForm.file=file.raw;
+
     }
 
     },

@@ -45,7 +45,7 @@ namespace YC.ServiceWebApi.ServiceCollectionExtensions
                 var freeSqlBuilder = new FreeSqlBuilder()
                         .UseConnectionString((DataType)dataType, connectionString)
                         .UseLazyLoading(false)
-                        .UseNoneCommandParameter(true);
+                        .UseNoneCommandParameter(true).UseExitAutoDisposePool(false);
 
                 #region 监听所有命令
 
@@ -58,9 +58,6 @@ namespace YC.ServiceWebApi.ServiceCollectionExtensions
 
                 var fsql = freeSqlBuilder.Build();
                 //fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
-
-
-               
 
                 #region 监听Curd操作
                 fsql.Aop.CurdBefore += (s, e) =>
@@ -120,10 +117,12 @@ namespace YC.ServiceWebApi.ServiceCollectionExtensions
                 //    }
                 //};
                 #endregion
+
                 #endregion
 
                 return fsql;
             });
         }
+      
     }
 }

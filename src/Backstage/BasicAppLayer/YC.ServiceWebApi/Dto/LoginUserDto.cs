@@ -14,7 +14,7 @@ namespace ServiceWebApi.Dto
         [JsonProperty("pwd", Required = Required.Always)]
         public string Pwd { get; set; }
         //[JsonProperty("tenantId", Required = Required.Always)]
-        public int TenantId { get; set; }
+        //public int TenantId { get; set; }
         [JsonProperty("validateCode", Required = Required.Always)]
         public string ValidateCode { get; set; }
         public string GuidKey { get; set; }

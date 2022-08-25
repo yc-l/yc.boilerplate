@@ -17,7 +17,7 @@ namespace YC.DapperFrameWork
     public class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, new()
 
     {
-        public RepositoryBase(IUnitOfWork unitOfWork, ITenant tenant=null)
+        public RepositoryBase(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
         }
@@ -52,7 +52,15 @@ namespace YC.DapperFrameWork
                     {
                         if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
+                            if (pi.PropertyType.Name.ToLower().Contains("Nullable`1".ToLower()))
+                            {
+                                pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType.GetGenericArguments()[0]), null);
+
+                            }
+                            else {
+                                pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
+
+                            }
                         }
                     }
 
@@ -75,28 +83,53 @@ namespace YC.DapperFrameWork
                 // object obj = Activator.CreateInstance(pi.PropertyType);//创建指定类型实例
                 BaseEntity be = new BaseEntity();
                 Type baseEntityType = typeof(BaseEntity);
+
+                Type piType=pi.GetType();
                 if (pi.CanWrite)
                 {//是否可以写入
                     if (pi.Name == "CreationTimeStamp")
                     {
-                        if (baseEntityType.GetProperty(pi.Name) != null)
+                         if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
-                        }
+                            if (pi.PropertyType.Name.ToLower().Contains("Nullable`1".ToLower()))
+                            {
+                                pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType.GetGenericArguments()[0]), null);
+                            }
+                            else
+                            {
+                                pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
+                            }
+                            }
                     }
                     if (pi.Name == "IsActive")
                     {
-                        if (baseEntityType.GetProperty(pi.Name) != null)
+                       if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(true, pi.PropertyType), null);
+                            
+                            if (pi.PropertyType.Name.ToLower().Contains("Nullable`1".ToLower()))
+                            {
+                                pi.SetValue(input, Convert.ChangeType(true, pi.PropertyType.GetGenericArguments()[0]), null);
+
+                            }
+                            else {
+                                pi.SetValue(input, Convert.ChangeType(true, pi.PropertyType), null);
+                            }
+                           
                         }
                     }
 
                     if (pi.Name == "IsDeleted")
                     {
-                        if (baseEntityType.GetProperty(pi.Name) != null)
+                       if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(false, pi.PropertyType), null);
+                            if (pi.PropertyType.Name.ToLower().Contains("Nullable`1".ToLower()))
+                            {
+                                pi.SetValue(input, Convert.ChangeType(false, pi.PropertyType.GetGenericArguments()[0]), null);
+                            }
+                            else
+                            {
+                                pi.SetValue(input, Convert.ChangeType(false, pi.PropertyType), null);
+                            }
                         }
                     }
 
@@ -125,14 +158,28 @@ namespace YC.DapperFrameWork
                     {
                         if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
+                            if (pi.PropertyType.Name.ToLower().Contains("Nullable`1".ToLower()))
+                            {
+                                pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType.GetGenericArguments()[0]), null);
+                            }
+                            else {
+                                pi.SetValue(input, Convert.ChangeType(UnixDateUtils.ConvertDateTimeLong(DateTime.Now), pi.PropertyType), null);
+
+                            }
                         }
                     }
                     if (pi.Name == "IsDeleted")
                     {
                         if (baseEntityType.GetProperty(pi.Name) != null)
                         {
-                            pi.SetValue(input, Convert.ChangeType(true, pi.PropertyType), null);
+                            if (pi.PropertyType.Name.ToLower().Contains("Nullable`1".ToLower()))
+                            {
+                                pi.SetValue(input, Convert.ChangeType(true, pi.PropertyType.GetGenericArguments()[0]), null);
+                            }
+                            else {
+                                pi.SetValue(input, Convert.ChangeType(true, pi.PropertyType), null);
+                            }
+                           
                         }
                     }
 
@@ -223,6 +270,21 @@ namespace YC.DapperFrameWork
             var id = _unitOfWork.Connection.Insert<TKey, TEntity>(entity);
             var user = _unitOfWork.Connection.Get<TEntity>(id);
             return (TKey)id;
+
+        }
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <typeparam name="TKey">主键key</typeparam>
+        /// <param name="entity">新增实体</param>
+        /// <returns></returns>
+        public dynamic InsertByNotReturnId<TKey>(TEntity entity)
+        {
+
+            entity = SetCreate(entity);
+           var result= _unitOfWork.Connection.InsertByNotReturnId<TKey, TEntity>(entity);
+            return result;
 
         }
 
@@ -515,6 +577,20 @@ namespace YC.DapperFrameWork
 
         }
 
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <typeparam name="TKey">主键key</typeparam>
+        /// <param name="entity">新增实体</param>
+        /// <returns></returns>
+        public async Task<dynamic> InsertByNotReturnIdAsync<TKey>(TEntity entity)
+        {
+            entity = SetCreate(entity);
+            var data = await _unitOfWork.Connection.InsertByNotReturnIdAsync<TKey, TEntity>(entity);
+            return data;
+
+        }
         /// <summary>
         /// 新增
         /// </summary>
@@ -524,18 +600,18 @@ namespace YC.DapperFrameWork
         public async Task<int> InsertBatchListAsync<TKey>(List<TEntity> entityList)
         {
 
+            List<TEntity> newEntityList = new List<TEntity>();
             int count = 0;
 
             for (int i = 0; i < entityList.Count; i++)
             {
                 var temp = entityList[i];
                 temp = SetCreate(temp);
-                //if (i > 35)
-                //    throw new Exception("throw create exception to stop insert operation in order to trigger transaction");
-                //配合事务，是批量一次性提交，如果没有事务就是一条条提交的
-                var id = await _unitOfWork.Connection.InsertAsync<TKey, TEntity>(temp, _unitOfWork.GetTransaction());
-                count += 1;
+                newEntityList.Add(temp);
             }
+
+            count = await _unitOfWork.Connection.InsertListAsync<TKey, TEntity>(newEntityList, _unitOfWork.GetTransaction());
+
             return count;
         }
 

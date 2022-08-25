@@ -15,7 +15,7 @@ namespace FISCOBCOS.CSharpSdk
         public string privateKey = "";
         string binCode = "";
         string abi = "";
-        public string contractAddress = "0x196bcc72893d357492ff59c88631a60cf31f94d8";
+        public string contractAddress = "0x294840a676a3d51dd8b30dd6ce2829b02930e6f1";
         public TraceEvidenceContractService()
         {
 
@@ -36,9 +36,9 @@ namespace FISCOBCOS.CSharpSdk
             var contractService = new ContractService(BaseConfig.DefaultUrl, BaseConfig.DefaultRpcId, BaseConfig.DefaultChainId, BaseConfig.DefaultGroupId, privateKey);
           
             var inputsParameters = new[] { BuildParams.CreateParam("string", "serviceId"),
-                BuildParams.CreateParam("string", "typeName"),
+                BuildParams.CreateParam("string[]", "eviData"),
                 BuildParams.CreateParam("string", "dataValue") };
-            var paramsValue = new object[] { rtv.ServiceId, rtv.TypeName, rtv.DataValue };
+            var paramsValue = new object[] { rtv.ServiceId, new string[] { rtv.TypeName, rtv.BusinessFlowId, rtv.BehaviorTypeId }, rtv.DataValue };
             string functionName = "registerServiceData";//调用合约方法
 
             ReceiptResultDto receiptResultDto = await contractService.SendTranscationWithReceiptAsync(abi, contractAddress, functionName, inputsParameters, paramsValue);
@@ -71,9 +71,9 @@ namespace FISCOBCOS.CSharpSdk
             var contractService = new ContractService(BaseConfig.DefaultUrl, BaseConfig.DefaultRpcId, BaseConfig.DefaultChainId, BaseConfig.DefaultGroupId, privateKey);
 
             var inputsParameters = new[] { BuildParams.CreateParam("string", "serviceId"),
-                BuildParams.CreateParam("string", "typeName"),
+                BuildParams.CreateParam("string[]", "eviData"),
                 BuildParams.CreateParam("string", "dataValue") };
-            var paramsValue = new object[] { rtv.ServiceId, rtv.TypeName, rtv.DataValue };
+            var paramsValue = new object[] { rtv.ServiceId, new string[] { rtv.TypeName, rtv.BusinessFlowId, rtv.BehaviorTypeId }, rtv.DataValue };
             string functionName = "registerServiceData";//调用合约方法
 
            string txHash = await contractService.SendTranscationWithTransHashAsync(abi, contractAddress, functionName, inputsParameters, paramsValue);
@@ -104,12 +104,16 @@ namespace FISCOBCOS.CSharpSdk
                 var outputList = solidityAbi.OutputDecode(functionName, result.Output);
                 callTraceEvidence.ReceiptDto = result;
                 callTraceEvidence.Count= Convert.ToInt32(outputList[0].Result.ToString());
-                callTraceEvidence.ListKeyValueDtos = new List<KeyValueDto>();
+                callTraceEvidence.EviDataDtos = new List<EviDataDto>();
                
                 for (int i = 0; i < callTraceEvidence.Count; i++) {
-                    string[] typeList = outputList[1].Result.ToJson().ToObject<string[]>();
-                    string[] dataList = (string[])outputList[2].Result.ToJson().ToObject<string[]>();
-                    callTraceEvidence.ListKeyValueDtos.Add(new KeyValueDto() {Key= typeList[i],Value= dataList[i] });
+                    string[] businessFlowIdList = outputList[1].Result.ToJson().ToObject<string[]>();
+                    string[] behaviorTypeList = outputList[2].Result.ToJson().ToObject<string[]>();
+                    string[] dataList = (string[])outputList[3].Result.ToJson().ToObject<string[]>();
+                    callTraceEvidence.EviDataDtos.Add(new EviDataDto() {
+                        BehaviorTypeId=behaviorTypeList[i],
+                        BusinessFlowId=businessFlowIdList[i],
+                    DataValue=dataList[i]});
                 }
                
             }
@@ -118,5 +122,22 @@ namespace FISCOBCOS.CSharpSdk
 
 
         }
+
+        /// <summary>
+        /// 查询存证是否成功！
+        /// </summary>
+        /// <param name="txHash"></param>
+        /// <returns></returns>
+        public async Task<bool> GetTransStateByTxHash(string txHash) {
+
+            bool state = false;
+            var contractService = new ContractService(BaseConfig.DefaultUrl, BaseConfig.DefaultRpcId, BaseConfig.DefaultChainId, BaseConfig.DefaultGroupId, privateKey);
+            var result = contractService.GetTranscationReceipt(txHash);
+            if (result?.Status == "0x0")
+            {
+                state = true;
+            }
+            return state;
+        } 
     }
 }

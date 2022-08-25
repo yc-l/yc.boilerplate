@@ -19,8 +19,8 @@ namespace YC.ApplicationService
         List<SysUser> GetAllSysUserList();
 
         Task<PersonInfoDto> GetUserInfo();
-        Task<IApiResult> UploadUserAvatar(IFormFileCollection formFiles);
-        Task<IApiResult> UpdateUserAvatar(long id, string filePath);
+        IApiResult UploadUserAvatar(IFormFileCollection formFiles);
+        IApiResult UpdateUserAvatar(long id, string filePath);
 
         IApiResult<SysUser> Login(string userId, string pwd, int TenantId = 0);
 
@@ -37,5 +37,6 @@ namespace YC.ApplicationService
         Task<ApiResult<UserAddOrEditDto>> GetAsync(long id);
 
         IApiResult<UserRolePermissionDto> GetUserRolePermission(long id);
+        IApiResult<UserRolePermissionDto> GetUserRolePermissionByTid(string account, string password, int tenantId);
     }
 }

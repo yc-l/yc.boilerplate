@@ -95,7 +95,10 @@ namespace YC.ApplicationService
             input.Id = "0";//做一个处理，要不然automapper 无法转换
             var entity = _mapper.Map<SysPermission>(input);
             var obj = await _sysPermissionFreeSqlRepository.InsertAsync(entity);
-
+           var isExist= await _sysPermissionFreeSqlRepository.Where(x=>x.Code.Equals(input.Code)).AnyAsync();
+            if (isExist) {
+                return ApiResult.NotOk("已存在相同权限编码");
+            }
             if (!(obj?.Id > 0))
             {
                 return ApiResult.NotOk();
@@ -138,7 +141,11 @@ namespace YC.ApplicationService
             {
                 return ApiResult.NotOk("对象不存在！");
             }
-
+            var isExist = await _sysPermissionFreeSqlRepository.Where(x => x.Code.Equals(input.Code)&&x.Id!=id).AnyAsync();
+            if (isExist)
+            {
+                return ApiResult.NotOk("已存在相同权限编码。");
+            }
             _mapper.Map(input, obj);
             await _sysPermissionFreeSqlRepository.UpdateAsync(obj);
 

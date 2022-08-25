@@ -3,7 +3,9 @@ module.exports = {
   lintOnSave: false,
   publicPath:"./",
   outputDir:'dist',
-  devServer:{
+    devServer:{
 
   },
+  runtimeCompiler: true,
+  
 };

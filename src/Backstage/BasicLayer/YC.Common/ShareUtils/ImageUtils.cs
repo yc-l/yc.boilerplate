@@ -93,6 +93,47 @@ namespace YC.Common.ShareUtils
             }
             return strBaser64;
         }
+
+        public static string GetImageJson(string path) {
+            //测试保存图片地址
+            string savePath = System.Environment.CurrentDirectory + "\\"+Guid.NewGuid().ToString()+"jpg";
+            byte[] bytes = File.ReadAllBytes(path);
+
+            //二进制转字符串
+            string base64String = Convert.ToBase64String(bytes);
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(base64String);
+            string deserializeBase64String = Newtonsoft.Json.JsonConvert.DeserializeObject<string>(json);
+            if (base64String == deserializeBase64String)
+            {
+                Console.WriteLine("转换json成功！");
+                //字符串转二进制
+                byte[] newBytes = Convert.FromBase64String(deserializeBase64String);
+                FileStream fileStream = null;
+                try
+                {
+                   
+                    fileStream = File.Create(savePath);
+                    //FileStream.Write Method:Writes a block of bytes to the file stream.
+                    fileStream.Write(newBytes, 0, newBytes.Length);
+                    //FileStream.Flush 方法:清除该流的所有缓冲区，使得所有缓冲的数据都被写入到基础设备。
+                    fileStream.Flush();
+                    //FileStream.Close Method:Closes the file and releases any resources associated with the current file stream.
+                    fileStream.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+
+                }
+            }
+            else
+            {
+                return null; 
+            }
+
+            return json;
+        }
     }
 
     public static class ImageEx

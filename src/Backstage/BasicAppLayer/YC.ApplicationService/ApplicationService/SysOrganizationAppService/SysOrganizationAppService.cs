@@ -74,7 +74,7 @@ namespace YC.ApplicationService
                 //exp = a => a.Name.Contains(input.Filter.QueryString);
             }
             var list = await _sysOrganizationFreeSqlRepository.Select.WhereIf(input.Filter.QueryString.NotNull(), exp)
-                .Count(out var total).OrderByDescending(true, a => a.Id).Page(input.CurrentPage, input.PageSize)
+                .Count(out var total).OrderByDescending(true, a => a.Sort).Page(input.CurrentPage, input.PageSize)
                 .ToListAsync();
 
              ///返回数据必须是明确实体，要不然可能存在json映射死循环
@@ -94,6 +94,11 @@ namespace YC.ApplicationService
 
             input.Id = "0";//做一个处理，要不然automapper 无法转换
             var entity = _mapper.Map<SysOrganization>(input);
+           var isExist=await _sysOrganizationFreeSqlRepository.Where(x => x.Label.Equals(input.Label)).AnyAsync();
+            if (isExist) {
+
+                return ApiResult.NotOk("已存在同名机构！");
+            }
             var obj = await _sysOrganizationFreeSqlRepository.InsertAsync(entity);
 
             if (!(obj?.Id > 0))
@@ -137,6 +142,13 @@ namespace YC.ApplicationService
             if (!(obj?.Id > 0))
             {
                 return ApiResult.NotOk("对象不存在！");
+            }
+
+            var isExist = await _sysOrganizationFreeSqlRepository.Where(x => x.Label.Equals(input.Label)&&x.Id!=id).AnyAsync();
+            if (isExist)
+            {
+
+                return ApiResult.NotOk("已存在同名机构！");
             }
 
             _mapper.Map(input, obj);

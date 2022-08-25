@@ -20,7 +20,7 @@ namespace YC.DapperFrameWork
         IDbTransaction GetTransaction();
         void Commit();
         void Rollback();
-
+      
         IDatabase Db { get; set; }
     }
 }

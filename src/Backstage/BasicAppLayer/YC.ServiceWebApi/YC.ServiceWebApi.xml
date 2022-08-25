@@ -83,7 +83,7 @@
             <param name="token">原始token</param>
             <returns></returns>
         </member>
-        <member name="M:YC.ServiceWebApi.Controllers.IdentityController.UploadImage">
+        <member name="M:YC.ServiceWebApi.Controllers.IdentityController.UploadImage(YC.ServiceWebApi.Dto.UploadFileDto)">
             <summary>
             上传图片,通过Form表单提交
             </summary>

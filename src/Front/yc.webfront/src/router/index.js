@@ -14,10 +14,11 @@ import SysAuditLogs from '../view/SysAuditLog/SysAuditLogs'
 import SysOrganizations from '../view/SysOrganization/SysOrganizations'
 import Board from '../view/Board'
 import Books from '../view/Book/Books'
+import Graphic from '../view/AutomationEngine/Graphic'
+import CodeEditor from '../view/AutomationEngine/CodeEditor'
+import SysTenants from '../view/SysTenant/SysTenants'
 import BCEvidences from '../view/BCEvidence/BCEvidences'
-
-
-
+import ProcessFlows from '../view/ProcessFlow/ProcessFlows'
 Vue.use(VueRouter)
 
 // 捕获push replace中的错误
@@ -59,7 +60,11 @@ const routes = [
       { path: '/sysOrganizations', component: SysOrganizations },
       { path: '/board', component: Board },  
       { path: '/books', component: Books },
-      { path: '/bCEvidences', component: BCEvidences }
+      { path: '/graphic', component: Graphic },
+      { path: '/codeEditor', component: CodeEditor },
+      { path: '/sysTenants', component: SysTenants },
+      { path: '/bCEvidences', component: BCEvidences },
+      { path: '/processFlows', component: ProcessFlows }
 
     ]
   }    

@@ -54,7 +54,9 @@ namespace YC.DapperFrameWork
         /// <returns></returns>
         TKey Insert<TKey>(TEntity entity);
 
- 
+        dynamic InsertByNotReturnId<TKey>(TEntity entity);
+
+
         int InsertBatchList<TKey>(List<TEntity> entityList);
         /// <summary>
         /// 更新
@@ -160,6 +162,8 @@ namespace YC.DapperFrameWork
         /// <param name="entity">新增实体</param>
         /// <returns></returns>
         Task<TKey> InsertAsync<TKey>(TEntity entity);
+
+        Task<dynamic> InsertByNotReturnIdAsync<TKey>(TEntity entity);
 
         /// <summary>
         /// 新增

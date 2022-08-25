@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
+using CSRedis;
 using Microsoft.Extensions.Caching.Redis;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace YC.ServiceWebApi.AopModule
     {
         protected override void Load(ContainerBuilder builder)
         {
-           
+            builder.RegisterType<AopTestAttribute>().InstancePerLifetimeScope().PropertiesAutowired();
             builder.RegisterType<AopInterceptor>();
 
             //Mongodb 注入
@@ -34,13 +35,25 @@ namespace YC.ServiceWebApi.AopModule
                     tempConfigOptions.SyncTimeout = 5000;
                     tempConfigOptions.ConnectTimeout = 15000;
                     tempConfigOptions.ResponseTimeout = 15000;
-                    //redis cache注入
-                    builder.RegisterType<RedisCacheManager>().As<ICacheManager>().WithParameter("options", new RedisCacheOptions()
-                    {
-                        Configuration = DefaultConfig.ConnectionRedis.Connection,
-                        InstanceName = DefaultConfig.ConnectionRedis.InstanceName,
-                        ConfigurationOptions = tempConfigOptions,
-                    }).SingleInstance();
+
+                    // CSRedis 版本
+                    string testRedisConfig = "127.0.0.1:6379,password=123qwe,defaultDatabase=2,prefix=my_";
+                    var csredis = new CSRedis.CSRedisClient(testRedisConfig);
+                    RedisHelper.Initialization(csredis);// 直接用
+                    builder.RegisterType<CSRedisClient>().WithParameter("connectionString", testRedisConfig)
+                        .InstancePerLifetimeScope();
+
+                    //redis cache注入,CSRedisCore
+                    builder.RegisterType<CSRedisCacheManager>().As<ICacheManager>().InstancePerLifetimeScope();
+
+                    ////redis cache注入,StackExchange.Redis版本
+                    //builder.RegisterType<RedisCacheManager>().As<ICacheManager>().WithParameter("options", new RedisCacheOptions()
+                    //{
+                    //    Configuration = DefaultConfig.ConnectionRedis.Connection,
+                    //    InstanceName = DefaultConfig.ConnectionRedis.InstanceName,
+                    //    ConfigurationOptions = tempConfigOptions,
+                    //}).SingleInstance();
+
                     break;
                 //默认内存注入
                 case 1:
@@ -51,12 +64,6 @@ namespace YC.ServiceWebApi.AopModule
 
             //多租户注入
             builder.RegisterType<DefaultTenant>().As<ITenant>().AsImplementedInterfaces().InstancePerLifetimeScope().PropertiesAutowired();
-
-            builder.RegisterGeneric(typeof(FreeSqlRepository<,>)).As(typeof(IFreeSqlRepository<,>)).InstancePerLifetimeScope().EnableInterfaceInterceptors()
-                                .InterceptedBy(typeof(AopInterceptor)).PropertiesAutowired();//freeSql 注入
-
-            builder.RegisterGeneric(typeof(FreeSqlRepository<>)).As(typeof(IFreeSqlRepository<>)).InstancePerLifetimeScope().EnableInterfaceInterceptors()
-                     .InterceptedBy(typeof(AopInterceptor)).PropertiesAutowired();//freeSql 注入
         }
     }
 }

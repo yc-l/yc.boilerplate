@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FISCOBCOS.CSharpSdk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,24 +18,40 @@ namespace YC.ApplicationService.Dto
     /// 区块链存证Dto
     public partial class BCEvidenceCreateDto
     {
-       /// <summary>
-///事务Id
-/// </summary>
-public String ServiceId {get;set;}
-/// <summary>
-///存证类别
-/// </summary>
-public String TypeName {get;set;}
-/// <summary>
-///存证数据
-/// </summary>
-public String DataValue {get;set;}
+        /// <summary>
+        ///事务Id
+        /// </summary>
+        public String ServiceId {get;set;}
+        /// <summary>
+        ///存证类别
+        /// </summary>
+        public String TypeName {get;set;}
+        /// <summary>
+        ///存证数据
+        /// </summary>
+        public String DataValue {get;set;}
 
- /// <summary>
-///主键Id
-/// </summary>
-public string Id {get;set;}
+         /// <summary>
+        ///主键Id
+        /// </summary>
+        public string Id {get;set;}
+        /// <summary>
+        /// 业务流程Id
+        /// </summary>
+        public string BusinessFlowId { get; set; }
+        /// <summary>
+        /// 行为类别Id
+        /// </summary>
+        public string BehaviorTypeId { get; set; }
 
+        /// <summary>
+        /// 业务流程名称
+        /// </summary>
+        public string BusinessFlowName { get; set; }
+        /// <summary>
+        /// 行为类别名称
+        /// </summary>
+        public string BehaviorTypeName { get; set; }
     }
 
     public partial class BCEvidenceAddOrEditDto
@@ -71,7 +88,33 @@ public string Id {get;set;}
         ///主键Id
         /// </summary>
         public string Id { get; set; }
+        /// <summary>
+        ///flow
+        /// </summary>
+        public string FlowContent { get; set; }
 
+        /// <summary>
+        /// 业务流程Id
+        /// </summary>
+        public string BusinessFlowId { get; set; }
+        /// <summary>
+        /// 行为类别Id
+        /// </summary>
+        public string BehaviorTypeId { get; set; }
+
+        /// <summary>
+        /// 业务流程名称
+        /// </summary>
+        public string BusinessFlowName { get; set; }
+        /// <summary>
+        /// 行为类别名称
+        /// </summary>
+        public string BehaviorTypeName { get; set; }
+        
+        /// <summary>
+        /// 区块链返回存证数据
+        /// </summary>
+        public List<EviDataDto> EviDataList { get; set; }
     }
 }
 
