@@ -183,7 +183,7 @@ namespace YC.ServiceWebApi.Filter
                 throw new Exception(DefaultConfig.DefaultAppConfig.ExceptionKey + "用户角色权限数据获取异常！");
             }
             string requestApi = context.HttpContext.Request.Path.Value.Replace("/api/", "");
-            var isAllowedPermission = userRolePermissions.PermissionList.Exists(x => x.Api.Contains(requestApi));
+            var isAllowedPermission = userRolePermissions.PermissionList.Where(x => x.Api != null).ToList().Exists(x => x.Api.Contains(requestApi));
             string[] isAllowedPaths = DefaultConfig.AllowedNoPermissionUrls;
             if (!isAllowedPermission && !isAllowedPaths.Any(x => x.Contains(requestApi)))
             {

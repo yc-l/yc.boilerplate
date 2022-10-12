@@ -676,11 +676,7 @@
         }) => {
 
           const labelFilter = ["开始", "结束"];
-          // var temp = labelFilter.findIndex(x => x != node.label)
-          // //console.log("temp:"+temp)
-          // if (temp < 1) {
-          //   this.showInfo(node.label)
-          // }
+
            var tempList=this.viewForm.eviDataList
            var objList=tempList.filter(x=>x.behaviorTypeId==node.id)
            if(objList!=null){
@@ -697,34 +693,14 @@
 
 
       showInfo(content) {
-        
-       
-        //  this.$message({
-        //         message: content,
-        //         //type: 'warning'
-        //       })
+
         console.log(content)
 
         this.$alert(content, '详情存证信息', {
           dangerouslyUseHTMLString: true,
            customClass: 'msgbox'
         });
-        // this.$confirm(content, '详情存证信息', {
-        //     //iconClass: 'el-icon-question', // 自定义图标样式
-        //     // confirmButtonText: '确认', // 确认按钮文字更换
-        //     // cancelButtonText: '取消', // 取消按钮文字更换
-        //     //showClose: true, // 是否显示右上角关闭按钮
-        //     // type: 'warning' // 提示类型  success/info/warning/error
-        //   }).then(function () {
-
-        //   }).then((data) => {
-        //     // 取消操作
-        //   })
-        //   .catch(function (err) {
-        //     // 捕获异常
-        //   })
-
-
+    
       },
 
       showGraph(jsonData) {

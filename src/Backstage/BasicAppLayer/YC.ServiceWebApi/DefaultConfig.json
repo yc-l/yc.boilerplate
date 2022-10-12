@@ -77,7 +77,7 @@
       { "url": "Identity/UploadImage" },
       { "url": "BCEvidence/ValidateBCEvidenceList" },
       { "url": "ProcessFlow/GetAllProcessFlowList" },
-     
+
     ],
     ///允许永久访问Token
     "AllowedTokens": [
@@ -162,7 +162,7 @@
     "DefaultDbType": 0,
     //sqlserver
     //mysql
-    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=traceEvidenceDB;",
+    "DefaultDbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=traceEvidenceDB;",
     "TenantList": [
       {
         "TenantId": 1,
@@ -172,7 +172,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=traceEvidenceDB;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=traceEvidenceDB;"
       },
       {
         "TenantId": 2,
@@ -182,7 +182,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB2;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB2;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB2;"
       },
       {
         "TenantId": 3,
@@ -192,7 +192,7 @@
         //sqlserver
         //"DbConnectionString": "Data Source = .;Initial Catalog = bigDataDB3;User Id = sa;Password = 123456;"
         //mysql
-        "DbConnectionString": "Server=127.0.0.1;Port=3307;User Id=root;Password=123456;Database=bigDataDB3;"
+        "DbConnectionString": "Server=127.0.0.1;Port=3306;User Id=root;Password=123456;Database=bigDataDB3;"
       }
 
     ]

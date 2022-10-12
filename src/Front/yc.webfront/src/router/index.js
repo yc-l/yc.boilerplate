@@ -84,7 +84,7 @@ router.beforeEach((to, from, next) => {
   if (!tokenStr) return next('/login') /* token 为空等，需要跳转到登录 */
    //菜单权限过滤
   const tempData = JSON.parse(window.sessionStorage.getItem('permissions'))
-  const hasPermission = tempData.some(x => x.path.indexOf(to.path)!==-1)
+ const hasPermission = tempData.filter(x=>x.type==2).some(x => x.path.indexOf(to.path)!==-1)
   if (!(hasPermission&&to.path!=='/home')) return next('/noPermission')//如果没有权限就直接让他跳转没有权限页面
   
   next() /* 原先正常跳转 */
