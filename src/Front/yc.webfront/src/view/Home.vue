@@ -16,20 +16,7 @@
         text-color="#fff"
       active-text-color="#bdbdbe"
       >
-       <el-menu-item index="1"> <a
-       style="text-decoration:none"
-              target="_blank"
-              :href="defaultConfig.githubSourceCodeUrl"
-            >
-              <img
-                style="margin-right: 10px"
-                :src='defaultConfig.githubStarUrl'
-              />
-                <img
-                style="margin-right: 10px"
-                :src='defaultConfig.githubForkUrl'
-              />
-            </a></el-menu-item>
+     
        
         <el-submenu index="2" style="color:#fff;">
           <template slot="title" style="color:#fff;">我的工作台</template>
@@ -65,7 +52,9 @@
     <el-container style="overflow-y:visible;">
       <!-- 下部区域 左侧区域 -->
       <el-aside :width="isCollapse ? '64px' : '230px'">
-        <el-menu
+        <div style="height: calc(100vh - 30px);
+    overflow-y: scroll;">
+            <el-menu
           class="el-menu-vertical"
           :unique-opened="true"
           :collapse="isCollapse"
@@ -113,10 +102,14 @@
             </el-menu-item>
           </el-submenu>
         </el-menu>
+        </div>
+      
       </el-aside>
       <!-- 下部区域的中间区域 -->
+
       <el-main style="overflow-y:visible;">
- <div style="min-height:600px; padding-bottom: 150px;">
+     <div style="height: calc(100vh - 50px);
+    overflow-y: scroll; padding-bottom: 20px;">
            <router-view></router-view>
         </div>
   <!-- <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="tabChange">
@@ -133,7 +126,8 @@
       </el-tabs> -->
         <el-footer>Copyright 2020-{{fullYear}} {{defaultConfig.systemName}} {{defaultConfig.frameWorkName}}.AllRightsReserved.</el-footer>
       </el-main>
-       <el-backtop />
+    
+     <el-backtop />
     </el-container>
   </el-container>
 </template>
@@ -322,9 +316,11 @@ tabChange(){
   align-items: center;
   height: 20px;
 
+
   > div {
     display: flex;
     align-items: center;
+   
 
     h3 {
       color: white;
@@ -336,9 +332,14 @@ tabChange(){
 //设置左侧菜单
 .el-aside {
   background-color: #ffff;
+  position: relative;
+ 
 
   .el-menu {
     border-right: none;
+    overflow-y:scroll;
+    font-size: 22px;
+    font-weight: bolder;
   }
 }
 
@@ -353,6 +354,8 @@ tabChange(){
 
 .el-main {
   background-color: #f2f3f8;
+   font-size: 25px;
+    font-weight: 900;
 }
 .toggle-button {
   //background-color: #4a5064;
@@ -370,7 +373,7 @@ tabChange(){
     text-align: center;
     line-height: 30px;
  
-  position: relative; height: 150px;  clear:both;  margin-top: -150px; /* footer高度的负值 */ 
+  position: relative; height: 150px;  clear:both;  margin-bottom: 0px; /* footer高度的负值 */ 
 
   }
 </style>
