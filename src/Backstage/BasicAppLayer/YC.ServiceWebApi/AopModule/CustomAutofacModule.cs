@@ -37,7 +37,7 @@ namespace YC.ServiceWebApi.AopModule
                     tempConfigOptions.ResponseTimeout = 15000;
 
                     // CSRedis 版本
-                    string testRedisConfig = "127.0.0.1:6379,password=123qwe,defaultDatabase=2,prefix=my_";
+                    string testRedisConfig = DefaultConfig.DefaultAppConfig.RedisConnectionString;
                     var csredis = new CSRedis.CSRedisClient(testRedisConfig);
                     RedisHelper.Initialization(csredis);// 直接用
                     builder.RegisterType<CSRedisClient>().WithParameter("connectionString", testRedisConfig)
